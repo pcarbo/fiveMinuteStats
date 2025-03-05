@@ -1,5 +1,5 @@
 ---
-title: "Variational inference: approximations, objectives and algorithms"
+title: "Variational inference: approximations, objectives, and algorithms"
 author: Peter Carbonetto
 date: 2024-04-26
 output: workflowr::wflow_html
