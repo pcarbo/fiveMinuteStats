@@ -7,11 +7,14 @@ output: workflowr::wflow_html
 
 ## Prerequisites
 
-*Prerequisites will go here.*
-
 + MCMC sampling (and specifically Gibbs sampling) will be used to
   illustrate some of the key ideas so you should be familiar with
   those.
+
++ Properties of multivariate Gaussians.
+
++ It is helpful if you are familiar with ridge regression, but this
+  isn't essential since we will (re)introduce it here.
 
 ## Introduction
 
@@ -40,12 +43,41 @@ $$
 y_i \sim N(\mathbf{x}_i^T\mathbf{b}, \sigma^2), \quad i = 1, \ldots, n.
 $$
 
-Here, $i$ is a sample, and the data for sample $i$ are the output
-$y_i$ and the $p$ inputs $x_{i1}, \ldots, x_{ip}$ stored as a vector
-$\mathbf{x}_i$. Typically one also includes an intercept term, and we
-will ignore this detail here for simplicity (noting that it is easy to
-add without fundamentally changing the math).
+Here, $i$ indexes a sample. The data for sample $i$ are the output
+$y_i \in \mathbf{R}$ and the $p$ inputs $x_{i1}, \ldots, x_{ip}$
+stored as a vector $\mathbf{x}_i \in \mathbf{R}^p$. Typically one also
+includes an intercept term, and we will ignore this detail here for
+simplicity (noting that it is easy to add without fundamentally
+changing the math). The main quantities of interest are the
+coefficients $b_1, \ldots, b_p$, which are stored as a vector,
+$\mathbf{b} \in \mathbf{R}^p$. For example we might want to compute
+the posterior mean of each $b_j$.
 
-Give posterior mean and posterior covariance matrix.
+Next we introduce the prior, which is that each of the coefficients is
+normal with a mean of zero and the same variance (it doesn't have to
+be the same, but here we'll assume that it is the same):
+$$
+b_j \sim N(0, \sigma_0^2).
+$$
 
-### 
+We will skip the derivation so that we can get more quickly to the
+topic of interest, variational inference, but in the examples below we
+will use the fact that the posterior distirbution of $\mathbf{b}$ is
+the multivariate normal distribution with the following mean and
+covariance:
+$$
+\bar{\mathbf{b}} = \mathbf{V} \mathbf{X}^T\mathbf{y}/\sigma^2,
+\qquad
+\mathbf{V} = \sigma^2(\mathbf{X}^T\mathbf{X} + \lambda \mathbf{I})^{-1},
+$$
+where $\lambda = \frac{\sigma^2}{\sigma_0^2}$, and $\mathbf{I}$ is the
+$p \times p$ identity matrix.  Note that since everything is normal
+in this model, the posterior mean is also the posterior mode.
+
+Moving on...
+
+## Further reading
+
+[Blei et al, "Variational inference: a review for statisticians"][blei-2017]
+
+[blei-2017]: https://doi.org/10.1080/01621459.2017.1285773
