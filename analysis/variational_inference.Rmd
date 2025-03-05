@@ -7,14 +7,45 @@ output: workflowr::wflow_html
 
 ## Prerequisites
 
-Prerequisites will go here.
+*Prerequisites will go here.*
+
++ MCMC sampling (and specifically Gibbs sampling) will be used to
+  illustrate some of the key ideas so you should be familiar with
+  those.
 
 ## Introduction
+
+*Add introduction here.*
 
 ## Ridge regression
 
 We will use the ridge regression model as our running example to
 illustrate the use of variational inference to perform posterior
 inferences. Although variational inference methods aren't really
-needed because the math works out very well for this model, it 
+needed because the math works out very well for this model, its
+convenient mathematical properties will be helpful for understanding
+the variational approximations since we can compare the approximations
+to the exact calculations.
 
+Although you may have seen the ridge regression model elsewhere, it
+hasn't been introduced in another of the other fiveMinuteStats
+vignettes, so we will briefly (re)introduce it here.
+
+Ridge regression can be introduced in different ways. Here we will
+view it as a Bayesian model (with a likelihood and a prior, and our
+interest is in performing posterior inferences using this model).
+
+We start with a standard linear regression model:
+$$
+y_i \sim N(\mathbf{x}_i^T\mathbf{b}, \sigma^2), \quad i = 1, \ldots, n.
+$$
+
+Here, $i$ is a sample, and the data for sample $i$ are the output
+$y_i$ and the $p$ inputs $x_{i1}, \ldots, x_{ip}$ stored as a vector
+$\mathbf{x}_i$. Typically one also includes an intercept term, and we
+will ignore this detail here for simplicity (noting that it is easy to
+add without fundamentally changing the math).
+
+Give posterior mean and posterior covariance matrix.
+
+### 
