@@ -104,6 +104,8 @@ $$
 v_j = x_j^Tx_j + \lambda
 $$
 
+TO DO: Connect to "variational view" of EM.
+
 ## Further reading
 
 [Blei et al, "Variational inference: a review for statisticians"][blei-2017]

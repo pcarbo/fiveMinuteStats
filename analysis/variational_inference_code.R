@@ -31,8 +31,8 @@ ridge_post <- function (X, y, s, s0) {
 
 # TO DO: Explain here what this function does, and how to use it.
 ridge_gs <- function (X, y, s, s0, niter, b = rep(0,ncol(X))) {
-  p <- ncol(X)
-  B <- matrix(0,p,niter)
+  p  <- length(b)
+  B  <- matrix(0,p,niter)
   XX <- crossprod(X)
   xy <- drop(crossprod(X,y))
   for (i in 1:niter) {
@@ -46,34 +46,69 @@ ridge_gs <- function (X, y, s, s0, niter, b = rep(0,ncol(X))) {
   return(B)
 }
 
+# TO DO: Explain here what this function does, and how to use it.
+plot_coefs_over_time <- function (B, show_average = FALSE) {
+  p     <- nrow(B)
+  niter <- ncol(B)
+  if (show_average)
+    B[1,] <- cumsum(B[1,])/1:niter
+  plot(1:niter,B[1,],type = "l",lwd = 1,col = "dodgerblue",
+       ylim = range(B),xlab = "",ylab = "coef")
+  for (j in 2:p) {
+    if (show_average)
+      B[j,] <- cumsum(B[j,])/1:niter
+    lines(1:niter,B[j,],lwd = 1,col = "dodgerblue")
+  }
+}
+
 n   <- 100
 p   <- 20
 s   <- 0.3
 s0  <- 2
-sim <- sim_ridge_data(n,p,2,s,s0,0.5)
+r   <- 0.8
+sim <- sim_ridge_data(n,p,2,s,s0,r)
 X   <- sim$X
 y   <- sim$y
 
 post <- ridge_post(X,y,s,s0)
 
-# TO DO: Explain here what this function does, and how to use it.
-plot_ridge_gs <- function (B, show_average = FALSE) {
-  p <- nrow(B)
-  niter <- ncol(B)
-  if (show_average)
-    B[1,] <- cumsum(B[1,])/1:niter
-  plot(1:niter,B[1,],type = "l",lwd = 1,ylim = range(B),
-       xlab = "",ylab = "coef")
-  for (j in 2:p) {
-    if (show_average)
-      B[j,] <- cumsum(B[j,])/1:niter
-    lines(1:niter,B[j,],lwd = 1)
-  }
+niter <- 100
+B <- ridge_gs(X,y,s,s0,niter)
+plot_coefs_over_time(B)
+points(rep(niter,p),post$mean,pch = 20,col = "black",cex = 1)
+plot_coefs_over_time(B,show_average = TRUE)
+points(rep(niter,p),post$mean,pch = 20,col = "black",cex = 1)
+
+# TO DO: UPDATE THIS DESCRIPTION. Return the posterior distribution
+# for the ridge regression model given data X, y, residual s.d. s, and
+# prior s.d. s0.
+ridge_post1 <- function (x, y, s, s0) {
+  xx <- sum(x^2)
+  xy <- sum(x*y)
+  v <- s^2/(xx + (s/s0)^2)
+  # v <- 1/(xx/s^2 + 1/s0^2)
+  b <- v*xy/s^2
+  return(list(mean = b,var = v))
 }
 
-niter <- 1000
-B <- ridge_gs(X,y,s,s0,niter)
-plot_ridge_gs(B)
-points(rep(niter,p),post$mean,pch = 20,col = "red",cex = 1)
-plot_ridge_gs(B,show_average = TRUE)
-points(rep(niter,p),post$mean,pch = 20,col = "red",cex = 1)
+# TO DO: Explain here what this function does, and how to use it.
+ridge_coord_ascent <- function (X, y, s, s0, niter, b = rep(0,ncol(X))) {
+  p <- length(b)
+  B <- matrix(0,p,niter)
+  for (i in 1:niter) {
+    r <- drop(y - X %*% b)
+    for (j in 1:p) {
+      x <- X[,j]
+      r <- r + x*b[j]
+      b[j] <- ridge_post1(x,r,s,s0)$mean
+      r <- r - x*b[j]
+    }
+    B[,i] <- b
+  }
+  return(B)
+}
+
+niter <- 10
+B_map <- ridge_coord_ascent(X,y,s,s0,niter)
+plot_coefs_over_time(B_map)
+points(rep(niter,p),post$mean,pch = 20,col = "black",cex = 1)
