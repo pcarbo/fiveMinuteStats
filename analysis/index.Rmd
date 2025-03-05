@@ -71,6 +71,9 @@ title: "Home"
 * [Gibbs Sampling for a univariate normal mixture](gibbs2.html)
 * [Gibbs Sampling for a mixture of product-bernoullis](gibbs_structure_simple.html)
 
+### Variational inference
+
+* [Variational inference: approximations, objectives and algorithms](variational_inference.html)
 
 ### Hidden Markov Models
 

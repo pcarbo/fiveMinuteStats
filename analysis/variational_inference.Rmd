@@ -1,0 +1,20 @@
+---
+title: "Variational inference: approximations, objectives and algorithms"
+author: Peter Carbonetto
+date: 2024-04-26
+output: workflowr::wflow_html
+---
+
+## Prerequisites
+
+Prerequisites will go here.
+
+## Introduction
+
+## Ridge regression
+
+We will use the ridge regression model as our running example to
+illustrate the use of variational inference to perform posterior
+inferences. Although variational inference methods aren't really
+needed because the math works out very well for this model, it 
+
