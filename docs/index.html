@@ -13,7 +13,7 @@
 
 <title>Home</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
@@ -29,14 +29,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -75,6 +75,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -95,6 +96,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -152,11 +156,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -185,8 +193,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -194,16 +202,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -320,7 +321,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -362,7 +363,9 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -371,7 +374,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -380,17 +385,27 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-04-26
+<strong>Last updated:</strong> 2025-03-05
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
+<span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -399,58 +414,64 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstreec8e7b30fadfc82aef10320a4bc702f93e9bfef10targetblankc8e7b30a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephens999/fiveMinuteStats/tree/c8e7b30fadfc82aef10320a4bc702f93e9bfef10" target="_blank">c8e7b30</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreee1a2bea303414f5a508b5041876bee72aec3f28btargetblanke1a2beaa">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/e1a2bea303414f5a508b5041876bee72aec3f28b" target="_blank">e1a2bea</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstreec8e7b30fadfc82aef10320a4bc702f93e9bfef10targetblankc8e7b30a" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreee1a2bea303414f5a508b5041876bee72aec3f28btargetblanke1a2beaa"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephens999/fiveMinuteStats/tree/c8e7b30fadfc82aef10320a4bc702f93e9bfef10" target="_blank">c8e7b30</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/e1a2bea303414f5a508b5041876bee72aec3f28b" target="_blank">e1a2bea</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    .Rhistory
-    Ignored:    .Rproj.user/
-    Ignored:    analysis/.Rhistory
-    Ignored:    analysis/bernoulli_poisson_process_cache/
-    Ignored:    data/
-
-Untracked files:
-    Untracked:  _workflowr.yml
-    Untracked:  analysis/CI.Rmd
-    Untracked:  analysis/gibbs_structure.Rmd
-    Untracked:  analysis/libs/
-    Untracked:  analysis/results.Rmd
-    Untracked:  analysis/shiny/tester/
-    Untracked:  analysis/stan_8schools.Rmd
-
 Unstaged changes:
-    Modified:   analysis/LR_and_BF.Rmd
-    Modified:   analysis/MH-examples1.Rmd
-    Modified:   analysis/MH_intro.Rmd
-    Deleted:    analysis/r_simplemix_extended.Rmd
+    Modified:   analysis/variational_inference.Rmd
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -461,7 +482,11 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML (<code>docs/index.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML
+(<code>docs/index.html</code>) files. If you’ve configured a remote Git
+repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
+in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -490,7 +515,24 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c8e7b30fadfc82aef10320a4bc702f93e9bfef10/analysis/index.Rmd" target="_blank">c8e7b30</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/e1a2bea303414f5a508b5041876bee72aec3f28b/analysis/index.Rmd" target="_blank">e1a2bea</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-03-05
+</td>
+<td>
+workflowr::wflow_publish("index.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/af9b387e863923e026d1eaf165c7a03f45bdf91e/docs/index.html" target="_blank">af9b387</a>
 </td>
 <td>
 Matthew Stephens
@@ -499,7 +541,24 @@ Matthew Stephens
 2022-04-26
 </td>
 <td>
-workflowr::wflow_publish(“index.Rmd”)
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c8e7b30fadfc82aef10320a4bc702f93e9bfef10/analysis/index.Rmd" target="_blank">c8e7b30</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2022-04-26
+</td>
+<td>
+workflowr::wflow_publish("index.Rmd")
 </td>
 </tr>
 <tr>
@@ -507,7 +566,7 @@ workflowr::wflow_publish(“index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/0d7365c53aa2d727ad11e5d0d8ae8a924b3d37c4/docs/index.html" target="_blank">0d7365c</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/0d7365c53aa2d727ad11e5d0d8ae8a924b3d37c4/docs/index.html" target="_blank">0d7365c</a>
 </td>
 <td>
 Matthew Stephens
@@ -524,7 +583,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/a0212b91eb8124ed046e7e315601facff99214f3/analysis/index.Rmd" target="_blank">a0212b9</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/a0212b91eb8124ed046e7e315601facff99214f3/analysis/index.Rmd" target="_blank">a0212b9</a>
 </td>
 <td>
 Matthew Stephens
@@ -533,7 +592,7 @@ Matthew Stephens
 2022-03-01
 </td>
 <td>
-workflowr::wflow_publish(“index.Rmd”)
+workflowr::wflow_publish("index.Rmd")
 </td>
 </tr>
 <tr>
@@ -541,7 +600,7 @@ workflowr::wflow_publish(“index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/e9a48b839ec4bdbd2aea536c02faebc58b41c298/docs/index.html" target="_blank">e9a48b8</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/e9a48b839ec4bdbd2aea536c02faebc58b41c298/docs/index.html" target="_blank">e9a48b8</a>
 </td>
 <td>
 Matthew Stephens
@@ -558,7 +617,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/14b5c3e7a1147899b16fa2e1676be00d7818eab1/analysis/index.Rmd" target="_blank">14b5c3e</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/14b5c3e7a1147899b16fa2e1676be00d7818eab1/analysis/index.Rmd" target="_blank">14b5c3e</a>
 </td>
 <td>
 Matthew Stephens
@@ -567,7 +626,7 @@ Matthew Stephens
 2021-04-20
 </td>
 <td>
-workflowr::wflow_publish(“analysis/index.Rmd”)
+workflowr::wflow_publish("analysis/index.Rmd")
 </td>
 </tr>
 <tr>
@@ -575,7 +634,7 @@ workflowr::wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/387cf13a56b2c225ab0a0d37367f44e79a79c48b/docs/index.html" target="_blank">387cf13</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/387cf13a56b2c225ab0a0d37367f44e79a79c48b/docs/index.html" target="_blank">387cf13</a>
 </td>
 <td>
 Matthew Stephens
@@ -592,7 +651,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/ce7c149fb084c75bb2d32791814937be298f88f8/analysis/index.Rmd" target="_blank">ce7c149</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/ce7c149fb084c75bb2d32791814937be298f88f8/analysis/index.Rmd" target="_blank">ce7c149</a>
 </td>
 <td>
 Matthew Stephens
@@ -601,7 +660,7 @@ Matthew Stephens
 2021-03-01
 </td>
 <td>
-workflowr::wflow_publish(“index.Rmd”)
+workflowr::wflow_publish("index.Rmd")
 </td>
 </tr>
 <tr>
@@ -609,7 +668,7 @@ workflowr::wflow_publish(“index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/f4d1736457b04f9a7d80d0d6b80ac4d522b5fc60/docs/index.html" target="_blank">f4d1736</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/f4d1736457b04f9a7d80d0d6b80ac4d522b5fc60/docs/index.html" target="_blank">f4d1736</a>
 </td>
 <td>
 Matthew Stephens
@@ -626,7 +685,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/a40ff17b1c0001055e2d897cecb88d4a08086353/analysis/index.Rmd" target="_blank">a40ff17</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/a40ff17b1c0001055e2d897cecb88d4a08086353/analysis/index.Rmd" target="_blank">a40ff17</a>
 </td>
 <td>
 Matthew Stephens
@@ -635,7 +694,7 @@ Matthew Stephens
 2021-01-26
 </td>
 <td>
-workflowr::wflow_publish(“index.Rmd”)
+workflowr::wflow_publish("index.Rmd")
 </td>
 </tr>
 <tr>
@@ -643,7 +702,7 @@ workflowr::wflow_publish(“index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/fe66b9443477f8acd25cd5fdc8f473dfb8e1a88a/docs/index.html" target="_blank">fe66b94</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/fe66b9443477f8acd25cd5fdc8f473dfb8e1a88a/docs/index.html" target="_blank">fe66b94</a>
 </td>
 <td>
 Matthew Stephens
@@ -660,7 +719,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c2b0a960ac4a0921b9d7b2f36f76f6c9ad4a496d/analysis/index.Rmd" target="_blank">c2b0a96</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c2b0a960ac4a0921b9d7b2f36f76f6c9ad4a496d/analysis/index.Rmd" target="_blank">c2b0a96</a>
 </td>
 <td>
 Matthew Stephens
@@ -669,7 +728,7 @@ Matthew Stephens
 2021-01-26
 </td>
 <td>
-workflowr::wflow_publish(“index.Rmd”)
+workflowr::wflow_publish("index.Rmd")
 </td>
 </tr>
 <tr>
@@ -677,7 +736,7 @@ workflowr::wflow_publish(“index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/e4dabb424b8a2555c734b65405e251837565e849/docs/index.html" target="_blank">e4dabb4</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/e4dabb424b8a2555c734b65405e251837565e849/docs/index.html" target="_blank">e4dabb4</a>
 </td>
 <td>
 Matthew Stephens
@@ -694,7 +753,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/f74014b8738c8984f41e5bc519f459f2ddb34c91/analysis/index.Rmd" target="_blank">f74014b</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/f74014b8738c8984f41e5bc519f459f2ddb34c91/analysis/index.Rmd" target="_blank">f74014b</a>
 </td>
 <td>
 Matthew Stephens
@@ -703,7 +762,7 @@ Matthew Stephens
 2021-01-25
 </td>
 <td>
-workflowr::wflow_publish(“index.Rmd”)
+workflowr::wflow_publish("index.Rmd")
 </td>
 </tr>
 <tr>
@@ -711,7 +770,7 @@ workflowr::wflow_publish(“index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/aebdb281fb2bfa61aabfdcedaaa2dc09bb457629/docs/index.html" target="_blank">aebdb28</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/aebdb281fb2bfa61aabfdcedaaa2dc09bb457629/docs/index.html" target="_blank">aebdb28</a>
 </td>
 <td>
 Matthew Stephens
@@ -728,7 +787,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/1cb6337628bc7ce55231ab6944d9bac9a834d6da/analysis/index.Rmd" target="_blank">1cb6337</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/1cb6337628bc7ce55231ab6944d9bac9a834d6da/analysis/index.Rmd" target="_blank">1cb6337</a>
 </td>
 <td>
 Matthew Stephens
@@ -737,7 +796,7 @@ Matthew Stephens
 2020-09-23
 </td>
 <td>
-workflowr::wflow_publish(“index.Rmd”)
+workflowr::wflow_publish("index.Rmd")
 </td>
 </tr>
 <tr>
@@ -745,7 +804,7 @@ workflowr::wflow_publish(“index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/38e01387d16a22a89fa6fb8fd403d6e77ef19dc2/docs/index.html" target="_blank">38e0138</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/38e01387d16a22a89fa6fb8fd403d6e77ef19dc2/docs/index.html" target="_blank">38e0138</a>
 </td>
 <td>
 Matthew Stephens
@@ -762,7 +821,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/daa57b1b73319849f3cba66adb9eb45d749e2cd7/analysis/index.Rmd" target="_blank">daa57b1</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/daa57b1b73319849f3cba66adb9eb45d749e2cd7/analysis/index.Rmd" target="_blank">daa57b1</a>
 </td>
 <td>
 Matthew Stephens
@@ -771,7 +830,7 @@ Matthew Stephens
 2020-07-22
 </td>
 <td>
-workflowr::wflow_publish(“index.Rmd”)
+workflowr::wflow_publish("index.Rmd")
 </td>
 </tr>
 <tr>
@@ -779,7 +838,7 @@ workflowr::wflow_publish(“index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/a5a03a188f6a1799d8efee674e26f7ce6360ca1c/docs/index.html" target="_blank">a5a03a1</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/a5a03a188f6a1799d8efee674e26f7ce6360ca1c/docs/index.html" target="_blank">a5a03a1</a>
 </td>
 <td>
 Matthew Stephens
@@ -796,7 +855,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/66fc13f7ff2a8c3740c4f2b2d65e03b510d1f8b0/analysis/index.Rmd" target="_blank">66fc13f</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/66fc13f7ff2a8c3740c4f2b2d65e03b510d1f8b0/analysis/index.Rmd" target="_blank">66fc13f</a>
 </td>
 <td>
 Matthew Stephens
@@ -813,7 +872,7 @@ gaussian_process.Rmd
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/index.html" target="_blank">5f62ee6</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/index.html" target="_blank">5f62ee6</a>
 </td>
 <td>
 Matthew Stephens
@@ -830,7 +889,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/0cd28bd3e7aea2258f9c3a55e2e0060c55403123/analysis/index.Rmd" target="_blank">0cd28bd</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/0cd28bd3e7aea2258f9c3a55e2e0060c55403123/analysis/index.Rmd" target="_blank">0cd28bd</a>
 </td>
 <td>
 Matthew Stephens
@@ -847,7 +906,7 @@ workflowr::wflow_publish(all = TRUE)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/dbcff1fe7cac1283f3559cda9720380645ee790d/docs/index.html" target="_blank">dbcff1f</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/dbcff1fe7cac1283f3559cda9720380645ee790d/docs/index.html" target="_blank">dbcff1f</a>
 </td>
 <td>
 stephens999
@@ -864,7 +923,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/7a0ba80ca9dc9dba9c494ba8cd86325ef979d71f/analysis/index.Rmd" target="_blank">7a0ba80</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/7a0ba80ca9dc9dba9c494ba8cd86325ef979d71f/analysis/index.Rmd" target="_blank">7a0ba80</a>
 </td>
 <td>
 stephens999
@@ -873,7 +932,7 @@ stephens999
 2019-01-23
 </td>
 <td>
-workflowr::wflow_publish(“analysis/index.Rmd”)
+workflowr::wflow_publish("analysis/index.Rmd")
 </td>
 </tr>
 <tr>
@@ -881,7 +940,7 @@ workflowr::wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/3c642ff7d308c7a1d41370c212ee35e7109f27a4/docs/index.html" target="_blank">3c642ff</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/3c642ff7d308c7a1d41370c212ee35e7109f27a4/docs/index.html" target="_blank">3c642ff</a>
 </td>
 <td>
 stephens999
@@ -898,7 +957,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/e8e03995bee953d33c424fa16433e4f8cd22c8bc/analysis/index.Rmd" target="_blank">e8e0399</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/e8e03995bee953d33c424fa16433e4f8cd22c8bc/analysis/index.Rmd" target="_blank">e8e0399</a>
 </td>
 <td>
 stephens999
@@ -907,7 +966,7 @@ stephens999
 2018-05-17
 </td>
 <td>
-wflow_publish(“analysis/index.Rmd”)
+wflow_publish("analysis/index.Rmd")
 </td>
 </tr>
 <tr>
@@ -915,7 +974,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/ccb99625d5faef50e551d8c83f68531720b827bc/docs/index.html" target="_blank">ccb9962</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/ccb99625d5faef50e551d8c83f68531720b827bc/docs/index.html" target="_blank">ccb9962</a>
 </td>
 <td>
 stephens999
@@ -932,7 +991,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/5530e01ca85ec6e6898a4dd82b7b9a417a625f96/analysis/index.Rmd" target="_blank">5530e01</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5530e01ca85ec6e6898a4dd82b7b9a417a625f96/analysis/index.Rmd" target="_blank">5530e01</a>
 </td>
 <td>
 stephens999
@@ -941,7 +1000,7 @@ stephens999
 2018-05-03
 </td>
 <td>
-workflowr::wflow_publish(“analysis/index.Rmd”)
+workflowr::wflow_publish("analysis/index.Rmd")
 </td>
 </tr>
 <tr>
@@ -949,7 +1008,7 @@ workflowr::wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/6053d262464ec29f0c6c1867f5c0c871f3af737b/docs/index.html" target="_blank">6053d26</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/6053d262464ec29f0c6c1867f5c0c871f3af737b/docs/index.html" target="_blank">6053d26</a>
 </td>
 <td>
 stephens999
@@ -966,7 +1025,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/1077c97b65d7379b4cbd3e60537720eee5569fc4/analysis/index.Rmd" target="_blank">1077c97</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/1077c97b65d7379b4cbd3e60537720eee5569fc4/analysis/index.Rmd" target="_blank">1077c97</a>
 </td>
 <td>
 stephens999
@@ -975,7 +1034,8 @@ stephens999
 2018-04-23
 </td>
 <td>
-workflowr::wflow_publish(c(“analysis/index.Rmd”, “analysis/MH_intro.Rmd”,
+workflowr::wflow_publish(c("analysis/index.Rmd",
+"analysis/MH_intro.Rmd",
 </td>
 </tr>
 <tr>
@@ -983,7 +1043,7 @@ workflowr::wflow_publish(c(“analysis/index.Rmd”, “analysis/MH_intro.Rmd”
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/30630b2d888a5b29a0a227089415e8a70d041182/docs/index.html" target="_blank">30630b2</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/30630b2d888a5b29a0a227089415e8a70d041182/docs/index.html" target="_blank">30630b2</a>
 </td>
 <td>
 stephens999
@@ -1000,7 +1060,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/5c310c2a2dfe273dee8e6d0f14536f4807d6956b/analysis/index.Rmd" target="_blank">5c310c2</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5c310c2a2dfe273dee8e6d0f14536f4807d6956b/analysis/index.Rmd" target="_blank">5c310c2</a>
 </td>
 <td>
 stephens999
@@ -1017,7 +1077,7 @@ MH_intro.Rmd
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/f995d0aa49f040c1b7c0fb7474a8be651d2f14c3/docs/index.html" target="_blank">f995d0a</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/f995d0aa49f040c1b7c0fb7474a8be651d2f14c3/docs/index.html" target="_blank">f995d0a</a>
 </td>
 <td>
 stephens999
@@ -1034,7 +1094,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/a7ec7b748c87f63860473d8d6ac1eb5b66482613/analysis/index.Rmd" target="_blank">a7ec7b7</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/a7ec7b748c87f63860473d8d6ac1eb5b66482613/analysis/index.Rmd" target="_blank">a7ec7b7</a>
 </td>
 <td>
 stephens999
@@ -1043,7 +1103,7 @@ stephens999
 2018-04-23
 </td>
 <td>
-workflowr::wflow_publish(c(“analysis/index.Rmd”,
+workflowr::wflow_publish(c("analysis/index.Rmd",
 </td>
 </tr>
 <tr>
@@ -1051,7 +1111,7 @@ workflowr::wflow_publish(c(“analysis/index.Rmd”,
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/d25196702cd25955eb38b256e5426f0e6cdfa8c6/docs/index.html" target="_blank">d251967</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/d25196702cd25955eb38b256e5426f0e6cdfa8c6/docs/index.html" target="_blank">d251967</a>
 </td>
 <td>
 stephens999
@@ -1068,7 +1128,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/9e15ba06035d1fdb8d7be27d0ce2445b9ab4f3e8/analysis/index.Rmd" target="_blank">9e15ba0</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/9e15ba06035d1fdb8d7be27d0ce2445b9ab4f3e8/analysis/index.Rmd" target="_blank">9e15ba0</a>
 </td>
 <td>
 stephens999
@@ -1077,7 +1137,7 @@ stephens999
 2018-04-23
 </td>
 <td>
-workflowr::wflow_publish(c(“analysis/index.Rmd”,
+workflowr::wflow_publish(c("analysis/index.Rmd",
 </td>
 </tr>
 <tr>
@@ -1085,7 +1145,7 @@ workflowr::wflow_publish(c(“analysis/index.Rmd”,
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/d41d022e53d60cee37e8599d32048816f647d4e0/docs/index.html" target="_blank">d41d022</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/d41d022e53d60cee37e8599d32048816f647d4e0/docs/index.html" target="_blank">d41d022</a>
 </td>
 <td>
 stephens999
@@ -1102,7 +1162,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/f012c1d20c84a565e7697077478a546773bdfd08/analysis/index.Rmd" target="_blank">f012c1d</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/f012c1d20c84a565e7697077478a546773bdfd08/analysis/index.Rmd" target="_blank">f012c1d</a>
 </td>
 <td>
 stephens999
@@ -1119,7 +1179,7 @@ Files commited by wflow_commit.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/c1d0c3f58ab2fbf6ace6056dc3b9db345dc32948/docs/index.html" target="_blank">c1d0c3f</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/c1d0c3f58ab2fbf6ace6056dc3b9db345dc32948/docs/index.html" target="_blank">c1d0c3f</a>
 </td>
 <td>
 stephens999
@@ -1136,7 +1196,7 @@ update index
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/72ef4ea1a29fc16a20d2f08e664bc494d99b02f4/analysis/index.Rmd" target="_blank">72ef4ea</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/72ef4ea1a29fc16a20d2f08e664bc494d99b02f4/analysis/index.Rmd" target="_blank">72ef4ea</a>
 </td>
 <td>
 stephens999
@@ -1153,7 +1213,7 @@ Files commited by wflow_commit.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/c7e182beafbbbad8aa5a9e9479910ef3cee0e08b/docs/index.html" target="_blank">c7e182b</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/c7e182beafbbbad8aa5a9e9479910ef3cee0e08b/docs/index.html" target="_blank">c7e182b</a>
 </td>
 <td>
 stephens999
@@ -1170,7 +1230,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/9f09eca09fe0ef93fd8e9ca146effe76c29d11ce/analysis/index.Rmd" target="_blank">9f09eca</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/9f09eca09fe0ef93fd8e9ca146effe76c29d11ce/analysis/index.Rmd" target="_blank">9f09eca</a>
 </td>
 <td>
 stephens999
@@ -1187,7 +1247,7 @@ Files commited by wflow_commit.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/34bcc51fef570dd7d5a70859f262c983fed17381/docs/index.html" target="_blank">34bcc51</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/34bcc51fef570dd7d5a70859f262c983fed17381/docs/index.html" target="_blank">34bcc51</a>
 </td>
 <td>
 John Blischak
@@ -1204,7 +1264,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/2aa70fe2e48f71cb1c6e59773c50246a7deff083/analysis/index.Rmd" target="_blank">2aa70fe</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/2aa70fe2e48f71cb1c6e59773c50246a7deff083/analysis/index.Rmd" target="_blank">2aa70fe</a>
 </td>
 <td>
 John Blischak
@@ -1221,7 +1281,7 @@ Manually udpate some Rmd files.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/8e616835a4eccac7c4e0a8eeec86fdcefb1525ab/docs/index.html" target="_blank">8e61683</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/8e616835a4eccac7c4e0a8eeec86fdcefb1525ab/docs/index.html" target="_blank">8e61683</a>
 </td>
 <td>
 Marcus Davy
@@ -1238,7 +1298,7 @@ rendered html using wflow_build(all=TRUE)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/fffe50c378dcee43bc010c81c7f8ea5a47e497f3/docs/index.html" target="_blank">fffe50c</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/fffe50c378dcee43bc010c81c7f8ea5a47e497f3/docs/index.html" target="_blank">fffe50c</a>
 </td>
 <td>
 stephens999
@@ -1255,7 +1315,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/92d7daa384497338e472ed5846058e33369f8feb/analysis/index.Rmd" target="_blank">92d7daa</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/92d7daa384497338e472ed5846058e33369f8feb/analysis/index.Rmd" target="_blank">92d7daa</a>
 </td>
 <td>
 stephens999
@@ -1272,7 +1332,7 @@ Files commited by wflow_commit.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/20c66399cbd7ad6074f02bf0384fa0e8f134b55d/docs/index.html" target="_blank">20c6639</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/20c66399cbd7ad6074f02bf0384fa0e8f134b55d/docs/index.html" target="_blank">20c6639</a>
 </td>
 <td>
 stephens999
@@ -1289,7 +1349,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/d20b048897dc67e24b846d3d1472deefc5fc82ed/analysis/index.Rmd" target="_blank">d20b048</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/d20b048897dc67e24b846d3d1472deefc5fc82ed/analysis/index.Rmd" target="_blank">d20b048</a>
 </td>
 <td>
 stephens999
@@ -1306,7 +1366,7 @@ Files commited by wflow_commit.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/9778b493a4b64a6745b83a66189b749d9836560e/docs/index.html" target="_blank">9778b49</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/9778b493a4b64a6745b83a66189b749d9836560e/docs/index.html" target="_blank">9778b49</a>
 </td>
 <td>
 stephens999
@@ -1323,7 +1383,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/592db577263c9e065fbfb67d52d0f8f3975f50d6/analysis/index.Rmd" target="_blank">592db57</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/592db577263c9e065fbfb67d52d0f8f3975f50d6/analysis/index.Rmd" target="_blank">592db57</a>
 </td>
 <td>
 stephens999
@@ -1340,7 +1400,7 @@ Files commited by wflow_commit.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/48bf85f3fd9b76950c03e01897fe5512ada81fb1/docs/index.html" target="_blank">48bf85f</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/48bf85f3fd9b76950c03e01897fe5512ada81fb1/docs/index.html" target="_blank">48bf85f</a>
 </td>
 <td>
 stephens999
@@ -1357,7 +1417,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/ca3b3b64383b35416b639a2b273698161114b21f/analysis/index.Rmd" target="_blank">ca3b3b6</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/ca3b3b64383b35416b639a2b273698161114b21f/analysis/index.Rmd" target="_blank">ca3b3b6</a>
 </td>
 <td>
 stephens999
@@ -1374,7 +1434,7 @@ Files commited by wflow_commit.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/fbfa0187a279284dad4f2522d2b4324594cac931/docs/index.html" target="_blank">fbfa018</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/fbfa0187a279284dad4f2522d2b4324594cac931/docs/index.html" target="_blank">fbfa018</a>
 </td>
 <td>
 stephens999
@@ -1391,7 +1451,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/2c4f22e92e2c07488e9e3dc3111416ef178cbc83/analysis/index.Rmd" target="_blank">2c4f22e</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/2c4f22e92e2c07488e9e3dc3111416ef178cbc83/analysis/index.Rmd" target="_blank">2c4f22e</a>
 </td>
 <td>
 stephens999
@@ -1408,7 +1468,7 @@ Files commited by wflow_commit.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/a19b65aa0d05f928dfe25ca59c70176e63c25fbe/docs/index.html" target="_blank">a19b65a</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/a19b65aa0d05f928dfe25ca59c70176e63c25fbe/docs/index.html" target="_blank">a19b65a</a>
 </td>
 <td>
 stephens999
@@ -1425,7 +1485,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/fc0336ecba0c3ff816cb3882d7bcc46ace7b9abc/analysis/index.Rmd" target="_blank">fc0336e</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/fc0336ecba0c3ff816cb3882d7bcc46ace7b9abc/analysis/index.Rmd" target="_blank">fc0336e</a>
 </td>
 <td>
 stephens999
@@ -1442,7 +1502,7 @@ Files commited by wflow_commit.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/index.html" target="_blank">c3b365a</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/index.html" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -1459,7 +1519,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/ae24830869862c24142e77e47b6f25cea43e414c/analysis/index.Rmd" target="_blank">ae24830</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/ae24830869862c24142e77e47b6f25cea43e414c/analysis/index.Rmd" target="_blank">ae24830</a>
 </td>
 <td>
 stephens999
@@ -1476,7 +1536,7 @@ add example of computing LR on different data
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/966d6f69a3959058ae45d76e35b998ff75f7b296/analysis/index.Rmd" target="_blank">966d6f6</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/966d6f69a3959058ae45d76e35b998ff75f7b296/analysis/index.Rmd" target="_blank">966d6f6</a>
 </td>
 <td>
 stephens999
@@ -1485,7 +1545,10 @@ stephens999
 2016-05-17
 </td>
 <td>
-Merge branch ‘gh-pages’ of <a href="https://github.com/jhmarcus/fiveMinuteStats" class="uri">https://github.com/jhmarcus/fiveMinuteStats</a> into jhmarcus-gh-pages
+Merge branch ‘gh-pages’ of <a
+href="https://github.com/jhmarcus/fiveMinuteStats"
+class="uri">https://github.com/jhmarcus/fiveMinuteStats</a> into
+jhmarcus-gh-pages
 </td>
 </tr>
 <tr>
@@ -1493,7 +1556,7 @@ Merge branch ‘gh-pages’ of <a href="https://github.com/jhmarcus/fiveMinuteSt
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/6bb45604f2d858461070fc2097b5bb600d913596/analysis/index.Rmd" target="_blank">6bb4560</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/6bb45604f2d858461070fc2097b5bb600d913596/analysis/index.Rmd" target="_blank">6bb4560</a>
 </td>
 <td>
 stephens999
@@ -1510,7 +1573,7 @@ add gibbs sampling example
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/a72861e10b21c202e05983d3175e1e9a87868c34/analysis/index.Rmd" target="_blank">a72861e</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/a72861e10b21c202e05983d3175e1e9a87868c34/analysis/index.Rmd" target="_blank">a72861e</a>
 </td>
 <td>
 stephens999
@@ -1527,7 +1590,7 @@ add integral
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/153e684d4d7ac3b81079783f8b89cedc1afb88eb/analysis/index.Rmd" target="_blank">153e684</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/153e684d4d7ac3b81079783f8b89cedc1afb88eb/analysis/index.Rmd" target="_blank">153e684</a>
 </td>
 <td>
 stephens999
@@ -1544,7 +1607,7 @@ add IS
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/8466ce34397672010f9730036911cb716342088d/analysis/index.Rmd" target="_blank">8466ce3</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/8466ce34397672010f9730036911cb716342088d/analysis/index.Rmd" target="_blank">8466ce3</a>
 </td>
 <td>
 stephens999
@@ -1561,7 +1624,7 @@ add gibbs sampling example
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/47f75caf1de71c54b1973a2c2439b7b851b7e737/analysis/index.Rmd" target="_blank">47f75ca</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/47f75caf1de71c54b1973a2c2439b7b851b7e737/analysis/index.Rmd" target="_blank">47f75ca</a>
 </td>
 <td>
 stephens999
@@ -1578,7 +1641,7 @@ add BF and p value comparison
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c5e07f56192aeded3167042587dc2dddec1678c3/analysis/index.Rmd" target="_blank">c5e07f5</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c5e07f56192aeded3167042587dc2dddec1678c3/analysis/index.Rmd" target="_blank">c5e07f5</a>
 </td>
 <td>
 Xiao Nan
@@ -1595,7 +1658,7 @@ add shiny conjugate normal app link to index
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/ed8328572a7b52aa2d502d43c56b1af0ac3ea43e/analysis/index.Rmd" target="_blank">ed83285</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/ed8328572a7b52aa2d502d43c56b1af0ac3ea43e/analysis/index.Rmd" target="_blank">ed83285</a>
 </td>
 <td>
 jhmarcus
@@ -1612,7 +1675,7 @@ added popgen section to index and wright_fisher tutorials
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/f1dd5fc854711e60f44d9bc3ac6a85c21bbf8d68/analysis/index.Rmd" target="_blank">f1dd5fc</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/f1dd5fc854711e60f44d9bc3ac6a85c21bbf8d68/analysis/index.Rmd" target="_blank">f1dd5fc</a>
 </td>
 <td>
 stephens999
@@ -1629,7 +1692,7 @@ update index
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/106d322517fce8ee45fd8c4fd1d818d2b07cad51/analysis/index.Rmd" target="_blank">106d322</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/106d322517fce8ee45fd8c4fd1d818d2b07cad51/analysis/index.Rmd" target="_blank">106d322</a>
 </td>
 <td>
 mbonakda
@@ -1646,7 +1709,7 @@ add new notes to index
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/294d219966965c87029f40e4f246daf7bed77513/analysis/index.Rmd" target="_blank">294d219</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/294d219966965c87029f40e4f246daf7bed77513/analysis/index.Rmd" target="_blank">294d219</a>
 </td>
 <td>
 stephens999
@@ -1663,7 +1726,7 @@ add normal markov chain example
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/be2da01a1c2b33373f77c2523e4a39d1e54218a7/analysis/index.Rmd" target="_blank">be2da01</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/be2da01a1c2b33373f77c2523e4a39d1e54218a7/analysis/index.Rmd" target="_blank">be2da01</a>
 </td>
 <td>
 stephens999
@@ -1680,7 +1743,7 @@ add multivariate normal
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/0ba385e88621df96b05d76c86831601f0fc71921/analysis/index.Rmd" target="_blank">0ba385e</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/0ba385e88621df96b05d76c86831601f0fc71921/analysis/index.Rmd" target="_blank">0ba385e</a>
 </td>
 <td>
 mbonakda
@@ -1697,7 +1760,7 @@ update index
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/d1b8aaecbde19a01a8df1761681d1c1aeb08a7e6/analysis/index.Rmd" target="_blank">d1b8aae</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/d1b8aaecbde19a01a8df1761681d1c1aeb08a7e6/analysis/index.Rmd" target="_blank">d1b8aae</a>
 </td>
 <td>
 jnovembre
@@ -1714,7 +1777,7 @@ Changed sub-headings
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/dce7ece0f7ceb2faaf7749792d602f30b4ef6859/analysis/index.Rmd" target="_blank">dce7ece</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/dce7ece0f7ceb2faaf7749792d602f30b4ef6859/analysis/index.Rmd" target="_blank">dce7ece</a>
 </td>
 <td>
 jnovembre
@@ -1731,7 +1794,7 @@ modified index.html to add Poisson process and fix typo
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/1187afb8685baf2ae0e10e04fb25b12ed33c6aa4/analysis/index.Rmd" target="_blank">1187afb</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/1187afb8685baf2ae0e10e04fb25b12ed33c6aa4/analysis/index.Rmd" target="_blank">1187afb</a>
 </td>
 <td>
 mbonakda
@@ -1748,7 +1811,7 @@ fix typos
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/ac0ba21be7587a87bbad56dcbe572029ae9f9879/analysis/index.Rmd" target="_blank">ac0ba21</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/ac0ba21be7587a87bbad56dcbe572029ae9f9879/analysis/index.Rmd" target="_blank">ac0ba21</a>
 </td>
 <td>
 mbonakda
@@ -1765,7 +1828,7 @@ add to index
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/313901bf3e44e2e3e6aad9d020807ef3952c196e/analysis/index.Rmd" target="_blank">313901b</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/313901bf3e44e2e3e6aad9d020807ef3952c196e/analysis/index.Rmd" target="_blank">313901b</a>
 </td>
 <td>
 jnovembre
@@ -1782,7 +1845,7 @@ Modified index and added html
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/ad8b7b5dc9e50f154bc7b06e41b527569c3c510a/analysis/index.Rmd" target="_blank">ad8b7b5</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/ad8b7b5dc9e50f154bc7b06e41b527569c3c510a/analysis/index.Rmd" target="_blank">ad8b7b5</a>
 </td>
 <td>
 mbonakda
@@ -1799,7 +1862,7 @@ update names
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/4e0c4fd08bc82ec646c5ce145c78fa019af5314d/analysis/index.Rmd" target="_blank">4e0c4fd</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/4e0c4fd08bc82ec646c5ce145c78fa019af5314d/analysis/index.Rmd" target="_blank">4e0c4fd</a>
 </td>
 <td>
 mbonakda
@@ -1816,7 +1879,7 @@ update index
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/433524719f63545fceb08b17f207f2771591c62c/analysis/index.Rmd" target="_blank">4335247</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/433524719f63545fceb08b17f207f2771591c62c/analysis/index.Rmd" target="_blank">4335247</a>
 </td>
 <td>
 mbonakda
@@ -1833,7 +1896,7 @@ fix index typo
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/9d4269b77c1612d39a8ea3b627c631bbeb66a1b7/analysis/index.Rmd" target="_blank">9d4269b</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/9d4269b77c1612d39a8ea3b627c631bbeb66a1b7/analysis/index.Rmd" target="_blank">9d4269b</a>
 </td>
 <td>
 mbonakda
@@ -1850,7 +1913,7 @@ add simulating discrete chains to index
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/b0339a9fb0be4ad8733524ac6aa608eedbd8d00e/analysis/index.Rmd" target="_blank">b0339a9</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/b0339a9fb0be4ad8733524ac6aa608eedbd8d00e/analysis/index.Rmd" target="_blank">b0339a9</a>
 </td>
 <td>
 stephens999
@@ -1867,7 +1930,7 @@ update index
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/9156677f7dc6748d9262772fe631ca655f08b23e/analysis/index.Rmd" target="_blank">9156677</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/9156677f7dc6748d9262772fe631ca655f08b23e/analysis/index.Rmd" target="_blank">9156677</a>
 </td>
 <td>
 stephens999
@@ -1884,7 +1947,7 @@ add multiclass example
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/ff6b857184faeabde8dea3c1cee84dd867b326b9/analysis/index.Rmd" target="_blank">ff6b857</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/ff6b857184faeabde8dea3c1cee84dd867b326b9/analysis/index.Rmd" target="_blank">ff6b857</a>
 </td>
 <td>
 mbonakda
@@ -1901,7 +1964,7 @@ add asymptotic normality of MLE and wilks
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/3ee2cf4481cc5cce7dae75562907c105fbbaf027/analysis/index.Rmd" target="_blank">3ee2cf4</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/3ee2cf4481cc5cce7dae75562907c105fbbaf027/analysis/index.Rmd" target="_blank">3ee2cf4</a>
 </td>
 <td>
 stephens999
@@ -1918,7 +1981,7 @@ add likelihood function
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/d6f4bea8fc4f77f1c125eecc341aa60bafcbdd8e/analysis/index.Rmd" target="_blank">d6f4bea</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/d6f4bea8fc4f77f1c125eecc341aa60bafcbdd8e/analysis/index.Rmd" target="_blank">d6f4bea</a>
 </td>
 <td>
 stephens999
@@ -1935,7 +1998,7 @@ add examples
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/6feeb2e0d026413ba0c792ee2fd9b2ef8e50955f/analysis/index.Rmd" target="_blank">6feeb2e</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/6feeb2e0d026413ba0c792ee2fd9b2ef8e50955f/analysis/index.Rmd" target="_blank">6feeb2e</a>
 </td>
 <td>
 stephens999
@@ -1952,7 +2015,7 @@ update index
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/8b7278d6e13ad541cb2dbb7c472e61bd6c82b6d9/analysis/index.Rmd" target="_blank">8b7278d</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/8b7278d6e13ad541cb2dbb7c472e61bd6c82b6d9/analysis/index.Rmd" target="_blank">8b7278d</a>
 </td>
 <td>
 stephens999
@@ -1969,7 +2032,7 @@ add LR for continuous data
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/93476efa7fe12ec6613b1efd7f7e2aa96e7ddffb/analysis/index.Rmd" target="_blank">93476ef</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/93476efa7fe12ec6613b1efd7f7e2aa96e7ddffb/analysis/index.Rmd" target="_blank">93476ef</a>
 </td>
 <td>
 stephens999
@@ -1986,7 +2049,7 @@ update LR to make clear it is for discrete data
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/8f6123275fb86d72c80124c97e8c5ed6f09ad07b/analysis/index.Rmd" target="_blank">8f61232</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/8f6123275fb86d72c80124c97e8c5ed6f09ad07b/analysis/index.Rmd" target="_blank">8f61232</a>
 </td>
 <td>
 stephens999
@@ -2003,7 +2066,7 @@ add simple LR example
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/f1b8c7c5f81fbae2efda3b0b874ce00fd84d70fe/analysis/index.Rmd" target="_blank">f1b8c7c</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/f1b8c7c5f81fbae2efda3b0b874ce00fd84d70fe/analysis/index.Rmd" target="_blank">f1b8c7c</a>
 </td>
 <td>
 stephens999
@@ -2020,7 +2083,7 @@ add likelihood and loglikelihood
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/90df5f825821a87a2cd24980a23c4884affa1b53/analysis/index.Rmd" target="_blank">90df5f8</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/90df5f825821a87a2cd24980a23c4884affa1b53/analysis/index.Rmd" target="_blank">90df5f8</a>
 </td>
 <td>
 stephens999
@@ -2037,7 +2100,7 @@ tidy up material related to ashlar by removing much of it
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/d3c8f4e886ed0e953fcc5cfe388bfa770f3f9e4c/analysis/index.Rmd" target="_blank">d3c8f4e</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/d3c8f4e886ed0e953fcc5cfe388bfa770f3f9e4c/analysis/index.Rmd" target="_blank">d3c8f4e</a>
 </td>
 <td>
 jhsiao999
@@ -2054,7 +2117,7 @@ fix typo
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/10bba89416931e220d918ac8ed713ee5c4bd7bb9/analysis/index.Rmd" target="_blank">10bba89</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/10bba89416931e220d918ac8ed713ee5c4bd7bb9/analysis/index.Rmd" target="_blank">10bba89</a>
 </td>
 <td>
 jhsiao999
@@ -2071,7 +2134,7 @@ add tutorial
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/99f4499b094780c9565816d81dc7da3e606a8252/analysis/index.Rmd" target="_blank">99f4499</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/99f4499b094780c9565816d81dc7da3e606a8252/analysis/index.Rmd" target="_blank">99f4499</a>
 </td>
 <td>
 jhsiao999
@@ -2088,7 +2151,7 @@ add a Rmarkdown example
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/1b891a0e3f6cd9f696c0b44c2fd07c8f69bae758/analysis/index.Rmd" target="_blank">1b891a0</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/1b891a0e3f6cd9f696c0b44c2fd07c8f69bae758/analysis/index.Rmd" target="_blank">1b891a0</a>
 </td>
 <td>
 jhsiao999
@@ -2112,67 +2175,92 @@ first commit
 <div id="likelihood-ratio-and-likelihood" class="section level3">
 <h3>Likelihood Ratio and Likelihood</h3>
 <ul>
-<li><a href="likelihood_ratio_simple_models.html">Likelihood Ratio for fully specified models, discrete data</a></li>
-<li><a href="likelihood_ratio_simple_continuous_data.html">Likelihood Ratio for fully specified models, continuous data</a></li>
+<li><a href="likelihood_ratio_simple_models.html">Likelihood Ratio for
+fully specified models, discrete data</a></li>
+<li><a href="likelihood_ratio_simple_continuous_data.html">Likelihood
+Ratio for fully specified models, continuous data</a></li>
 <li>Likelihood Ratios: Examples and Pitfalls
 <ul>
 <li><a href="likelihood_do_dont.html">Examples and Pitfalls</a></li>
-<li><a href="LR_error.html">Example: LRs must be computed on same data</a></li>
+<li><a href="LR_error.html">Example: LRs must be computed on same
+data</a></li>
 </ul></li>
-<li><a href="LR_and_BF.html">Likelihood Ratios: how big is convincing?</a></li>
+<li><a href="LR_and_BF.html">Likelihood Ratios: how big is
+convincing?</a></li>
 <li><a href="wilks.html">Likelihood Ratios: Wilks’s Theorem</a></li>
 <li><a href="likelihood_function.html">The Likelihood Function</a></li>
-<li><a href="asymptotic_normality_mle.html">Asymptotic Normality of MLE</a></li>
+<li><a href="asymptotic_normality_mle.html">Asymptotic Normality of
+MLE</a></li>
 </ul>
 </div>
 <div id="bayesian-inference" class="section level3">
 <h3>Bayesian Inference</h3>
 <ul>
-<li><a href="LR_and_BF.html">Bayesian inference for comparing two fully-specified models</a></li>
-<li><a href="bayes_multiclass.html">Bayesian inference for comparing multiple fully-specified models</a></li>
-<li><a href="bayes_beta_binomial.html">Bayesian inference for a continuous parameter: analytic calculation</a></li>
-<li><a href="summarize_interpret_posterior.html">Bayesian inference for a continuous parameter: summarizing the posterior</a></li>
-<li><a href="bayes_conjugate.html">Bayesian inference for a continuous parameter: conjugacy</a></li>
-<li><a href="bayes_conjugate_normal_mean.html">Bayesian inference for a normal mean</a></li>
-<li><a href="shiny_normal_example.html">Bayesian inference for a normal mean (shiny app illustration)</a></li>
-<li><a href="bayes_independent.html">Bayesian inference for multiple independent parameters</a></li>
+<li><a href="LR_and_BF.html">Bayesian inference for comparing two
+fully-specified models</a></li>
+<li><a href="bayes_multiclass.html">Bayesian inference for comparing
+multiple fully-specified models</a></li>
+<li><a href="bayes_beta_binomial.html">Bayesian inference for a
+continuous parameter: analytic calculation</a></li>
+<li><a href="summarize_interpret_posterior.html">Bayesian inference for
+a continuous parameter: summarizing the posterior</a></li>
+<li><a href="bayes_conjugate.html">Bayesian inference for a continuous
+parameter: conjugacy</a></li>
+<li><a href="bayes_conjugate_normal_mean.html">Bayesian inference for a
+normal mean</a></li>
+<li><a href="shiny_normal_example.html">Bayesian inference for a normal
+mean (shiny app illustration)</a></li>
+<li><a href="bayes_independent.html">Bayesian inference for multiple
+independent parameters</a></li>
 </ul>
 </div>
 <div id="empirical-bayes" class="section level3">
 <h3>Empirical Bayes</h3>
 <ul>
-<li><a href="ebnm_normal.html">The Empirical Bayes Normal Means problem</a></li>
+<li><a href="ebnm_normal.html">The Empirical Bayes Normal Means
+problem</a></li>
 </ul>
 </div>
 <div id="frequentist-vs-bayesian-inference" class="section level3">
 <h3>Frequentist vs Bayesian Inference</h3>
 <ul>
-<li><a href="pvalue_difficult_calibrate_example.html">The difficulty calibrating p values</a></li>
-<li><a href="BF_and_pvalue.html">Relationship between Bayes Factor and p value</a></li>
-<li><a href="CI_conditional_coverage.html">Conditional coverage of a standard normal CI</a></li>
+<li><a href="pvalue_difficult_calibrate_example.html">The difficulty
+calibrating p values</a></li>
+<li><a href="BF_and_pvalue.html">Relationship between Bayes Factor and p
+value</a></li>
+<li><a href="CI_conditional_coverage.html">Conditional coverage of a
+standard normal CI</a></li>
 </ul>
 </div>
 <div id="decision-theory" class="section level3">
 <h3>Decision Theory</h3>
 <ul>
-<li><a href="decisions_costs_intro.html">Making a decision under uncertainty: the two class problem</a></li>
-<li><a href="decision_theory_bayes_rule.html">Brief introduction to decision theory for prediction problems</a></li>
+<li><a href="decisions_costs_intro.html">Making a decision under
+uncertainty: the two class problem</a></li>
+<li><a href="decision_theory_bayes_rule.html">Brief introduction to
+decision theory for prediction problems</a></li>
 </ul>
 </div>
 <div id="mixture-models" class="section level3">
 <h3>Mixture Models</h3>
 <ul>
-<li><p><a href="mixture_models_01.html">Introduction to Mixture Models</a></p></li>
-<li><p><a href="em_algorithm_01.html">Introduction to the EM algorithm</a></p></li>
-<li><p><a href="em_variational.html">A variational view of the EM algorithm</a></p></li>
-<li><p><a href="intro_to_em.html">EM for Gaussian Mixture Models</a></p></li>
-<li><p><a href="intro_to_mixture_models.html">Archive: Alternative Introduction to Mixture Models</a></p></li>
+<li><p><a href="mixture_models_01.html">Introduction to Mixture
+Models</a></p></li>
+<li><p><a href="em_algorithm_01.html">Introduction to the EM
+algorithm</a></p></li>
+<li><p><a href="em_variational.html">A variational view of the EM
+algorithm</a></p></li>
+<li><p><a href="intro_to_em.html">EM for Gaussian Mixture
+Models</a></p></li>
+<li><p><a href="intro_to_mixture_models.html">Archive: Alternative
+Introduction to Mixture Models</a></p></li>
 </ul>
 </div>
 <div id="bayesian-computation" class="section level3">
 <h3>Bayesian Computation</h3>
 <ul>
-<li><a href="integral.html">Every Bayesian computation is an integral (or a sum)</a></li>
+<li><a href="integral.html">Every Bayesian computation is an integral
+(or a sum)</a></li>
 <li><a href="Importance_sampling.html">Importance sampling</a></li>
 </ul>
 </div>
@@ -2180,11 +2268,22 @@ first commit
 <h3>Markov Chain Monte Carlo</h3>
 <ul>
 <li><a href="MH_intro.html">The Metropolis–Hastings algorithm</a></li>
-<li><a href="MH_intro_02.html">The Metropolis–Hastings algorithm 2</a></li>
-<li><a href="MH-examples1.html">Simple examples of Metropolis–Hastings algorithm</a></li>
+<li><a href="MH_intro_02.html">The Metropolis–Hastings algorithm
+2</a></li>
+<li><a href="MH-examples1.html">Simple examples of Metropolis–Hastings
+algorithm</a></li>
 <li><a href="gibbs1.html">Introduction to Gibbs Sampling</a></li>
-<li><a href="gibbs2.html">Gibbs Sampling for a univariate normal mixture</a></li>
-<li><a href="gibbs_structure_simple.html">Gibbs Sampling for a mixture of product-bernoullis</a></li>
+<li><a href="gibbs2.html">Gibbs Sampling for a univariate normal
+mixture</a></li>
+<li><a href="gibbs_structure_simple.html">Gibbs Sampling for a mixture
+of product-bernoullis</a></li>
+</ul>
+</div>
+<div id="variational-inference" class="section level3">
+<h3>Variational inference</h3>
+<ul>
+<li><a href="variational_inference.html">Variational inference:
+approximations, objectives and algorithms</a></li>
 </ul>
 </div>
 <div id="hidden-markov-models" class="section level3">
@@ -2207,49 +2306,66 @@ first commit
 <div id="discrete-time-markov-chains" class="section level3">
 <h3>Discrete-Time Markov Chains</h3>
 <ul>
-<li><a href="markov_chains_discrete_intro.html">Discrete-Time Markov Chains: Introduction</a></li>
-<li><a href="stationary_distribution.html">Discrete-Time Markov Chains: Finding the Stationary Distribution via solution of the global balance equations</a></li>
-<li><a href="markov_chains_discrete_stationary_dist.html">Discrete-Time Markov Chains: Finding the Stationary Distribution via eigendecomposition</a></li>
-<li><a href="simulating_discrete_chains_1.html">Simulating Discrete-Time Markov Chains: An Introduction</a></li>
-<li><a href="simulating_discrete_chains_2.html">Simulating Discrete-Time Markov Chains: Limiting Distributions</a></li>
+<li><a href="markov_chains_discrete_intro.html">Discrete-Time Markov
+Chains: Introduction</a></li>
+<li><a href="stationary_distribution.html">Discrete-Time Markov Chains:
+Finding the Stationary Distribution via solution of the global balance
+equations</a></li>
+<li><a href="markov_chains_discrete_stationary_dist.html">Discrete-Time
+Markov Chains: Finding the Stationary Distribution via
+eigendecomposition</a></li>
+<li><a href="simulating_discrete_chains_1.html">Simulating Discrete-Time
+Markov Chains: An Introduction</a></li>
+<li><a href="simulating_discrete_chains_2.html">Simulating Discrete-Time
+Markov Chains: Limiting Distributions</a></li>
 </ul>
 </div>
 <div id="poisson-processes" class="section level3">
 <h3>Poisson Processes</h3>
 <ul>
-<li><a href="poisson_process_time_dependent_thinning.html">Poisson Processes: Thinning with time-dependent probabilities</a></li>
-<li><a href="bernoulli_poisson_process.html">Poisson Process: The Limiting Case of the Bernoulli Process</a></li>
+<li><a href="poisson_process_time_dependent_thinning.html">Poisson
+Processes: Thinning with time-dependent probabilities</a></li>
+<li><a href="bernoulli_poisson_process.html">Poisson Process: The
+Limiting Case of the Bernoulli Process</a></li>
 </ul>
 </div>
-<div id="methods-for-sampling-non-standard-distributions" class="section level3">
+<div id="methods-for-sampling-non-standard-distributions"
+class="section level3">
 <h3>Methods for sampling non-standard distributions</h3>
 <ul>
-<li><a href="inverse_transform_sampling.html">Inverse Transform Sampling</a></li>
+<li><a href="inverse_transform_sampling.html">Inverse Transform
+Sampling</a></li>
 </ul>
 </div>
 <div id="multivariate-normal" class="section level3">
 <h3>Multivariate Normal</h3>
 <ul>
-<li><a href="norm_linear_comb.html">A key property of univariate normal</a></li>
+<li><a href="norm_linear_comb.html">A key property of univariate
+normal</a></li>
 <li><a href="mvnorm_00.html">Bivariate normal distribution</a></li>
 <li><a href="mvnorm.html">Multivariate Normal</a></li>
 <li><a href="normal_markov_chain.html">The precision matrix</a></li>
-<li><a href="mvnorm_eigen.html">Interpreting <span class="math inline">\(N(\mu,\Sigma)\)</span> via eigen-decomposition of <span class="math inline">\(\Sigma\)</span></a></li>
+<li><a href="mvnorm_eigen.html">Interpreting <span
+class="math inline">\(N(\mu,\Sigma)\)</span> via eigen-decomposition of
+<span class="math inline">\(\Sigma\)</span></a></li>
 </ul>
 </div>
 <div id="gaussian-process" class="section level3">
 <h3>Gaussian Process</h3>
 <ul>
-<li><a href="gaussian_process.html">Introduction to Gaussian Processes</a></li>
+<li><a href="gaussian_process.html">Introduction to Gaussian
+Processes</a></li>
 </ul>
 </div>
 </div>
 <div id="population-genetics" class="section level2">
 <h2>Population Genetics</h2>
 <ul>
-<li><a href="r_simplemix.html">Simulating from a simple genetic mixture model</a></li>
+<li><a href="r_simplemix.html">Simulating from a simple genetic mixture
+model</a></li>
 <li><a href="wright_fisher_model.html">Wright-Fisher Model</a></li>
-<li><a href="approx_wright_fisher_model.html">Wright-Fisher Model Approximations</a></li>
+<li><a href="approx_wright_fisher_model.html">Wright-Fisher Model
+Approximations</a></li>
 </ul>
 </div>
 
