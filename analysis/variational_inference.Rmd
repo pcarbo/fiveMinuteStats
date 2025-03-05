@@ -14,7 +14,8 @@ output: workflowr::wflow_html
 + Properties of multivariate Gaussians.
 
 + It is helpful if you are familiar with ridge regression, but this
-  isn't essential since we will (re)introduce it here.
+  isn't essential since we will (re)introduce it here. See for example
+  [Ryan Ribshirani's course notes][ryantibs-ridge].
 
 ## Introduction
 
@@ -63,8 +64,8 @@ $$
 We will skip the derivation so that we can get more quickly to the
 topic of interest, variational inference, but in the examples below we
 will use the fact that the posterior distirbution of $\mathbf{b}$ is
-the multivariate normal distribution with the following mean and
-covariance:
+the multivariate normal distribution with the following mean
+$\bar{\mathbf{b}}$ and covariance $\mathbf{V}$:
 $$
 \bar{\mathbf{b}} = \mathbf{V} \mathbf{X}^T\mathbf{y}/\sigma^2,
 \qquad
@@ -74,10 +75,19 @@ where $\lambda = \frac{\sigma^2}{\sigma_0^2}$, and $\mathbf{I}$ is the
 $p \times p$ identity matrix.  Note that since everything is normal
 in this model, the posterior mean is also the posterior mode.
 
-Moving on...
+Since posterior distribution is multivariate normal with analytic
+expressions for the mean and covariance, clearly this is a case where
+Bayesian computational techniques such as MCMC or variational
+inference are not needed. However, for very large data sets (large $n$
+and/or large $p$), computing the mean and covariance can be very
+expensive—consider the effort involved in computing the matrix product
+$$ and the matrix inverse in the expression for $\mathbf{V}$—so
+actually these techniques could be useful even if on paper the
+posterior distribution is straightforward.
 
 ## Further reading
 
 [Blei et al, "Variational inference: a review for statisticians"][blei-2017]
 
 [blei-2017]: https://doi.org/10.1080/01621459.2017.1285773
+[ryantibs-ridge]: https://github.com/ryantibs/statlearn-s24/
