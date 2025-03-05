@@ -74,8 +74,10 @@ $$
 \qquad
 \mathbf{V} = \sigma^2(\mathbf{X}^T\mathbf{X} + \lambda \mathbf{I})^{-1},
 $$
-and where $\lambda = \frac{\sigma^2}{\sigma_0^2}$, and $\mathbf{I}$ is the
-$p \times p$ identity matrix.  Note that since everything is normal
+and where $\lambda = \frac{\sigma^2}{\sigma_0^2}$, $\mathbf{I}$ is the
+$p \times p$ identity matrix, and $\mathbf{X}$ is the "input matrix",
+that is, the $n \times p$ matrix formed by filling in each row $i$
+with the vector $\mathbf{x}_i$.  Note that since everything is normal
 in this model, the posterior mean is also the posterior mode.
 
 Since the posterior distribution is multivariate normal with analytic
