@@ -5,22 +5,32 @@ date: 2024-04-26
 output: workflowr::wflow_html
 ---
 
-## Prerequisites
-
-+ MCMC sampling (and specifically Gibbs sampling) will be used to
-  illustrate some of the key ideas so you should be familiar with
-  those.
-
-+ Properties of multivariate Gaussians.
-
-+ It is helpful if you are familiar with ridge regression, but this
-  isn't essential since we will (re)introduce it here. See for example
-  [Ryan Tibshirani's class notes][ryantibs-ridge].
-
 ## Introduction
 
-*Add introduction here. Talk about this idea of solving a
- high-dimensional/large-scale inference problem."
+Variational inference, like MCMC, is a technique for computing
+posterior distributions and that are difficult to compute. However,
+variational inference is typically aimed at *high-dimensional*
+posterior inference problems where MCMC methods might struggle. The
+tradeoff is that variational inference typically makes much stronger
+approximations than MCMC methods and therefore one has to (or at least
+should) think carefully about whether it is appropriate or justified
+to use these techniques.
+
+## Prerequisites
+
++ MCMC (specifically, Gibbs sampling) will be used to illustrate some
+  of the key ideas without giving any background, so you should be
+  familiar with MCMC ideas. MCMC is covered in several of the
+  fiveMinuteStats vignettes.
+
++ Some of the derivations will use properties of the multivariate
+  normal distribution, so you should be familiar with this as
+  well. Again, this is covered in several fiveMinuteStats vignettes.
+
++ It is helpful, although not critical, if you are familiar with the
+  basics of ridge regression. I don't think this was covered in any of
+  the other fiveMinuteStats vignettes. See for example
+  [Ryan Tibshirani's class notes][ryantibs-ridge] for an introduction.
 
 ## Ridge regression
 
@@ -92,13 +102,13 @@ effort involved in computing the matrix product $\mathbf{X}^T
 $\mathbf{V}$. So actually these techniques could be useful even if on
 paper the posterior distribution is straightforward.
 
-## Simulating the posterior distribution
+## Simulating the ridge regression posterior distribution
 
 As our first attempt at grappling with the challenges of inference in
 high dimensions, let's consider a simple Gibbs sampler which involves
-repeatedly choosing a dimension $j$ and randomly sampling from the
+repeatedly choosing a dimension, $j$, and randomly sampling from the
 posterior distribution of $b_j$ conditioned on all the other
-coefficients:
+dimensions:
 $$
 b_j \sim N(\mu_j, v_j^2),
 $$
@@ -228,16 +238,17 @@ plot_params_over_time <- function (B, show_average = FALSE) {
 }
 ```
 
-Run the Gibbs sampler for 100 iterations:
+Let's run the Gibbs sampler for 100 iterations:
 
 ```{r run-ridge-gs}
 niter <- 100
 B <- ridge_gs(X,y,s,s0,niter)
 ```
 
-Let's now plot the state of the Markov chain, and let's compare the
-final state of the Markov chain to the exact posterior mean (the black
-dots in the plot):
+Now plot the state of the Markov chain over time, and compare the
+final state of the Markov chain to the exact posterior mean which we
+are able to compute because the posterior is multivariate normal (the
+exact means are the black dots in the plot):
 
 ```{r plot-ridge-gs, fig.height=5, fig.width=3}
 par(mar = c(4,4,1,0))
