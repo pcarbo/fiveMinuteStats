@@ -257,13 +257,13 @@ post <- ridge_post(X,y,s,s0)
 points(rep(niter,p),post$mean,pch = 20,col = "darkblue",cex = 1)
 ```
 
-At the last iteration, the Markov chain is quite close to the
-posterior mean but we wouldn't expect it to be exactly the same
+At the last iteration, the Markov chain is quite close to the exact
+posterior mean. But we wouldn't expect it to be exactly the same
 because the MCMC is intended to simulate the full posterior
-distribution, not just recover the posterior mean. If we instead take
-the average of the states then we should get closer to the exact
-calculations. This next plot shows the running average across the 100
-iterations of the Gibbs sampler:
+distribution, not just recover the posterior mean. However, if we
+instead take an average of the Markov chain states, then we should (or
+hopefully) get closer to the exact calculations. This next plot shows
+the running average across the 100 Gibbs sampler iterations:
 
 ```{r plot-ridge-gs-running-average, fig.height=5, fig.width=3}
 par(mar = c(4,4,1,0))
@@ -271,31 +271,37 @@ plot_params_over_time(B,show_average = TRUE)
 points(rep(niter,p),post$mean,pch = 20,col = "darkblue",cex = 1)
 ```
 
-## An iterative algorithm
+## A different iterative algorithm
 
-Let's now consider a different iterative algorithm: like the Gibbs
-sampler, it updates one co-ordinate at a time; unlike the Gibbs
-samppler, the updates are deterministic (not stochastic). Here we will
-simply describe the updates and later we will motivate these updates
-as fitting a variational approxiation to the (exact) posterior
-distribution.
+Let's now consider a different iterative algorithm: on the one hand,
+like the Gibbs sampler, this new algorithm updates one co-ordinate or
+dimension at a time; on the other hand, unlike the Gibbs sampler, the
+updates are *deterministic*. That is, given the same inputs, this
+iterative algorithm will *always produce the same output.* To start,
+we will simply describe this iterative algorithm, and later we will
+motivate it as fitting a variational approxiation to the (exact)
+posterior distribution.
 
-To describe the updates, it is helpful to first write down the
+### Posterior distribution for the "single-input" ridge regression model
+
+To describe the algorithm, it will be helpful to first write down the
 posterior distribution for a ridge regression model with a single
-input, which is a special case of the expressions given above:
+input (that is, $p = 1$), which is a special case of the expressions
+given above:
 $$
-\bar{b} = v \mathbf{x}^T\mathbf{y}/\sigma^2,
+\bar{b} = \frac{v \mathbf{x}^T\mathbf{y}}{\sigma^2},
 \qquad
-v = \sigma^2(\mathbf{x}^T\mathbf{x} + \lambda)^{-1}.
+v = \frac{\sigma^2}{\mathbf{x}^T\mathbf{x} + \lambda}.
 $$
 For describing the updates, it will be convenient to define these
 expressions as functions of the data, so let's change the notation
 slightly:
 $$
-\bar{b}(\mathbf{x},\mathbf{y}) = v(\mathbf{x}, \mathbf{y}) \times
-\mathbf{x}^T\mathbf{y}/\sigma^2,
+\bar{b}(\mathbf{x},\mathbf{y}) =
+\frac{v(\mathbf{x}, \mathbf{y}) \, \mathbf{x}^T\mathbf{y}}{\sigma^2},
 \qquad
-v(\mathbf{x},\mathbf{y}) = \sigma^2(\mathbf{x}^T\mathbf{x} + \lambda)^{-1}.
+v(\mathbf{x},\mathbf{y}) = \frac{\sigma^2}
+{\mathbf{x}^T\mathbf{x} + \lambda}.
 $$
 
 With these expressions, the coordinatewise updates are very simple to
