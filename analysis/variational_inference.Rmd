@@ -295,11 +295,65 @@ $$
 b_j \leftarrow \bar{b}(\mathbf{x}_j, \mathbf{r}_j)
 $$
 
-TO DO: Try running for longer. What happens when we use a different
-starting point?
+These next two functions implement an iterative algorithm that cycles
+through $p$ of these updates for each of the $p$ input variables:
+
+```{r ridge-iterative}
+# Return the posterior distribution for the single-input
+# ridge regression model given data x, y.
+ridge_post1 <- function (x, y, s, s0) {
+  xx <- sum(x^2)
+  xy <- sum(x*y)
+  v <- s^2/(xx + (s/s0)^2)
+  b <- v*xy/s^2
+  return(list(mean = b,var = v))
+}
+
+# Perform "niter" updates of the iterative algorithm for ridge
+# regression, initialized to "b".
+ridge_iterative <- function (X, y, s, s0, niter, b = rep(0,ncol(X))) {
+  p <- length(b)
+  B <- matrix(0,p,niter)
+  for (i in 1:niter) {
+    r <- drop(y - X %*% b)
+    for (j in 1:p) {
+      x <- X[,j]
+      r <- r + x*b[j]
+      b[j] <- ridge_post1(x,r,s,s0)$mean
+      r <- r - x*b[j]
+    }
+    B[,i] <- b
+  }
+  return(B)
+}
+```
+
+ADD TEXT HERE.
+
+```{r plot-ridge-iterative, fig.height=5, fig.width=3}
+par(mar = c(4,4,1,0))
+niter <- 20
+B <- ridge_iterative(X,y,s,s0,niter)
+plot_params_over_time(B)
+points(rep(niter,p),post$mean,pch = 20,col = "darkblue",cex = 1)
+```
+
+ADD SOME OBSERVATIONS
+
+TO DO: Try running for longer. Do the iterates get closer to the
+analytical solution? What happens when we use a different starting
+point?
+
+TO DO: Discuss differences between this as the Gibbs sampler (e.g., no
+need to take running averages). Do these updates always converge to a
+fixed point?
 
 TO DO: Discuss computational complexity of this algorithm compard
 to the Gibbs sampler and the analytical posterior.
+
+TO DO: First think of this as computing the MAP (maximum a
+posteriori).  Next think of this as computing approximate posterior
+means. How to think about this?
 
 ## Further reading
 
