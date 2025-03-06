@@ -369,7 +369,7 @@ objectives, and algorithms</h1>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -380,8 +380,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -394,9 +394,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 2
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
@@ -419,252 +419,35 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongobjectspresent">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>Environment:</strong> objects present
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
-<div id="strongEnvironmentstrongobjectspresent"
-class="panel-collapse collapse">
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>
-The global environment had objects present when the code in the R
-Markdown file was run. These objects can affect the analysis in your R
-Markdown file in unknown ways. For reproduciblity it’s best to always
-run the code in an empty environment. Use <code>wflow_publish</code> or
-<code>wflow_build</code> to ensure that the code is always run in an
-empty environment.
-</p>
-<p>
-The following objects were defined in the global environment when these
-results were created:
-</p>
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th style="text-align:left;">
-Name
-</th>
-<th style="text-align:left;">
-Class
-</th>
-<th style="text-align:left;">
-Size
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-B
-</td>
-<td style="text-align:left;">
-matrix;array
-</td>
-<td style="text-align:left;">
-4 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-n
-</td>
-<td style="text-align:left;">
-numeric
-</td>
-<td style="text-align:left;">
-56 bytes
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-niter
-</td>
-<td style="text-align:left;">
-numeric
-</td>
-<td style="text-align:left;">
-56 bytes
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-p
-</td>
-<td style="text-align:left;">
-numeric
-</td>
-<td style="text-align:left;">
-56 bytes
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-plot_params_over_time
-</td>
-<td style="text-align:left;">
-function
-</td>
-<td style="text-align:left;">
-79.5 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-post
-</td>
-<td style="text-align:left;">
-list
-</td>
-<td style="text-align:left;">
-832 bytes
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-r
-</td>
-<td style="text-align:left;">
-numeric
-</td>
-<td style="text-align:left;">
-56 bytes
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ridge_gs
-</td>
-<td style="text-align:left;">
-function
-</td>
-<td style="text-align:left;">
-124 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ridge_iterative
-</td>
-<td style="text-align:left;">
-function
-</td>
-<td style="text-align:left;">
-100.8 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ridge_post
-</td>
-<td style="text-align:left;">
-function
-</td>
-<td style="text-align:left;">
-13.8 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ridge_post1
-</td>
-<td style="text-align:left;">
-function
-</td>
-<td style="text-align:left;">
-33.1 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-s
-</td>
-<td style="text-align:left;">
-numeric
-</td>
-<td style="text-align:left;">
-56 bytes
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-s0
-</td>
-<td style="text-align:left;">
-numeric
-</td>
-<td style="text-align:left;">
-56 bytes
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-sim
-</td>
-<td style="text-align:left;">
-list
-</td>
-<td style="text-align:left;">
-17.2 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-sim_ridge_data
-</td>
-<td style="text-align:left;">
-function
-</td>
-<td style="text-align:left;">
-71.4 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-X
-</td>
-<td style="text-align:left;">
-matrix;array
-</td>
-<td style="text-align:left;">
-15.7 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-y
-</td>
-<td style="text-align:left;">
-numeric
-</td>
-<td style="text-align:left;">
-856 bytes
-</td>
-</tr>
-</tbody>
-</table>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
@@ -738,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree651132834318fced49146b70a949ab47edd6e3fbtargetblank6511328a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreeb283fe5e325148ff2ada2dfc25cf2b72bccb25f3targetblankb283fe5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/651132834318fced49146b70a949ab47edd6e3fb" target="_blank">6511328</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/b283fe5e325148ff2ada2dfc25cf2b72bccb25f3" target="_blank">b283fe5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree651132834318fced49146b70a949ab47edd6e3fbtargetblank6511328a"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreeb283fe5e325148ff2ada2dfc25cf2b72bccb25f3targetblankb283fe5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -756,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/651132834318fced49146b70a949ab47edd6e3fb" target="_blank">6511328</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/b283fe5e325148ff2ada2dfc25cf2b72bccb25f3" target="_blank">b283fe5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -771,10 +554,7 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    analysis/figure/
-
-Unstaged changes:
-    Modified:   analysis/variational_inference.Rmd
+    Ignored:    analysis/variational_inference.pdf
 
 </code></pre>
 <p>
@@ -820,6 +600,176 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/b283fe5e325148ff2ada2dfc25cf2b72bccb25f3/analysis/variational_inference.Rmd" target="_blank">b283fe5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-03-06
+</td>
+<td>
+Added some closing notes to the variational inference vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/7e9a07ed99dc8a7e81c815b8f91ce92c288d4a9b/analysis/variational_inference.Rmd" target="_blank">7e9a07e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-03-06
+</td>
+<td>
+Added proof sketch.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/6c98bf6a0f6563172171f9daf2ffb3fe07b370d9/analysis/variational_inference.Rmd" target="_blank">6c98bf6</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-03-06
+</td>
+<td>
+Added details on the fully-factorized variational approximation.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/936aed8e3059a9980ba24a1835d4841f21e30cfa/analysis/variational_inference.Rmd" target="_blank">936aed8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-03-06
+</td>
+<td>
+Fixed alignment of the multi-line eqs.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/6fca4dc752cfd04dd36c21213001eaa8ac664498/analysis/variational_inference.Rmd" target="_blank">6fca4dc</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-03-06
+</td>
+<td>
+Started derivation of the ELBO.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/4b10e2bce6323d8ce25798f540442ff915446f7e/analysis/variational_inference.Rmd" target="_blank">4b10e2b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-03-06
+</td>
+<td>
+Added an example of running the CAVI algorithm.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/d8f1cda9f0ac128bb3c918d85120837e3989547c/analysis/variational_inference.Rmd" target="_blank">d8f1cda</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-03-06
+</td>
+<td>
+A few edits to the variational inference vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/548b6766cf36e0e7160cd2a58d5242339f35c917/analysis/variational_inference.Rmd" target="_blank">548b676</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-03-06
+</td>
+<td>
+Wrote intro for variational inference vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/9158e7e34ca9f5c2e345662b38d9b54688162745/analysis/variational_inference.Rmd" target="_blank">9158e7e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-03-06
+</td>
+<td>
+Added iterative algorithm to the variational inference vignette.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/9158e7e34ca9f5c2e345662b38d9b54688162745/docs/variational_inference.html" target="_blank">9158e7e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-03-06
+</td>
+<td>
+Added iterative algorithm to the variational inference vignette.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1069,23 +1019,38 @@ workflowr::wflow_publish("index.Rmd")
 </div>
 </div>
 </div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Variational inference, like MCMC, is a technique for computing
+posterior distributions and that are difficult to compute. However,
+variational inference is typically aimed at <em>high-dimensional</em>
+posterior inference problems where MCMC methods might struggle. The
+tradeoff is that variational inference typically makes much stronger
+approximations than MCMC methods and therefore one has to (or at least
+should) think carefully about whether it is appropriate or justified to
+use these techniques.</p>
+<p>I’d like to acknowledge that some of the content of this vignette is
+based on notes from John Novembre and Matthew Stephens.</p>
+</div>
 <div id="prerequisites" class="section level2">
 <h2>Prerequisites</h2>
 <ul>
-<li><p>MCMC sampling (and specifically Gibbs sampling) will be used to
-illustrate some of the key ideas so you should be familiar with
-those.</p></li>
-<li><p>Properties of multivariate Gaussians.</p></li>
-<li><p>It is helpful if you are familiar with ridge regression, but this
-isn’t essential since we will (re)introduce it here. See for example <a
+<li><p>You should be familiar with the basic concepts of Bayesian
+inference such as Bayes’ Theorem and the posterior
+distribution.</p></li>
+<li><p>MCMC (specifically, Gibbs sampling) will be used to illustrate
+some of the key ideas without giving any background, so you should be
+familiar with MCMC ideas. MCMC is covered in several of the
+fiveMinuteStats vignettes.</p></li>
+<li><p>Some of the derivations will use properties of the multivariate
+normal distribution, so you should be familiar with this as well. Again,
+this is covered in several fiveMinuteStats vignettes.</p></li>
+<li><p>It is helpful, although not critical, if you are familiar with
+the basics of ridge regression. I don’t think this was covered in any of
+the other fiveMinuteStats vignettes. See for example <a
 href="https://github.com/ryantibs/statlearn-s24/">Ryan Tibshirani’s
-class notes</a>.</p></li>
+class notes</a> for an introduction.</p></li>
 </ul>
-</div>
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
-<p>*Add introduction here. Talk about this idea of solving a
-high-dimensional/large-scale inference problem.”</p>
 </div>
 <div id="ridge-regression" class="section level2">
 <h2>Ridge regression</h2>
@@ -1136,10 +1101,12 @@ class="math inline">\(\mathbf{b}\)</span> is a multivariate normal with
 a mean <span class="math inline">\(\bar{\mathbf{b}}\)</span> and a
 covariance <span class="math inline">\(\mathbf{V}\)</span> as follows:
 <span class="math display">\[
-\bar{\mathbf{b}} = \mathbf{V}
-\mathbf{X}^T\mathbf{y}/\sigma^2
-\quad \mathrm{and} \quad
-\mathbf{V} = \sigma^2(\mathbf{X}^T\mathbf{X} + \lambda \mathbf{I})^{-1},
+\begin{aligned}
+\bar{\mathbf{b}} &amp;= \mathbf{V}
+\mathbf{X}^T\mathbf{y}/\sigma^2 \\
+\mathbf{V} &amp;= \sigma^2(\mathbf{X}^T\mathbf{X} + \lambda
+\mathbf{I})^{-1},
+\end{aligned}
 \]</span> such that <span class="math inline">\(\lambda =
 \sigma^2/\sigma_0^2\)</span>, <span
 class="math inline">\(\mathbf{I}\)</span> is the <span
@@ -1165,25 +1132,29 @@ actually these techniques could be useful even if on paper the posterior
 distribution is straightforward.</p>
 </div>
 </div>
-<div id="simulating-the-posterior-distribution" class="section level2">
-<h2>Simulating the posterior distribution</h2>
+<div id="simulating-the-ridge-regression-posterior-distribution"
+class="section level2">
+<h2>Simulating the ridge regression posterior distribution</h2>
 <p>As our first attempt at grappling with the challenges of inference in
 high dimensions, let’s consider a simple Gibbs sampler which involves
-repeatedly choosing a dimension <span class="math inline">\(j\)</span>
+repeatedly choosing a dimension, <span class="math inline">\(j\)</span>,
 and randomly sampling from the posterior distribution of <span
 class="math inline">\(b_j\)</span> conditioned on all the other
-coefficients: <span class="math display">\[
+dimensions: <span class="math display">\[
 b_j \sim N(\mu_j, v_j^2),
 \]</span> where <span class="math display">\[
-v_j = \bigg(\frac{\mathbf{x}_j^T\mathbf{x}_j}{s^2} +
-            \frac{1}{s_0^2}\bigg)^{-1}, \qquad
-\mu_j = \frac{v_j}{s^2} \times
+\begin{aligned}
+v_j &amp;= \bigg(\frac{\mathbf{x}_j^T\mathbf{x}_j}{s^2} +
+            \frac{1}{s_0^2}\bigg)^{-1} \\
+\mu_j &amp;= \frac{v_j}{s^2} \times
 \bigg(\mathbf{x}_j^T\mathbf{y} -
 \sum_{k \,\neq\, j} \mathbf{x}_j^T\mathbf{x}_k b_k \bigg).
+\end{aligned}
 \]</span></p>
-<p><em>Discuss the computational complexity of the Gibbs sampler updates
-for ridge regression and compare to the computational complexity of the
-analytical posterior computations above.</em></p>
+<p><em>Discuss: What is the computational complexity of the Gibbs
+sampler updates for ridge regression and how does it compare to the
+computational complexity of the analytical posterior computations
+above?</em></p>
 <p>Let’s implement this Gibbs sampler and test it out on a moderately
 large inference problem to gain some intuition for it, then we will draw
 comparisons to the variational inference solution.</p>
@@ -1278,66 +1249,85 @@ plot_params_over_time &lt;- function (B, show_average = FALSE) {
     lines(1:niter,B[j,],lwd = 1,col = &quot;dodgerblue&quot;)
   }
 }</code></pre>
-<p>Run the Gibbs sampler for 100 iterations:</p>
+<p>Let’s run the Gibbs sampler for 100 iterations:</p>
 <pre class="r"><code>niter &lt;- 100
 B &lt;- ridge_gs(X,y,s,s0,niter)</code></pre>
-<p>Let’s now plot the state of the Markov chain, and let’s compare the
-final state of the Markov chain to the exact posterior mean (the black
-dots in the plot):</p>
+<p>Now plot the state of the Markov chain over time, and compare the
+final state of the Markov chain to the exact posterior mean which we are
+able to compute because the posterior is multivariate normal (the exact
+means are the black dots in the plot):</p>
 <pre class="r"><code>par(mar = c(4,4,1,0))
 plot_params_over_time(B)
 post &lt;- ridge_post(X,y,s,s0)
 points(rep(niter,p),post$mean,pch = 20,col = &quot;darkblue&quot;,cex = 1)</code></pre>
 <p><img src="figure/variational_inference.Rmd/plot-ridge-gs-1.png" width="288" style="display: block; margin: auto;" /></p>
-<p>At the last iteration, the Markov chain is quite close to the
-posterior mean but we wouldn’t expect it to be exactly the same because
+<p>At the last iteration, the Markov chain is quite close to the exact
+posterior mean. But we wouldn’t expect it to be exactly the same because
 the MCMC is intended to simulate the full posterior distribution, not
-just recover the posterior mean. If we instead take the average of the
-states then we should get closer to the exact calculations. This next
-plot shows the running average across the 100 iterations of the Gibbs
-sampler:</p>
+just recover the posterior mean. However, if we instead take an average
+of the Markov chain states, then we should (or hopefully) get closer to
+the exact calculations. This next plot shows the running average across
+the 100 Gibbs sampler iterations:</p>
 <pre class="r"><code>par(mar = c(4,4,1,0))
 plot_params_over_time(B,show_average = TRUE)
 points(rep(niter,p),post$mean,pch = 20,col = &quot;darkblue&quot;,cex = 1)</code></pre>
 <p><img src="figure/variational_inference.Rmd/plot-ridge-gs-running-average-1.png" width="288" style="display: block; margin: auto;" /></p>
 </div>
-<div id="an-iterative-algorithm" class="section level2">
-<h2>An iterative algorithm</h2>
-<p>Let’s now consider a different iterative algorithm: like the Gibbs
-sampler, it updates one co-ordinate at a time; unlike the Gibbs
-samppler, the updates are deterministic (not stochastic). Here we will
-simply describe the updates and later we will motivate these updates as
-fitting a variational approxiation to the (exact) posterior
-distribution.</p>
-<p>To describe the updates, it is helpful to first write down the
-posterior distribution for a ridge regression model with a single input,
-which is a special case of the expressions given above: <span
+<div id="a-different-iterative-algorithm" class="section level2">
+<h2>A different iterative algorithm</h2>
+<p>Let’s now consider a different iterative algorithm: on the one hand,
+like the Gibbs sampler, this new algorithm updates one co-ordinate or
+dimension at a time; on the other hand, unlike the Gibbs sampler, the
+updates are <em>deterministic</em>. That is, given the same inputs, this
+iterative algorithm will <em>always produce the same output.</em> To
+start, we will simply describe this iterative algorithm, and later we
+will motivate it as fitting a variational approxiation to the (exact)
+posterior distribution.</p>
+<div
+id="posterior-distribution-for-the-single-input-ridge-regression-model"
+class="section level3">
+<h3>Posterior distribution for the “single-input” ridge regression
+model</h3>
+<p>To describe the algorithm, it will be helpful to first write down the
+posterior distribution for a ridge regression model with a single input
+(that is, <span class="math inline">\(p = 1\)</span>), which is a
+special case of the expressions given above: <span
 class="math display">\[
-\bar{b} = v \mathbf{x}^T\mathbf{y}/\sigma^2,
+\bar{b} = \frac{v \mathbf{x}^T\mathbf{y}}{\sigma^2},
 \qquad
-v = \sigma^2(\mathbf{x}^T\mathbf{x} + \lambda)^{-1}.
+v = \frac{\sigma^2}{\mathbf{x}^T\mathbf{x} + \lambda}.
 \]</span> For describing the updates, it will be convenient to define
 these expressions as functions of the data, so let’s change the notation
 slightly: <span class="math display">\[
-\bar{b}(\mathbf{x},\mathbf{y}) = v(\mathbf{x}, \mathbf{y}) \times
-\mathbf{x}^T\mathbf{y}/\sigma^2,
+\bar{b}(\mathbf{x},\mathbf{y}) =
+\frac{v(\mathbf{x}, \mathbf{y}) \, \mathbf{x}^T\mathbf{y}}{\sigma^2},
 \qquad
-v(\mathbf{x},\mathbf{y}) = \sigma^2(\mathbf{x}^T\mathbf{x} +
-\lambda)^{-1}.
+v(\mathbf{x},\mathbf{y}) = \frac{\sigma^2}
+{\mathbf{x}^T\mathbf{x} + \lambda}.
 \]</span></p>
-<p>With these expressions, the coordinatewise updates are very simple to
-describe: <span class="math display">\[
-\mathbf{r}_j \leftarrow \mathbf{y} - \sum_{k\, \neq\, j} \mathbf{x}_k
-b_k,
-\qquad
-b_j \leftarrow \bar{b}(\mathbf{x}_j, \mathbf{r}_j)
-\]</span></p>
-<p>These next two functions implement an iterative algorithm that cycles
-through <span class="math inline">\(p\)</span> of these updates for each
-of the <span class="math inline">\(p\)</span> input variables:</p>
+</div>
+<div id="the-coordinatewise-updates" class="section level3">
+<h3>The coordinatewise updates</h3>
+<p>With these expressions, the coordinatewise updates for the iterative
+algorithm involve two steps: <span class="math display">\[
+\begin{aligned}
+\mathbf{r}_j &amp;\leftarrow \mathbf{y} - \sum_{k\, \neq\, j}
+\mathbf{x}_k b_k \\
+b_j &amp;\leftarrow \bar{b}(\mathbf{x}_j, \mathbf{r}_j).
+\end{aligned}
+\]</span> In the machine learning literature, this update are often
+viewed as “messages” sent between the coordinates and there is a lot of
+work on studying these algorithms as “message-passing” algorithms.</p>
+<p>Let’s now see what these updates look like on the example data
+set.</p>
+<p>The first function here computes the posterior mean and variance for
+the single-input ridge regression model and the second function is
+simply a pair of for-loops that repeatedly cycles through the
+single-coordinate updates for all the <span
+class="math inline">\(p\)</span> input variables.</p>
 <pre class="r"><code># Return the posterior distribution for the single-input
 # ridge regression model given data x, y.
-ridge_post1 &lt;- function (x, y, s, s0) {
+ridge1_post &lt;- function (x, y, s, s0) {
   xx &lt;- sum(x^2)
   xy &lt;- sum(x*y)
   v &lt;- s^2/(xx + (s/s0)^2)
@@ -1355,25 +1345,222 @@ ridge_iterative &lt;- function (X, y, s, s0, niter, b = rep(0,ncol(X))) {
     for (j in 1:p) {
       x &lt;- X[,j]
       r &lt;- r + x*b[j]
-      b[j] &lt;- ridge_post1(x,r,s,s0)$mean
+      b[j] &lt;- ridge1_post(x,r,s,s0)$mean
       r &lt;- r - x*b[j]
     }
     B[,i] &lt;- b
   }
   return(B)
 }</code></pre>
-<p>ADD TEXT HERE.</p>
+<p>Let’s now run 20 rounds of this updates and look at how the
+coefficients <span class="math inline">\(b_j\)</span> change over
+time:</p>
 <pre class="r"><code>par(mar = c(4,4,1,0))
 niter &lt;- 20
 B &lt;- ridge_iterative(X,y,s,s0,niter)
 plot_params_over_time(B)
 points(rep(niter,p),post$mean,pch = 20,col = &quot;darkblue&quot;,cex = 1)</code></pre>
 <p><img src="figure/variational_inference.Rmd/plot-ridge-iterative-1.png" width="288" style="display: block; margin: auto;" /></p>
-<p>ADD SOME OBSERVATIONS</p>
-<p>TO DO: Try running for longer. What happens when we use a different
-starting point?</p>
-<p>TO DO: Discuss computational complexity of this algorithm compard to
-the Gibbs sampler and the analytical posterior.</p>
+<p>Notice that the iterative estimates of the coefficients get
+progressively closer to the analytical posterior mean. What happens if
+you run the iterative algorithm longer? Does it ever recover the
+analytical solution? Do the iterates eventually stop changing (that is,
+do they “converge” to a fixed point)? Here, we started at an initial
+estimate where all the coefficients were zero. What happens if we give
+the algorithm a random starting point?</p>
+<p><em>Discuss differences between this iterative algorithm and the
+Gibbs sampler. In particular, compare the computational complexity of
+this iterative algorithm to the Gibbs sampler</em></p>
+</div>
+</div>
+<div id="posterior-inference-as-optimization" class="section level2">
+<h2>Posterior inference as optimization</h2>
+<p>Posterior inference is fundamentally an integration problem; that is,
+computing posterior distributions and expectations with respect to the
+posterior distribution always involves sums or integrals (and sometimes
+these integrals have known closed-form formulas). The “magic” of
+variational inference is that it recasts this integration problem as an
+optimization problem. Here we will see how that happens generally, and
+for the ridge regression model. The key question we will answer is:
+<em>what is the objective function we are optimizing?</em></p>
+<p><strong>Note:</strong> One possible point of confusion with the ridge
+expression model is that the posterior mean is also the posterior mode,
+and as a result the iterative algorithm can also be viewed as an
+algorithm for finding the posterior mode (i.e., the <em>maximum a
+posteriori</em> estimate). We will try to avoid this perspective here
+since our goal is to to illustrate variational inference ideas that
+could be applicable to other models, not just ridge regression.</p>
+<div id="the-kullback-leibler-divergence" class="section level3">
+<h3>The Kullback-Leibler divergence</h3>
+<p>Let <span class="math inline">\(q(\mathbf{b})\)</span> denote an
+approximation to the true posterior <span
+class="math inline">\(p_{\mathrm{post}}(\mathbf{b}) = p(\mathbf{b} \mid
+\mathbf{X}, \mathbf{y})\)</span>. The starting point of all variational
+inference methods is a measure of the difference between the true
+posterior and the approximation. Here (like most variational inference
+approaches) we will us the Kullback-Leibler (K-L) divergence measure.
+The K-L divergence between <span
+class="math inline">\(q(\mathbf{b})\)</span> and the posterior is is
+<span class="math display">\[
+\mathrm{KL}(q \,\|\, p_{\mathrm{post}}) =
+\int q(\mathbf{b})
+\log \bigg\{\frac{q(\mathbf{b})}{p_{\mathrm{post}}(\mathbf{b})}\bigg\}
+\,
+d\mathbf{b}.
+\]</span> (It is called a “divergence” instead of a “difference” to
+remind us that this is not a symmetric measure since differences are
+usually symmetric.)</p>
+<p>Smaller “divergences” mean that the two distributions are more
+similar, and when they are the same, the K-L divergence is zero.</p>
+<p><em>Intuitively, our goal is to find a <span
+class="math inline">\(q\)</span> that makes the K-L divergence as small
+as possible. Therefore, the K-L divergence is the objective we are
+optimizing (although in practice it isn’t exactly the K-L
+divergence).</em></p>
+<p>Expanding the terms in the K-L divergence using properties of the
+logarithm, and expanding out the posterior (Bayes’ Theorem), the K-L
+divergence works out to <span class="math display">\[
+\mathrm{KL}(q \,\|\, p_{\mathrm{post}}) =
+F(q) + \log Z,
+\]</span> where <span class="math display">\[
+\begin{aligned}
+F(q) &amp;= U(q) - H(q) \\
+H(q) &amp;= - \textstyle \int q(\mathbf{b}) \log q(\mathbf{b}) \,
+d\mathbf{b} \\
+U(q) &amp;= - \textstyle \int q(\mathbf{b}) \log p(\mathbf{b}) \,
+d\mathbf{b} \\
+Z &amp;= \textstyle \int p(\mathbf{y} \mid \mathbf{X}, \mathbf{b}) \,
+p(\mathbf{b}) \, d\mathbf{b}.
+\end{aligned}
+\]</span> In statistical physics, <span
+class="math inline">\(H(q)\)</span> is known as the “entropy”, <span
+class="math inline">\(U(q)\)</span> is the “variational average energy”
+and <span class="math inline">\(F(q)\)</span> is the “variational free
+energy”.</p>
+<p><em>Exercise: Derive this result.</em></p>
+<p>Luckily, although <span class="math inline">\(\log Z\)</span> has an
+ugly and potentially difficult-to-compute integral inside of it, it does
+not depend on <span class="math inline">\(q\)</span>, so we can ignore
+it! In other words, we can equivallently minimize <span
+class="math inline">\(F(q)\)</span> (the variational free energy)
+instead of the K-L divergence. The convention in machine learning is
+instead to maximize <span class="math inline">\(-F(q)\)</span>, which is
+called the “Evidence Lower Bound”, or “ELBO”: <span
+class="math display">\[
+\mathrm{ELBO}(q) =
+E_q[\log p(\mathbf{b})] - E_q[\log q(\mathbf{b})].
+\]</span> Notice that I’ve rewritten the integrals as expectations.
+<em>So now are goal is to find a <span class="math inline">\(q\)</span>
+that maximizes the ELBO.</em></p>
+<p><em>Optional exercise: Rewrite all these expressions using
+expectations instead of integrals.</em></p>
+<p><em>When <span class="math inline">\(q(\mathbf{b}) =
+p_{\mathrm{post}}(\mathbf{b})\)</span>, what is the ELBO equal
+to?</em></p>
+</div>
+<div id="a-fully-factorized-variational-approximation"
+class="section level3">
+<h3>A fully-factorized variational approximation</h3>
+<p>Recall our goal is to be able to tackle large-scale inference
+problems. This inevitably requires some sort of compromise: we will have
+to accept some inaccuracy in the result to achieve faster computations.
+In variational inference, one can either approximate the ELBO itself, or
+restrict <span class="math inline">\(q\)</span> to a distribution that
+is particularly convenient computationally. One such constraint is that
+<span class="math inline">\(q\)</span> factorize into its individual
+coordinates; that is, <span class="math display">\[
+q(\mathbf{b}) = \prod_{j=1}^p q_j(b_j).
+\]</span> In statistical physics, this is called the “mean field”
+approximation, and is actually an old idea dating back to the 1940s and
+1950s. The machine learning community has adopted much of the
+terminology from statistical physics and so also calls these “mean
+field” approximations.</p>
+<p>Clearly, this approximation will be accurate if the true posterior
+distribution also factorizes in this way. (<em>Question: when does the
+ridge regression posterior factorize in this way?</em>) On the other
+hand, this approximation can be very poor if there are strong
+correlations among the coordinates. But keep in mind that poor
+approximations can still (sometimes) be useful!</p>
+<p>For some intuition why this approximation is helpful, the hope is
+that with the property of <span class="math inline">\(q\)</span> being
+fully-factorized, the <span class="math inline">\(p\)</span>-dimensional
+integrals over <span class="math inline">\(\mathbf{b}\)</span> will
+decompose into much lower dimensional integrals, say, in 1 or 2
+dimensions, which makes the problem much more tractable. <em>For
+example, with a fully-factorized <span class="math inline">\(q\)</span>,
+how does the expectation/integral</em> <span
+class="math inline">\(E_q[\mathbf{X} \mathbf{b}]\)</span> <em>decompose
+into smaller integrals? What is the dimension of those
+integrals?</em></p>
+</div>
+<div id="divide-and-conquer" class="section level3">
+<h3>Divide and conquer</h3>
+<p>In summary, our optimization problem is to maximize the ELBO with the
+constraint that <span class="math inline">\(q\)</span> is
+fully-factorized. However it isn’t yet clear how this connects to our
+iterative algorithm above. The connection is made by taking a “divide
+and conquer” approach: instead of trying to optimize the entire <span
+class="math inline">\(q(\mathbf{b})\)</span> at once, we instead
+optimize a single coordinate at a to,e, <span
+class="math inline">\(q_j(b_j)\)</span>. <em>Doing this will lead to the
+updates given above.</em> This is a very widely used strategy in
+variational inference and is The proof is a bit tedious and too long to
+explain in detail here, but it isn’t hard to give a high-level
+explanation.</p>
+<p><em>Proof sketch:</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Work out the expression for the ELBO for the single-input ridge
+regression model, that is, for the special case when <span
+class="math inline">\(p = 1\)</span>. Denote this by <span
+class="math inline">\(\mathrm{ELBO}^{(p=1)}(q; \mathbf{x},
+\mathbf{y})\)</span> to make the dependence of the ELBO on the data
+explicit.</p></li>
+<li><p>Next consider the more general (<span class="math inline">\(p
+&gt; 1\)</span>) case, but expand only the terms in the ELBO involving
+<span class="math inline">\(q_j\)</span>. If done carefully, this should
+give the following result: <span class="math display">\[
+\mathrm{ELBO}(q) =
+\mathrm{ELBO}^{(p=1)}(q_j; \mathbf{x}_j, \mathbf{r}_j) +
+\mathrm{const},
+\]</span> in which <span class="math inline">\(\mathbf{r}_j\)</span> was
+defined above, and the “const” includes all the terms that do not
+involve <span class="math inline">\(q_j\)</span>.</p></li>
+</ol>
+<p>In other words, the ELBO can be rearranged to exactly match the
+expression for the single-input ELBO if we ignore terms not involving
+<span class="math inline">\(q_j\)</span>. This means that optimizing one
+coordinate at a time reduces to computing the posterior distribution for
+a single-input ridge regression model, which is much more manageable
+than computing the posterior distribution for a ridge regression model
+with, say, thousands of inputs.</p>
+<p><em>The full derivation of this result is left as an
+exercise.</em></p>
+<p>By deriving the coordinatewise updates in this way, we have
+accomplished several things, including:</p>
+<ol style="list-style-type: decimal">
+<li><p>We can understand the algorithm as an optimization algorithm that
+is optimizing a specific objective function (the ELBO).</p></li>
+<li><p>The updates, when they “converge” (stop changing), should
+(usually) recover a maximum of the ELBO.</p></li>
+<li><p>We can understand this algorithm as making the approximation that
+the posterior is fully-factorized. (It turns out that for ridge
+regression, the posterior means are always exact under this
+approximation, which is why we saw above that these updates produced
+coefficients that were very close to the exact posterior means. The
+variances, on the other hand, which we did not keep track of, do not
+recover the exact posterior variances.</p></li>
+<li><p>We can also use the ELBO to monitor progress of the
+updates.</p></li>
+</ol>
+</div>
+</div>
+<div id="connection-to-em" class="section level2">
+<h2>Connection to EM</h2>
+<p>Finally, note that the close resemblence of the ELBO to <span
+class="math inline">\(F(\theta, q)\)</span> in <a
+href="em_variational.html">the vignette on EM</a> is not a coincidence.
+In fact, this connection has been exploited to develop approximate EM
+algorithms sometimes called “variational EM”.</p>
 </div>
 <div id="further-reading" class="section level2">
 <h2>Further reading</h2>
@@ -1413,21 +1600,19 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] MASS_7.3-60.0.1 workflowr_1.7.1
+[1] MASS_7.3-60.0.1
 
 loaded via a namespace (and not attached):
- [1] jsonlite_1.8.8    highr_0.10        compiler_4.3.3    promises_1.2.1   
- [5] Rcpp_1.0.12       stringr_1.5.1     git2r_0.33.0      callr_3.7.5      
- [9] later_1.3.2       jquerylib_0.1.4   yaml_2.3.8        fastmap_1.1.1    
-[13] R6_2.5.1          knitr_1.45        tibble_3.2.1      rprojroot_2.0.4  
-[17] bslib_0.6.1       pillar_1.9.0      rlang_1.1.5       utf8_1.2.4       
-[21] cachem_1.0.8      stringi_1.8.3     httpuv_1.6.14     xfun_0.42        
-[25] getPass_0.2-4     fs_1.6.5          sass_0.4.9        cli_3.6.4        
-[29] magrittr_2.0.3    ps_1.7.6          digest_0.6.34     processx_3.8.3   
-[33] fontawesome_0.5.2 rstudioapi_0.15.0 lifecycle_1.0.4   vctrs_0.6.5      
-[37] evaluate_0.23     glue_1.8.0        whisker_0.4.1     fansi_1.0.6      
-[41] rmarkdown_2.26    httr_1.4.7        tools_4.3.3       pkgconfig_2.0.3  
-[45] htmltools_0.5.8.1</code></pre>
+ [1] vctrs_0.6.5       cli_3.6.4         knitr_1.45        rlang_1.1.5      
+ [5] xfun_0.42         highr_0.10        stringi_1.8.3     promises_1.2.1   
+ [9] jsonlite_1.8.8    workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4  
+[13] git2r_0.33.0      htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.9       
+[17] fansi_1.0.6       rmarkdown_2.26    evaluate_0.23     jquerylib_0.1.4  
+[21] tibble_3.2.1      fastmap_1.1.1     yaml_2.3.8        lifecycle_1.0.4  
+[25] whisker_0.4.1     stringr_1.5.1     compiler_4.3.3    fs_1.6.5         
+[29] Rcpp_1.0.12       pkgconfig_2.0.3   later_1.3.2       digest_0.6.34    
+[33] R6_2.5.1          utf8_1.2.4        pillar_1.9.0      magrittr_2.0.3   
+[37] bslib_0.6.1       tools_4.3.3       cachem_1.0.8     </code></pre>
 </div>
 </div>
 
