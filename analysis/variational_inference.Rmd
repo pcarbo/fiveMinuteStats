@@ -556,12 +556,31 @@ thousands of inputs.
 
 *The full derivation of this result is left as an exercise.*
 
-TO DO: Circle back to thinking about the iterative algorithm as an
-optimization algorithm with a known objective function.
+By deriving the coordinatewise updates in this way, we have
+accomplished several things, including:
+
+1. We can understand the algorithm as an optimization algorithm that
+is optimizing a specific objective function (the ELBO).
+
+2. The updates, when they "converge" (stop changing), should (usually)
+recover a maximum of the ELBO.
+
+3. We can understand this algorithm as making the approximation that
+the posterior is fully-factorized. (It turns out that for ridge
+regression, the posterior means are always exact under this
+approximation, which is why we saw above that these updates produced
+coefficients that were very close to the exact posterior means. The
+variances, on the other hand, which we did not keep track of, do not
+recover the exact posterior variances.
+
+4. We can also use the ELBO to monitor progress of the updates.
 
 ## Connection to EM
 
-TO DO.
+Finally, note that the close resemblence of the ELBO to $F(\theta, q)$
+in [the vignette on EM](em_variational.html) is not a coincidence. In
+fact, this connection has been exploited to develop approximate EM
+algorithms sometimes called "variational EM".
 
 ## Further reading
 
