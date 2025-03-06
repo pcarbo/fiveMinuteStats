@@ -86,9 +86,11 @@ Skipping the derivations so that we can get more quickly to the main
 topic of interest, we note an important property of this model: the
 posterior distribution of $\mathbf{b}$ is a multivariate normal with a mean $\bar{\mathbf{b}}$ and a covariance $\mathbf{V}$ as follows:
 $$
-\bar{\mathbf{b}} = \mathbf{V}
+\begin{aligned}
+\bar{\mathbf{b}} &= \mathbf{V}
 \mathbf{X}^T\mathbf{y}/\sigma^2 \\
-\mathbf{V} = \sigma^2(\mathbf{X}^T\mathbf{X} + \lambda \mathbf{I})^{-1},
+\mathbf{V} &= \sigma^2(\mathbf{X}^T\mathbf{X} + \lambda \mathbf{I})^{-1},
+\end{aligned}
 $$
 such that $\lambda = \sigma^2/\sigma_0^2$, $\mathbf{I}$ is the $p
 \times p$ identity matrix, and $\mathbf{X}$ is the "input matrix",
@@ -119,11 +121,13 @@ b_j \sim N(\mu_j, v_j^2),
 $$
 where
 $$
-v_j = \bigg(\frac{\mathbf{x}_j^T\mathbf{x}_j}{s^2} +
+\begin{aligned}
+v_j &= \bigg(\frac{\mathbf{x}_j^T\mathbf{x}_j}{s^2} +
             \frac{1}{s_0^2}\bigg)^{-1} \\
-\mu_j = \frac{v_j}{s^2} \times
+\mu_j &= \frac{v_j}{s^2} \times
 \bigg(\mathbf{x}_j^T\mathbf{y} -
 \sum_{k \,\neq\, j} \mathbf{x}_j^T\mathbf{x}_k b_k \bigg).
+\end{aligned}
 $$
 
 *Discuss: What is the computational complexity of the Gibbs sampler
@@ -315,8 +319,10 @@ $$
 With these expressions, the coordinatewise updates for the iterative
 algorithm involve two steps:
 $$
-\mathbf{r}_j \leftarrow \mathbf{y} - \sum_{k\, \neq\, j} \mathbf{x}_k b_k \\
-b_j \leftarrow \bar{b}(\mathbf{x}_j, \mathbf{r}_j).
+\begin{aligned}
+\mathbf{r}_j &\leftarrow \mathbf{y} - \sum_{k\, \neq\, j} \mathbf{x}_k b_k \\
+b_j &\leftarrow \bar{b}(\mathbf{x}_j, \mathbf{r}_j).
+\end{aligned}
 $$
 In the machine learning literature, this update are often viewed as
 "messages" sent between the coordinates and there is a lot of work on
@@ -424,24 +430,44 @@ symmetric.)
 Smaller "divergences" mean that the two distributions are more
 similar, and when they are the same, the K-L divergence is zero.
 
+*Intuitively, our goal is to find a $q$ that makes the K-L divergence
+as small as possible. Therefore, the K-L divergence is the objective
+we are optimizing (although in practice it isn't exactly the K-L
+divergence).*
+
 Expanding the terms in the K-L divergence using properties of the
 logarithm, and expanding out the posterior (Bayes' Theorem),
 the K-L divergence works out to 
 $$
 \mathrm{KL}(q \,\|\, p_{\mathrm{post}}) =
-U(q) - H(q) + \log Z,
+F(q) + \log Z,
 $$
 where
 $$
-H(q) = - \textstyle \int q(\mathbf{b}) \log q(\mathbf{b}) \, d\mathbf{b} \\
-U(q) = - \textstyle \int q(\mathbf{b}) \log p(\mathbf{b}) \, d\mathbf{b} \\
-Z = \textstyle \int p(\mathbf{y} \mid \mathbf{X}, \mathbf{b}) \,
+\begin{aligned}
+F(q) &= U(q) - H(q) \\
+H(q) &= - \textstyle \int q(\mathbf{b}) \log q(\mathbf{b}) \, d\mathbf{b} \\
+U(q) &= - \textstyle \int q(\mathbf{b}) \log p(\mathbf{b}) \, d\mathbf{b} \\
+Z &= \textstyle \int p(\mathbf{y} \mid \mathbf{X}, \mathbf{b}) \,
 p(\mathbf{b}) \, d\mathbf{b}.
+\end{aligned}
 $$
-In statistical physics, $H(q)$ is known as the "entropy" and $U(q)$ is
-the "variational average energy".
+In statistical physics, $H(q)$ is known as the "entropy", $U(q)$ is
+the "variational average energy" and $F(q)$ is the "variational free energy".
 
 *Exercise: Derive this result.*
+
+Luckily, although $\log Z$ has an ugly and potentially
+difficult-to-compute integral inside of it, it does not depend on $q$,
+so we can ignore it! In other words, we can equivallently minimize
+$F(q)$ (the variational free energy) instead of the K-L divergence.
+The convention in machine learning is instead to maximize $-F(q)$,
+which is called the "Evidence Lower Bound", or "ELBO":
+$$
+\mathrm{ELBO}(q) = 
+\textstyle \int q(\mathbf{b}) \log p(\mathbf{b}) \, d\mathbf{b}
+- \textstyle \int q(\mathbf{b}) \log q(\mathbf{b}) \, d\mathbf{b}.
+$$
 
 *Optional exercise: Rewrite these expressions using expectations
 instead of integrals.*
