@@ -19,6 +19,13 @@ to use these techniques.
 I'd like to acknowledge that some of the content of this vignette is
 based on notes from John Novembre and Matthew Stephens.
 
+```{r, eval=FALSE, echo=FALSE}
+# Code to create the printable PDF.
+rmarkdown::render("variational_inference.Rmd",
+                  output_file = "variational_inference.pdf",
+				  output_format = pdf_document())
+```
+
 ## Prerequisites
 
 + You should be familiar with the basic concepts of Bayesian inference
@@ -486,7 +493,7 @@ ELBO itself, or restrict $q$ to a distribution that is particularly
 convenient computationally. One such constraint is that $q$ factorize
 into its individual coordinates; that is,
 $$
-q(\mathbf{b}) = \prod_{j=1}^p q(b_j).
+q(\mathbf{b}) = \prod_{j=1}^p q_j(b_j).
 $$
 In statistical physics, this is called the "mean field" approximation,
 and is actually an old idea dating back to the 1940s and 1950s.
@@ -501,18 +508,60 @@ among the coordinates. But keep in mind that poor approximations can
 still (sometimes) be useful!
 
 For some intuition why this approximation is helpful, the hope is that
-the $p$-dimensional integrals over $\mathbf{b}$ will decompose into
-much lower dimensional integrals, say, in 1 or 2 dimensions, which
-makes the problem much more tractable. *For example, with a
-fully-factorized $q$, how does the expectation/integral*
-$$
-E_q[\mathbf{X} \mathbf{b}]
-$$
-*decompose into smaller integrals? What is the dimension of those
-integrals?*
+with the property of $q$ being fully-factorized, the $p$-dimensional
+integrals over $\mathbf{b}$ will decompose into much lower dimensional
+integrals, say, in 1 or 2 dimensions, which makes the problem much
+more tractable. *For example, with a fully-factorized $q$, how does
+the expectation/integral* $E_q[\mathbf{X} \mathbf{b}]$ *decompose into
+smaller integrals? What is the dimension of those integrals?*
 
 ### Divide and conquer
 
+In summary, our optimization problem is to maximize the ELBO with the
+constraint that $q$ is fully-factorized. However it isn't yet clear
+how this connects to our iterative algorithm above. The connection is
+made by taking a "divide and conquer" approach: instead of trying to
+optimize the entire $q(\mathbf{b})$ at once, we instead optimize a
+single coordinate at a to,e, $q_j(b_j)$. *Doing this will lead to the
+updates given above.* This is a very widely used strategy in
+variational inference and is The proof is a bit tedious and too long
+to explain in detail here, but it isn't hard to give a high-level
+explanation.
+
+*Proof sketch:*
+
+1. Work out the expression for the ELBO for the single-input ridge
+regression model, that is, for the special case when $p = 1$. Denote
+this by $\mathrm{ELBO}^{(p=1)}(q; \mathbf{x}, \mathbf{y})$ to make the
+dependence of the ELBO on the data explicit.
+
+2. Next consider the more general ($p > 1$) case, but expand only the
+terms in the ELBO involving $q_j$. If done carefully, this should
+give the following result:
+$$
+\mathrm{ELBO}(q) =
+\mathrm{ELBO}^{(p=1)}(q_j; \mathbf{x}_j, \mathbf{r}_j) +
+\mathrm{const},
+$$
+in which $\mathbf{r}_j$ was defined above, and the "const" includes all
+the terms that do not involve $q_j$.
+
+In other words, the ELBO can be rearranged to exactly match the
+expression for the single-input ELBO if we ignore terms not involving
+$q_j$. This means that optimizing one coordinate at a time reduces to
+computing the posterior distribution for a single-input ridge
+regression model, which is much more manageable than computing the
+posterior distribution for a ridge regression model with, say,
+thousands of inputs.
+
+*The full derivation of this result is left as an exercise.*
+
+TO DO: Circle back to thinking about the iterative algorithm as an
+optimization algorithm with a known objective function.
+
+## Connection to EM
+
+TO DO.
 
 ## Further reading
 
