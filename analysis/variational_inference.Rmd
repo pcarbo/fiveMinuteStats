@@ -19,7 +19,8 @@ output: workflowr::wflow_html
 
 ## Introduction
 
-*Add introduction here.*
+*Add introduction here. Talk about this idea of solving a
+ high-dimensional/large-scale inference problem."
 
 ## Ridge regression
 

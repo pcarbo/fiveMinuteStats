@@ -53,7 +53,7 @@ plot_coefs_over_time <- function (B, show_average = FALSE) {
   if (show_average)
     B[1,] <- cumsum(B[1,])/1:niter
   plot(1:niter,B[1,],type = "l",lwd = 1,col = "dodgerblue",
-       ylim = range(B),xlab = "",ylab = "coef")
+       ylim = range(B),xlab = "iteration",ylab = "coefficient")
   for (j in 2:p) {
     if (show_average)
       B[j,] <- cumsum(B[j,])/1:niter
@@ -75,9 +75,9 @@ post <- ridge_post(X,y,s,s0)
 niter <- 100
 B <- ridge_gs(X,y,s,s0,niter)
 plot_coefs_over_time(B)
-points(rep(niter,p),post$mean,pch = 20,col = "black",cex = 1)
+points(rep(niter,p),post$mean,pch = 20,col = "darkblue",cex = 1)
 plot_coefs_over_time(B,show_average = TRUE)
-points(rep(niter,p),post$mean,pch = 20,col = "black",cex = 1)
+points(rep(niter,p),post$mean,pch = 20,col = "darkblue",cex = 1)
 
 # TO DO: UPDATE THIS DESCRIPTION. Return the posterior distribution
 # for the ridge regression model given data X, y, residual s.d. s, and
@@ -111,4 +111,4 @@ ridge_coord_ascent <- function (X, y, s, s0, niter, b = rep(0,ncol(X))) {
 niter <- 10
 B_map <- ridge_coord_ascent(X,y,s,s0,niter)
 plot_coefs_over_time(B_map)
-points(rep(niter,p),post$mean,pch = 20,col = "black",cex = 1)
+points(rep(niter,p),post$mean,pch = 20,col = "darkblue",cex = 1)
