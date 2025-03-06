@@ -94,27 +94,220 @@ paper the posterior distribution is straightforward.
 
 ## Simulating the posterior distribution
 
-Potentially a high-dimensional inference problem.
-
+As our first attempt at grappling with the challenges of inference in
+high dimensions, let's consider a simple Gibbs sampler which involves
+repeatedly choosing a dimension $j$ and randomly sampling from the
+posterior distribution of $b_j$ conditioned on all the other
+coefficients:
 $$
-b_j | b_{-j} \sim N(\mu_j, v_j)
+b_j \sim N(\mu_j, v_j^2),
 $$
 where
 $$
-\mu_j = ,
-\qquad
-v_j = x_j^Tx_j + \lambda
+v_j = \bigg(\frac{\mathbf{x}_j^T\mathbf{x}_j}{s^2} +
+            \frac{1}{s_0^2}\bigg)^{-1}, \qquad
+\mu_j = \frac{v_j}{s^2} \times
+\bigg(\mathbf{x}_j^T\mathbf{y} -
+\sum_{k \,\neq\, j} \mathbf{x}_j^T\mathbf{x}_k b_k \bigg).
 $$
 
-TO DO: Connect to "variational view" of EM.
+*Discuss the computational complexity of the Gibbs sampler updates for
+ridge regression and compare to the computational complexity of the
+analytical posterior computations above.*
+
+Let's implement this Gibbs sampler and test it out on a moderately
+large inference problem to gain some intuition for it, then we will
+draw comparisons to the variational inference solution.
+
+## The data set
+
+Load the MASS package:
+
+```{r mass}
+library(MASS)
+```
+
+And set the seed to ensure the results are reproducible.
+
+```{r set-seed} 
+set.seed(3)
+```
+
+We will use this function to simulate some data from a ridge
+regression model:
+
+```{r sim-ridge-data}
+# Simulate n data points from a ridge regression model with p inputs.
+# Other parameters: p1, the number of nonzero coefficients to simulate
+# (should not be greater than p); s, the residual standard deviation
+# (s.d.); s0, the prior s.d. used to simulate the nonzero
+# coefficients; and r, the correlation among the inputs.
+sim_ridge_data <- function (n, p, p1, s, s0, r) {
+  R <- matrix(r,p,p)
+  diag(R) <- 1
+  X <- mvrnorm(n,rep(0,p),R)
+  X <- scale(X,center = TRUE,scale = FALSE)
+  b <- rep(0,p)
+  b[1:p1] <- rnorm(p1,sd = s0)
+  y <- X %*% b + rnorm(n,sd = s)
+  y <- drop(scale(y,center = TRUE,scale = FALSE))
+  return(list(X = X,y = y,b = b))
+}
+```
+
+Now simulate 80 data points from a ridge regression model with 24
+inputs in which all but the first two inputs have coefficients of
+zero. The 24 input variables are all quite strongly correlated with
+each other (correlation of 0.8):
+
+```{r sim-data}
+n   <- 80
+p   <- 24
+s   <- 0.6
+s0  <- 3
+r   <- 0.8
+sim <- sim_ridge_data(n,p,2,s,s0,r)
+X   <- sim$X
+y   <- sim$y
+```
+
+## A Gibbs sampler
+
+This next bit of code defines a few functions used to implement the
+Gibbs sampler, visualize the state of the Markov chain over time, and
+compare to the analytical posterior distribution.
+
+```{r ridge-gs}
+# Perform "niter" Gibbs sampling updates for each input variable in
+# the ridge regression model with data X, y. The Markov chain is
+# initialized to "b".
+ridge_gs <- function (X, y, s, s0, niter, b = rep(0,ncol(X))) {
+  p  <- length(b)
+  B  <- matrix(0,p,niter)
+  XX <- crossprod(X)
+  xy <- drop(crossprod(X,y))
+  for (i in 1:niter) {
+    for (j in 1:p) {
+      v    <- 1/(XX[j,j]/s^2 + 1/s0^2)
+      mu   <- v * (xy[j] - sum(XX[j,-j]*b[-j]))/s^2
+      b[j] <- rnorm(1,mu,sqrt(v))
+    }
+    B[,i] <- b
+  }
+  return(B)
+}
+
+# Return the posterior distribution for the ridge regression model
+# given data X, y.
+ridge_post <- function (X, y, s, s0) {
+  p <- ncol(X)
+  lambda <- (s/s0)^2
+  V <- s^2 * solve(crossprod(X) + lambda*diag(p))
+  b <- drop(V %*% crossprod(X,y)/s^2)
+  return(list(mean = b,var = diag(V)))
+}
+
+# This function is used to view how the parameter estimates change
+# over time in the running of an inference algorithm (e.g.,
+# MCMC). Input B is a p x niter matrix where p is the number of
+# parameters and niter is the number of iterations performed.
+# When show_average = TRUE, a running average is shown instead of
+# the actual values in the B matrix.
+plot_params_over_time <- function (B, show_average = FALSE) {
+  p     <- nrow(B)
+  niter <- ncol(B)
+  if (show_average)
+    B[1,] <- cumsum(B[1,])/1:niter
+  plot(1:niter,B[1,],type = "l",lwd = 1,col = "dodgerblue",
+       ylim = range(B),xlab = "iteration",ylab = "coefficient")
+  for (j in 2:p) {
+    if (show_average)
+      B[j,] <- cumsum(B[j,])/1:niter
+    lines(1:niter,B[j,],lwd = 1,col = "dodgerblue")
+  }
+}
+```
+
+Run the Gibbs sampler for 100 iterations:
+
+```{r run-ridge-gs}
+niter <- 100
+B <- ridge_gs(X,y,s,s0,niter)
+```
+
+Let's now plot the state of the Markov chain, and let's compare the
+final state of the Markov chain to the exact posterior mean (the black
+dots in the plot):
+
+```{r plot-ridge-gs, fig.height=5, fig.width=3}
+par(mar = c(4,4,1,0))
+plot_params_over_time(B)
+post <- ridge_post(X,y,s,s0)
+points(rep(niter,p),post$mean,pch = 20,col = "darkblue",cex = 1)
+```
+
+At the last iteration, the Markov chain is quite close to the
+posterior mean but we wouldn't expect it to be exactly the same
+because the MCMC is intended to simulate the full posterior
+distribution, not just recover the posterior mean. If we instead take
+the average of the states then we should get closer to the exact
+calculations. This next plot shows the running average across the 100
+iterations of the Gibbs sampler:
+
+```{r plot-ridge-gs-running-average, fig.height=5, fig.width=3}
+par(mar = c(4,4,1,0))
+plot_params_over_time(B,show_average = TRUE)
+points(rep(niter,p),post$mean,pch = 20,col = "darkblue",cex = 1)
+```
+
+## An iterative algorithm
+
+Let's now consider a different iterative algorithm: like the Gibbs
+sampler, it updates one co-ordinate at a time; unlike the Gibbs
+samppler, the updates are deterministic (not stochastic). Here we will
+simply describe the updates and later we will motivate these updates
+as fitting a variational approxiation to the (exact) posterior
+distribution.
+
+To describe the updates, it is helpful to first write down the
+posterior distribution for a ridge regression model with a single
+input, which is a special case of the expressions given above:
+$$
+\bar{b} = v \mathbf{x}^T\mathbf{y}/\sigma^2,
+\qquad
+v = \sigma^2(\mathbf{x}^T\mathbf{x} + \lambda)^{-1}.
+$$
+For describing the updates, it will be convenient to define these
+expressions as functions of the data, so let's change the notation
+slightly:
+$$
+\bar{b}(\mathbf{x},\mathbf{y}) = v(\mathbf{x}, \mathbf{y}) \times
+\mathbf{x}^T\mathbf{y}/\sigma^2,
+\qquad
+v(\mathbf{x},\mathbf{y}) = \sigma^2(\mathbf{x}^T\mathbf{x} + \lambda)^{-1}.
+$$
+
+With these expressions, the coordinatewise updates are very simple to
+describe:
+$$
+\mathbf{r}_j \leftarrow \mathbf{y} - \sum_{k\, \neq\, j} \mathbf{x}_k b_k,
+\qquad
+b_j \leftarrow \bar{b}(\mathbf{x}_j, \mathbf{r}_j)
+$$
+
+TO DO: Try running for longer. What happens when we use a different
+starting point?
+
+TO DO: Discuss computational complexity of this algorithm compard
+to the Gibbs sampler and the analytical posterior.
 
 ## Further reading
 
-[Blei et al, "Variational inference: a review for statisticians"][blei-2017]
++ Blei et al, [Variational inference: a review for statisticians.][blei-2017]
 
-For a statistical physics perspective, see [Yedidia et al,
-"Constructing free-energy approximations and generalized belief
-propagation algorithms"][yedidia-2005].
++ For a statistical physics perspective, see Yedidia et al,
+[Constructing free-energy approximations and generalized belief
+propagation algorithms.][yedidia-2005]
 
 [blei-2017]: https://doi.org/10.1080/01621459.2017.1285773
 [ryantibs-ridge]: https://github.com/ryantibs/statlearn-s24/
