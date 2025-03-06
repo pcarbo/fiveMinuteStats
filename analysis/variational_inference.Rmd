@@ -304,21 +304,27 @@ v(\mathbf{x},\mathbf{y}) = \frac{\sigma^2}
 {\mathbf{x}^T\mathbf{x} + \lambda}.
 $$
 
-With these expressions, the coordinatewise updates are very simple to
-describe:
+### The coordinatewise updates
+
+With these expressions, the coordinatewise updates for the iterative
+algorithm involve two steps:
 $$
 \mathbf{r}_j \leftarrow \mathbf{y} - \sum_{k\, \neq\, j} \mathbf{x}_k b_k,
 \qquad
 b_j \leftarrow \bar{b}(\mathbf{x}_j, \mathbf{r}_j)
 $$
 
-These next two functions implement an iterative algorithm that cycles
-through $p$ of these updates for each of the $p$ input variables:
+Let's now see what these updates look like on the example data set.
+
+The first function here computes the posterior mean and variance for
+the single-input ridge regression model and the second function is
+simply a pair of for-loops that repeatedly cycles through the
+single-coordinate updates for all the $p$ input variables.
 
 ```{r ridge-iterative}
 # Return the posterior distribution for the single-input
 # ridge regression model given data x, y.
-ridge_post1 <- function (x, y, s, s0) {
+ridge1_post <- function (x, y, s, s0) {
   xx <- sum(x^2)
   xy <- sum(x*y)
   v <- s^2/(xx + (s/s0)^2)
@@ -336,7 +342,7 @@ ridge_iterative <- function (X, y, s, s0, niter, b = rep(0,ncol(X))) {
     for (j in 1:p) {
       x <- X[,j]
       r <- r + x*b[j]
-      b[j] <- ridge_post1(x,r,s,s0)$mean
+      b[j] <- ridge1_post(x,r,s,s0)$mean
       r <- r - x*b[j]
     }
     B[,i] <- b
@@ -345,7 +351,8 @@ ridge_iterative <- function (X, y, s, s0, niter, b = rep(0,ncol(X))) {
 }
 ```
 
-ADD TEXT HERE.
+Let's now run 20 rounds of this updates and look at how the
+coefficients $b_j$ change over time:
 
 ```{r plot-ridge-iterative, fig.height=5, fig.width=3}
 par(mar = c(4,4,1,0))
@@ -355,11 +362,13 @@ plot_params_over_time(B)
 points(rep(niter,p),post$mean,pch = 20,col = "darkblue",cex = 1)
 ```
 
-ADD SOME OBSERVATIONS
-
-TO DO: Try running for longer. Do the iterates get closer to the
-analytical solution? What happens when we use a different starting
-point?
+Notice that the iterative estimates of the coefficients get
+progressively closer to the analytical posterior mean. What happens if
+you run the iterative algorithm longer? Does it ever recover the
+analytical solution? Do the iterates eventually stop changing (that
+is, do they "converge" to a fixed point)? Here, we started at an
+initial estimate where all the coefficients were zero. What happens if
+we give the algorithm a random starting point?
 
 TO DO: Discuss differences between this as the Gibbs sampler (e.g., no
 need to take running averages). Do these updates always converge to a
