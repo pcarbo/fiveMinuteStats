@@ -21,9 +21,10 @@ based on notes from John Novembre and Matthew Stephens.
 
 ```{r, eval=FALSE, echo=FALSE}
 # Code to create the printable PDF.
-rmarkdown::render("variational_inference.Rmd",
-                  output_file = "variational_inference.pdf",
-				  output_format = pdf_document())
+library(rmarkdown)
+render("variational_inference.Rmd",
+       output_file = "variational_inference.pdf",
+  	   output_format = pdf_document())
 ```
 
 ## Prerequisites
