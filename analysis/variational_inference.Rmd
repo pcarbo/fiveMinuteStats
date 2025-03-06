@@ -111,5 +111,10 @@ TO DO: Connect to "variational view" of EM.
 
 [Blei et al, "Variational inference: a review for statisticians"][blei-2017]
 
+For a statistical physics perspective, see [Yedidia et al,
+"Constructing free-energy approximations and generalized belief
+propagation algorithms"][yedidia-2005].
+
 [blei-2017]: https://doi.org/10.1080/01621459.2017.1285773
 [ryantibs-ridge]: https://github.com/ryantibs/statlearn-s24/
+[yedidia-2005]: https://doi.org/10.1109/TIT.2005.850085
