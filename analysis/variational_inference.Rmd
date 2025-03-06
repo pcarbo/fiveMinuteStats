@@ -16,7 +16,13 @@ approximations than MCMC methods and therefore one has to (or at least
 should) think carefully about whether it is appropriate or justified
 to use these techniques.
 
+I'd like to acknowledge that some of the content of this vignette is
+based on notes from John Novembre and Matthew Stephens.
+
 ## Prerequisites
+
++ You should be familiar with the basic concepts of Bayesian inference
+  such as Bayes' Theorem and the posterior distribution.
 
 + MCMC (specifically, Gibbs sampling) will be used to illustrate some
   of the key ideas without giving any background, so you should be
@@ -81,8 +87,7 @@ topic of interest, we note an important property of this model: the
 posterior distribution of $\mathbf{b}$ is a multivariate normal with a mean $\bar{\mathbf{b}}$ and a covariance $\mathbf{V}$ as follows:
 $$
 \bar{\mathbf{b}} = \mathbf{V}
-\mathbf{X}^T\mathbf{y}/\sigma^2
-\quad \mathrm{and} \quad
+\mathbf{X}^T\mathbf{y}/\sigma^2 \\
 \mathbf{V} = \sigma^2(\mathbf{X}^T\mathbf{X} + \lambda \mathbf{I})^{-1},
 $$
 such that $\lambda = \sigma^2/\sigma_0^2$, $\mathbf{I}$ is the $p
@@ -115,15 +120,16 @@ $$
 where
 $$
 v_j = \bigg(\frac{\mathbf{x}_j^T\mathbf{x}_j}{s^2} +
-            \frac{1}{s_0^2}\bigg)^{-1}, \qquad
+            \frac{1}{s_0^2}\bigg)^{-1} \\
 \mu_j = \frac{v_j}{s^2} \times
 \bigg(\mathbf{x}_j^T\mathbf{y} -
 \sum_{k \,\neq\, j} \mathbf{x}_j^T\mathbf{x}_k b_k \bigg).
 $$
 
-*Discuss the computational complexity of the Gibbs sampler updates for
-ridge regression and compare to the computational complexity of the
-analytical posterior computations above.*
+*Discuss: What is the computational complexity of the Gibbs sampler
+updates for ridge regression and how does it compare to the
+computational complexity of the analytical posterior computations
+above?*
 
 Let's implement this Gibbs sampler and test it out on a moderately
 large inference problem to gain some intuition for it, then we will
@@ -309,10 +315,12 @@ $$
 With these expressions, the coordinatewise updates for the iterative
 algorithm involve two steps:
 $$
-\mathbf{r}_j \leftarrow \mathbf{y} - \sum_{k\, \neq\, j} \mathbf{x}_k b_k,
-\qquad
-b_j \leftarrow \bar{b}(\mathbf{x}_j, \mathbf{r}_j)
+\mathbf{r}_j \leftarrow \mathbf{y} - \sum_{k\, \neq\, j} \mathbf{x}_k b_k \\
+b_j \leftarrow \bar{b}(\mathbf{x}_j, \mathbf{r}_j).
 $$
+In the machine learning literature, this update are often viewed as
+"messages" sent between the coordinates and there is a lot of work on
+studying these algorithms as "message-passing" algorithms.
 
 Let's now see what these updates look like on the example data set.
 
@@ -370,16 +378,75 @@ is, do they "converge" to a fixed point)? Here, we started at an
 initial estimate where all the coefficients were zero. What happens if
 we give the algorithm a random starting point?
 
-TO DO: Discuss differences between this as the Gibbs sampler (e.g., no
-need to take running averages). Do these updates always converge to a
-fixed point?
+*Discuss differences between this iterative algorithm and the Gibbs
+sampler. In particular, compare the computational complexity of this
+iterative algorithm to the Gibbs sampler*
 
-TO DO: Discuss computational complexity of this algorithm compard
-to the Gibbs sampler and the analytical posterior.
+## Posterior inference as optimization
 
-TO DO: First think of this as computing the MAP (maximum a
-posteriori).  Next think of this as computing approximate posterior
-means. How to think about this?
+Posterior inference is fundamentally an integration problem; that is,
+computing posterior distributions and expectations with respect to the
+posterior distribution always involves sums or integrals (and
+sometimes these integrals have known closed-form formulas). The
+"magic" of variational inference is that it recasts this integration
+problem as an optimization problem. Here we will see how that happens
+generally, and for the ridge regression model. The key question we
+will answer is: *what is the objective function we are optimizing?*
+
+**Note:** One possible point of confusion with the ridge expression
+model is that the posterior mean is also the posterior mode, and as a
+result the iterative algorithm can also be viewed as an algorithm for
+finding the posterior mode (i.e., the *maximum a posteriori*
+estimate). We will try to avoid this perspective here since our goal
+is to to illustrate variational inference ideas that could be
+applicable to other models, not just ridge regression.
+
+### The Kullback-Leibler divergence
+
+Let $q(\mathbf{b})$ denote an approximation to the true posterior
+$p_{\mathrm{post}}(\mathbf{b}) = p(\mathbf{b} \mid \mathbf{X}, \mathbf{y})$.
+The starting point of all variational inference methods is a
+measure of the difference between the true posterior and the
+approximation. Here (like most variational inference approaches) we
+will us the Kullback-Leibler (K-L) divergence measure. The K-L
+divergence between $q(\mathbf{b})$ and the posterior is
+is
+$$
+\mathrm{KL}(q \,\|\, p_{\mathrm{post}}) =
+\int q(\mathbf{b})
+\log \bigg\{\frac{q(\mathbf{b})}{p_{\mathrm{post}}(\mathbf{b})}\bigg\} \,
+d\mathbf{b}.
+$$
+(It is called a "divergence" instead of a "difference" to remind us
+that this is not a symmetric measure since differences are usually
+symmetric.)
+
+Smaller "divergences" mean that the two distributions are more
+similar, and when they are the same, the K-L divergence is zero.
+
+Expanding the terms in the K-L divergence using properties of the
+logarithm, and expanding out the posterior (Bayes' Theorem),
+the K-L divergence works out to 
+$$
+\mathrm{KL}(q \,\|\, p_{\mathrm{post}}) =
+U(q) - H(q) + \log Z,
+$$
+where
+$$
+H(q) = - \textstyle \int q(\mathbf{b}) \log q(\mathbf{b}) \, d\mathbf{b} \\
+U(q) = - \textstyle \int q(\mathbf{b}) \log p(\mathbf{b}) \, d\mathbf{b} \\
+Z = \textstyle \int p(\mathbf{y} \mid \mathbf{X}, \mathbf{b}) \,
+p(\mathbf{b}) \, d\mathbf{b}.
+$$
+In statistical physics, $H(q)$ is known as the "entropy" and $U(q)$ is
+the "variational average energy".
+
+*Exercise: Derive this result.*
+
+*Optional exercise: Rewrite these expressions using expectations
+instead of integrals.*
+
+TO DO: Make connection to CAVI.
 
 ## Further reading
 
