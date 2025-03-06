@@ -61,10 +61,10 @@ plot_coefs_over_time <- function (B, show_average = FALSE) {
   }
 }
 
-n   <- 100
-p   <- 20
-s   <- 0.3
-s0  <- 2
+n   <- 80
+p   <- 24
+s   <- 0.6
+s0  <- 3
 r   <- 0.8
 sim <- sim_ridge_data(n,p,2,s,s0,r)
 X   <- sim$X
@@ -108,7 +108,7 @@ ridge_coord_ascent <- function (X, y, s, s0, niter, b = rep(0,ncol(X))) {
   return(B)
 }
 
-niter <- 10
+niter <- 20
 B_map <- ridge_coord_ascent(X,y,s,s0,niter)
 plot_coefs_over_time(B_map)
 points(rep(niter,p),post$mean,pch = 20,col = "darkblue",cex = 1)
