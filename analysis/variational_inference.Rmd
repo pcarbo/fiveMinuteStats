@@ -465,14 +465,54 @@ The convention in machine learning is instead to maximize $-F(q)$,
 which is called the "Evidence Lower Bound", or "ELBO":
 $$
 \mathrm{ELBO}(q) = 
-\textstyle \int q(\mathbf{b}) \log p(\mathbf{b}) \, d\mathbf{b}
-- \textstyle \int q(\mathbf{b}) \log q(\mathbf{b}) \, d\mathbf{b}.
+E_q[\log p(\mathbf{b})] - E_q[\log q(\mathbf{b})].
 $$
+Notice that I've rewritten the integrals as expectations.
+*So now are goal is to find a $q$ that maximizes the ELBO.*
 
-*Optional exercise: Rewrite these expressions using expectations
+*Optional exercise: Rewrite all these expressions using expectations
 instead of integrals.*
 
-TO DO: Make connection to CAVI.
+*When $q(\mathbf{b}) = p_{\mathrm{post}}(\mathbf{b})$, what is the
+ELBO equal to?*
+
+### A fully-factorized variational approximation
+
+Recall our goal is to be able to tackle large-scale inference
+problems. This inevitably requires some sort of compromise: we will
+have to accept some inaccuracy in the result to achieve faster
+computations. In variational inference, one can either approximate the
+ELBO itself, or restrict $q$ to a distribution that is particularly
+convenient computationally. One such constraint is that $q$ factorize
+into its individual coordinates; that is,
+$$
+q(\mathbf{b}) = \prod_{j=1}^p q(b_j).
+$$
+In statistical physics, this is called the "mean field" approximation,
+and is actually an old idea dating back to the 1940s and 1950s.
+The machine learning community has adopted much of the terminology from
+statistical physics and so also calls these "mean field" approximations.
+
+Clearly, this approximation will be accurate if the true posterior
+distribution also factorizes in this way. (*Question: when does the
+ridge regression posterior factorize in this way?*) On the other hand,
+this approximation can be very poor if there are strong correlations
+among the coordinates. But keep in mind that poor approximations can
+still (sometimes) be useful!
+
+For some intuition why this approximation is helpful, the hope is that
+the $p$-dimensional integrals over $\mathbf{b}$ will decompose into
+much lower dimensional integrals, say, in 1 or 2 dimensions, which
+makes the problem much more tractable. *For example, with a
+fully-factorized $q$, how does the expectation/integral*
+$$
+E_q[\mathbf{X} \mathbf{b}]
+$$
+*decompose into smaller integrals? What is the dimension of those
+integrals?*
+
+### Divide and conquer
+
 
 ## Further reading
 
