@@ -591,6 +591,24 @@ algorithms sometimes called "variational EM".
 [Constructing free-energy approximations and generalized belief
 propagation algorithms.][yedidia-2005]
 
+## Development notes
+
+Some additional important points about variational inference that
+weren't well covered in this lesson:
+
++ Would be useful to introduce the terminology of "variational
+  parameters".
+
++ The ridge regression example maybe doesn't drive home that the
+  choice of $q$ is often approximate (it's a bit lucky here that the
+  marginals are in fact normal so the choice of $q$ as normal seems
+  almost like it's not a choice).
+
++ It might be nice to add density or contour plots of the true
+  posterior on two of the betas vs. the same for the variational
+  approximation (similar to Blei's figure) that would help emphasize
+  how the covariance structure in the posterior is lost.
+
 [blei-2017]: https://doi.org/10.1080/01621459.2017.1285773
 [ryantibs-ridge]: https://github.com/ryantibs/statlearn-s24/
 [yedidia-2005]: https://doi.org/10.1109/TIT.2005.850085
