@@ -1,10 +1,11 @@
 # fiveMinuteStats
 
-This repo is intended to contain short "vignettes" illustrating statistical concepts.
-It is very much work in progress. Things may change quickly and often... 
+This repo is intended to contain short "vignettes" illustrating
+statistical concepts.  It is very much work in progress. Things may
+change quickly and often...
 
-The name comes from the fact that, in principle, each vignette should be readable in a short amount of time.
-Perhaps five minutes. 
+The name comes from the fact that, in principle, each vignette should
+be readable in a short amount of time.  Perhaps five minutes.
 
 The overall goal is that by making vignettes short in this way we can try to make learning more "modular".
 Each vignette should, ideally, focus on introducing a single concept, or a small number of related concepts,
