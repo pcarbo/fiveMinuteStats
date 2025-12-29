@@ -1,7 +1,20 @@
 ---
 title: "Comparing two models with a likelihood ratio"
-author: "Matthew Stephens"
-bibliography: citations.bib
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: December 29, 2025
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
 # Summary
@@ -9,6 +22,10 @@ bibliography: citations.bib
 This document introduces the concept of likelihood ratio for comparing
 two simple ("fully specified") statistical models, one of the most
 fundamental concepts in statistical inference.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
+```
 
 # Pre-requisites
 
@@ -139,6 +156,7 @@ more probable under model $M_1$ than under model $M_0$, and so indicate support 
 ## Example 
 
 Using the numbers in the tables above we can compute the likelihood and LR for $M_S$ vs $M_F$:
+
 ```{r}
 x = c(1,0,1,0,0,1)
 fS = c(0.40, 0.12,0.21,0.12,0.02,0.32)

@@ -9,8 +9,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Matthew Stephens" />
 
+<meta name="date" content="2025-12-29" />
 
 <title>Comparing two models with a likelihood ratio</title>
 
@@ -36,8 +36,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -73,29 +71,6 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-/* for pandoc --citeproc since 2.11 */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 
 
@@ -366,10 +341,7 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/stephens999/fiveMinuteStats">
-    <span class="fa fa-github"></span>
-     
-  </a>
+  <a href="https://github.com/pcarbo/fiveMinuteStats">source</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -383,6 +355,8 @@ div.tocify {
 <h1 class="title toc-ignore">Comparing two models with a likelihood
 ratio</h1>
 <h4 class="author">Matthew Stephens</h4>
+<address class="author_afil">
+University of Chicago<br><h4 class="date">December 29, 2025</h4>
 
 </div>
 
@@ -390,7 +364,7 @@ ratio</h1>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -401,8 +375,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -415,9 +389,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
@@ -440,18 +414,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -542,15 +519,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreec8270f5b0c31cd1d6af15fc9c8ff707e5e3a735etargetblankc8270f5a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree599a8d7cc512f20373c23308b393204f36d8a6e4targetblank599a8d7a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/c8270f5b0c31cd1d6af15fc9c8ff707e5e3a735e" target="_blank">c8270f5</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/599a8d7cc512f20373c23308b393204f36d8a6e4" target="_blank">599a8d7</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreec8270f5b0c31cd1d6af15fc9c8ff707e5e3a735etargetblankc8270f5a"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree599a8d7cc512f20373c23308b393204f36d8a6e4targetblank599a8d7a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -560,7 +537,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/c8270f5b0c31cd1d6af15fc9c8ff707e5e3a735e" target="_blank">c8270f5</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/599a8d7cc512f20373c23308b393204f36d8a6e4" target="_blank">599a8d7</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -575,8 +552,12 @@ were generated:
 </p>
 <pre><code>
 Unstaged changes:
-    Modified:   analysis/_site.yml
-    Modified:   analysis/r_simplemix.Rmd
+    Modified:   .gitignore
+    Modified:   Makefile
+    Modified:   analysis/likelihood_ratio_simple_models.Rmd
+
+Staged changes:
+    New:        readable.tex
 
 </code></pre>
 <p>
@@ -623,6 +604,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/599a8d7cc512f20373c23308b393204f36d8a6e4/analysis/likelihood_ratio_simple_models.Rmd" target="_blank">599a8d7</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-12-29
+</td>
+<td>
+A few small adjustments to the workflowr settings.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/04994f5dd7af60de1d5764dc2142d8f0b6e5ed23/analysis/likelihood_ratio_simple_models.Rmd" target="_blank">04994f5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-12-29
+</td>
+<td>
+Added basic Makefile infrastructure.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/6cefaaa585fd4d9bcdd0417395c225afb3db4a54/docs/likelihood_ratio_simple_models.html" target="_blank">6cefaaa</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-12-29
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1058,7 +1090,7 @@ add simple LR example
 <div id="summary" class="section level1">
 <h1>Summary</h1>
 <p>This document introduces the concept of likelihood ratio for
-comparing two simple (“fully specified”) statistical models - one of the
+comparing two simple (“fully specified”) statistical models, one of the
 most fundamental concepts in statistical inference.</p>
 </div>
 <div id="pre-requisites" class="section level1">
@@ -1068,11 +1100,11 @@ concept of a probability distribution.</p>
 </div>
 <div id="motivating-problem" class="section level1">
 <h1>Motivating Problem</h1>
-<p>[Technical Note: to simplify this problem I have assumed that
-elephants are <a
+<p><strong>Technical Note:</strong> To simplify this problem I have
+assumed that elephants are <a
 href="https://en.wikipedia.org/wiki/Ploidy">haploid</a>, which they are
 not. If you do not know what this means you should simply ignore this
-comment.]</p>
+comment.</p>
 <p>There are two subspecies of African Elephant: savannah and forest
 elephants, which differ in their genetic makeup. Interpol have seized an
 illegally-smuggled elephant tusk, and they want to know which subspecies
@@ -1192,9 +1224,9 @@ overall conclusion.</p>
 authorities want to know the origin of poached tusks to help focus
 efforts on curbing this illegal activity; in practice they are
 interested in much finer-level discrimination, and measure many genetic
-markers to get more information. See <span class="citation">Wasser et
-al. (2007)</span> and <span class="citation">Wasser et al. (2008)</span>
-for more details.)</p>
+markers to get more information. See <span
+class="citation">@wasser.etal.07</span> and <span
+class="citation">@wasser.etal.08</span> for more details.)</p>
 </div>
 <div id="solution" class="section level1">
 <h1>Solution</h1>
@@ -1276,8 +1308,8 @@ fS = c(0.40, 0.12,0.21,0.12,0.02,0.32)
 fF = c(0.8,0.2,0.11,0.17,0.23,0.25)
 L = function(f,x){ prod(f^x*(1-f)^(1-x)) }
 LR = L(fS,x)/L(fF,x)
-print(LR)</code></pre>
-<pre><code>[1] 1.81359</code></pre>
+print(LR)
+# [1] 1.81359</code></pre>
 <p>So <span class="math inline">\(LR(M_S,M_F;x)\)</span> is
 <code>1.8135904</code>. This means that the data favor the tusk coming
 from a savanna elephant by a factor of about 1.8. This is a fairly
@@ -1429,21 +1461,6 @@ means “the data favour model 2 by a factor of 1/x”“)</p></li>
 </ol>
 <div id="references" class="section level2">
 <h2>References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent"
-entry-spacing="0">
-<div id="ref-wasser.etal.08" class="csl-entry">
-Wasser, SK, WJ Clark, O Drori, ES Kisamo, C Mailand, B Mutayoba, and M
-Stephens. 2008. <span>“Combating the Illegal Trade in African Elephat
-Ivory with DNA Forensics.”</span> <em>Conservations Biology</em> 22 (4):
-1065–71.
-</div>
-<div id="ref-wasser.etal.07" class="csl-entry">
-Wasser, SK, C Mailand, R Booth, B Mutayoba, E Kisamo, B Clark, and M
-Stephens. 2007. <span>“Using DNA to Track the Origin of the Largest
-Ivory Seizure Since the 1989 Trade Ban.”</span> <em>Proceedings of the
-National Academy of Sciences</em> 104 (10): 4228–33.
-</div>
-</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1452,34 +1469,34 @@ Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.3.3 (2024-02-29)
-Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS 15.7.1
-
-Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
-LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
-
-locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-
-time zone: America/Chicago
-tzcode source: internal
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-loaded via a namespace (and not attached):
- [1] vctrs_0.6.5       cli_3.6.5         knitr_1.50        rlang_1.1.6      
- [5] xfun_0.52         stringi_1.8.7     promises_1.3.3    jsonlite_2.0.0   
- [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.33.0     
-[13] htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.10       rmarkdown_2.29   
-[17] evaluate_1.0.4    jquerylib_0.1.4   tibble_3.3.0      fastmap_1.2.0    
-[21] yaml_2.3.10       lifecycle_1.0.4   whisker_0.4.1     stringr_1.5.1    
-[25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
-[29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
-[33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0     </code></pre>
+<pre class="r"><code>sessionInfo()
+# R version 4.3.3 (2024-02-29)
+# Platform: aarch64-apple-darwin20 (64-bit)
+# Running under: macOS 15.7.1
+# 
+# Matrix products: default
+# BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+# LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+# 
+# locale:
+# [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+# 
+# time zone: America/Chicago
+# tzcode source: internal
+# 
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# 
+# loaded via a namespace (and not attached):
+#  [1] vctrs_0.6.5       cli_3.6.5         knitr_1.50        rlang_1.1.6      
+#  [5] xfun_0.52         stringi_1.8.7     promises_1.3.3    jsonlite_2.0.0   
+#  [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.33.0     
+# [13] htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.10       rmarkdown_2.29   
+# [17] evaluate_1.0.4    jquerylib_0.1.4   tibble_3.3.0      fastmap_1.2.0    
+# [21] yaml_2.3.10       lifecycle_1.0.4   whisker_0.4.1     stringr_1.5.1    
+# [25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
+# [29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
+# [33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0</code></pre>
 </div>
 </div>
 </div>

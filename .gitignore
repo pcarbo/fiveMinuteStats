@@ -2,7 +2,6 @@
 .Rproj.user
 .R*
 .Rhistory
-*pdf
 analysis/rda
 analysis/figure
 analysis/*html
