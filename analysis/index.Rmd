@@ -8,7 +8,7 @@ title: Home
 ### Likelihood Ratio and Likelihood
 
 * [Likelihood Ratio for fully specified models, discrete data](likelihood_ratio_simple_models.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/likelihood_ratio_simple_models.pdf))
-* [Likelihood Ratio for fully specified models, continuous data](likelihood_ratio_simple_continuous_data.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/likelihood_ratio_continuous_data.pdf))
+* [Likelihood Ratio for fully specified models, continuous data](likelihood_ratio_simple_continuous_data.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/likelihood_ratio_simple_continuous_data.pdf))
 * Likelihood Ratios: Examples and Pitfalls
     - [Examples and Pitfalls](likelihood_do_dont.html)
     - [Example: LRs must be computed on same data](LR_error.html)
