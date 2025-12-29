@@ -113,6 +113,6 @@ title: Home
 
 ## Population Genetics
 
-* [Simulating from a simple genetic mixture model](r_simplemix.html)
+* [Simulating from a simple genetic mixture model](r_simplemix.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/r_simplemix.pdf))
 * [Wright-Fisher Model](wright_fisher_model.html)
 * [Wright-Fisher Model Approximations](approx_wright_fisher_model.html)

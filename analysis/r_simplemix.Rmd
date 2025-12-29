@@ -1,11 +1,23 @@
 ---
-title: "Generate data from a simple genetic mixture model"
-author: "Matthew Stephens"
-date: "2020-07-22"
-output: workflowr::wflow_html
-editor_options:
-  chunk_output_type: console
+title: Generate data from a simple genetic mixture model
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: December 29, 2025
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
+
+See [here][pdf_version] for a PDF version of this vignette.
 
 ## Introduction
 
@@ -164,8 +176,6 @@ Here `a` is a vector of length 2 giving the parameters of the beta prior for `P[
 That is, the prior is `P[k,r]` $\sim$ Beta(`a[1]`,`a[2]`).
 Because the Beta distribution has two parameters, there will be 2 parameters for each locus and each population. So the output of your function should be a 2 x 'K' x `R` array (where 'K=2' because we have a mixture of 2 populations).
 
-
-
 ## Answer templates
 
 Here are some answer templates for Exercises 2 and 3.
@@ -174,7 +184,6 @@ You will need to fill in the "..."
 on compilation.)
 
 ### Exercise 2
-
 
 ```{r eval=FALSE}
 #' Compute the likelihood for allele frequences p given genotype data x
@@ -220,7 +229,7 @@ plot(sim$z,posterior[,2],xlab="true population", ylab="posterior prob for popula
 ### Exercise 3
 
 
-```{r eval = FALSE}
+```{r, eval=FALSE}
 #' Compute the posterior parameters for allele frequencies given genotypes 
 #' and population labels
 #' @param x an n by R matrix of genotypes
@@ -248,8 +257,4 @@ posterior_param[,1,] # these should be the posterior parameters for population 1
 posterior_param[,2,] # these should be the posterior parameters for population 2
 ```
 
-
-
-
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/r_simplemix.pdf
