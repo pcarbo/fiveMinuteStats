@@ -1,23 +1,22 @@
 name: fiveMinuteStats
-output_dir: "../docs"
-include: [".nojekyll"]
-exclude: ["include"]
+output_dir: ../docs
 navbar:
   title: fiveMinuteStats
   left:
-    - text: "Home"
+    - text: Home
       href: index.html
-    - text: "About"
+    - text: About
       href: about.html
-    - text: "License"
+    - text: License
       href: license.html
   right:
-    - icon: fa-github
-      href: https://github.com/stephens999/fiveMinuteStats
+    - text: source
+      href: https://github.com/pcarbo/fiveMinuteStats
 output:
   workflowr::wflow_html:
     toc: true
     toc_float: true
     theme: readable
     highlight: textmate
-
+    lib_dir: site_libs
+    self_contained: no
