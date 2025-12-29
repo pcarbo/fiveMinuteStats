@@ -1,13 +1,25 @@
 ---
-title: "Bayesian calculation for comparing K models"
-author: "Matthew Stephens"
-date: 2016-01-19
+title: Bayesian calculation for comparing K models
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: December 29, 2025
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
+See [here][pdf_version] for a PDF version of this vignette.
 
-
-
-# Pre-requisites
+# Prerequisites
 
 Be familiar with the [Computing the posterior probability on classes for 2 classes](LR_and_BF.html)
 
@@ -68,8 +80,4 @@ posterior_prob(L_vec, c(0.2,0.2,0.2,0.2,0.2))
 
 3. In practice we might not know $\pi$. And although in such a case it might seem natural to assume that all the values of $\pi$ are equal, one has to be careful to note that this is still an assumption, and such assumptions may have unforeseen implications. For example, in this case, this assumption implies that 60% of the tusks are from savanna elephants and 40% from forest elephants, not 50%-50% (because three of our five groups are savanna). The difference between 60-40 and 50-50 is probably not a big deal in most applications, but imagine that we had 20 different savanna groups and 2 forest groups. Would we still be happy to assume that every group was equally common (and so savanna tusks are 10 times as common as forest tusks)? The answer would depend on the context, but quite possibly not.
 
-
-
-
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bayes_multiclass.pdf

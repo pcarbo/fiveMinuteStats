@@ -9,38 +9,36 @@ title: Home
 
 * [Likelihood Ratio for fully specified models, discrete data](likelihood_ratio_simple_models.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/likelihood_ratio_simple_models.pdf))
 * [Likelihood Ratio for fully specified models, continuous data](likelihood_ratio_simple_continuous_data.html)
-*  Likelihood Ratios: Examples and Pitfalls
+* Likelihood Ratios: Examples and Pitfalls
     - [Examples and Pitfalls](likelihood_do_dont.html)
     - [Example: LRs must be computed on same data](LR_error.html)
-*  [Likelihood Ratios: how big is convincing?](LR_and_BF.html) (PDF)
-*  [Likelihood Ratios: Wilks's Theorem](wilks.html)
-*  [The Likelihood Function](likelihood_function.html)
-*  [Asymptotic Normality of MLE](asymptotic_normality_mle.html)
+* [Likelihood Ratios: how big is convincing?](LR_and_BF.html) [(PDF](https://github.com/pcarbo/fiveMinuteStats/blob/mast\
+er/docs/LR_and_BF.pdf))
+* [Likelihood Ratios: Wilks's Theorem](wilks.html)
+* [The Likelihood Function](likelihood_function.html)
+* [Asymptotic Normality of MLE](asymptotic_normality_mle.html)
 
 ### Bayesian Inference
 
-*  [Bayesian inference for comparing two fully-specified models](LR_and_BF.html)
-*  [Bayesian inference for comparing multiple fully-specified models](bayes_multiclass.html)
-*  [Bayesian inference for a continuous parameter: analytic calculation](bayes_beta_binomial.html)
-*  [Bayesian inference for a continuous parameter: summarizing the posterior](summarize_interpret_posterior.html)
-*  [Bayesian inference for a continuous parameter: conjugacy](bayes_conjugate.html)
-*  [Bayesian inference for a normal mean](bayes_conjugate_normal_mean.html)
-*  [Bayesian inference for a normal mean (shiny app illustration)](shiny_normal_example.html)
-*  [Bayesian inference for multiple independent parameters](bayes_independent.html)
-
+* [Bayesian inference for comparing two fully-specified models](LR_and_BF.html)
+* [Bayesian inference for comparing multiple fully-specified models](bayes_multiclass.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/mast\
+er/docs/bayes_multiclass.pdf))
+* [Bayesian inference for a continuous parameter: analytic calculation](bayes_beta_binomial.html)
+* [Bayesian inference for a continuous parameter: summarizing the posterior](summarize_interpret_posterior.html)
+* [Bayesian inference for a continuous parameter: conjugacy](bayes_conjugate.html)
+* [Bayesian inference for a normal mean](bayes_conjugate_normal_mean.html)
+* [Bayesian inference for a normal mean (shiny app illustration)](shiny_normal_example.html)
+* [Bayesian inference for multiple independent parameters](bayes_independent.html)
 
 ### Empirical Bayes
 
 * [The Empirical Bayes Normal Means problem](ebnm_normal.html)
-
-
 
 ### Frequentist vs Bayesian Inference
 
 * [The difficulty calibrating p values](pvalue_difficult_calibrate_example.html)
 * [Relationship between Bayes Factor and p value](BF_and_pvalue.html)
 * [Conditional coverage of a standard normal CI](CI_conditional_coverage.html)
-
 
 ### Decision Theory
 
@@ -78,7 +76,6 @@ title: Home
 
 * [Forwards Backwards calculation example](hmm.html)
 
-
 ## Distributions
 
 * [The Beta Distribution](beta.html)
@@ -104,7 +101,6 @@ title: Home
 
 *  [Inverse Transform Sampling](inverse_transform_sampling.html)
 
-
 ### Multivariate Normal
 
 * [A key property of univariate normal](norm_linear_comb.html)
@@ -122,4 +118,3 @@ title: Home
 * [Simulating from a simple genetic mixture model](r_simplemix.html)
 * [Wright-Fisher Model](wright_fisher_model.html)
 * [Wright-Fisher Model Approximations](approx_wright_fisher_model.html)
-
