@@ -17,6 +17,8 @@ graphics: yes
 endnote: no
 ---
 
+See [here][pdf_version] for a PDF version of this vignette.
+
 # Summary
 
 This document introduces the concept of likelihood ratio for comparing
@@ -247,5 +249,6 @@ Repeat after me:
 3. "If the likelihood ratio for model 1 vs model 2 is x, then this means the data favour model 1 by a factor of x". (Or, if x <1 then it means "the data favour model 2 by a factor of 1/x"")
 
 
-
 ## References
+
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/likelihood_ratio_simple_models.pdf
