@@ -5,19 +5,24 @@
 # -----
 all: docs/index.html \
      docs/likelihood_ratio_simple_models.html \
+     docs/likelihood_ratio_simple_continuous_data.pdf \
      docs/LR_and_BF.html \
      docs/bayes_multiclass.html \
      docs/r_simplemix.html \
      docs/likelihood_ratio_simple_models.pdf \
+     docs/likelihood_ratio_simple_continuous_data.pdf \
      docs/LR_and_BF.pdf \
      docs/bayes_multiclass.pdf \
-     docs/r_simplemix.pdf
+     docs/r_simplemix.pdf \
 
 docs/index.html : analysis/index.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/index.Rmd",view = FALSE)'
 
 docs/likelihood_ratio_simple_models.html : analysis/likelihood_ratio_simple_models.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/likelihood_ratio_simple_models.Rmd",view = FALSE)'
+
+docs/likelihood_ratio_simple_continuous_data.html : analysis/likelihood_ratio_simple_continuous_data.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/likelihood_ratio_simple_continuous_data.Rmd",view = FALSE)'
 
 docs/LR_and_BF.html : analysis/LR_and_BF.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/LR_and_BF.Rmd",view = FALSE)'
@@ -31,6 +36,11 @@ docs/r_simplemix.html : analysis/r_simplemix.Rmd
 docs/likelihood_ratio_simple_models.pdf : analysis/likelihood_ratio_simple_models.Rmd readable.tex
 	cp analysis/likelihood_ratio_simple_models.Rmd temp.Rmd
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/likelihood_ratio_simple_models.pdf")'
+	rm temp.Rmd
+
+docs/likelihood_ratio_simple_continuous_data.pdf : analysis/likelihood_ratio_simple_continuous_data.Rmd readable.tex
+	cp analysis/likelihood_ratio_simple_continuous_data.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/likelihood_ratio_simple_continuous_data.pdf")'
 	rm temp.Rmd
 
 docs/LR_and_BF.pdf : analysis/LR_and_BF.Rmd readable.tex
@@ -50,5 +60,8 @@ docs/r_simplemix.pdf : analysis/r_simplemix.Rmd readable.tex
 
 clean:
 	rm -f docs/likelihood_ratio_simple_models.pdf
+	rm -f docs/likelihood_ratio_simple_continuous_data.pdf
 	rm -f docs/LR_and_BF.pdf
+	rm -f docs/bayes_multiclass.pdf
+	rm -f docs/r_simplemix.pdf
 

@@ -1,12 +1,23 @@
 ---
-title: "The likelihood ratio for continuous data"
-author: "Matthew Stephens"
-date: 2016-01-07
+title: The likelihood ratio for continuous data
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: December 29, 2025
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
-
-
-
+See [here][pdf_version] for a PDF version of this vignette.
 
 # Summary
 
@@ -104,16 +115,14 @@ But if one of the $\sigma_j$ is small, we have the problem that the density is n
 at $\sigma_0,\sigma_1 = 0.001,1$ we have the 
 truth and approximation as `r trueLR(0.001,1)` and `r approxLR(0.001,1)`.
 
-
 # Summary
 
-In most cases, the Likelihood ratio for model $M_1$ vs model $M_0$ for a continuous
-random variable $X$, given an observation 
-$X=x$, can be well approximated by
-the ratio of the model densities of $X$, evaluated at $x$.
-This approximation comes from assuming that the model density functions are 
-approximately constant within the neighborhood of $x$ that has radius equal to the measurement precision.
+In most cases, the likelihood ratio for model $M_1$ vs. model $M_0$ for
+a continuous random variable $X$, given an observation $X = x$, can be
+well approximated by the ratio of the model densities of $X$,
+evaluated at $x$. This approximation comes from assuming that the
+model density functions are approximately constant within the
+neighborhood of $x$ that has radius equal to the measurement
+precision.
 
-
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/likelihood_ratio_simple_continuous_data.pdf
