@@ -1,13 +1,25 @@
 ---
-title: "Inverse Transform Sampling"
-author: "Matt Bonakdarpour"
-date: 2016-02-02
+title: Inverse transform sampling
+author: 
+  name: Matt Bonakdarpour
+  affiliation: University of Chicago
+date: December 29, 2025
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
+See [here][pdf_version] for a PDF version of this vignette.
 
-
-
-# Pre-requisites
+# Prerequisites
 
 This document assumes basic familiarity with probability theory.
 
@@ -98,6 +110,4 @@ barplot(table(samples), main='Empirical Probability Mass Function')
 
 Again, the plot supports our claim that we are drawing from the true probability distribution 
 
-
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/inverse_transform_sampling.pdf

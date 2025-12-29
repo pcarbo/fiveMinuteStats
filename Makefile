@@ -5,12 +5,14 @@
 # -----
 all: docs/index.html \
      docs/integral.html \
+     docs/inverse_transform_sampling.html \
      docs/likelihood_ratio_simple_models.html \
      docs/likelihood_ratio_simple_continuous_data.pdf \
      docs/LR_and_BF.html \
      docs/bayes_multiclass.html \
      docs/r_simplemix.html \
      docs/integral.pdf \
+     docs/inverse_transform_sampling.pdf \
      docs/likelihood_ratio_simple_models.pdf \
      docs/likelihood_ratio_simple_continuous_data.pdf \
      docs/LR_and_BF.pdf \
@@ -22,6 +24,9 @@ docs/index.html : analysis/index.Rmd
 
 docs/integral.html : analysis/integral.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/integral.Rmd",view = FALSE)'
+
+docs/inverse_transform_sampling.html : analysis/inverse_transform_sampling.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/inverse_transform_sampling.Rmd",view = FALSE)'
 
 docs/likelihood_ratio_simple_models.html : analysis/likelihood_ratio_simple_models.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/likelihood_ratio_simple_models.Rmd",view = FALSE)'
@@ -41,6 +46,11 @@ docs/r_simplemix.html : analysis/r_simplemix.Rmd
 docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/integral.pdf")'
+	rm temp.Rmd
+
+docs/inverse_transform_sampling.pdf : analysis/inverse_transform_sampling.Rmd readable.tex
+	cp analysis/inverse_transform_sampling.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/inverse_transform_sampling.pdf")'
 	rm temp.Rmd
 
 docs/likelihood_ratio_simple_models.pdf : analysis/likelihood_ratio_simple_models.Rmd readable.tex
