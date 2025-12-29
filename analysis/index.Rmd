@@ -12,8 +12,7 @@ title: Home
 * Likelihood Ratios: Examples and Pitfalls
     - [Examples and Pitfalls](likelihood_do_dont.html)
     - [Example: LRs must be computed on same data](LR_error.html)
-* [Likelihood Ratios: how big is convincing?](LR_and_BF.html) [(PDF](https://github.com/pcarbo/fiveMinuteStats/blob/mast\
-er/docs/LR_and_BF.pdf))
+* [Likelihood Ratios: how big is convincing?](LR_and_BF.html) [(PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/LR_and_BF.pdf))
 * [Likelihood Ratios: Wilks's Theorem](wilks.html)
 * [The Likelihood Function](likelihood_function.html)
 * [Asymptotic Normality of MLE](asymptotic_normality_mle.html)
@@ -21,8 +20,7 @@ er/docs/LR_and_BF.pdf))
 ### Bayesian Inference
 
 * [Bayesian inference for comparing two fully-specified models](LR_and_BF.html)
-* [Bayesian inference for comparing multiple fully-specified models](bayes_multiclass.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/mast\
-er/docs/bayes_multiclass.pdf))
+* [Bayesian inference for comparing multiple fully-specified models](bayes_multiclass.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bayes_multiclass.pdf))
 * [Bayesian inference for a continuous parameter: analytic calculation](bayes_beta_binomial.html)
 * [Bayesian inference for a continuous parameter: summarizing the posterior](summarize_interpret_posterior.html)
 * [Bayesian inference for a continuous parameter: conjugacy](bayes_conjugate.html)
