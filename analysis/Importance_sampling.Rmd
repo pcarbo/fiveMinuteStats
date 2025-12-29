@@ -1,15 +1,23 @@
 ---
-title: "Introduction to Importance Sampling"
-author: "Matthew Stephens"
-date: 2016-05-02
+title: Introduction to importance sampling
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: December 29, 2025
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
-
-
-
-# Pre-requisites
-
-# Overview
+See [here][pdf_version] for a PDF version of this vignette.
 
 # Definition
 
@@ -94,6 +102,7 @@ lmean=function(lx){
 ```
 
 Exploiting this we can now do IS for $z=100$:
+
 ```{r}
 lpnorm.IS= function(z,nsamp=100000){
   y = rnorm(nsamp,z,1)
@@ -104,5 +113,4 @@ lpnorm.IS(100)
 pnorm(100,lower.tail=FALSE,log=TRUE)
 ```
 
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/Importance_sampling.pdf

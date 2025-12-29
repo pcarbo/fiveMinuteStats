@@ -9,13 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Matthew Stephens" />
 
-<meta name="date" content="2016-05-02" />
+<meta name="date" content="2025-12-29" />
 
-<title>Introduction to Importance Sampling</title>
+<title>Introduction to importance sampling</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
@@ -31,14 +30,12 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -77,6 +74,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -97,6 +95,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -154,11 +155,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -187,8 +192,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -196,16 +201,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -322,7 +320,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -343,10 +341,7 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/stephens999/fiveMinuteStats">
-    <span class="fa fa-github"></span>
-     
-  </a>
+  <a href="https://github.com/pcarbo/fiveMinuteStats">source</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -357,16 +352,19 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Introduction to Importance Sampling</h1>
+<h1 class="title toc-ignore">Introduction to importance sampling</h1>
 <h4 class="author">Matthew Stephens</h4>
-<h4 class="date">2016-05-02</h4>
+<address class="author_afil">
+University of Chicago<br><h4 class="date">December 29, 2025</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -375,7 +373,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -384,17 +384,27 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-01-11
+<strong>Last updated:</strong> 2025-12-29
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
 </p>
 <p>
-<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
+<span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -403,116 +413,153 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(12345)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(12345)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed12345code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed12345code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(12345)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(12345)</code> was run prior to running the
+code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstree0ad2c23d8fae9f766483f56ab2728a397e9ec06etargetblank0ad2c23a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephens999/fiveMinuteStats/tree/0ad2c23d8fae9f766483f56ab2728a397e9ec06e" target="_blank">0ad2c23</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreee9dea3a92f410056ecef3f8716781ba127adc153targetblanke9dea3aa">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/e9dea3a92f410056ecef3f8716781ba127adc153" target="_blank">e9dea3a</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstree0ad2c23d8fae9f766483f56ab2728a397e9ec06etargetblank0ad2c23a" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreee9dea3a92f410056ecef3f8716781ba127adc153targetblanke9dea3aa"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephens999/fiveMinuteStats/tree/0ad2c23d8fae9f766483f56ab2728a397e9ec06e" target="_blank">0ad2c23</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/e9dea3a92f410056ecef3f8716781ba127adc153" target="_blank">e9dea3a</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    .Rhistory
-    Ignored:    .Rproj.user/
-    Ignored:    analysis/.Rhistory
-    Ignored:    analysis/bernoulli_poisson_process_cache/
-
-Untracked files:
-    Untracked:  _workflowr.yml
-    Untracked:  analysis/CI.Rmd
-    Untracked:  analysis/gibbs_structure.Rmd
-    Untracked:  analysis/libs/
-    Untracked:  analysis/results.Rmd
-    Untracked:  analysis/shiny/tester/
-
 Unstaged changes:
-    Modified:   analysis/LR_and_BF.Rmd
-    Modified:   analysis/MH-examples1.Rmd
-    Modified:   analysis/MH_intro.Rmd
-    Deleted:    analysis/r_simplemix_extended.Rmd
+    Modified:   Makefile
+    Modified:   analysis/Importance_sampling.Rmd
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -523,7 +570,12 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/Importance_sampling.Rmd</code>) and HTML (<code>docs/Importance_sampling.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/Importance_sampling.Rmd</code>)
+and HTML (<code>docs/Importance_sampling.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -549,10 +601,10 @@ Message
 <tbody>
 <tr>
 <td>
-Rmd
+html
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/0ad2c23d8fae9f766483f56ab2728a397e9ec06e/analysis/Importance_sampling.Rmd" target="_blank">0ad2c23</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/aec3a19b5c2694f1eec29bf9c4572a8d436a04ea/docs/Importance_sampling.html" target="_blank">aec3a19</a>
 </td>
 <td>
 Matthew Stephens
@@ -561,7 +613,24 @@ Matthew Stephens
 2022-01-11
 </td>
 <td>
-wflow_publish(“analysis/Importance_sampling.Rmd”)
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/0ad2c23d8fae9f766483f56ab2728a397e9ec06e/analysis/Importance_sampling.Rmd" target="_blank">0ad2c23</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2022-01-11
+</td>
+<td>
+wflow_publish("analysis/Importance_sampling.Rmd")
 </td>
 </tr>
 <tr>
@@ -569,7 +638,7 @@ wflow_publish(“analysis/Importance_sampling.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/Importance_sampling.html" target="_blank">5f62ee6</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/Importance_sampling.html" target="_blank">5f62ee6</a>
 </td>
 <td>
 Matthew Stephens
@@ -586,7 +655,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/0cd28bd3e7aea2258f9c3a55e2e0060c55403123/analysis/Importance_sampling.Rmd" target="_blank">0cd28bd</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/0cd28bd3e7aea2258f9c3a55e2e0060c55403123/analysis/Importance_sampling.Rmd" target="_blank">0cd28bd</a>
 </td>
 <td>
 Matthew Stephens
@@ -603,7 +672,7 @@ workflowr::wflow_publish(all = TRUE)
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/0045156d6321d2b61d158a6930b691db3145018d/analysis/Importance_sampling.Rmd" target="_blank">0045156</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/0045156d6321d2b61d158a6930b691db3145018d/analysis/Importance_sampling.Rmd" target="_blank">0045156</a>
 </td>
 <td>
 stephens999
@@ -620,7 +689,7 @@ merge conflicts
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/0045156d6321d2b61d158a6930b691db3145018d/docs/Importance_sampling.html" target="_blank">0045156</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/0045156d6321d2b61d158a6930b691db3145018d/docs/Importance_sampling.html" target="_blank">0045156</a>
 </td>
 <td>
 stephens999
@@ -637,7 +706,7 @@ merge conflicts
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/34bcc51fef570dd7d5a70859f262c983fed17381/docs/Importance_sampling.html" target="_blank">34bcc51</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/34bcc51fef570dd7d5a70859f262c983fed17381/docs/Importance_sampling.html" target="_blank">34bcc51</a>
 </td>
 <td>
 John Blischak
@@ -654,7 +723,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/5fbc8b5c658203baf6765874b24794d41da622a8/analysis/Importance_sampling.Rmd" target="_blank">5fbc8b5</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5fbc8b5c658203baf6765874b24794d41da622a8/analysis/Importance_sampling.Rmd" target="_blank">5fbc8b5</a>
 </td>
 <td>
 John Blischak
@@ -671,7 +740,7 @@ Update workflowr project with wflow_update (version 0.4.0).
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/391ba3c0cf210ea8de8125ee8063557ceff55080/analysis/Importance_sampling.Rmd" target="_blank">391ba3c</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/391ba3c0cf210ea8de8125ee8063557ceff55080/analysis/Importance_sampling.Rmd" target="_blank">391ba3c</a>
 </td>
 <td>
 John Blischak
@@ -688,7 +757,7 @@ Remove front and end matter of non-standard templates.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/8e616835a4eccac7c4e0a8eeec86fdcefb1525ab/docs/Importance_sampling.html" target="_blank">8e61683</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/8e616835a4eccac7c4e0a8eeec86fdcefb1525ab/docs/Importance_sampling.html" target="_blank">8e61683</a>
 </td>
 <td>
 Marcus Davy
@@ -705,7 +774,7 @@ rendered html using wflow_build(all=TRUE)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/c8fc44436b1056f6bc7fb43df0b19c8c19e9997b/docs/Importance_sampling.html" target="_blank">c8fc444</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/c8fc44436b1056f6bc7fb43df0b19c8c19e9997b/docs/Importance_sampling.html" target="_blank">c8fc444</a>
 </td>
 <td>
 stephens999
@@ -722,7 +791,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/095844f98187c902790a8377704eae6cecff311e/analysis/Importance_sampling.Rmd" target="_blank">095844f</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/095844f98187c902790a8377704eae6cecff311e/analysis/Importance_sampling.Rmd" target="_blank">095844f</a>
 </td>
 <td>
 stephens999
@@ -739,7 +808,7 @@ Files commited by wflow_commit.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/Importance_sampling.html" target="_blank">c3b365a</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/Importance_sampling.html" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -756,7 +825,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/67a857539cd8a4029e899208aed19da6c78b4b36/analysis/Importance_sampling.Rmd" target="_blank">67a8575</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/67a857539cd8a4029e899208aed19da6c78b4b36/analysis/Importance_sampling.Rmd" target="_blank">67a8575</a>
 </td>
 <td>
 John Blischak
@@ -773,7 +842,7 @@ Use external chunk to set knitr chunk options.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/5ec12c73e37fc3c7ec04a31f6d85eede0f6c436e/analysis/Importance_sampling.Rmd" target="_blank">5ec12c7</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5ec12c73e37fc3c7ec04a31f6d85eede0f6c436e/analysis/Importance_sampling.Rmd" target="_blank">5ec12c7</a>
 </td>
 <td>
 John Blischak
@@ -790,7 +859,7 @@ Use session-info chunk.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/153e684d4d7ac3b81079783f8b89cedc1afb88eb/analysis/Importance_sampling.Rmd" target="_blank">153e684</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/153e684d4d7ac3b81079783f8b89cedc1afb88eb/analysis/Importance_sampling.Rmd" target="_blank">153e684</a>
 </td>
 <td>
 stephens999
@@ -809,33 +878,70 @@ add IS
 </div>
 </div>
 </div>
-<div id="pre-requisites" class="section level1">
-<h1>Pre-requisites</h1>
-</div>
-<div id="overview" class="section level1">
-<h1>Overview</h1>
-</div>
+<p>See <a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/Importance_sampling.pdf">here</a>
+for a PDF version of this vignette.</p>
 <div id="definition" class="section level1">
 <h1>Definition</h1>
-<p>Suppose we want to compute the expectation of a function <span class="math inline">\(f(X)\)</span> with respect to a distribution with density <span class="math inline">\(p(x)\)</span>. So <span class="math display">\[I = \int f(x) p(x) dx.\]</span> That is <span class="math display">\[I = E[f(X)]\]</span> where the expectation is taken over a random variable <span class="math inline">\(X\)</span> with density <span class="math inline">\(p\)</span>. We could approximate <span class="math inline">\(I\)</span> by “naive simulation”: <span class="math display">\[I \approx (1/M) \sum_{m} f(X_m)\]</span> where <span class="math inline">\(X_1,\dots,X_M \sim p(x)\)</span>.</p>
-<p>Now let <span class="math inline">\(q(x)\)</span> denote any other density function that is non-zero whenever <span class="math inline">\(p(x)\)</span> is non-zero. (We need this condition to avoid dividing by 0 in what follows). Then we can rewrite this as <span class="math display">\[I = \int f(x) [p(x)/q(x)] q(x) dx.\]</span></p>
-<p>That is <span class="math display">\[I = E[ f(X)p(X)/q(X)]\]</span> where the expectation is taken over a random variable X with density <span class="math inline">\(q\)</span>. So we could also approximate <span class="math inline">\(I\)</span> by simulation: <span class="math display">\[I \approx (1/M) \sum_{m} f(X&#39;_m)p(X&#39;_m)/q(X&#39;_m)\]</span> where <span class="math inline">\(X&#39;_1,\dots,X&#39;_m \sim q(x)\)</span>.</p>
-<p>This is called “Importance Sampling” (IS) and <span class="math inline">\(q\)</span> is called the “Importance sampling function”.</p>
-<p>The idea behind IS is that if <span class="math inline">\(q\)</span> is well chosen then the approximation to <span class="math inline">\(I\)</span> will be better than the naive approximation.</p>
+<p>Suppose we want to compute the expectation of a function <span
+class="math inline">\(f(X)\)</span> with respect to a distribution with
+density <span class="math inline">\(p(x)\)</span>. So <span
+class="math display">\[I = \int f(x) p(x) dx.\]</span> That is <span
+class="math display">\[I = E[f(X)]\]</span> where the expectation is
+taken over a random variable <span class="math inline">\(X\)</span> with
+density <span class="math inline">\(p\)</span>. We could approximate
+<span class="math inline">\(I\)</span> by “naive simulation”: <span
+class="math display">\[I \approx (1/M) \sum_{m} f(X_m)\]</span> where
+<span class="math inline">\(X_1,\dots,X_M \sim p(x)\)</span>.</p>
+<p>Now let <span class="math inline">\(q(x)\)</span> denote any other
+density function that is non-zero whenever <span
+class="math inline">\(p(x)\)</span> is non-zero. (We need this condition
+to avoid dividing by 0 in what follows). Then we can rewrite this as
+<span class="math display">\[I = \int f(x) [p(x)/q(x)] q(x)
+dx.\]</span></p>
+<p>That is <span class="math display">\[I = E[ f(X)p(X)/q(X)]\]</span>
+where the expectation is taken over a random variable X with density
+<span class="math inline">\(q\)</span>. So we could also approximate
+<span class="math inline">\(I\)</span> by simulation: <span
+class="math display">\[I \approx (1/M) \sum_{m}
+f(X&#39;_m)p(X&#39;_m)/q(X&#39;_m)\]</span> where <span
+class="math inline">\(X&#39;_1,\dots,X&#39;_m \sim q(x)\)</span>.</p>
+<p>This is called “Importance Sampling” (IS) and <span
+class="math inline">\(q\)</span> is called the “Importance sampling
+function”.</p>
+<p>The idea behind IS is that if <span class="math inline">\(q\)</span>
+is well chosen then the approximation to <span
+class="math inline">\(I\)</span> will be better than the naive
+approximation.</p>
 </div>
 <div id="examples" class="section level1">
 <h1>Examples</h1>
-<p>Suppose <span class="math inline">\(X \sim N(0,1)\)</span>, and we want to compute <span class="math inline">\(\Pr(X&gt;z)\)</span> for <span class="math inline">\(z = 10\)</span>. That is, <span class="math inline">\(f(x) = I(x&gt;10)\)</span> and <span class="math inline">\(p(x)= \phi(x)\)</span> is the density of the standard normal distribution.</p>
+<p>Suppose <span class="math inline">\(X \sim N(0,1)\)</span>, and we
+want to compute <span class="math inline">\(\Pr(X&gt;z)\)</span> for
+<span class="math inline">\(z = 10\)</span>. That is, <span
+class="math inline">\(f(x) = I(x&gt;10)\)</span> and <span
+class="math inline">\(p(x)= \phi(x)\)</span> is the density of the
+standard normal distribution.</p>
 <p>Let’s try naive simulation,<br />
-and compare it with the “truth”, as ascertained by the R function pnorm.</p>
+and compare it with the “truth”, as ascertained by the R function
+pnorm.</p>
 <pre class="r"><code>  set.seed(100)
   X = rnorm(100000)
   mean(1*(X&gt;10))</code></pre>
 <pre><code>[1] 0</code></pre>
 <pre class="r"><code>  pnorm(10,lower.tail=FALSE)</code></pre>
 <pre><code>[1] 7.619853e-24</code></pre>
-<p>You can see the problem with naive simulation: all the simulations are less than 10 (where f(x)=0), so you don’t get any precision.</p>
-<p>Now we use IS. Here we code the general case for <span class="math inline">\(z\)</span>, using IS function <span class="math inline">\(q\)</span> to be <span class="math inline">\(N(z,1)\)</span>. Note that because of this choice of <span class="math inline">\(q\)</span> many of the samples are <span class="math inline">\(&gt;z\)</span>, where <span class="math inline">\(f\)</span> is non-zero, and we hope to get better precision. Of course, we could do this problem much better ways… this is just a toy illustration of IS.</p>
+<p>You can see the problem with naive simulation: all the simulations
+are less than 10 (where f(x)=0), so you don’t get any precision.</p>
+<p>Now we use IS. Here we code the general case for <span
+class="math inline">\(z\)</span>, using IS function <span
+class="math inline">\(q\)</span> to be <span
+class="math inline">\(N(z,1)\)</span>. Note that because of this choice
+of <span class="math inline">\(q\)</span> many of the samples are <span
+class="math inline">\(&gt;z\)</span>, where <span
+class="math inline">\(f\)</span> is non-zero, and we hope to get better
+precision. Of course, we could do this problem much better ways… this is
+just a toy illustration of IS.</p>
 <pre class="r"><code>pnorm.IS= function(z,nsamp=100000){
   y = rnorm(nsamp,z,1)
   w = exp(dnorm(y,0,1,log=TRUE) - dnorm(y,z,1, log=TRUE))
@@ -846,22 +952,30 @@ pnorm.IS(10)</code></pre>
 <pre class="r"><code>pnorm(10,lower.tail=FALSE)</code></pre>
 <pre><code>[1] 7.619853e-24</code></pre>
 </div>
-<div id="example-computing-with-means-on-log-scale" class="section level1">
+<div id="example-computing-with-means-on-log-scale"
+class="section level1">
 <h1>Example: computing with means on log scale</h1>
-<p>We just push this example a bit further, to illustrate a numerical issue that can arise quite generally (not just for IS).</p>
-<p>Let’s try the above with <span class="math inline">\(z=100\)</span>.</p>
+<p>We just push this example a bit further, to illustrate a numerical
+issue that can arise quite generally (not just for IS).</p>
+<p>Let’s try the above with <span
+class="math inline">\(z=100\)</span>.</p>
 <pre class="r"><code>pnorm.IS(100)</code></pre>
 <pre><code>[1] 0</code></pre>
 <pre class="r"><code>pnorm(100,lower.tail=FALSE)</code></pre>
 <pre><code>[1] 0</code></pre>
 <p>Hmmm.. we are having numerical issues.</p>
-<p>The trick to solving this is doing things on log scale. But the IS formula involves averaging, and we have to do the averaging on the raw scale, not the log scale. This function allows us to do this. Perhaps you can work out what is going on here? [Hint: note that <code>mean(w*(y&gt;z)) = mean(y&gt;z) * mean(w[y&gt;z])</code>.]</p>
+<p>The trick to solving this is doing things on log scale. But the IS
+formula involves averaging, and we have to do the averaging on the raw
+scale, not the log scale. This function allows us to do this. Perhaps
+you can work out what is going on here? [Hint: note that
+<code>mean(w*(y&gt;z)) = mean(y&gt;z) * mean(w[y&gt;z])</code>.]</p>
 <pre class="r"><code>#function to find the log of the mean of exp(lx).
 lmean=function(lx){
   m = max(lx)
   m + log(mean(exp(lx-m))) 
 }</code></pre>
-<p>Exploiting this we can now do IS for <span class="math inline">\(z=100\)</span>:</p>
+<p>Exploiting this we can now do IS for <span
+class="math inline">\(z=100\)</span>:</p>
 <pre class="r"><code>lpnorm.IS= function(z,nsamp=100000){
   y = rnorm(nsamp,z,1)
   lw = dnorm(y,0,1,log=TRUE) - dnorm(y,z,1, log=TRUE) # log-weights
@@ -874,62 +988,42 @@ lpnorm.IS(100)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.0 Patched (2021-07-20 r80657)
+<pre><code>R version 4.3.3 (2024-02-29)
 Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Monterey 12.0.1
+Running under: macOS 15.7.1
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: America/Chicago
+tzcode source: internal
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7       whisker_0.4      knitr_1.36       magrittr_2.0.1  
- [5] workflowr_1.7.0  R6_2.5.1         rlang_0.4.12     fastmap_1.1.0   
- [9] fansi_0.5.0      stringr_1.4.0    tools_4.1.0      xfun_0.28       
-[13] utf8_1.2.2       git2r_0.29.0     jquerylib_0.1.4  htmltools_0.5.2 
-[17] ellipsis_0.3.2   rprojroot_2.0.2  yaml_2.2.1       digest_0.6.28   
-[21] tibble_3.1.6     lifecycle_1.0.1  crayon_1.4.2     later_1.3.0     
-[25] vctrs_0.3.8      fs_1.5.0         promises_1.2.0.1 glue_1.5.0      
-[29] evaluate_0.14    rmarkdown_2.11   stringi_1.7.5    compiler_4.1.0  
-[33] pillar_1.6.4     httpuv_1.6.3     pkgconfig_2.0.3 </code></pre>
+ [1] vctrs_0.6.5       cli_3.6.5         knitr_1.50        rlang_1.1.6      
+ [5] xfun_0.52         stringi_1.8.7     promises_1.3.3    jsonlite_2.0.0   
+ [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.33.0     
+[13] htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.10       rmarkdown_2.29   
+[17] evaluate_1.0.4    jquerylib_0.1.4   tibble_3.3.0      fastmap_1.2.0    
+[21] yaml_2.3.10       lifecycle_1.0.4   whisker_0.4.1     stringr_1.5.1    
+[25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
+[29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
+[33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0     </code></pre>
 </div>
 </div>
 
-<hr>
-<p>
-    This site was created with <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-</p>
-<hr>
-
-<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
-
-<!-- disqus
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'rmarkdown'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
--->
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see

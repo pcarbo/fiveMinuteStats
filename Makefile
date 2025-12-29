@@ -6,6 +6,7 @@
 all: docs/index.html \
      docs/integral.html \
      docs/inverse_transform_sampling.html \
+     docs/Importance_sampling.html \
      docs/likelihood_ratio_simple_models.html \
      docs/likelihood_ratio_simple_continuous_data.pdf \
      docs/LR_and_BF.html \
@@ -13,6 +14,7 @@ all: docs/index.html \
      docs/r_simplemix.html \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
+     docs/Importance_sampling.pdf \
      docs/likelihood_ratio_simple_models.pdf \
      docs/likelihood_ratio_simple_continuous_data.pdf \
      docs/LR_and_BF.pdf \
@@ -27,6 +29,9 @@ docs/integral.html : analysis/integral.Rmd
 
 docs/inverse_transform_sampling.html : analysis/inverse_transform_sampling.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/inverse_transform_sampling.Rmd",view = FALSE)'
+
+docs/Importance_sampling.html : analysis/Importance_sampling.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/Importance_sampling.Rmd",view = FALSE)'
 
 docs/likelihood_ratio_simple_models.html : analysis/likelihood_ratio_simple_models.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/likelihood_ratio_simple_models.Rmd",view = FALSE)'
@@ -51,6 +56,11 @@ docs/integral.pdf : analysis/integral.Rmd readable.tex
 docs/inverse_transform_sampling.pdf : analysis/inverse_transform_sampling.Rmd readable.tex
 	cp analysis/inverse_transform_sampling.Rmd temp.Rmd
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/inverse_transform_sampling.pdf")'
+	rm temp.Rmd
+
+docs/Importance_sampling.pdf : analysis/Importance_sampling.Rmd readable.tex
+	cp analysis/Importance_sampling.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/Importance_sampling.pdf")'
 	rm temp.Rmd
 
 docs/likelihood_ratio_simple_models.pdf : analysis/likelihood_ratio_simple_models.Rmd readable.tex
@@ -80,6 +90,8 @@ docs/r_simplemix.pdf : analysis/r_simplemix.Rmd readable.tex
 
 clean:
 	rm -f docs/integral.pdf
+	rm -f docs/inverse_transform_sampling.pdf
+	rm -f docs/Importance_sampling.pdf
 	rm -f docs/likelihood_ratio_simple_models.pdf
 	rm -f docs/likelihood_ratio_simple_continuous_data.pdf
 	rm -f docs/LR_and_BF.pdf
