@@ -20,5 +20,4 @@ output:
     toc_float: true
     theme: readable
     highlight: textmate
-    include:
-      after_body: include/footer.html
+

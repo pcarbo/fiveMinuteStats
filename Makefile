@@ -6,7 +6,7 @@
 all: docs/likelihood_ratio_simple_models.html
 
 docs/likelihood_ratio_simple_models.html : analysis/likelihood_ratio_simple_models.Rmd
-	Rscript -e 'workflowr::wflow_publish("analysis/likelihood_ratio_simple_models.Rmd",view = FALSE)'
+	Rscript -e 'workflowr::wflow_build("analysis/likelihood_ratio_simple_models.Rmd",view = FALSE)'
 
 clean:
 
