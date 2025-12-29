@@ -1,19 +1,32 @@
 ---
-title: "Every Bayesian computation is an integral (or a sum)"
-author: "Matthew Stephens"
-date: 2016-05-02
+title: Every Bayesian computation is an integral (or a sum)
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: December 29, 2025
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
+See [here][pdf_version] for a PDF version of this vignette.
 
-
-
-# Pre-requisites
+# Prerequisites
 
 Be familiar with basic probability and Bayesian calculations.
 
 # Overview
 
-The goal here is simply to point out that everything you want to compute in Bayesian calculations is an integral.
+The goal here is simply to point out that everything you want to
+compute in Bayesian calculations is an integral.
 
 # Examples
 
@@ -58,6 +71,4 @@ Other simple methods that can work for low dimensions: naive Monte Carlo, and Im
 
 For higher dimensions we usually resort to Markov Chain Monte Carlo.
 
-
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/integral.pdf

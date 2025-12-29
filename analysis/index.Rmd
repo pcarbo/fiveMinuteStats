@@ -54,7 +54,7 @@ title: Home
 
 ### Bayesian Computation
 
-* [Every Bayesian computation is an integral (or a sum)](integral.html)
+* [Every Bayesian computation is an integral (or a sum)](integral.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/integral.pdf))
 * [Importance sampling](Importance_sampling.html)
 
 ### Markov Chain Monte Carlo
