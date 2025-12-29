@@ -97,7 +97,7 @@ title: Home
 
 ### Methods for sampling non-standard distributions
 
-*  [Inverse Transform Sampling](inverse_transform_sampling.html)
+*  [Inverse Transform Sampling](inverse_transform_sampling.html) ((PDF)[https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/inverse_transform_sampling.pdf])
 
 ### Multivariate Normal
 
