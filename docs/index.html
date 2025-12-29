@@ -359,7 +359,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -370,8 +370,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -384,9 +384,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
@@ -409,33 +409,36 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree8d76ae32033fc7373d58aae39a906ac222103e9dtargetblank8d76ae3a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreeabfebce8557753fca4d827924bac8ddd278e3abbtargetblankabfebcea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/8d76ae32033fc7373d58aae39a906ac222103e9d" target="_blank">8d76ae3</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/abfebce8557753fca4d827924bac8ddd278e3abb" target="_blank">abfebce</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree8d76ae32033fc7373d58aae39a906ac222103e9dtargetblank8d76ae3a"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreeabfebce8557753fca4d827924bac8ddd278e3abbtargetblankabfebcea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -445,7 +448,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/8d76ae32033fc7373d58aae39a906ac222103e9d" target="_blank">8d76ae3</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/abfebce8557753fca4d827924bac8ddd278e3abb" target="_blank">abfebce</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -460,6 +463,9 @@ were generated:
 </p>
 <pre><code>
 Unstaged changes:
+    Modified:   Makefile
+    Modified:   analysis/LR_and_BF.Rmd
+    Modified:   analysis/index.Rmd
     Modified:   analysis/likelihood_ratio_simple_models.Rmd
 
 </code></pre>
@@ -505,6 +511,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/abfebce8557753fca4d827924bac8ddd278e3abb/docs/index.html" target="_blank">abfebce</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-12-29
+</td>
+<td>
+Added link to overview page.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2216,7 +2239,7 @@ Ratio for fully specified models, continuous data</a></li>
 data</a></li>
 </ul></li>
 <li><a href="LR_and_BF.html">Likelihood Ratios: how big is
-convincing?</a></li>
+convincing?</a> (PDF)</li>
 <li><a href="wilks.html">Likelihood Ratios: Wilks’s Theorem</a></li>
 <li><a href="likelihood_function.html">The Likelihood Function</a></li>
 <li><a href="asymptotic_normality_mle.html">Asymptotic Normality of

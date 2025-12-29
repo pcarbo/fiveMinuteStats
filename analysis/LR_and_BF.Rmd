@@ -1,21 +1,37 @@
 ---
 title: "Likelihood Ratio: how big is convincing?"
-author: "Matthew Stephens"
-date: 2016-01-07
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: December 29, 2025
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
-
-
+See [here][pdf_version] for a PDF version of this vignette.
 
 # Summary
 
-This document introduces the idea that drawing conclusions from likelihood ratios (or Bayes Factors) from fully specified models 
-is context dependent. In particular, it involves weighing the information in the data against the relative (prior) plausibility of the models.
+This document introduces the idea that drawing conclusions from
+likelihood ratios (or Bayes Factors) from fully specified models is
+context dependent. In particular, it involves weighing the information
+in the data against the relative (prior) plausibility of the models.
 
-# Pre-requisites
+# Prerequisites
 
-You should understand the concept of using likelihood ratio for [discrete data](likelihood_ratio_simple_models.html) and [continuous data](likelihood_ratio_simple_continuous_data.html)
-to compare support for two fully specified models.
+You should understand the concept of using likelihood ratio for
+[discrete data](likelihood_ratio_simple_models.html) and
+[continuous data](likelihood_ratio_simple_continuous_data.html) to
+compare support for two fully specified models.
 
 # Overview
 
@@ -119,7 +135,4 @@ d) Use the computations introduced in this vignette to compute the theoretical v
 
 e) Repeat the above, but in the case where only 2% of the screened population are diseased.
 
-
-
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/LD_and_BF.pdf

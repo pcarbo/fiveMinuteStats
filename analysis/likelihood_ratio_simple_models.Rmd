@@ -1,5 +1,5 @@
 ---
-title: "Comparing two models with a likelihood ratio"
+title: Comparing two models with a likelihood ratio
 author: 
   name: Matthew Stephens
   affiliation: University of Chicago
@@ -247,7 +247,6 @@ Repeat after me:
 2. "Individual likelihood values are mostly irrelevant: it is likelihood ratios that matter"
 
 3. "If the likelihood ratio for model 1 vs model 2 is x, then this means the data favour model 1 by a factor of x". (Or, if x <1 then it means "the data favour model 2 by a factor of 1/x"")
-
 
 ## References
 
