@@ -19,6 +19,10 @@ endnote: no
 
 See [here][pdf_version] for a PDF version of this vignette.
 
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
+```
+
 # Definition
 
 Suppose we want to compute the expectation of a function $f(X)$ with
@@ -62,77 +66,79 @@ than the naive approximation.
 
 # Examples
 
-Suppose $X \sim N(0,1)$, and we want to compute $\Pr(X>z)$ for $z =
-10$.  That is, $f(x) = I(x>10)$ and $p(x)= \phi(x)$ is the density of
-the standard normal distribution.
+Suppose $X \sim N(0,1)$, and we want to compute $\Pr(X>z)$, for $z =
+10$. That is, $f(x) = \mathbb{I}(x > 10)$, and $p(x)= \phi(x)$ is the
+density of the standard normal distribution.
 
 Let's try naive simulation, and compare it with the "truth", as
-ascertained by the R function pnorm.
+ascertained by the R function "pnorm".
 
-```{r}
+```{r pnorm}
 set.seed(100)
-X <- rnorm(100000)
-mean(1*(X>10))
+x <- rnorm(100000)
+mean(as.numeric(x > 10))
 pnorm(10,lower.tail = FALSE)
 ```
 
 You can see the problem with naive simulation: all the simulations
-are less than 10 (where f(x)=0), so you don't get any precision.
+are less than 10 (where $f(x) = 0$), so you don't get any precision.
 
 Now we use IS. Here we code the general case for $z$, using IS
 function $q$ to be $N(z,1)$. Note that because of this choice of $q$
-many of the samples are $>z$, where $f$ is non-zero, and we hope to
-get better precision. Of course, we could do this problem much better
-ways... this is just a toy illustration of IS.
+many of the samples are greater than $z$, where $f$ is non-zero, and
+we hope to get better precision. Of course, we could solve this
+problem in much better ways... this is just a toy illustration of IS.
+[Hint: note that `mean(w*(y > z))` is the same as
+`mean(y > z) * mean(w[y > z])`.]
 
-```{r}
-pnorm.IS= function(z,nsamp=100000){
-  y = rnorm(nsamp,z,1)
-  w = exp(dnorm(y,0,1,log=TRUE) - dnorm(y,z,1, log=TRUE))
-  mean(w*(y>z))
+```{r pnorm-is}
+# Return IS estimate of integral, with IS function N(0,1).
+pnorm_IS <- function (z, nsamp = 100000) {
+  y <- rnorm(nsamp,z,1)
+  w <- exp(dnorm(y,0,1,log = TRUE) - dnorm(y,z,1,log = TRUE))
+  return(mean(w*(y > z)))
 }
-pnorm.IS(10)
-pnorm(10,lower.tail=FALSE)
+pnorm_IS(10)
+pnorm(10,lower.tail = FALSE)
 ```
 
-# Example: computing with means on log scale
+# Example: computing with means on the log scale
 
-We just push this example a bit further, to illustrate a numerical
-issue that can arise quite generally (not just for IS).
+To push this example a bit further, let's illustrate a numerical issue
+that can arise quite generally (not just in IS).
 
 Let's try the above with $z = 100$.
 
-```{r}
-pnorm.IS(100)
-pnorm(100,lower.tail=FALSE)
+```{r pnorm-is-2}
+pnorm_IS(100)
+pnorm(100,lower.tail = FALSE)
 ```
 
-Hmmm.. we are having numerical issues. 
+Hmm... we are having numerical issues. 
 
-The trick to solving this is doing things on log scale.
-But the IS formula involves averaging, and we have to do the averaging
-on the raw scale, not the log scale. This function allows
-us to do this. Perhaps you can work out what is going on here?
-[Hint: note that `mean(w*(y>z)) = mean(y>z) * mean(w[y>z])`.]
+The trick to solving this is to do things on the log scale. But the IS
+formula involves averaging, and we have to do the averaging on the raw
+scale, not the log scale. Here is a function that allows us to do
+this. Perhaps you can work out what is going on here?
 
 ```{r}
-#function to find the log of the mean of exp(lx).
-lmean <- function(lx){
-  m = max(lx)
-  m + log(mean(exp(lx-m))) 
+# Return the log of the mean of exp(lx).
+lmean <- function (lx) {
+  m <- max(lx)
+  return(m + log(mean(exp(lx - m))))
 }
 ```
 
-Exploiting this we can now do IS for $z = 100$:
+Exploiting this function, we can now do IS for $z = 100$:
 
-```{r}
-lpnorm.IS= function(z,nsamp=100000){
-  y = rnorm(nsamp,z,1)
-  lw = dnorm(y,0,1,log=TRUE) - dnorm(y,z,1, log=TRUE) # log-weights
-  log(mean(y>z)) + lmean(lw[y>z]) 
+```{r lpnorm-is}
+lpnorm_IS <- function (z, nsamp = 100000) {
+  y <- rnorm(nsamp,z,1)
+  lw <- dnorm(y,0,1,log = TRUE) - dnorm(y,z,1,log = TRUE)
+  return(log(mean(y > z)) + lmean(lw[y > z]))
 }
-lpnorm.IS(100)
-pnorm(100,lower.tail=FALSE,log=TRUE)
+lpnorm_IS(100)
+pnorm(100,lower.tail = FALSE,log = TRUE)
 ```
 
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/Importance_sampling.pdf

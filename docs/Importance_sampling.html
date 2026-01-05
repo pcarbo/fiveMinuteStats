@@ -384,7 +384,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-12-29
+<strong>Last updated:</strong> 2026-01-05
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -518,15 +518,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreee9dea3a92f410056ecef3f8716781ba127adc153targetblanke9dea3aa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree28d7188b494b6d77ed392cec07b83a929335fc51targetblank28d7188a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/e9dea3a92f410056ecef3f8716781ba127adc153" target="_blank">e9dea3a</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/28d7188b494b6d77ed392cec07b83a929335fc51" target="_blank">28d7188</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreee9dea3a92f410056ecef3f8716781ba127adc153targetblanke9dea3aa"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree28d7188b494b6d77ed392cec07b83a929335fc51targetblank28d7188a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +536,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/e9dea3a92f410056ecef3f8716781ba127adc153" target="_blank">e9dea3a</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/28d7188b494b6d77ed392cec07b83a929335fc51" target="_blank">28d7188</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -551,9 +551,8 @@ were generated:
 </p>
 <pre><code>
 Unstaged changes:
-    Modified:   Makefile
     Modified:   analysis/Importance_sampling.Rmd
-    Modified:   analysis/index.Rmd
+    Modified:   readable.tex
 
 </code></pre>
 <p>
@@ -599,6 +598,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/28d7188b494b6d77ed392cec07b83a929335fc51/analysis/Importance_sampling.Rmd" target="_blank">28d7188</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-05
+</td>
+<td>
+A few minor edits to the importance_sampling vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/ff966b60340d47f40b8382e034fd47dd9117d81a/analysis/Importance_sampling.Rmd" target="_blank">ff966b6</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-05
+</td>
+<td>
+A few formatting fixes to the importance_sampling vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/9d1c6ee68f11655ff0588aecc5775748c83b456f/analysis/Importance_sampling.Rmd" target="_blank">9d1c6ee</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-12-29
+</td>
+<td>
+Created pdf version of importance sampling vignette.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/9d1c6ee68f11655ff0588aecc5775748c83b456f/docs/Importance_sampling.html" target="_blank">9d1c6ee</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-12-29
+</td>
+<td>
+Created pdf version of importance sampling vignette.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -886,105 +953,114 @@ for a PDF version of this vignette.</p>
 <p>Suppose we want to compute the expectation of a function <span
 class="math inline">\(f(X)\)</span> with respect to a distribution with
 density <span class="math inline">\(p(x)\)</span>. So <span
-class="math display">\[I = \int f(x) p(x) dx.\]</span> That is <span
-class="math display">\[I = E[f(X)]\]</span> where the expectation is
-taken over a random variable <span class="math inline">\(X\)</span> with
-density <span class="math inline">\(p\)</span>. We could approximate
-<span class="math inline">\(I\)</span> by “naive simulation”: <span
-class="math display">\[I \approx (1/M) \sum_{m} f(X_m)\]</span> where
-<span class="math inline">\(X_1,\dots,X_M \sim p(x)\)</span>.</p>
+class="math display">\[
+I = \int f(x) p(x) \, dx.
+\]</span> That is, <span class="math display">\[
+I = E[f(X)],
+\]</span> where the expectation is taken over a random variable <span
+class="math inline">\(X\)</span> with density <span
+class="math inline">\(p\)</span>. We could approximate <span
+class="math inline">\(I\)</span> by “naive simulation”: <span
+class="math display">\[
+I \approx \frac{1}{M} \sum_{m=1}^M f(X_m),
+\]</span> where <span class="math inline">\(X_1,\dots,X_M \sim
+p(x)\)</span>.</p>
 <p>Now let <span class="math inline">\(q(x)\)</span> denote any other
 density function that is non-zero whenever <span
 class="math inline">\(p(x)\)</span> is non-zero. (We need this condition
-to avoid dividing by 0 in what follows). Then we can rewrite this as
-<span class="math display">\[I = \int f(x) [p(x)/q(x)] q(x)
-dx.\]</span></p>
-<p>That is <span class="math display">\[I = E[ f(X)p(X)/q(X)]\]</span>
-where the expectation is taken over a random variable X with density
-<span class="math inline">\(q\)</span>. So we could also approximate
-<span class="math inline">\(I\)</span> by simulation: <span
-class="math display">\[I \approx (1/M) \sum_{m}
-f(X&#39;_m)p(X&#39;_m)/q(X&#39;_m)\]</span> where <span
-class="math inline">\(X&#39;_1,\dots,X&#39;_m \sim q(x)\)</span>.</p>
-<p>This is called “Importance Sampling” (IS) and <span
-class="math inline">\(q\)</span> is called the “Importance sampling
+to avoid dividing by zero in what follows.) Then we can rewrite this as
+<span class="math display">\[
+I = \int f(x) \, [p(x)/q(x)] \, q(x) \, dx.
+\]</span> That is, <span class="math display">\[
+I = E[ f(X)p(X)/q(X)]
+\]</span> where the expectation is taken over a random variable X with
+density <span class="math inline">\(q\)</span>. So we could also
+approximate <span class="math inline">\(I\)</span> by simulation: <span
+class="math display">\[
+I \approx \frac{1}{M} \sum_{m=1}^M f(X&#39;_m) \times
+\frac{p(X&#39;_m)}{q(X&#39;_m)},
+\]</span> where <span class="math inline">\(X&#39;_1,\dots,X&#39;_m \sim
+q(x)\)</span>.</p>
+<p>This is called “Importance Sampling” (IS), and <span
+class="math inline">\(q\)</span> is called the “importance sampling
 function”.</p>
-<p>The idea behind IS is that if <span class="math inline">\(q\)</span>
-is well chosen then the approximation to <span
-class="math inline">\(I\)</span> will be better than the naive
-approximation.</p>
+<p>If <span class="math inline">\(q\)</span> is well chosen, then the
+approximation to <span class="math inline">\(I\)</span> will be better
+than the naive approximation.</p>
 </div>
 <div id="examples" class="section level1">
 <h1>Examples</h1>
 <p>Suppose <span class="math inline">\(X \sim N(0,1)\)</span>, and we
-want to compute <span class="math inline">\(\Pr(X&gt;z)\)</span> for
-<span class="math inline">\(z = 10\)</span>. That is, <span
-class="math inline">\(f(x) = I(x&gt;10)\)</span> and <span
-class="math inline">\(p(x)= \phi(x)\)</span> is the density of the
-standard normal distribution.</p>
-<p>Let’s try naive simulation,<br />
-and compare it with the “truth”, as ascertained by the R function
-pnorm.</p>
-<pre class="r"><code>  set.seed(100)
-  X = rnorm(100000)
-  mean(1*(X&gt;10))</code></pre>
-<pre><code>[1] 0</code></pre>
-<pre class="r"><code>  pnorm(10,lower.tail=FALSE)</code></pre>
-<pre><code>[1] 7.619853e-24</code></pre>
+want to compute <span class="math inline">\(\Pr(X&gt;z)\)</span>, for
+<span class="math inline">\(z =
+10\)</span>. That is, <span class="math inline">\(f(x) = \mathbb{I}(x
+&gt; 10)\)</span>, and <span class="math inline">\(p(x)=
+\phi(x)\)</span> is the density of the standard normal distribution.</p>
+<p>Let’s try naive simulation, and compare it with the “truth”, as
+ascertained by the R function “pnorm”.</p>
+<pre class="r"><code>set.seed(100)
+x &lt;- rnorm(100000)
+mean(as.numeric(x &gt; 10))
+# [1] 0
+pnorm(10,lower.tail = FALSE)
+# [1] 7.619853e-24</code></pre>
 <p>You can see the problem with naive simulation: all the simulations
-are less than 10 (where f(x)=0), so you don’t get any precision.</p>
+are less than 10 (where <span class="math inline">\(f(x) = 0\)</span>),
+so you don’t get any precision.</p>
 <p>Now we use IS. Here we code the general case for <span
 class="math inline">\(z\)</span>, using IS function <span
 class="math inline">\(q\)</span> to be <span
 class="math inline">\(N(z,1)\)</span>. Note that because of this choice
-of <span class="math inline">\(q\)</span> many of the samples are <span
-class="math inline">\(&gt;z\)</span>, where <span
+of <span class="math inline">\(q\)</span> many of the samples are
+greater than <span class="math inline">\(z\)</span>, where <span
 class="math inline">\(f\)</span> is non-zero, and we hope to get better
-precision. Of course, we could do this problem much better ways… this is
-just a toy illustration of IS.</p>
-<pre class="r"><code>pnorm.IS= function(z,nsamp=100000){
-  y = rnorm(nsamp,z,1)
-  w = exp(dnorm(y,0,1,log=TRUE) - dnorm(y,z,1, log=TRUE))
-  mean(w*(y&gt;z))
+precision. Of course, we could solve this problem in much better ways…
+this is just a toy illustration of IS. [Hint: note that
+<code>mean(w*(y &gt; z))</code> is the same as
+<code>mean(y &gt; z) * mean(w[y &gt; z])</code>.]</p>
+<pre class="r"><code># Return IS estimate of integral, with IS function N(0,1).
+pnorm_IS &lt;- function (z, nsamp = 100000) {
+  y &lt;- rnorm(nsamp,z,1)
+  w &lt;- exp(dnorm(y,0,1,log = TRUE) - dnorm(y,z,1,log = TRUE))
+  return(mean(w*(y &gt; z)))
 }
-pnorm.IS(10)</code></pre>
-<pre><code>[1] 7.673529e-24</code></pre>
-<pre class="r"><code>pnorm(10,lower.tail=FALSE)</code></pre>
-<pre><code>[1] 7.619853e-24</code></pre>
+pnorm_IS(10)
+# [1] 7.673529e-24
+pnorm(10,lower.tail = FALSE)
+# [1] 7.619853e-24</code></pre>
 </div>
-<div id="example-computing-with-means-on-log-scale"
+<div id="example-computing-with-means-on-the-log-scale"
 class="section level1">
-<h1>Example: computing with means on log scale</h1>
-<p>We just push this example a bit further, to illustrate a numerical
-issue that can arise quite generally (not just for IS).</p>
-<p>Let’s try the above with <span
-class="math inline">\(z=100\)</span>.</p>
-<pre class="r"><code>pnorm.IS(100)</code></pre>
-<pre><code>[1] 0</code></pre>
-<pre class="r"><code>pnorm(100,lower.tail=FALSE)</code></pre>
-<pre><code>[1] 0</code></pre>
-<p>Hmmm.. we are having numerical issues.</p>
-<p>The trick to solving this is doing things on log scale. But the IS
-formula involves averaging, and we have to do the averaging on the raw
-scale, not the log scale. This function allows us to do this. Perhaps
-you can work out what is going on here? [Hint: note that
-<code>mean(w*(y&gt;z)) = mean(y&gt;z) * mean(w[y&gt;z])</code>.]</p>
-<pre class="r"><code>#function to find the log of the mean of exp(lx).
-lmean=function(lx){
-  m = max(lx)
-  m + log(mean(exp(lx-m))) 
+<h1>Example: computing with means on the log scale</h1>
+<p>To push this example a bit further, let’s illustrate a numerical
+issue that can arise quite generally (not just in IS).</p>
+<p>Let’s try the above with <span class="math inline">\(z =
+100\)</span>.</p>
+<pre class="r"><code>pnorm_IS(100)
+# [1] 0
+pnorm(100,lower.tail = FALSE)
+# [1] 0</code></pre>
+<p>Hmm… we are having numerical issues.</p>
+<p>The trick to solving this is to do things on the log scale. But the
+IS formula involves averaging, and we have to do the averaging on the
+raw scale, not the log scale. Here is a function that allows us to do
+this. Perhaps you can work out what is going on here?</p>
+<pre class="r"><code># Return the log of the mean of exp(lx).
+lmean &lt;- function (lx) {
+  m &lt;- max(lx)
+  return(m + log(mean(exp(lx - m))))
 }</code></pre>
-<p>Exploiting this we can now do IS for <span
-class="math inline">\(z=100\)</span>:</p>
-<pre class="r"><code>lpnorm.IS= function(z,nsamp=100000){
-  y = rnorm(nsamp,z,1)
-  lw = dnorm(y,0,1,log=TRUE) - dnorm(y,z,1, log=TRUE) # log-weights
-  log(mean(y&gt;z)) + lmean(lw[y&gt;z]) 
+<p>Exploiting this function, we can now do IS for <span
+class="math inline">\(z = 100\)</span>:</p>
+<pre class="r"><code>lpnorm_IS &lt;- function (z,nsamp = 100000) {
+  y &lt;- rnorm(nsamp,z,1)
+  lw &lt;- dnorm(y,0,1,log = TRUE) - dnorm(y,z,1,log = TRUE)
+  return(log(mean(y &gt; z)) + lmean(lw[y &gt; z]))
 }
-lpnorm.IS(100)</code></pre>
-<pre><code>[1] -5005.571</code></pre>
-<pre class="r"><code>pnorm(100,lower.tail=FALSE,log=TRUE)</code></pre>
-<pre><code>[1] -5005.524</code></pre>
+lpnorm_IS(100)
+# [1] -5005.571
+pnorm(100,lower.tail = FALSE,log = TRUE)
+# [1] -5005.524</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -993,34 +1069,34 @@ Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.3.3 (2024-02-29)
-Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS 15.7.1
-
-Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
-LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
-
-locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-
-time zone: America/Chicago
-tzcode source: internal
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-loaded via a namespace (and not attached):
- [1] vctrs_0.6.5       cli_3.6.5         knitr_1.50        rlang_1.1.6      
- [5] xfun_0.52         stringi_1.8.7     promises_1.3.3    jsonlite_2.0.0   
- [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.33.0     
-[13] htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.10       rmarkdown_2.29   
-[17] evaluate_1.0.4    jquerylib_0.1.4   tibble_3.3.0      fastmap_1.2.0    
-[21] yaml_2.3.10       lifecycle_1.0.4   whisker_0.4.1     stringr_1.5.1    
-[25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
-[29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
-[33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0     </code></pre>
+<pre class="r"><code>sessionInfo()
+# R version 4.3.3 (2024-02-29)
+# Platform: aarch64-apple-darwin20 (64-bit)
+# Running under: macOS 15.7.1
+# 
+# Matrix products: default
+# BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+# LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+# 
+# locale:
+# [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+# 
+# time zone: America/Chicago
+# tzcode source: internal
+# 
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# 
+# loaded via a namespace (and not attached):
+#  [1] vctrs_0.6.5       cli_3.6.5         knitr_1.50        rlang_1.1.6      
+#  [5] xfun_0.52         stringi_1.8.7     promises_1.3.3    jsonlite_2.0.0   
+#  [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.33.0     
+# [13] htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.10       rmarkdown_2.29   
+# [17] evaluate_1.0.4    jquerylib_0.1.4   tibble_3.3.0      fastmap_1.2.0    
+# [21] yaml_2.3.10       lifecycle_1.0.4   whisker_0.4.1     stringr_1.5.1    
+# [25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
+# [29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
+# [33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0</code></pre>
 </div>
 </div>
 
