@@ -24,41 +24,41 @@ See [here][pdf_version] for a PDF version of this vignette.
 Suppose we want to compute the expectation of a function $f(X)$ with
 respect to a distribution with density $p(x)$. So
 $$
-I = \int f(x) p(x) dx.
+I = \int f(x) p(x) \, dx.
 $$
-That is
+That is,
 $$
-I = E[f(X)]
+I = E[f(X)],
 $$
 where the expectation is taken over a random variable $X$ with density
 $p$. We could approximate $I$ by "naive simulation":
 $$
-I \approx (1/M) \sum_{m} f(X_m)
+I \approx \frac{1}{M} \sum_{m=1}^M f(X_m),
 $$
 where $X_1,\dots,X_M \sim p(x)$.
 
 Now let $q(x)$ denote any other density function that is non-zero
 whenever $p(x)$ is non-zero. (We need this condition to avoid dividing
-by 0 in what follows). Then we can rewrite this as
+by zero in what follows.) Then we can rewrite this as
 $$
-I = \int f(x) [p(x)/q(x)] q(x) dx.
+I = \int f(x) \, [p(x)/q(x)] \, q(x) \, dx.
 $$
-That is
+That is,
 $$
 I = E[ f(X)p(X)/q(X)]
 $$
 where the expectation is taken over a random variable X with density $q$.
 So we could also approximate $I$ by simulation:
 $$
-I \approx (1/M) \sum_{m} f(X'_m)p(X'_m)/q(X'_m)
+I \approx \frac{1}{M} \sum_{m=1}^M f(X'_m) \times \frac{p(X'_m)}{q(X'_m)},
 $$
 where $X'_1,\dots,X'_m \sim q(x)$.
 
-This is called "Importance Sampling" (IS) and $q$ is called the
-"Importance sampling function".
+This is called "Importance Sampling" (IS), and $q$ is called the
+"importance sampling function".
 
-The idea behind IS is that if $q$ is well chosen then the
-approximation to $I$ will be better than the naive approximation.
+If $q$ is well chosen, then the approximation to $I$ will be better
+than the naive approximation.
 
 # Examples
 
