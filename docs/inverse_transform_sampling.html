@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2025-12-29" />
+<meta name="date" content="2025-01-05" />
 
 <title>Inverse transform sampling</title>
 
@@ -355,7 +355,7 @@ div.tocify {
 <h1 class="title toc-ignore">Inverse transform sampling</h1>
 <h4 class="author">Matt Bonakdarpour</h4>
 <address class="author_afil">
-University of Chicago<br><h4 class="date">December 29, 2025</h4>
+University of Chicago<br><h4 class="date">January 5, 2025</h4>
 
 </div>
 
@@ -384,7 +384,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-12-29
+<strong>Last updated:</strong> 2026-01-05
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -518,15 +518,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreefb6ff87dddd0d3ba108f7838a4016ad743c3451etargetblankfb6ff87a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree78b1165fde391d9eee869b5c63a213c79be14719targetblank78b1165a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/fb6ff87dddd0d3ba108f7838a4016ad743c3451e" target="_blank">fb6ff87</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/78b1165fde391d9eee869b5c63a213c79be14719" target="_blank">78b1165</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreefb6ff87dddd0d3ba108f7838a4016ad743c3451etargetblankfb6ff87a"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree78b1165fde391d9eee869b5c63a213c79be14719targetblank78b1165a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +536,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/fb6ff87dddd0d3ba108f7838a4016ad743c3451e" target="_blank">fb6ff87</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/78b1165fde391d9eee869b5c63a213c79be14719" target="_blank">78b1165</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -551,7 +551,7 @@ were generated:
 </p>
 <pre><code>
 Unstaged changes:
-    Modified:   Makefile
+    Modified:   analysis/Importance_sampling.Rmd
     Modified:   analysis/inverse_transform_sampling.Rmd
 
 </code></pre>
@@ -599,6 +599,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/67acf841e1c3040a2ac3ed14191d2e9fe732e99a/analysis/inverse_transform_sampling.Rmd" target="_blank">67acf84</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-12-29
+</td>
+<td>
+Added pdf version of inverse_transform_sampling vignette.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/67acf841e1c3040a2ac3ed14191d2e9fe732e99a/docs/inverse_transform_sampling.html" target="_blank">67acf84</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-12-29
+</td>
+<td>
+Added pdf version of inverse_transform_sampling vignette.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -838,8 +872,8 @@ for a PDF version of this vignette.</p>
 <h1>Overview</h1>
 <p>Inverse transform sampling is a method for generating random numbers
 from any probability distribution by using its inverse cumulative
-distribution <span class="math inline">\(F^{-1}(x)\)</span>. Recall that
-the cumulative distribution for a random variable <span
+distribution, <span class="math inline">\(F^{-1}(x)\)</span>. Recall
+that the cumulative distribution for a random variable <span
 class="math inline">\(X\)</span> is <span class="math inline">\(F_X(x) =
 P(X \leq x)\)</span>. In what follows, we assume that our computer can,
 on demand, generate independent realizations of a random variable <span
@@ -849,278 +883,139 @@ class="math inline">\([0,1]\)</span>.</p>
 <div id="algorithm" class="section level1">
 <h1>Algorithm</h1>
 <div id="continuous-distributions" class="section level2">
-<h2>Continuous Distributions</h2>
+<h2>Continuous distributions</h2>
 <p>Assume we want to generate a random variable <span
 class="math inline">\(X\)</span> with cumulative distribution function
 (CDF) <span class="math inline">\(F_X\)</span>. The inverse transform
-sampling algorithm is simple:<br />
-1. Generate <span class="math inline">\(U \sim
-\text{Unif}(0,1)\)</span><br />
-2. Let <span class="math inline">\(X = F_X^{-1}(U)\)</span>.</p>
-<p>Then, <span class="math inline">\(X\)</span> will follow the
+sampling algorithm is simple:</p>
+<ol style="list-style-type: decimal">
+<li><p>Generate <span class="math inline">\(U \sim
+\mathrm{Unif}(0,1)\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(X =
+F_X^{-1}(U)\)</span>.</p></li>
+</ol>
+<p>Then <span class="math inline">\(X\)</span> will follow the
 distribution governed by the CDF <span
 class="math inline">\(F_X\)</span>, which was our desired result.</p>
 <p>Note that this algorithm works in general but is not always
 practical. For example, inverting <span
 class="math inline">\(F_X\)</span> is easy if <span
 class="math inline">\(X\)</span> is an exponential random variable, but
-its harder if <span class="math inline">\(X\)</span> is Normal random
+it is harder if <span class="math inline">\(X\)</span> is normal random
 variable.</p>
 </div>
 <div id="discrete-distributions" class="section level2">
-<h2>Discrete Distributions</h2>
+<h2>Discrete distributions</h2>
 <p>Now we will consider the discrete version of the inverse transform
 method. Assume that <span class="math inline">\(X\)</span> is a discrete
-random variable such that <span class="math inline">\(P(X = x_i) =
-p_i\)</span>. The algorithm proceeds as follows:<br />
-1. Generate <span class="math inline">\(U \sim
-\text{Unif}(0,1)\)</span><br />
-2. Determine the index <span class="math inline">\(k\)</span> such that
-<span class="math inline">\(\sum_{j=1}^{k-1} p_j \leq U &lt;
+random variable such that <span class="math inline">\(P(X =
+x_i) = p_i\)</span>. The algorithm proceeds as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>Generate <span class="math inline">\(U \sim
+\text{Unif}(0,1)\)</span>.</p></li>
+<li><p>Determine the index <span class="math inline">\(k\)</span> such
+that <span class="math inline">\(\sum_{j=1}^{k-1} p_j \leq U &lt;
 \sum_{j=1}^k p_j\)</span>, and return <span class="math inline">\(X =
-x_k\)</span>.</p>
-<p>Notice that the second step requires a <em>search</em>.</p>
+x_k\)</span>.</p></li>
+</ol>
+<p>(Notice that the second step requires a <em>search</em>. )</p>
 <p>Assume our random variable <span class="math inline">\(X\)</span> can
 take on any one of <span class="math inline">\(K\)</span> values with
 probabilities <span class="math inline">\(\{p_1, \ldots, p_K\}\)</span>.
 We implement the algorithm below, assuming these probabilities are
-stored in a vector called <code>p.vec.</code></p>
-<pre class="r"><code># note: this inefficient implementation is for pedagogical purposes
-# in general, consider using the rmultinom() function
-discrete.inv.transform.sample &lt;- function( p.vec ) {
-  U  &lt;- runif(1)
-  if(U &lt;= p.vec[1]){
+stored in a vector called “pvec.”</p>
+<pre class="r"><code>discrete_inv_transform_sample &lt;- function (pvec) {
+  K &lt;- length(pvec)
+  u &lt;- runif(1)
+  if (u &lt;= pvec[1])
     return(1)
-  }
-  for(state in 2:length(p.vec)) {
-    if(sum(p.vec[1:(state-1)]) &lt; U &amp;&amp; U &lt;= sum(p.vec[1:state]) ) {
-      return(state)
-    }
+  for (k in seq(2,K)) {
+    if(sum(pvec[seq(1,k-1)]) &lt; u &amp;&amp; u &lt;= sum(pvec[seq(1,k)]))
+      return(k)
   }
 }</code></pre>
+<p>Note that this is this an inefficient implementation given here for
+pedagogical purposes.</p>
 </div>
 </div>
 <div id="continuous-example-exponential-distribution"
 class="section level1">
-<h1>Continuous Example: Exponential Distribution</h1>
+<h1>Continuous example: exponential distribution</h1>
 <p>Assume <span class="math inline">\(Y\)</span> is an exponential
 random variable with rate parameter <span class="math inline">\(\lambda
 = 2\)</span>. Recall that the probability density function is <span
-class="math inline">\(p(y) = 2e^{-2y}\)</span>, for <span
-class="math inline">\(y &gt; 0\)</span>. First, we compute the CDF:
-<span class="math display">\[F_Y(x) = P(Y\leq x) = \int_0^x 2e^{-2y} dy
-= 1 - e^{-2x}\]</span></p>
-<p>Solving for the inverse CDF, we get that <span
-class="math display">\[F_Y^{-1}(y) = -\frac{\ln(1-y)}{2}\]</span></p>
+class="math inline">\(p(y) =
+2e^{-2y}\)</span>, for <span class="math inline">\(y &gt; 0\)</span>.
+First, we derive the CDF: <span class="math display">\[
+F_Y(x) = P(Y\leq x) = \int_0^x 2e^{-2y} dy = 1 - e^{-2x}
+\]</span> Solving for the inverse CDF, we get that <span
+class="math display">\[
+F_Y^{-1}(y) =
+\textstyle -\frac{1}{2}\log(1-y)
+\]</span></p>
 <p>Using our algorithm above, we first generate <span
-class="math inline">\(U \sim \text{Unif}(0,1)\)</span>, then set <span
-class="math inline">\(X = F_Y^{-1}(U) =  -\frac{\ln(1-U)}{2}\)</span>.
-We do this in the R code below and compare the histogram of our samples
-with the true density of <span class="math inline">\(Y\)</span>.</p>
-<pre class="r"><code># inverse transform sampling
-num.samples &lt;-  1000
-U           &lt;-  runif(num.samples)
-X           &lt;- -log(1-U)/2
-
-# plot
-hist(X, freq=F, xlab=&#39;X&#39;, main=&#39;Generating Exponential R.V.&#39;)
-curve(dexp(x, rate=2) , 0, 3, lwd=2, xlab = &quot;&quot;, ylab = &quot;&quot;, add = T)</code></pre>
-<p><img src="figure/inverse_transform_sampling.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
-Past versions of unnamed-chunk-2-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-2-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/inverse_transform_sampling.Rmd/unnamed-chunk-2-1.png" target="_blank">5f62ee6</a>
-</td>
-<td>
-Matthew Stephens
-</td>
-<td>
-2019-03-31
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/inverse_transform_sampling.Rmd/unnamed-chunk-2-1.png" target="_blank">c3b365a</a>
-</td>
-<td>
-John Blischak
-</td>
-<td>
-2017-01-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Indeed, the plot indicates that our random variables are following
-the intended distribution.</p>
+class="math inline">\(U \sim
+\text{Unif}(0,1)\)</span>, then set <span class="math inline">\(X =
+-\log(1-U)/2\)</span>. We do this in the R code below and compare the
+histogram of our samples with the true density of <span
+class="math inline">\(Y\)</span>.</p>
+<pre class="r"><code>num_samples &lt;- 1000
+u &lt;-  runif(num_samples)
+x &lt;- -log(1-u)/2
+hist(x,n = 32,freq = FALSE,xlab = &#39;X&#39;,main = &quot;&quot;)
+curve(dexp(x,rate = 2),0,3,lwd = 2,add = TRUE)</code></pre>
+<p><img src="figure/inverse_transform_sampling.Rmd/its-continuous-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>Indeed, the random draws appear are following the intended
+distribution.</p>
 </div>
 <div id="discrete-example" class="section level1">
-<h1>Discrete Example</h1>
+<h1>Discrete example</h1>
 <p>Let’s assume we want to simulate a discrete random variable <span
 class="math inline">\(X\)</span> that follows the following
 distribution:</p>
 <table>
 <thead>
 <tr class="header">
-<th>x_i</th>
-<th>P(X=x_i)</th>
+<th align="center"><span class="math inline">\(k\)</span></th>
+<th align="center"><span class="math inline">\(\Pr(X = k)\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
-<td>0.1</td>
+<td align="center">1</td>
+<td align="center">0.1</td>
 </tr>
 <tr class="even">
-<td>2</td>
-<td>0.4</td>
+<td align="center">2</td>
+<td align="center">0.4</td>
 </tr>
 <tr class="odd">
-<td>3</td>
-<td>0.2</td>
+<td align="center">3</td>
+<td align="center">0.2</td>
 </tr>
 <tr class="even">
-<td>4</td>
-<td>0.3</td>
+<td align="center">4</td>
+<td align="center">0.3</td>
 </tr>
 </tbody>
 </table>
 <p>Below we simulate from this distribution using the
-discrete.inv.transform.sample() function above, and plot both the true
+“discrete_inv_transform_sample” function above, and plot both the true
 probability vector, and the empirical proportions from our
 simulation.</p>
-<pre class="r"><code>num.samples &lt;- 1000
-p.vec        &lt;- c(0.1, 0.4, 0.2, 0.3)
-names(p.vec) &lt;- 1:4
-samples     &lt;- numeric(num.samples)
-for(i in seq_len(num.samples) ) {
-  samples[i] &lt;- discrete.inv.transform.sample(p.vec)
+<pre class="r"><code>par(mfcol = c(1,2))
+num_samples &lt;- 1000
+pvec        &lt;- c(0.1,0.4,0.2,0.3)
+names(pvec) &lt;- 1:4
+samples     &lt;- rep(0,num_samples)
+for(i in seq_len(num_samples)) {
+  samples[i] &lt;- discrete_inv_transform_sample(pvec)
 }
-barplot(p.vec, main=&#39;True Probability Mass Function&#39;)</code></pre>
-<p><img src="figure/inverse_transform_sampling.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
-Past versions of unnamed-chunk-3-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/inverse_transform_sampling.Rmd/unnamed-chunk-3-1.png" target="_blank">5f62ee6</a>
-</td>
-<td>
-Matthew Stephens
-</td>
-<td>
-2019-03-31
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/inverse_transform_sampling.Rmd/unnamed-chunk-3-1.png" target="_blank">c3b365a</a>
-</td>
-<td>
-John Blischak
-</td>
-<td>
-2017-01-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>barplot(table(samples), main=&#39;Empirical Probability Mass Function&#39;)</code></pre>
-<p><img src="figure/inverse_transform_sampling.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-2">
-Past versions of unnamed-chunk-3-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/inverse_transform_sampling.Rmd/unnamed-chunk-3-2.png" target="_blank">5f62ee6</a>
-</td>
-<td>
-Matthew Stephens
-</td>
-<td>
-2019-03-31
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/inverse_transform_sampling.Rmd/unnamed-chunk-3-2.png" target="_blank">c3b365a</a>
-</td>
-<td>
-John Blischak
-</td>
-<td>
-2017-01-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Again, the plot supports our claim that we are drawing from the true
-probability distribution</p>
+barplot(pvec,main = &quot;true pdf&quot;)
+barplot(table(samples),main = &quot;empirical pdf&quot;)</code></pre>
+<p><img src="figure/inverse_transform_sampling.Rmd/its-discrete-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Again, the plot supports our claim that we are drawing from the
+correct probability distribution.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1129,34 +1024,34 @@ Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.3.3 (2024-02-29)
-Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS 15.7.1
-
-Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
-LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
-
-locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-
-time zone: America/Chicago
-tzcode source: internal
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-loaded via a namespace (and not attached):
- [1] vctrs_0.6.5       cli_3.6.5         knitr_1.50        rlang_1.1.6      
- [5] xfun_0.52         stringi_1.8.7     promises_1.3.3    jsonlite_2.0.0   
- [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.33.0     
-[13] htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.10       rmarkdown_2.29   
-[17] evaluate_1.0.4    jquerylib_0.1.4   tibble_3.3.0      fastmap_1.2.0    
-[21] yaml_2.3.10       lifecycle_1.0.4   whisker_0.4.1     stringr_1.5.1    
-[25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
-[29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
-[33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0     </code></pre>
+<pre class="r"><code>sessionInfo()
+# R version 4.3.3 (2024-02-29)
+# Platform: aarch64-apple-darwin20 (64-bit)
+# Running under: macOS 15.7.1
+# 
+# Matrix products: default
+# BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+# LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+# 
+# locale:
+# [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+# 
+# time zone: America/Chicago
+# tzcode source: internal
+# 
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# 
+# loaded via a namespace (and not attached):
+#  [1] vctrs_0.6.5       cli_3.6.5         knitr_1.50        rlang_1.1.6      
+#  [5] xfun_0.52         stringi_1.8.7     promises_1.3.3    jsonlite_2.0.0   
+#  [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.33.0     
+# [13] htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.10       rmarkdown_2.29   
+# [17] evaluate_1.0.4    jquerylib_0.1.4   tibble_3.3.0      fastmap_1.2.0    
+# [21] yaml_2.3.10       lifecycle_1.0.4   whisker_0.4.1     stringr_1.5.1    
+# [25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
+# [29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
+# [33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0</code></pre>
 </div>
 </div>
 

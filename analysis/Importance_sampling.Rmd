@@ -23,7 +23,8 @@ See [here][pdf_version] for a PDF version of this vignette.
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
 ```
 
-# Definition
+Definition
+==========
 
 Suppose we want to compute the expectation of a function $f(X)$ with
 respect to a distribution with density $p(x)$. So
@@ -64,7 +65,8 @@ This is called "Importance Sampling" (IS), and $q$ is called the
 If $q$ is well chosen, then the approximation to $I$ will be better
 than the naive approximation.
 
-# Examples
+Examples
+========
 
 Suppose $X \sim N(0,1)$, and we want to compute $\Pr(X>z)$, for $z =
 10$. That is, $f(x) = \mathbb{I}(x > 10)$, and $p(x)= \phi(x)$ is the
@@ -102,7 +104,8 @@ pnorm_IS(10)
 pnorm(10,lower.tail = FALSE)
 ```
 
-# Example: computing with means on the log scale
+Example: computing with means on the log scale
+==============================================
 
 To push this example a bit further, let's illustrate a numerical issue
 that can arise quite generally (not just in IS).
@@ -121,7 +124,7 @@ formula involves averaging, and we have to do the averaging on the raw
 scale, not the log scale. Here is a function that allows us to do
 this. Perhaps you can work out what is going on here?
 
-```{r}
+```{r lmean}
 # Return the log of the mean of exp(lx).
 lmean <- function (lx) {
   m <- max(lx)
