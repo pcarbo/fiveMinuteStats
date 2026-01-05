@@ -518,15 +518,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree78b1165fde391d9eee869b5c63a213c79be14719targetblank78b1165a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreef04aaa5fa3071fbcab04a9f56edb4f510d0026cctargetblankf04aaa5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/78b1165fde391d9eee869b5c63a213c79be14719" target="_blank">78b1165</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/f04aaa5fa3071fbcab04a9f56edb4f510d0026cc" target="_blank">f04aaa5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree78b1165fde391d9eee869b5c63a213c79be14719targetblank78b1165a"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreef04aaa5fa3071fbcab04a9f56edb4f510d0026cctargetblankf04aaa5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +536,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/78b1165fde391d9eee869b5c63a213c79be14719" target="_blank">78b1165</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/f04aaa5fa3071fbcab04a9f56edb4f510d0026cc" target="_blank">f04aaa5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -551,7 +551,6 @@ were generated:
 </p>
 <pre><code>
 Unstaged changes:
-    Modified:   analysis/Importance_sampling.Rmd
     Modified:   analysis/inverse_transform_sampling.Rmd
 
 </code></pre>
@@ -599,6 +598,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/f04aaa5fa3071fbcab04a9f56edb4f510d0026cc/analysis/inverse_transform_sampling.Rmd" target="_blank">f04aaa5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-05
+</td>
+<td>
+A couple small fixes to inverse_transform_sampling.Rmd.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/3b61f332f5ee50866cb5427bd162dc7b1647e67f/analysis/inverse_transform_sampling.Rmd" target="_blank">3b61f33</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-05
+</td>
+<td>
+Updated the inverse transform sampling vignette.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/3b61f332f5ee50866cb5427bd162dc7b1647e67f/docs/inverse_transform_sampling.html" target="_blank">3b61f33</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-05
+</td>
+<td>
+Updated the inverse transform sampling vignette.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -919,11 +969,11 @@ that <span class="math inline">\(\sum_{j=1}^{k-1} p_j \leq U &lt;
 x_k\)</span>.</p></li>
 </ol>
 <p>(Notice that the second step requires a <em>search</em>. )</p>
-<p>Assume our random variable <span class="math inline">\(X\)</span> can
-take on any one of <span class="math inline">\(K\)</span> values with
+<p>Assume our random variable <span class="math inline">\(X\)</span>
+takes on one of <span class="math inline">\(K\)</span> values with
 probabilities <span class="math inline">\(\{p_1, \ldots, p_K\}\)</span>.
 We implement the algorithm below, assuming these probabilities are
-stored in a vector called “pvec.”</p>
+stored in a vector called “pvec”.</p>
 <pre class="r"><code>discrete_inv_transform_sample &lt;- function (pvec) {
   K &lt;- length(pvec)
   u &lt;- runif(1)
@@ -947,11 +997,11 @@ random variable with rate parameter <span class="math inline">\(\lambda
 class="math inline">\(p(y) =
 2e^{-2y}\)</span>, for <span class="math inline">\(y &gt; 0\)</span>.
 First, we derive the CDF: <span class="math display">\[
-F_Y(x) = P(Y\leq x) = \int_0^x 2e^{-2y} dy = 1 - e^{-2x}
+F_Y(x) = P(Y\leq x) = \int_0^x 2e^{-2y} dy = 1 - e^{-2x}.
 \]</span> Solving for the inverse CDF, we get that <span
 class="math display">\[
 F_Y^{-1}(y) =
-\textstyle -\frac{1}{2}\log(1-y)
+\textstyle -\frac{1}{2}\log(1-y).
 \]</span></p>
 <p>Using our algorithm above, we first generate <span
 class="math inline">\(U \sim
@@ -959,12 +1009,50 @@ class="math inline">\(U \sim
 -\log(1-U)/2\)</span>. We do this in the R code below and compare the
 histogram of our samples with the true density of <span
 class="math inline">\(Y\)</span>.</p>
-<pre class="r"><code>num_samples &lt;- 1000
+<pre class="r"><code>set.seed(1)
+num_samples &lt;- 10000
 u &lt;-  runif(num_samples)
 x &lt;- -log(1-u)/2
 hist(x,n = 32,freq = FALSE,xlab = &#39;X&#39;,main = &quot;&quot;)
 curve(dexp(x,rate = 2),0,3,lwd = 2,add = TRUE)</code></pre>
 <p><img src="figure/inverse_transform_sampling.Rmd/its-continuous-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-its-continuous-1">
+Past versions of its-continuous-1.png
+</button>
+</p>
+<div id="fig-its-continuous-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/3b61f332f5ee50866cb5427bd162dc7b1647e67f/docs/figure/inverse_transform_sampling.Rmd/its-continuous-1.png" target="_blank">3b61f33</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Indeed, the random draws appear are following the intended
 distribution.</p>
 </div>
@@ -1014,6 +1102,43 @@ for(i in seq_len(num_samples)) {
 barplot(pvec,main = &quot;true pdf&quot;)
 barplot(table(samples),main = &quot;empirical pdf&quot;)</code></pre>
 <p><img src="figure/inverse_transform_sampling.Rmd/its-discrete-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-its-discrete-1">
+Past versions of its-discrete-1.png
+</button>
+</p>
+<div id="fig-its-discrete-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/3b61f332f5ee50866cb5427bd162dc7b1647e67f/docs/figure/inverse_transform_sampling.Rmd/its-discrete-1.png" target="_blank">3b61f33</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Again, the plot supports our claim that we are drawing from the
 correct probability distribution.</p>
 <br>

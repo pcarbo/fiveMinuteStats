@@ -75,10 +75,10 @@ x_i) = p_i$. The algorithm proceeds as follows:
 
 (Notice that the second step requires a *search*. )
 
-Assume our random variable $X$ can take on any one of $K$ values with
+Assume our random variable $X$ takes on one of $K$ values with
 probabilities $\{p_1, \ldots, p_K\}$. We implement the algorithm
 below, assuming these probabilities are stored in a vector called
-"pvec."
+"pvec".
 
 ```{r discrete-inv-transform-sample}
 discrete_inv_transform_sample <- function (pvec) {
@@ -116,8 +116,9 @@ Using our algorithm above, we first generate $U \sim
 code below and compare the histogram of our samples with the true
 density of $Y$.
 
-```{r its-continuous, fig.height=3.5, fig.width=4}
-num_samples <- 1000
+```{r its-continuous, fig.height=3.25, fig.width=4}
+set.seed(1)
+num_samples <- 10000
 u <-  runif(num_samples)
 x <- -log(1-u)/2
 hist(x,n = 32,freq = FALSE,xlab = 'X',main = "")
