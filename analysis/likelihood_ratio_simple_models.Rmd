@@ -191,7 +191,7 @@ Example
 Using the numbers in the tables above, we can compute the likelihood
 and LR for $M_S$ vs. $M_F$:
 
-```{r}
+```{r likelihood}
 x <- c(1,0,1,0,0,1)
 fS <- c(0.40,0.12,0.21,0.12,0.02,0.32)
 fF <- c(0.8,0.2,0.11,0.17,0.23,0.25)
