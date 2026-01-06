@@ -40,7 +40,7 @@ Motivating Problem
 ==================
 
 **Technical note:** To simplify this problem I have assumed that
-elephants are [haploid](https://en.wikipedia.org/wiki/Ploidy), which
+elephants are [haploid][plody], which
 they are not. If you do not know what this means you should simply
 ignore this comment.
 
@@ -147,41 +147,43 @@ of model comparison, and so is a good place to start.
 The likelihood ratio
 --------------------
 
-The key idea to introduce here is that a useful summary of how
-strongly the data $x$ support one model vs. another model is given by
-the "likelihood ratio" (LR).
+A key idea is that a useful summary of how strongly the data $x$
+support one model vs. another model is given by the "likelihood ratio"
+(LR).
 
 The LR comparing two fully-specified models is simply the ratio of the
-probability of the data under each model.  (In saying the "probability
-of the data" here we are assuming that the data and models involved
-are discrete. For continuous data and models the LR is the ratio of
-the probability densities of the two models evaluated at the data, as
-discussed in detail
-[here](likelihood_ratio_simple_continuous_data.html))
+probabilities of the data under each model.  (In saying the
+"probability of the data", we are assuming that the data and models
+involved are discrete. For continuous data and models, the LR is the
+ratio of the *probability densities* of the two models evaluated at the
+data, as discussed in detail
+[here][likelihood_ratio_simple_continuous_data].)
 
-The name Likelihood ratio comes from the fact that the probability of
+The name "likelihood ratio" comes from the fact that the probability of
 the data under each model is called the "likelihood" for that model.
 I recommended saying "likelihood for" the model, or "likelihood under"
 the model, rather than "likelihood of" the model, to help avoid
 confusing likelihood with probability.
 
-That is, given data $x$ the likelihood for a fully-specified 
+That is, given data $x$, the likelihood for a fully-specified 
 (discrete) model $M$ is defined as
 $$
-L(M):=p(x | M)
+L(M) := p(x \mid M),
 $$
-where $p(\cdot | M)$ denotes the probability mass function for model
+where $p(x \mid M)$ denotes the probability mass function for model
 $M$. And the likelihood ratio comparing two fully-specified (discrete)
 models $M_1$ vs. $M_0$ is defined as
 $$
-LR(M_1, M_0) := L(M_1)/L(M_0).
+\mathrm{LR}(M_1, M_0) := \frac{L(M_1)}{L(M_0)}.
 $$
-Note that the likelihood for $M$ depends on the data $x$. To make this
-dependence explicit the likelihood is sometimes written $L(M;x)$
-instead of just $L(M)$.  Large values of $LR(M_1,M_0)$ indicate that
-the data are much more probable under model $M_1$ than under model
-$M_0$, and so indicate support for $M_1$. Conversely, small values of
-$LR$ indicate support for model $M_0$.
+Note that the likelihood for model $M$ depends on the data $x$. To
+make this dependence explicit, the likelihood is sometimes written as
+$L(M;x)$ instead of just $L(M)$.
+
+Large values of $\mathrm{LR}(M_1, M_0)$ indicate that the data are
+much more probable under model $M_1$ than under model $M_0$, and so
+indicate support for $M_1$. Conversely, small values of
+$\mathrm{LR}(M_1, M_0)$ indicate support for model $M_0$.
 
 Example 
 -------
@@ -334,7 +336,8 @@ Repeat after me:
    means the data favour model 1 by a factor of x". (Or, if x <1 then
    it means "the data favour model 2 by a factor of 1/x"")
 
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/likelihood_ratio_simple_models.pdf
 [wasser-2007]: https://doi.org/10.1073/pnas.0609714104
 [wasser-2008]: https://doi.org/10.1111/j.1523-1739.2008.01012.x
-
-[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/likelihood_ratio_simple_models.pdf
+[ploidy]: https://en.wikipedia.org/wiki/Ploidy
+[likelihood_ratio_simple_continuous_data]: https://pcarbo.github.io/fiveMinuteStats/likelihood_ratio_simple_continuous_data.html
