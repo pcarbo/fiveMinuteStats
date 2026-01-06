@@ -201,7 +201,7 @@ LR <- L(fS,x)/L(fF,x)
 LR
 ```
 
-So $\mathrm{LR}(M_S, M_F)$ is ``r LR``. This means that the data
+So $\mathrm{LR}(M_S, M_F)$ is `r LR`. This means that the data
 favor the tusk coming from a savanna elephant by a factor of
 about 1.8. This is a fairly modest factor — not large enough to draw
 a convincing conclusion. We will have more to say about interpreting
@@ -233,7 +233,7 @@ For many reasons, it is common to work with the log-likelihood ratio,
 $\mathrm{LLR} := \log\mathrm{LR}$. Usually mathematicians work with
 logarithms in base $e$, and we will use that convention unless
 otherwise stated. So for example, if LR = 1.8, then
-$\mathrm{LLR} = \log 1.8 =$ ``r log(1.8)``.
+$\mathrm{LLR} = \log 1.8 =$ `r log(1.8)`.
 
 Although the usual convention is to use base $e$, it can sometimes
 be useful to work with logarithms in base 10 to make the inverse

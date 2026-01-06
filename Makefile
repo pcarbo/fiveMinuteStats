@@ -8,7 +8,7 @@ all: docs/index.html \
      docs/inverse_transform_sampling.html \
      docs/Importance_sampling.html \
      docs/likelihood_ratio_simple_models.html \
-     docs/likelihood_ratio_simple_continuous_data.pdf \
+     docs/likelihood_ratio_simple_continuous_data.html \
      docs/LR_and_BF.html \
      docs/bayes_multiclass.html \
      docs/r_simplemix.html \
