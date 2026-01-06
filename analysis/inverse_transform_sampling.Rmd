@@ -3,7 +3,7 @@ title: Inverse transform sampling
 author: 
   name: Matt Bonakdarpour
   affiliation: University of Chicago
-date: January 5, 2025
+date: January 5, 2026
 output:
   pdf_document:
     keep_tex: false
