@@ -385,11 +385,11 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-12-29
+<strong>Last updated:</strong> 2026-01-05
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span> 1
 </p>
@@ -435,15 +435,99 @@ HTML.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreed1623a04583da98f52070d227e8f5ebd53103c45targetblankd1623a0a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(12345)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed12345code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(12345)</code> was run prior to running the
+code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreefd39250317da48e96be27ecaa892851457ddfdcctargetblankfd39250a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/d1623a04583da98f52070d227e8f5ebd53103c45" target="_blank">d1623a0</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/fd39250317da48e96be27ecaa892851457ddfdcc" target="_blank">fd39250</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreed1623a04583da98f52070d227e8f5ebd53103c45targetblankd1623a0a"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreefd39250317da48e96be27ecaa892851457ddfdcctargetblankfd39250a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -453,7 +537,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/d1623a04583da98f52070d227e8f5ebd53103c45" target="_blank">d1623a0</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/fd39250317da48e96be27ecaa892851457ddfdcc" target="_blank">fd39250</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -468,8 +552,6 @@ were generated:
 </p>
 <pre><code>
 Unstaged changes:
-    Modified:   Makefile
-    Modified:   analysis/index.Rmd
     Modified:   analysis/integral.Rmd
 
 </code></pre>
@@ -516,6 +598,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/fb6ff87dddd0d3ba108f7838a4016ad743c3451e/analysis/integral.Rmd" target="_blank">fb6ff87</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-12-29
+</td>
+<td>
+Added pdf version of integral vignette.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/fb6ff87dddd0d3ba108f7838a4016ad743c3451e/docs/integral.html" target="_blank">fb6ff87</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-12-29
+</td>
+<td>
+Added pdf version of integral vignette.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -709,51 +825,93 @@ compute in Bayesian calculations is an integral.</p>
 <h1>Examples</h1>
 <p>Consider inference for a parameter <span
 class="math inline">\(\theta\)</span> from data <span
-class="math inline">\(D\)</span>.</p>
-<p>The posterior distribution of <span
-class="math inline">\(\theta\)</span> is given by Bayes Theorem</p>
-<p><span class="math display">\[p(\theta | D) = p(\theta) p(D | \theta)/
-p(D)\]</span></p>
-<p>First note that the denominator <span
+class="math inline">\(D\)</span>. The posterior distribution of <span
+class="math inline">\(\theta\)</span> is given by Bayes Theorem: <span
+class="math display">\[
+p(\theta \mid D) = \frac{p(\theta) \, p(D \mid \theta)}{p(D)}.
+\]</span> First note that the denominator <span
 class="math inline">\(p(D)\)</span> is an integral: <span
-class="math display">\[p(D) = \int p(D | \theta) p(\theta)
-d\theta\]</span>.</p>
-<p>Now suppose we want to estimate <span
+class="math display">\[
+p(D) = \textstyle \int p(D \mid \theta) \, p(\theta) \, d\theta.
+\]</span> Now suppose we want to estimate <span
 class="math inline">\(\theta\)</span> by its posterior mean. This is
-<span class="math display">\[E(\theta | D) = \int \theta p(\theta |D )
-d\theta.\]</span></p>
-<p>And if we want to find a 90% posterior credible interval for <span
-class="math inline">\(\theta\)</span> then we want to find <span
+<span class="math display">\[
+E(\theta \mid D) = \textstyle \int \theta \, p(\theta \mid D) \,
+d\theta.
+\]</span> And if we want to find a 90% posterior credible interval for
+<span class="math inline">\(\theta\)</span>, then we want to find <span
 class="math inline">\(A\)</span> and <span
 class="math inline">\(B\)</span> such that <span
-class="math inline">\(\Pr(\theta \in [A,B] | D) = 0.9\)</span>. Note
-that the LHS of this is <span class="math display">\[\Pr(\theta \in
-[A,B]|D) = \int I(\theta \in [A,B]) p(\theta | D) d\theta,\]</span>
-where <span class="math inline">\(I(E)\)</span> denotes the indicator
-function for the event <span class="math inline">\(E\)</span>, which
-takes the value 1 if <span class="math inline">\(E\)</span> is true and
-<span class="math inline">\(0\)</span> otherwise.</p>
+class="math inline">\(\Pr(\theta \in [A,B] \mid D)
+= 0.9\)</span>. The LHS of this is <span class="math display">\[
+\Pr(\theta \in [A,B] \mid D) =
+\textstyle
+\int \mathbb{I}(\theta \in [A,B]) \, p(\theta \mid D) \,
+d\theta,
+\]</span> where <span class="math inline">\(\mathbb{I}(E)\)</span>
+denotes the indicator function for the event <span
+class="math inline">\(E\)</span>, which takes the value 1 if <span
+class="math inline">\(E\)</span> is true, and <span
+class="math inline">\(0\)</span> otherwise.</p>
 </div>
 <div id="examples-discrete" class="section level1">
 <h1>Examples: discrete</h1>
 <p>Of course, if <span class="math inline">\(\theta\)</span> is discrete
-then the integrals above all become sums.</p>
-<p>For example <span class="math display">\[E(\theta | D) = \sum_n
-\theta_n \Pr(\theta=\theta_n | D)\]</span> where <span
-class="math inline">\(\theta_1,\theta_2,\dots\)</span> are the possible
-values for <span class="math inline">\(\theta\)</span>.</p>
+then the integrals above all become sums. For example, <span
+class="math display">\[
+E(\theta \mid D) = \sum_n \theta_n \Pr(\theta = \theta_n \mid D),
+\]</span> where <span class="math inline">\(\theta_1, \theta_2,
+\dots\)</span> are the possible values for <span
+class="math inline">\(\theta\)</span>.</p>
 </div>
 <div id="summary" class="section level1">
 <h1>Summary</h1>
 <p>Pretty much all the things you want to compute when doing Bayesian
 inference are integrals (or sums) of one kind or another…</p>
-<p>If you are computing 1-dimensional integrals then numerical methods
-are often useful. For example, Simpsons Rule, Gaussian Quadrature. These
-can also work in 2-dimensions, and maybe even 3 or 4.</p>
-<p>Other simple methods that can work for low dimensions: naive Monte
-Carlo, and Importance Sampling. Also Laplace approximation.</p>
-<p>For higher dimensions we usually resort to Markov Chain Monte
-Carlo.</p>
+<p>If you are computing 1-dimensional integrals, then numerical methods
+are often useful. For example, Simpson’s Rule, Gaussian Quadrature.
+These can also work in 2-dimensions, and maybe even 3 or 4.</p>
+<p>Other simple methods that can work for low dimensions include naive
+Monte Carlo and Importance Sampling. Also Laplace’s method.</p>
+<p>For higher dimensions, we resort to other methods such as Markov
+chain Monte Carlo (MCMC).</p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()
+# R version 4.3.3 (2024-02-29)
+# Platform: aarch64-apple-darwin20 (64-bit)
+# Running under: macOS 15.7.1
+# 
+# Matrix products: default
+# BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+# LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+# 
+# locale:
+# [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+# 
+# time zone: America/Chicago
+# tzcode source: internal
+# 
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# 
+# loaded via a namespace (and not attached):
+#  [1] vctrs_0.6.5       cli_3.6.5         knitr_1.50        rlang_1.1.6      
+#  [5] xfun_0.52         stringi_1.8.7     promises_1.3.3    jsonlite_2.0.0   
+#  [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.33.0     
+# [13] htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.10       rmarkdown_2.29   
+# [17] evaluate_1.0.4    jquerylib_0.1.4   tibble_3.3.0      fastmap_1.2.0    
+# [21] yaml_2.3.10       lifecycle_1.0.4   whisker_0.4.1     stringr_1.5.1    
+# [25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
+# [29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
+# [33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0</code></pre>
+</div>
 </div>
 
 
