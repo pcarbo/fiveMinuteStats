@@ -214,12 +214,12 @@ Exercise
 ========
 
 1a. Write a function to simulate data for the medical screening example
-above.  The function should take as input the proportion of
+above. The function should take as input the proportion of
 individuals who have the disease, and the number of individuals to
 simulate. It should output a table, one row for each individual, with
-two columns: the first column (x) is the protein concentration for
-that individual, the second column (z) is an indicator of disease
-status (1=disease, 0=normal).
+two columns: the first column ($x$) is the protein concentration for
+that individual, the second column ($z$) is an indicator of disease
+status (1 = disease, 0 = normal).
 
 1b. Write a function to compute the likelihood ratio in the medical
 screening example.
@@ -227,12 +227,12 @@ screening example.
 1c. Use the above functions to answer the following question *by
 simulation*. Suppose we screen a population of individuals, 20% of
 which are diseased, and compute the LR for each individual
-screened. Among individuals with an LR "near" c, what proportion are
-truly diseased? Denoting this proportion $q_D(c)$, make a plot of
-$\log_{10}(c)$ [$x$ axis] vs. $q_D(c)$ [$y$ axis], with $c$ varying
-from $1/10$ to $10$ say ($log_{10}(c)$ varies from -1 to 1.) Or maybe
-a wider range if you like (the wider the range, the larger the
-simulation study you will need to get reliable results).
+screened. Among individuals with an LR "near" $c$, what proportion are
+truly diseased? Denoting this proportion by $q_D(c)$, make a plot of
+$\log_{10} c$ [X axis] vs. $q_D(c)$ [Y axis], with $c$ varying
+from $1/10$ to $10$, say (i.e., $log_{10} c$ varies from -1 to 1.) Or maybe
+a wider range if you like. (The wider the range, the larger the
+simulation study you will need to get reliable results.)
 
 1d. Use the computations introduced in this vignette to compute the
 theoretical value for $q_D(c)$, and plot these on the same graph as
@@ -240,8 +240,8 @@ your simulation results to demonstrate that your simulations match the
 theory. [It should provide a good agreement, provided your simulation
 is large enough.]
 
-1e. Repeat the above, but in the case where only 2% of the screened
-population are diseased.
+1e. Repeat c and d, but in the case where only 2% of the screened
+individuals are diseased.
 
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/LR_and_BF.pdf
 [likelihood_ratio_simple_models]: https://pcarbo.github.io/fiveMinuteStats/likelihood_ratio_simple_models.html
