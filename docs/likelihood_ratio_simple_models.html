@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2025-12-29" />
+<meta name="date" content="2026-01-06" />
 
 <title>Comparing two models with a likelihood ratio</title>
 
@@ -356,7 +356,7 @@ div.tocify {
 ratio</h1>
 <h4 class="author">Matthew Stephens</h4>
 <address class="author_afil">
-University of Chicago<br><h4 class="date">December 29, 2025</h4>
+University of Chicago<br><h4 class="date">January 6, 2026</h4>
 
 </div>
 
@@ -364,7 +364,7 @@ University of Chicago<br><h4 class="date">December 29, 2025</h4>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -375,8 +375,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -385,13 +385,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-12-29
+<strong>Last updated:</strong> 2026-01-06
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
@@ -414,21 +414,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -519,15 +516,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreeabfebce8557753fca4d827924bac8ddd278e3abbtargetblankabfebcea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree0593f14b39283c56b8f9c3a83c4802ebc2c0ebe8targetblank0593f14a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/abfebce8557753fca4d827924bac8ddd278e3abb" target="_blank">abfebce</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/0593f14b39283c56b8f9c3a83c4802ebc2c0ebe8" target="_blank">0593f14</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreeabfebce8557753fca4d827924bac8ddd278e3abbtargetblankabfebcea"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree0593f14b39283c56b8f9c3a83c4802ebc2c0ebe8targetblank0593f14a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -537,7 +534,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/abfebce8557753fca4d827924bac8ddd278e3abb" target="_blank">abfebce</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/0593f14b39283c56b8f9c3a83c4802ebc2c0ebe8" target="_blank">0593f14</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -552,10 +549,7 @@ were generated:
 </p>
 <pre><code>
 Unstaged changes:
-    Modified:   Makefile
-    Modified:   analysis/LR_and_BF.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/likelihood_ratio_simple_models.Rmd
+    Modified:   analysis/inverse_transform_sampling.Rmd
 
 </code></pre>
 <p>
@@ -602,6 +596,126 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/0593f14b39283c56b8f9c3a83c4802ebc2c0ebe8/analysis/likelihood_ratio_simple_models.Rmd" target="_blank">0593f14</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-06
+</td>
+<td>
+wflow_publish("analysis/likelihood_ratio_simple_models.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/fc8b1d8a4e3be1def37036773f4dc03cfce48803/analysis/likelihood_ratio_simple_models.Rmd" target="_blank">fc8b1d8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-06
+</td>
+<td>
+Some edits to the exercises in the likelihood_ratio_simple_models
+vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/8a0af869caeaf7c30e378744ba4a7cc26ad361b5/analysis/likelihood_ratio_simple_models.Rmd" target="_blank">8a0af86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-06
+</td>
+<td>
+A few more small edits to the likelihood_ratio_simple_models vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c67ccfc8b567412dad382fef0a2f73861e3dcda7/analysis/likelihood_ratio_simple_models.Rmd" target="_blank">c67ccfc</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-06
+</td>
+<td>
+A few more edits to the likelihood_ratio_simple_models vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/306bf92a4941ccf950d7d9d4f2363e2d6d354e83/analysis/likelihood_ratio_simple_models.Rmd" target="_blank">306bf92</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-06
+</td>
+<td>
+A few minor edits to the likelihood_ratio_simple_models vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/7a8ffe4a6d2f6e537f3b90bbee2ca2ee362bd167/analysis/likelihood_ratio_simple_models.Rmd" target="_blank">7a8ffe4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-12-29
+</td>
+<td>
+Created pdf version of LR_and_BF vignette.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/7a8ffe4a6d2f6e537f3b90bbee2ca2ee362bd167/docs/likelihood_ratio_simple_models.html" target="_blank">7a8ffe4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-12-29
+</td>
+<td>
+Created pdf version of LR_and_BF vignette.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1162,140 +1276,140 @@ for a PDF version of this vignette.</p>
 comparing two simple (“fully specified”) statistical models, one of the
 most fundamental concepts in statistical inference.</p>
 </div>
-<div id="pre-requisites" class="section level1">
-<h1>Pre-requisites</h1>
+<div id="prerequisites" class="section level1">
+<h1>Prerequisites</h1>
 <p>Be familiar with basic concepts from probability, particularly the
 concept of a probability distribution.</p>
 </div>
 <div id="motivating-problem" class="section level1">
 <h1>Motivating Problem</h1>
-<p><strong>Technical Note:</strong> To simplify this problem I have
-assumed that elephants are <a
-href="https://en.wikipedia.org/wiki/Ploidy">haploid</a>, which they are
-not. If you do not know what this means you should simply ignore this
-comment.</p>
+<p><strong>Technical note:</strong> To simplify this problem I have
+assumed that elephants are [haploid][plody], which they are not. If you
+do not know what this means you should simply ignore this comment.</p>
 <p>There are two subspecies of African Elephant: savannah and forest
 elephants, which differ in their genetic makeup. Interpol have seized an
 illegally-smuggled elephant tusk, and they want to know which subspecies
-of elephant the tusk came from. To try to answer this they collect DNA
+of elephant the tusk came from. To try to answer this, they collect DNA
 from the tusk and measure it at a number of locations (“markers” in
-genetics jargon) along the elephant genome. At each marker the DNA can
+genetics jargon) along the elephant genome. At each marker, the DNA can
 be one of two types (“alleles” in genetics jargon), which for simplicity
-we will label 0 and 1. So the available data on the tusk might look
-something like this.</p>
+we will label 0 and 1. So the available data on the tusk from one
+elephant might look something like this:</p>
 <table>
 <thead>
 <tr class="header">
-<th>Marker</th>
-<th>Allele</th>
+<th align="center">marker</th>
+<th align="center">allele</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
-<td>1</td>
+<td align="center">1</td>
+<td align="center">1</td>
 </tr>
 <tr class="even">
-<td>2</td>
-<td>0</td>
+<td align="center">2</td>
+<td align="center">0</td>
 </tr>
 <tr class="odd">
-<td>3</td>
-<td>1</td>
+<td align="center">3</td>
+<td align="center">1</td>
 </tr>
 <tr class="even">
-<td>4</td>
-<td>0</td>
+<td align="center">4</td>
+<td align="center">0</td>
 </tr>
 <tr class="odd">
-<td>5</td>
-<td>0</td>
+<td align="center">5</td>
+<td align="center">0</td>
 </tr>
 <tr class="even">
-<td>6</td>
-<td>1</td>
+<td align="center">6</td>
+<td align="center">1</td>
 </tr>
 </tbody>
 </table>
 <p>Interpol also have information on the frequency of each allele in
-each of the two subspecies - this was obtained by measuring the DNA of a
+each of the two subspecies — this was obtained by measuring the DNA of a
 large number of savanna elephants and a large number of forest
 elephants. We will use <span class="math inline">\(f_{Sj}\)</span> and
 <span class="math inline">\(f_{Fj}\)</span> to denote the frequency of
-“1” allele at marker <span class="math inline">\(j\)</span> in savanna
-and forest elephants respectively (and since there are only two alleles,
-the frequency of the 0 allele is <span
-class="math inline">\(1-f_{Sj}\)</span> and <span
-class="math inline">\(1-f_{Fj}\)</span>). Here is a table of this
-information.</p>
+the “1” allele at marker <span class="math inline">\(j\)</span> in
+savanna and forest elephants, respectively. (And since there are only
+two alleles, the frequency of the “0” allele is <span
+class="math inline">\(1 - f_{Sj}\)</span> and <span
+class="math inline">\(1 - f_{Fj}\)</span>, respectively.) Here is a
+table of this information:</p>
 <table>
 <thead>
 <tr class="header">
-<th>marker</th>
-<th><span class="math inline">\(f_S\)</span></th>
-<th><span class="math inline">\(f_F\)</span></th>
+<th align="center">marker, <span class="math inline">\(j\)</span></th>
+<th align="center"><span class="math inline">\(f_{Sj}\)</span></th>
+<th align="center"><span class="math inline">\(f_{Fj}\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
-<td>0.40</td>
-<td>0.80</td>
+<td align="center">1</td>
+<td align="center">0.40</td>
+<td align="center">0.80</td>
 </tr>
 <tr class="even">
-<td>2</td>
-<td>0.12</td>
-<td>0.20</td>
+<td align="center">2</td>
+<td align="center">0.12</td>
+<td align="center">0.20</td>
 </tr>
 <tr class="odd">
-<td>3</td>
-<td>0.21</td>
-<td>0.11</td>
+<td align="center">3</td>
+<td align="center">0.21</td>
+<td align="center">0.11</td>
 </tr>
 <tr class="even">
-<td>4</td>
-<td>0.12</td>
-<td>0.17</td>
+<td align="center">4</td>
+<td align="center">0.12</td>
+<td align="center">0.17</td>
 </tr>
 <tr class="odd">
-<td>5</td>
-<td>0.02</td>
-<td>0.23</td>
+<td align="center">5</td>
+<td align="center">0.02</td>
+<td align="center">0.23</td>
 </tr>
 <tr class="even">
-<td>6</td>
-<td>0.32</td>
-<td>0.25</td>
+<td align="center">6</td>
+<td align="center">0.32</td>
+<td align="center">0.25</td>
 </tr>
 </tbody>
 </table>
-<p>The question before us is: Which subspecies of elephant did the tusk
-come from, and how confident should we be in this conclusion?</p>
+<p>The question before us is: <em>which subspecies of elephant did the
+tusk come from, and how confident should we be in this
+conclusion?</em></p>
 <p>To get some intuition, let us examine the data at the first few
-markers. At marker 1 our tusk has the allele 1. This allele is less
+markers. At marker 1, our tusk has the allele 1. This allele is less
 common in savanna elephants than forest elephants (40% of savanna
-elephants carry this allele, vs 80% of forest elephants), so this
+elephants carry this allele, vs. 80% of forest elephants), so this
 observation seems to support the sample coming from forest. However, at
 the same time 40% of savanna samples carry this allele, so it remains
 plausible that the sample came from savanna.</p>
 <p>Moving to marker 2, our tusk has the allele 0, which is more common
 in savanna (88%) than forest elephants (80%). And at marker 3 the tusk
-has allele 1 which is also more common in savanna (21% vs 11%). So, in
+has allele 1 which is also more common in savanna (21% vs. 11%). So, in
 contrast to marker 1, the data at these two markers are more consistent
 with the tusk coming from a savanna elephant than a forest elephant.</p>
 <p>We could continue in this way, but the point should be clear: each
 marker contains some information, but not a huge amount, and sometimes
 the information points in different directions. By taking a statistical
-approach to this problem we aim to quantify this kind of information,
+approach to this problem, we aim to quantify this kind of information,
 and to efficiently combine the information across markers to come to an
 overall conclusion.</p>
-<p>(This is simplified version of a real problem: Interpol and other
+<p>(This is a simplified version of a real problem: Interpol and other
 authorities want to know the origin of poached tusks to help focus
-efforts on curbing this illegal activity; in practice they are
+efforts on curbing this illegal activity. In practice, they are
 interested in much finer-level discrimination, and measure many genetic
-markers to get more information. See <span
-class="citation">@wasser.etal.07</span> and <span
-class="citation">@wasser.etal.08</span> for more details.)</p>
+markers to get more information. See <a
+href="https://doi.org/10.1073/pnas.0609714104">Wasser et al (2007)</a>
+and <a href="https://doi.org/10.1111/j.1523-1739.2008.01012.x">Wasser et
+al (2008)</a> for more details.)</p>
 </div>
 <div id="solution" class="section level1">
 <h1>Solution</h1>
@@ -1310,210 +1424,227 @@ distributions for <span class="math inline">\(X\)</span>: some values of
 <span class="math inline">\(X\)</span> are more common under <span
 class="math inline">\(M_S\)</span> and others are more common under
 <span class="math inline">\(M_F\)</span>.</p>
-<p>Denoting the probability mass functions of these two distributions
-<span class="math inline">\(p(\cdot | M_S)\)</span> and <span
-class="math inline">\(p(\cdot | M_F)\)</span>, and assuming the data at
-different markers are independent, these probability distributions are:
-<span class="math display">\[p(x | M_S) = \prod_j f_{Sj}^{x_j}
-(1-f_{Sj})^{1-x_j}\]</span></p>
-<p>and <span class="math display">\[p(x | M_F) = \prod_j f_{Fj}^{x_j}
-(1-f_{Fj})^{1-x_j},\]</span></p>
-<p>where the values of <span class="math inline">\(f_S\)</span> and
-<span class="math inline">\(f_F\)</span> are given in the table
-above.</p>
-<p>Note that a key feature of these models is that they are “fully
-specified”. This means there are no unknown values in the probability
-distributions. Comparing fully-specified models is the simplest kind of
-model comparison, and so a good place to start in understanding the key
-concept of likelihood ratio introduced here.</p>
+<p>Denoting the probability mass functions of these two distributions as
+<span class="math inline">\(p(x \mid M_S)\)</span> and <span
+class="math inline">\(p(x \mid M_F)\)</span>, and assuming the data at
+different markers are independent, these probability distributions are
+<span class="math display">\[
+p(x \mid M_S) = \prod_{j=1}^J f_{Sj}^{x_j} (1-f_{Sj})^{1-x_j}
+\]</span> and <span class="math display">\[p(x \mid M_F) = \prod_{j=1}^J
+f_{Fj}^{x_j} (1-f_{Fj})^{1-x_j},
+\]</span> where <span class="math inline">\(J = 6\)</span> is the number
+of markers, and the values of <span
+class="math inline">\(f_{Sj}\)</span> and <span
+class="math inline">\(f_{Fj}\)</span> are given in the table above.</p>
+<p>Note that a key feature of these models is that they are <em>fully
+specified.</em> This means there are no unknown values in the
+probability distributions. Comparing fully-specified models is the
+simplest kind of model comparison, and so is a good place to start.</p>
 <div id="the-likelihood-ratio" class="section level2">
 <h2>The likelihood ratio</h2>
-<p>The key idea to introduce here is that a useful summary of how
-strongly the data <span class="math inline">\(x\)</span> support one
-model vs another model is given by the “likelihood ratio” (LR).</p>
+<p>A key idea is that a useful summary of how strongly the data <span
+class="math inline">\(x\)</span> support one model vs. another model is
+given by the “likelihood ratio” (LR).</p>
 <p>The LR comparing two fully-specified models is simply the ratio of
-the probability of the data under each model. (In saying the
-“probability of the data” here we are assuming that the data and models
-involved are discrete. For continuous data and models the LR is the
-ratio of the probability densities of the two models evaluated at the
-data, as discussed in detail <a
-href="likelihood_ratio_simple_continuous_data.html">here</a>)</p>
-<p>The name Likelihood ratio comes from the fact that the probability of
-the data under each model is called the “likelihood” for that model. I
-recommended saying “likelihood for” the model, or “likelihood under” the
-model, rather than “likelihood of” the model, to help avoid confusing
-likelihood with probability.</p>
-<p>That is, given data <span class="math inline">\(x\)</span> the
+the probabilities of the data under each model. (In saying the
+“probability of the data”, we are assuming that the data and models
+involved are discrete. For continuous data and models, the LR is the
+ratio of the <em>probability densities</em> of the two models evaluated
+at the data, as discussed in detail <a
+href="https://pcarbo.github.io/fiveMinuteStats/likelihood_ratio_simple_continuous_data.html">here</a>.)</p>
+<p>The name “likelihood ratio” comes from the fact that the probability
+of the data under each model is called the “likelihood” for that model.
+I recommended saying “likelihood for” the model, or “likelihood under”
+the model, rather than “likelihood of” the model, to help avoid
+confusing likelihood with probability.</p>
+<p>That is, given data <span class="math inline">\(x\)</span>, the
 likelihood for a fully-specified (discrete) model <span
-class="math inline">\(M\)</span> is defined as</p>
-<p><span class="math display">\[L(M):=p(x | M)\]</span></p>
-<p>where <span class="math inline">\(p(\cdot | M)\)</span> denotes the
-probability mass function for model <span
+class="math inline">\(M\)</span> is defined as <span
+class="math display">\[
+L(M) := p(x \mid M),
+\]</span> where <span class="math inline">\(p(x \mid M)\)</span> denotes
+the probability mass function for model <span
 class="math inline">\(M\)</span>. And the likelihood ratio comparing two
 fully-specified (discrete) models <span
-class="math inline">\(M_1\)</span> vs <span
-class="math inline">\(M_0\)</span> is defined as</p>
-<p><span class="math display">\[LR(M_1, M_0) :=
-L(M_1)/L(M_0).\]</span></p>
-<p>Note that the likelihood for <span class="math inline">\(M\)</span>
-depends on the data <span class="math inline">\(x\)</span>. To make this
-dependence explicit the likelihood is sometimes written <span
+class="math inline">\(M_1\)</span> vs. <span
+class="math inline">\(M_0\)</span> is defined as <span
+class="math display">\[
+\mathrm{LR}(M_1, M_0) := \frac{L(M_1)}{L(M_0)}.
+\]</span> Note that the likelihood for model <span
+class="math inline">\(M\)</span> depends on the data <span
+class="math inline">\(x\)</span>. To make this dependence explicit, the
+likelihood is sometimes written as <span
 class="math inline">\(L(M;x)\)</span> instead of just <span
-class="math inline">\(L(M)\)</span>. Large values of <span
-class="math inline">\(LR(M_1,M_0)\)</span> indicate that the data are
-much more probable under model <span class="math inline">\(M_1\)</span>
-than under model <span class="math inline">\(M_0\)</span>, and so
-indicate support for <span class="math inline">\(M_1\)</span>.
-Conversely, small values of <span class="math inline">\(LR\)</span>
-indicate support for model <span class="math inline">\(M_0\)</span>.</p>
+class="math inline">\(L(M)\)</span>.</p>
+<p>Large values of <span class="math inline">\(\mathrm{LR}(M_1,
+M_0)\)</span> indicate that the data are much more probable under model
+<span class="math inline">\(M_1\)</span> than under model <span
+class="math inline">\(M_0\)</span>, and so indicate support for <span
+class="math inline">\(M_1\)</span>. Conversely, small values of <span
+class="math inline">\(\mathrm{LR}(M_1, M_0)\)</span> indicate support
+for model <span class="math inline">\(M_0\)</span>.</p>
 </div>
 <div id="example" class="section level2">
 <h2>Example</h2>
-<p>Using the numbers in the tables above we can compute the likelihood
-and LR for <span class="math inline">\(M_S\)</span> vs <span
+<p>Using the numbers in the tables above, we can compute the likelihood
+and LR for <span class="math inline">\(M_S\)</span> vs. <span
 class="math inline">\(M_F\)</span>:</p>
-<pre class="r"><code>x = c(1,0,1,0,0,1)
-fS = c(0.40, 0.12,0.21,0.12,0.02,0.32)
-fF = c(0.8,0.2,0.11,0.17,0.23,0.25)
-L = function(f,x){ prod(f^x*(1-f)^(1-x)) }
-LR = L(fS,x)/L(fF,x)
-print(LR)
+<pre class="r"><code>x &lt;- c(1,0,1,0,0,1)
+fS &lt;- c(0.40,0.12,0.21,0.12,0.02,0.32)
+fF &lt;- c(0.8,0.2,0.11,0.17,0.23,0.25)
+L &lt;- function (f, x)
+  prod(f^x * (1-f)^(1-x))
+LR &lt;- L(fS,x)/L(fF,x)
+LR
 # [1] 1.81359</code></pre>
-<p>So <span class="math inline">\(LR(M_S,M_F;x)\)</span> is
+<p>So <span class="math inline">\(\mathrm{LR}(M_S, M_F)\)</span> is
 <code>1.8135904</code>. This means that the data favor the tusk coming
 from a savanna elephant by a factor of about 1.8. This is a fairly
-modest factor – not large enough to draw a convincing conclusion. We
+modest factor — not large enough to draw a convincing conclusion. We
 will have more to say about interpreting LRs, and what values might be
 considered “convincing” later.</p>
 <p>Note that we have deliberately focused on the likelihood ratio, and
 not the actual likelihood values themselves. This is because actual
-likelihood values are generally not useful - it is only the ratios that
+likelihood values are generally not useful — it is only the ratios that
 matter when comparing the models. One way of thinking about this is that
 the actual likelihood values are very context dependent, and so
 likelihoods from different data sets are not comparable with one
 another. However, the meaning of the likelihood ratio is in some sense
-consistent across contexts: LR =1.8 means that the data favour the first
-model by a factor of 1.8 whatever the context.</p>
+consistent across contexts: LR = 1.8 means that the data favour the
+first model by a factor of 1.8, whatever the context.</p>
 </div>
 </div>
 <div id="the-inverse-likelihood-ratio-and-the-log-likelihood-ratio"
 class="section level1">
-<h1>The inverse likelihood ratio, and the log-likelihood ratio</h1>
+<h1>The inverse likelihood ratio and the log-likelihood ratio</h1>
 <p>Notice that, from the definition of the LR, the LR for <span
-class="math inline">\(M_0\)</span> vs <span
+class="math inline">\(M_0\)</span> vs. <span
 class="math inline">\(M_1\)</span> is the just inverse of the LR for
-<span class="math inline">\(M_1\)</span> vs <span
-class="math inline">\(M_0\)</span>. That is <span
-class="math display">\[LR(M_0,M_1; x) = 1/LR(M_1,M_0; x).\]</span></p>
-<p>So, for example if <span
-class="math inline">\(LR(M_1,M_0)=0.01\)</span> then <span
-class="math inline">\(LR(M_0,M_1)=100\)</span> and the data favour <span
-class="math inline">\(M_0\)</span> vs <span
+<span class="math inline">\(M_1\)</span> vs. <span
+class="math inline">\(M_0\)</span>. That is, <span
+class="math display">\[
+\mathrm{LR}(M_0,M_1) = \frac{1}{\mathrm{LR}(M_1,M_0)}.
+\]</span> So for example, if <span
+class="math inline">\(\mathrm{LR}(M_1,M_0) = 0.01\)</span>, then <span
+class="math inline">\(\mathrm{LR}(M_0,M_1) = 100\)</span>, and the data
+favour <span class="math inline">\(M_0\)</span> vs. <span
 class="math inline">\(M_1\)</span> by a factor of 100.</p>
-<p>For many reasons, it is common to work with the log likelihood ratio,
-<span class="math inline">\(LLR := log(LR)\)</span>. Usually
-mathematicians work with base logarithms base e, and we will use that
-convention unless otherwise stated. So, for example, if the LR=1.8 then
-LLR=<span
-class="math inline">\(\log_e\)</span>(1.8)=<code>0.5877867</code>.</p>
-<p>Although the usual convention is to use log base e, it can sometimes
-be useful to work with logarithms base 10 to make the inverse logarithm
-operation easier for human calculation. For example, if I tell you that
-the LLR, base 10, is 3 then you can immediately tell me that the LR is
-1000.</p>
+<p>For many reasons, it is common to work with the log-likelihood ratio,
+<span class="math inline">\(\mathrm{LLR} := \log\mathrm{LR}\)</span>.
+Usually mathematicians work with logarithms in base <span
+class="math inline">\(e\)</span>, and we will use that convention unless
+otherwise stated. So for example, if LR = 1.8, then <span
+class="math inline">\(\mathrm{LLR} = \log 1.8 =\)</span>
+<code>0.5877867</code>.</p>
+<p>Although the usual convention is to use base <span
+class="math inline">\(e\)</span>, it can sometimes be useful to work
+with logarithms in base 10 to make the inverse logarithm operation
+easier for human calculation. For example, if I tell you that the LLR,
+base 10, is 3, then you can immediately tell me that the LR is
+1,000.</p>
 </div>
 <div id="exercises" class="section level1">
 <h1>Exercises</h1>
 <ol style="list-style-type: decimal">
 <li><p>You are playing a game with a friend. The friend has two
-six-sided dice, one blue and one green. The sides on the blue dice are
-numbered 1,2,3,3,3, and 4. The sides on the green dice are labelled
-1,2,2,3,4,4. He picks one of the dice without telling you, and rolls it
-10 times, obtaining the results 3,3,2,3,1,2,3,3,4,3. Looking at these
-results, does intuition say that they support the green dice or the blue
-dice? Strongly or weakly? Phrase the problem as a model comparison
-problem. State your modelling assumptions, and compute a likelihood
-ratio. Does it support your intuition?</p></li>
-<li><p>(Read the whole question before starting!)</p></li>
-</ol>
+six-sided dice, one blue and one green. The sides on the blue die are
+numbered 1, 2, 3, 3, 3 and 4. The sides on the green die are labeled 1,
+2, 2, 3, 4 and 4. He picks one of the dice without telling you, and
+rolls it 10 times, obtaining the results 3, 3, 2, 3, 1, 2, 3, 3, 4, 3.
+Looking at these results, does intuition say that they support the green
+die or the blue die? Strongly or weakly? Phrase the problem as a model
+comparison problem. State your modelling assumptions, and compute a
+likelihood ratio. Does it support your intuition?</p></li>
+<li><p>(Read the whole question before starting!)</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Perform the following simulation study. Simulate 1000 tusks
+<li><p>Perform the following simulation study. Simulate 1,000 tusks
 (values of <span class="math inline">\(x\)</span>) from each of the
 models <span class="math inline">\(M_S\)</span> and <span
-class="math inline">\(M_F\)</span>. For each simulated tusk compute the
-LR for <span class="math inline">\(M_S\)</span> vs <span
-class="math inline">\(M_F\)</span>, so you have computed 2000 LRs. Now
+class="math inline">\(M_F\)</span>. For each simulated tusk, compute the
+LR for <span class="math inline">\(M_S\)</span> vs. <span
+class="math inline">\(M_F\)</span>, so you have computed 2,000 LRs. Now
 consider using the LR to classify each tusk as being from a savanna or a
 forest elephant. Recall that large values for LR indicate support for
 <span class="math inline">\(M_S\)</span>, so a natural classification
-rule is “classify as savanna if <span
-class="math inline">\(LR&gt;c\)</span>, otherwise classify as forest”
-for some threshold <span class="math inline">\(c\)</span>. Plot the
-misclassification rate (= number of tusks wrongly classified/2000) for
-this rule, as <span class="math inline">\(c\)</span> ranges from 0.01 to
-100. What value of <span class="math inline">\(c\)</span> minimizes the
+rule is “classify as savanna if <span class="math inline">\(\mathrm{LR}
+&gt; c\)</span>, otherwise classify as forest”, for some threshold <span
+class="math inline">\(c\)</span>. Plot the misclassification rate
+(number of tusks wrongly classified divided by 2,000) for this rule, as
+<span class="math inline">\(c\)</span> ranges from 0.01 to 100. What
+value of <span class="math inline">\(c\)</span> minimizes the
 misclassification rate? [Hint: the plot will look best if you do things
-on the log scale, so you could let log10(c) vary from -2 to 2 using an
-equally spaced grid, and plot the misclassification rate on the <span
-class="math inline">\(y\)</span> axis against log10(c) on the <span
-class="math inline">\(x\)</span> axis.]</p></li>
+on the log scale, so you could let <span
+class="math inline">\(\log_{10}c\)</span> vary from <span
+class="math inline">\(-2\)</span> to <span
+class="math inline">\(2\)</span> using an equally spaced grid, then plot
+the misclassification rate on the Y axis vs. <span
+class="math inline">\(\log_{10}c\)</span> on the X axis.]</p></li>
 <li><p>Repeat the above simulation study using 100 tusks from <span
-class="math inline">\(M_S\)</span> and 1900 tusks from <span
+class="math inline">\(M_S\)</span> and 1,900 tusks from <span
 class="math inline">\(M_F\)</span>. What value of <span
 class="math inline">\(c\)</span> minimizes the misclassification rate?
-Comment.</p></li>
+Comment on this result.</p></li>
+</ol></li>
 </ol>
-<p>Note: it is good practice when writing computing code for a
+<p><em>Note:</em> it is good practice when writing computer code for a
 simulation study like this to separate the code into small functions
-each of which accomplishes a clearly-defined task. So, for example, you
+each of which accomplishes a clearly defined task. So for example, you
 should write a function to simulate data, and another to compute the LR
-(possibly using the function L defined above!), and another to compute
-the misclassification rate, etc. It is also good practice to comment
-your functions: eg say what the input parameters are and what the output
-is. I strongly suggest using <a
-href="https://cran.r-project.org/package=roxygen2">roxygen2</a> format.
-See <a href="https://kbroman.org/pkg_primer/pages/docs.html">Karl
-Broman’s tutorial</a> for example.</p>
-<p><em>DO NOT REPEAT THE SIMULATION STUDY BY COPYING AND PASTING CODE
-AND MODIFYING A FEW NUMBERS! GET INTO THE HABIT OF DOING IT
-PROPERLY</em></p>
-<p>To be more explicit, at the top level your code should probably
-include a function something like this:</p>
-<pre><code>#&#39; Simulation study 
+(possibly using the “L” function defined above), another to compute the
+misclassification rate, <em>etc.</em> It is also good practice to
+comment your functions, e.g., start by describing the inputs and
+outputs. I strongly suggest using <a
+href="https://r-pkgs.org/man.html">roxygen2</a> format. See <a
+href="https://kbroman.org/pkg_primer/pages/docs.html">Karl Broman’s
+tutorial</a> for example.</p>
+<p>DO NOT REPEAT THE SIMULATION STUDY BY COPYING AND PASTING CODE AND
+MODIFYING A FEW NUMBERS. GET INTO THE HABIT OF DOING IT PROPERLY.</p>
+<p>To be more explicit, at the top level your code should include a
+function that looks something like this:</p>
+<pre class="r"><code>#&#39; @title Run Elephant Tusk Simulation STudy
 #&#39;
-#&#39; Simulates data from forest and savanna tusks from prespecified frequencies, and uses LR to classify them.
+#&#39; @description Simulate data from forest and savanna tusks with
+#&#39;   prespecified frequencies, then use LRs to classify them.
 #&#39;
-#&#39; @param nS number of savanna tusks to use
-#&#39; @param nF number of forest tusks to use
-#&#39; @param fS allele frequencies of savanna elephants
-#&#39; @param fF allele frequencies of forest elephants
-#&#39; @param lc vector of log(c) values of LR cutoff to use
-#&#39; @param seed set a random seed using set.seed() for reproducibility
+#&#39; @param nS Number of savanna tusks.
 #&#39;
-#&#39; @return Plot of misclassification rate against threshold
+#&#39; @param nF Number of forest tusks.
 #&#39;
-#&#39; @example simulation_study(1000, 1000, c(0.40,0.12,0.21,0.12,0.02,0.32), c(0.8,0.2,0.11,0.17,0.23,0.25), seq(-2,2,length=100), seed)
+#&#39; @param fS Allele frequencies of the savanna elephants.
 #&#39;
+#&#39; @param fF Allele frequencies of the forest elephants.
 #&#39;
-simulation_study(nS, nF, fS, fF, lc, seed){
-...
+#&#39; @param lc Vector of `log(c)` values of the LR cutoff to use.
+#&#39;
+#&#39; @param seed Set the random seed using `set.seed` for reproducibility.
+#&#39;
+#&#39; @return A plot of misclassification rate vs. lc.
+#&#39;
+#&#39; @example
+#&#39; simulation_study(1000,1000,
+#&#39;                  c(0.40,0.12,0.21,0.12,0.02,0.32),
+#&#39;                  c(0.8,0.2,0.11,0.17,0.23,0.25),
+#&#39;                  seq(-2,2,length.out = 100),seed)
+#&#39;
+elephant_simulation_study &lt;- function (nS, nF, fS, fF, lc, seed) {
+  # Add your code here.
 }</code></pre>
-<p>Then you can just call this simulation study function twice to
-complete the assignment.</p>
+<p>Then calling this function twice should provide the results needed to
+complete 2a and 2b.</p>
 <ol start="3" style="list-style-type: decimal">
-<li>Consider now modifying our example above on the tusk to allow for
-errors in the data. Specifically, suppose that there is an error
-probability of 0.02 when measuring each marker: with probability 0.98
-you observe the true <span class="math inline">\(x_j\)</span>, but with
-probability 0.02 an error is made and you observe <span
-class="math inline">\(1-x_j\)</span>. Assume that errors occur
-independently at each marker <span class="math inline">\(j\)</span>. Let
-<span class="math inline">\(M&#39;_S\)</span> and <span
+<li>Now consider modifying the model to allow for errors in the data.
+Specifically, suppose that there is an error probability of 0.02 when
+measuring each marker: with probability 0.98 you observe the true <span
+class="math inline">\(x_j\)</span>, but with probability 0.02 an error
+is made, and you observe <span class="math inline">\(1-x_j\)</span>.
+Assume that errors occur independently at each marker <span
+class="math inline">\(j\)</span>. Let <span
+class="math inline">\(M&#39;_S\)</span> and <span
 class="math inline">\(M&#39;_F\)</span> denote the models with this
 error process incorporated. Derive expressions for the likelihood for
 <span class="math inline">\(M&#39;_S\)</span> and <span
-class="math inline">\(M&#39;_F\)</span>, and compute the LR for the
-example tusk data given here.</li>
+class="math inline">\(M&#39;_F\)</span>, and compute the LR for the tusk
+data given at the beginning of the example.</li>
 </ol>
 </div>
 <div id="summary-1" class="section level1">
@@ -1521,15 +1652,16 @@ example tusk data given here.</li>
 <p>Repeat after me:</p>
 <ol style="list-style-type: decimal">
 <li><p>“The likelihood for a model is the probability of the data under
-the model”</p></li>
-<li><p>“Individual likelihood values are mostly irrelevant: it is
-likelihood ratios that matter”</p></li>
-<li><p>“If the likelihood ratio for model 1 vs model 2 is x, then this
-means the data favour model 1 by a factor of x”. (Or, if x &lt;1 then it
-means “the data favour model 2 by a factor of 1/x”“)</p></li>
+the model.”</p></li>
+<li><p>“Individual likelihood values are mostly irrelevant; it is
+likelihood ratios that matter.”</p></li>
+<li><p>“If the likelihood ratio for model 1 vs. model 2 is <span
+class="math inline">\(x &gt; 1\)</span>, this means the data favour
+model 1 by a factor of <span class="math inline">\(x\)</span>.” (Or, if
+<span class="math inline">\(x &lt; 1\)</span>, this means the data
+favour model 2 by a factor of <span
+class="math inline">\(1/x\)</span>.)</p></li>
 </ol>
-<div id="references" class="section level2">
-<h2>References</h2>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1566,7 +1698,6 @@ Session information
 # [25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
 # [29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
 # [33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0</code></pre>
-</div>
 </div>
 </div>
 
