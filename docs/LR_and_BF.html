@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2025-12-29" />
+<meta name="date" content="2025-01-06" />
 
 <title>Likelihood Ratio: how big is convincing?</title>
 
@@ -356,7 +356,7 @@ div.tocify {
 convincing?</h1>
 <h4 class="author">Matthew Stephens</h4>
 <address class="author_afil">
-University of Chicago<br><h4 class="date">December 29, 2025</h4>
+University of Chicago<br><h4 class="date">January 6, 2025</h4>
 
 </div>
 
@@ -385,7 +385,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-12-29
+<strong>Last updated:</strong> 2026-01-06
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -519,15 +519,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreeabfebce8557753fca4d827924bac8ddd278e3abbtargetblankabfebcea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree602dc05fca100fcfa2f9ed351e0dbf0640272592targetblank602dc05a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/abfebce8557753fca4d827924bac8ddd278e3abb" target="_blank">abfebce</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/602dc05fca100fcfa2f9ed351e0dbf0640272592" target="_blank">602dc05</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreeabfebce8557753fca4d827924bac8ddd278e3abbtargetblankabfebcea"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree602dc05fca100fcfa2f9ed351e0dbf0640272592targetblank602dc05a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -537,7 +537,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/abfebce8557753fca4d827924bac8ddd278e3abb" target="_blank">abfebce</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/602dc05fca100fcfa2f9ed351e0dbf0640272592" target="_blank">602dc05</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -552,9 +552,8 @@ were generated:
 </p>
 <pre><code>
 Unstaged changes:
-    Modified:   Makefile
     Modified:   analysis/LR_and_BF.Rmd
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/bayes_multiclass.Rmd
     Modified:   analysis/likelihood_ratio_simple_models.Rmd
 
 </code></pre>
@@ -601,6 +600,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/7a8ffe4a6d2f6e537f3b90bbee2ca2ee362bd167/analysis/LR_and_BF.Rmd" target="_blank">7a8ffe4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-12-29
+</td>
+<td>
+Created pdf version of LR_and_BF vignette.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/7a8ffe4a6d2f6e537f3b90bbee2ca2ee362bd167/docs/LR_and_BF.html" target="_blank">7a8ffe4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-12-29
+</td>
+<td>
+Created pdf version of LR_and_BF vignette.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -881,7 +914,7 @@ add LR and BF
 </div>
 </div>
 <p>See <a
-href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/LD_and_BF.pdf">here</a>
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/LR_and_BF.pdf">here</a>
 for a PDF version of this vignette.</p>
 <div id="summary" class="section level1">
 <h1>Summary</h1>
@@ -893,9 +926,10 @@ in the data against the relative (prior) plausibility of the models.</p>
 <div id="prerequisites" class="section level1">
 <h1>Prerequisites</h1>
 <p>You should understand the concept of using likelihood ratio for <a
-href="likelihood_ratio_simple_models.html">discrete data</a> and <a
-href="likelihood_ratio_simple_continuous_data.html">continuous data</a>
-to compare support for two fully specified models.</p>
+href="https://pcarbo.github.io/fiveMinuteStats/likelihood_ratio_simple_models.html">discrete
+data</a> and <a
+href="https://pcarbo.github.io/fiveMinuteStats/likelihood_ratio_simple_continuous_data.html">continuous
+data</a> to compare support for two fully specified models.</p>
 </div>
 <div id="overview" class="section level1">
 <h1>Overview</h1>
@@ -904,19 +938,20 @@ So a fully specified model for <span class="math inline">\(X\)</span> is
 simply a probability distribution <span
 class="math inline">\(p(x|M)\)</span>. And, given observed data <span
 class="math inline">\(X=x\)</span> the Likelihood Ratio for comparing
-two fully specified models, <span class="math inline">\(M_1\)</span> vs
-<span class="math inline">\(M_0\)</span>, is defined as the ratio of the
-probabilities of the observed data under each model:</p>
-<p><span class="math display">\[LR(M_1,M_0) := p(x | M_1) / p(x |
-M_0).\]</span></p>
-<p>For fully specified models, the likelihood ratio is also known as the
-“Bayes Factor” (BF), so we could also define the Bayes Factor for <span
-class="math inline">\(M_1\)</span> vs <span
-class="math inline">\(M_0\)</span> as <span
-class="math display">\[BF(M_1,M_0) :=   p(x | M_1) / p(x |
-M_0).\]</span> When comparing fully specified models the LR and BF are
-just two different names for the same thing.</p>
-<p>In the example <a href="likelihood_ratio_simple_models.html">here</a>
+two fully specified models, <span class="math inline">\(M_1\)</span>
+vs. <span class="math inline">\(M_0\)</span>, is defined as the ratio of
+the probabilities of the observed data under each model: <span
+class="math display">\[
+LR(M_1,M_0) := p(x | M_1) / p(x | M_0).
+\]</span> For fully specified models, the likelihood ratio is also known
+as the “Bayes Factor” (BF), so we could also define the Bayes Factor for
+<span class="math inline">\(M_1\)</span> vs. <span
+class="math inline">\(M_0\)</span> as <span class="math display">\[
+BF(M_1,M_0) :=   p(x | M_1) / p(x | M_0).
+\]</span> When comparing fully specified models the LR and BF are just
+two different names for the same thing.</p>
+<p>In the example <a
+href="https://pcarbo.github.io/fiveMinuteStats/likelihood_ratio_simple_models.html">here</a>
 we considered the problem of determining whether an elephant tusk came
 from a savanna elephant or a forest elephant, based on examining DNA
 data. Specifically we computed the LR (or BF) comparing two models,
@@ -930,8 +965,8 @@ class="math inline">\(M_S\)</span> by a factor of 1.8. We commented that
 a factor of 1.8 is relatively modest, and not sufficient to convince
 that the tusk definitely came from a savanna elephant.</p>
 <p>In the example <a
-href="likelihood_ratio_simple_continuous_data.html">here</a> we
-considered the problem of testing a patient for a disease based on
+href="https://pcarbo.github.io/fiveMinuteStats/likelihood_ratio_simple_continuous_data.html">here</a>
+we considered the problem of testing a patient for a disease based on
 measuring the concentration of a particular diagnostic protein in the
 blood. Specifically we computed the LR (or BF) comparing two models,
 <span class="math inline">\(M_n\)</span> and <span
@@ -939,14 +974,14 @@ class="math inline">\(M_d\)</span>, where <span
 class="math inline">\(M_S\)</span> denotes the model that the patient is
 normal and <span class="math inline">\(M_d\)</span> denotes the model
 that the patient has the disease. In our example we found LR for <span
-class="math inline">\(M_n\)</span> vs <span
+class="math inline">\(M_n\)</span> vs. <span
 class="math inline">\(M_d\)</span> to be approximately 0.07, so the data
 favor <span class="math inline">\(M_d\)</span> by a factor of 14. This
 is a much larger LR than in the first case, but is it convincing? Can we
 confidently conclude that the patient has the disease?</p>
 <p>More generally, we would like to address the question: what value of
-the LR should we treat as<br />
-“convincing” evidence for one model vs another?</p>
+the LR should we treat as “convincing” evidence for one model vs.
+another?</p>
 <p>It is crucial to recognize that the answer to this question has to be
 context dependent. In particular, the extent to which we should be
 “convinced” by a particular LR value has to depend on the relative
@@ -987,31 +1022,32 @@ class="math inline">\(j=0,1\)</span>). So in the disease screening
 example, <span class="math inline">\(\pi_1\)</span> would be the
 proportion of screened individuals who have the disease. That is, <span
 class="math inline">\(\pi_j = \Pr(Z_i=j)\)</span>.</p>
-<p>Bayes Theorem says that <span class="math display">\[\Pr(Z_i = 1 |
-x_i) = \Pr(x_i | Z_i = 1) \Pr(Z_i=1)/ \Pr(x_i).\]</span> Also, <span
-class="math display">\[\Pr(x_i) = \Pr(x_i | Z_i=0)\Pr(Z_i=0) + \Pr(x_i |
-Z_i=1)\Pr(Z_i=1).\]</span></p>
-<p>Putting these together, substituting <span
+<p>Bayes Theorem says that <span class="math display">\[
+\Pr(Z_i = 1 | x_i) = \Pr(x_i | Z_i = 1) \Pr(Z_i=1)/ \Pr(x_i).
+\]</span> Also, <span class="math display">\[
+\Pr(x_i) = \Pr(x_i | Z_i=0)\Pr(Z_i=0) + \Pr(x_i | Z_i=1)\Pr(Z_i=1).
+\]</span> Putting these together, substituting <span
 class="math inline">\(\pi_j\)</span> for <span
 class="math inline">\(\Pr(Z_i=j)\)</span>, and dividing numerator and
 denominator by <span class="math inline">\(\Pr(x_i | Z_i=0)\)</span>
-yields:</p>
-<p><span class="math display">\[\Pr(Z_i = 1 | x_i) = \pi_1 LR_i / (\pi_0
-+ \pi_1 LR_i)\]</span></p>
-<p>where <span class="math inline">\(LR_i\)</span> denotes the
-likelihood ratio for <span class="math inline">\(M_1\)</span> vs <span
+yields: <span class="math display">\[
+\Pr(Z_i = 1 | x_i) = \pi_1 LR_i / (\pi_0 + \pi_1 LR_i)
+\]</span> where <span class="math inline">\(LR_i\)</span> denotes the
+likelihood ratio for <span class="math inline">\(M_1\)</span> vs. <span
 class="math inline">\(M_0\)</span> computed for observation <span
 class="math inline">\(x_i\)</span>.</p>
 </div>
 <div id="example" class="section level1">
 <h1>Example</h1>
 <p>Suppose that only 5% of screened people have the disease. Then a LR
-of 14 in favor of disease yields: <span class="math display">\[\Pr(Z_i=1
-| x_i) = 0.05*14/(0.95 + 0.05* 14)\]</span> =
-<code>0.4242424</code>.</p>
+of 14 in favor of disease yields: <span class="math display">\[
+\Pr(Z_i=1 | x_i)
+= 0.05*14/(0.95 + 0.05* 14)
+\]</span> which equals <code>0.4242424</code>.</p>
 <p>In contrast, if 50% of screened people have the disease then the LR
-of 14 yields <span class="math display">\[\Pr(Z_i=1 | x_i) = 0.5*14/(0.5
-+ 0.5* 14)\]</span> = <code>0.9333333</code>.</p>
+of 14 yields <span class="math display">\[
+\Pr(Z_i=1 | x_i) = 0.5*14/(0.5 + 0.5* 14)
+\]</span> which equals <code>0.9333333</code>.</p>
 <p>Thus in the first case, of patients with <span
 class="math inline">\(LR=14\)</span>, less than half would actually have
 the disease. In the second case, of patients with <span
@@ -1023,31 +1059,29 @@ disease!</p>
 <p>There is another way of laying out this kind of calculation, which
 may be slightly easier to interpret and remember, and also has the
 advantage of holding even when more than two models are under
-consideration. From Bayes theorem we have</p>
-<p><span class="math display">\[\Pr(Z_i = 1 | x_i) = \Pr(x_i | Z_i = 1)
-\Pr(Z_i=1)/ \Pr(x_i).\]</span></p>
-<p>and</p>
-<p><span class="math display">\[\Pr(Z_i = 0 | x_i) = \Pr(x_i | Z_i = 0)
-\Pr(Z_i=0)/ \Pr(x_i).\]</span></p>
-<p>Taking the ratio of these gives <span class="math display">\[\Pr(Z_i
-= 1 | x_i)/\Pr(Z_i = 0 | x_i) = [\Pr(Z_i=1)/\Pr(Z_i=0)] \times [\Pr(x_i
-| Z_i = 1)/\Pr(x_i | Z_i = 0)].\]</span></p>
-<p>This formula can be conveniently stated in words, using the notion of
-``odds”, as follows: <span class="math display">\[\text{Posterior Odds =
-Prior Odds x LR}\]</span> or, recalling that the LR is sometimes
-referred to as the Bayes Factor (BF), we have <span
-class="math display">\[\text{Posterior Odds = Prior Odds x
-BF}.\]</span></p>
-<p>Note that the “Odds” of an event <span
-class="math inline">\(E_1\)</span> vs an event <span
+consideration. From Bayes theorem we have <span class="math display">\[
+\Pr(Z_i = 1 | x_i) = \Pr(x_i | Z_i = 1) \Pr(Z_i=1)/ \Pr(x_i).
+\]</span> and <span class="math display">\[
+\Pr(Z_i = 0 | x_i) = \Pr(x_i | Z_i = 0) \Pr(Z_i=0)/ \Pr(x_i).
+\]</span> Taking the ratio of these gives <span class="math display">\[
+\Pr(Z_i = 1 | x_i)/\Pr(Z_i = 0 | x_i) =
+[\Pr(Z_i=1)/\Pr(Z_i=0)] \times [\Pr(x_i | Z_i = 1)/\Pr(x_i | Z_i = 0)].
+\]</span> This formula can be conveniently stated in words, using the
+notion of “odds”, as follows: <span class="math display">\[
+\text{Posterior Odds = Prior Odds x LR}
+\]</span> or, recalling that the LR is sometimes referred to as the
+Bayes Factor (BF), we have <span class="math display">\[
+\text{Posterior Odds = Prior Odds x BF}.
+\]</span> Note that the “Odds” of an event <span
+class="math inline">\(E_1\)</span> vs. an event <span
 class="math inline">\(E_2\)</span> means the ratio of their
 probabilities. So <span
 class="math inline">\(\Pr(Z_i=1)/\Pr(Z_i=0)\)</span> is the “Odds” of
-<span class="math inline">\(Z_i=1\)</span> vs <span
+<span class="math inline">\(Z_i=1\)</span> vs. <span
 class="math inline">\(Z_i=0\)</span>. It is referred to as the “Prior
 Odds”, because it is the odds prior to seeing the data <span
 class="math inline">\(x\)</span>. Similarly the Posterior Odds refers to
-the Odds of <span class="math inline">\(Z_i=1\)</span> vs <span
+the Odds of <span class="math inline">\(Z_i=1\)</span> vs. <span
 class="math inline">\(Z_i=0\)</span> “posterior to” (after) seeing the
 data <span class="math inline">\(x\)</span>.</p>
 </div>
@@ -1064,28 +1098,23 @@ posterior odds determines the posterior probabilities.</p>
 </div>
 <div id="exercise" class="section level1">
 <h1>Exercise</h1>
-<ol style="list-style-type: decimal">
-<li><ol style="list-style-type: lower-alpha">
-<li>Write a function to simulate data for the medical screening example
-above. The function should take as input the proportion of individuals
-who have the disease, and the number of individuals to simulate. It
-should output a table, one row for each individual, with two columns:
-the first column (x) is the protein concentration for that individual,
-the second column (z) is an indicator of disease status (1=disease,
-0=normal).</li>
-</ol></li>
-</ol>
-<ol start="2" style="list-style-type: lower-alpha">
-<li><p>Write a function to compute the likelihood ratio in the medical
-screening example.</p></li>
-<li><p>Use the above functions to answer the following question <em>by
+<p>d 1a. Write a function to simulate data for the medical screening
+example above. The function should take as input the proportion of
+individuals who have the disease, and the number of individuals to
+simulate. It should output a table, one row for each individual, with
+two columns: the first column (x) is the protein concentration for that
+individual, the second column (z) is an indicator of disease status
+(1=disease, 0=normal).</p>
+<p>1b. Write a function to compute the likelihood ratio in the medical
+screening example.</p>
+<p>1c. Use the above functions to answer the following question <em>by
 simulation</em>. Suppose we screen a population of individuals, 20% of
 which are diseased, and compute the LR for each individual screened.
 Among individuals with an LR “near” c, what proportion are truly
 diseased? Denoting this proportion <span
 class="math inline">\(q_D(c)\)</span>, make a plot of <span
 class="math inline">\(\log_{10}(c)\)</span> [<span
-class="math inline">\(x\)</span> axis] vs <span
+class="math inline">\(x\)</span> axis] vs. <span
 class="math inline">\(q_D(c)\)</span> [<span
 class="math inline">\(y\)</span> axis], with <span
 class="math inline">\(c\)</span> varying from <span
@@ -1093,15 +1122,14 @@ class="math inline">\(1/10\)</span> to <span
 class="math inline">\(10\)</span> say (<span
 class="math inline">\(log_{10}(c)\)</span> varies from -1 to 1.) Or
 maybe a wider range if you like (the wider the range, the larger the
-simulation study you will need to get reliable results).</p></li>
-<li><p>Use the computations introduced in this vignette to compute the
+simulation study you will need to get reliable results).</p>
+<p>1d. Use the computations introduced in this vignette to compute the
 theoretical value for <span class="math inline">\(q_D(c)\)</span>, and
 plot these on the same graph as your simulation results to demonstrate
 that your simulations match the theory. [It should provide a good
-agreement, provided your simulation is large enough.]</p></li>
-<li><p>Repeat the above, but in the case where only 2% of the screened
-population are diseased.</p></li>
-</ol>
+agreement, provided your simulation is large enough.]</p>
+<p>1e. Repeat the above, but in the case where only 2% of the screened
+population are diseased.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

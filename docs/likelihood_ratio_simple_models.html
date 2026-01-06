@@ -364,7 +364,7 @@ University of Chicago<br><h4 class="date">January 6, 2026</h4>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -375,8 +375,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -389,9 +389,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
@@ -414,18 +414,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -516,15 +519,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree0593f14b39283c56b8f9c3a83c4802ebc2c0ebe8targetblank0593f14a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree2d6d41e3a5ce2be246b9962df54e2ad3d605b56ftargetblank2d6d41ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/0593f14b39283c56b8f9c3a83c4802ebc2c0ebe8" target="_blank">0593f14</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/2d6d41e3a5ce2be246b9962df54e2ad3d605b56f" target="_blank">2d6d41e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree0593f14b39283c56b8f9c3a83c4802ebc2c0ebe8targetblank0593f14a"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree2d6d41e3a5ce2be246b9962df54e2ad3d605b56ftargetblank2d6d41ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -534,7 +537,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/0593f14b39283c56b8f9c3a83c4802ebc2c0ebe8" target="_blank">0593f14</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/2d6d41e3a5ce2be246b9962df54e2ad3d605b56f" target="_blank">2d6d41e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -548,8 +551,12 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
+Untracked files:
+    Untracked:  analysis/#bayes_multiclass.Rmd#
+
 Unstaged changes:
-    Modified:   analysis/inverse_transform_sampling.Rmd
+    Modified:   analysis/likelihood_ratio_simple_continuous_data.Rmd
+    Modified:   analysis/likelihood_ratio_simple_models.Rmd
 
 </code></pre>
 <p>
@@ -596,6 +603,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/a361e11f18b8997cb1db99688946aed83e6370e9/analysis/likelihood_ratio_simple_models.Rmd" target="_blank">a361e11</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-06
+</td>
+<td>
+A bunch of small edits to the bayes_multiclass vignette.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/9781cd816a271a3cff79a634d6bd677f70bf8f36/docs/likelihood_ratio_simple_models.html" target="_blank">9781cd8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-06
+</td>
+<td>
+Ran wflow_publish("analysis/likelihood_ratio_simple_models.Rmd").
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1498,11 +1539,11 @@ LR &lt;- L(fS,x)/L(fF,x)
 LR
 # [1] 1.81359</code></pre>
 <p>So <span class="math inline">\(\mathrm{LR}(M_S, M_F)\)</span> is
-<code>1.8135904</code>. This means that the data favor the tusk coming
-from a savanna elephant by a factor of about 1.8. This is a fairly
-modest factor — not large enough to draw a convincing conclusion. We
-will have more to say about interpreting LRs, and what values might be
-considered “convincing” later.</p>
+1.8135904. This means that the data favor the tusk coming from a savanna
+elephant by a factor of about 1.8. This is a fairly modest factor — not
+large enough to draw a convincing conclusion. We will have more to say
+about interpreting LRs, and what values might be considered “convincing”
+later.</p>
 <p>Note that we have deliberately focused on the likelihood ratio, and
 not the actual likelihood values themselves. This is because actual
 likelihood values are generally not useful — it is only the ratios that
@@ -1534,8 +1575,7 @@ class="math inline">\(M_1\)</span> by a factor of 100.</p>
 Usually mathematicians work with logarithms in base <span
 class="math inline">\(e\)</span>, and we will use that convention unless
 otherwise stated. So for example, if LR = 1.8, then <span
-class="math inline">\(\mathrm{LLR} = \log 1.8 =\)</span>
-<code>0.5877867</code>.</p>
+class="math inline">\(\mathrm{LLR} = \log 1.8 =\)</span> 0.5877867.</p>
 <p>Although the usual convention is to use base <span
 class="math inline">\(e\)</span>, it can sometimes be useful to work
 with logarithms in base 10 to make the inverse logarithm operation
