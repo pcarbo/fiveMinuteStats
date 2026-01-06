@@ -364,7 +364,7 @@ University of Chicago<br><h4 class="date">January 6, 2026</h4>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -375,8 +375,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -389,9 +389,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
@@ -414,21 +414,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -519,15 +516,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree2d6d41e3a5ce2be246b9962df54e2ad3d605b56ftargetblank2d6d41ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree0c715fc6d4373ce2e2386560471d98f8ec865bb5targetblank0c715fca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/2d6d41e3a5ce2be246b9962df54e2ad3d605b56f" target="_blank">2d6d41e</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/0c715fc6d4373ce2e2386560471d98f8ec865bb5" target="_blank">0c715fc</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree2d6d41e3a5ce2be246b9962df54e2ad3d605b56ftargetblank2d6d41ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree0c715fc6d4373ce2e2386560471d98f8ec865bb5targetblank0c715fca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -537,7 +534,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/2d6d41e3a5ce2be246b9962df54e2ad3d605b56f" target="_blank">2d6d41e</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/0c715fc6d4373ce2e2386560471d98f8ec865bb5" target="_blank">0c715fc</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -551,13 +548,7 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Untracked files:
-    Untracked:  analysis/#bayes_multiclass.Rmd#
-
-Unstaged changes:
-    Modified:   analysis/likelihood_ratio_simple_continuous_data.Rmd
-    Modified:   analysis/likelihood_ratio_simple_models.Rmd
-
+working directory clean
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not
@@ -603,6 +594,41 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/74deb199453036f4c8d2d0136b9015170d9c5a4c/docs/likelihood_ratio_simple_models.html" target="_blank">74deb19</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-06
+</td>
+<td>
+Various misc updates.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/551db67c213fd3a04ba635ba2564cbce567a3551/analysis/likelihood_ratio_simple_models.Rmd" target="_blank">551db67</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-06
+</td>
+<td>
+A few small updates to the likelihood_ratio_simple_continuous_data
+vignette.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
