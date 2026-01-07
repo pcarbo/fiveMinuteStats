@@ -3,7 +3,7 @@ title: Generate data from a simple genetic mixture model
 author: 
   name: Matthew Stephens
   affiliation: University of Chicago
-date: January 6, 2025
+date: January 7, 2026
 output:
   pdf_document:
     keep_tex: false
@@ -26,41 +26,40 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
 Introduction
 ============
 
-This vignette is an "ice-breaker", to motivate learning
-and statistical inference centered around genetic mixtures.
+This vignette is an "ice breaker" to motivate learning and statistical
+inference centered around genetic mixtures.
 
-You don't need to know what a mixture model is to understand this, but
+You don't need to know what a mixture model is to understand this. But
 if you want to know more about mixture models in general you might
-read this
-[introduction to mixture models](intro_to_mixture_models.html).
+read [this introduction to mixture models][intro_to_mixture_models].
 
 Simulating haploid data for a single population
 -----------------------------------------------
 
 First we consider simulating genotype data for $n$ haploid individuals
-at $R$ independent bi-allelic loci (positions along the genome)
+at $R$ independent biallelic loci (positions along the genome)
 sampled from a population.
 
 The term "haploid" means that each individual has only one copy of
-their genome. (Most animals, are diploid, which means they have two
+their genome. (Most animals are "diploid", which means they have two
 copies of their genome — one inherited from the mother and the other
 inherited from the father. However, focussing on haploid individuals
 makes the ideas and code easier to follow. Once you understand the
 haploid case it is not too hard to extend the ideas to the diploid
 case.)
 
-The term "bi-allelic" means that the loci have two possible alleles
-(types), which for convenience we will label `0` and `1`.
+The term "biallelic" means that the loci have two possible alleles
+(types), which for convenience we will label 0 and 1.
 
 Under these assumptions, the genotype for each individual is simply a
-sequence of 0s and 1s. The probability of seeing a `0` vs a `1` at
+sequence of zeros and ones. The probability of seeing a 0 vs. a 1 at
 each locus is determined by the "allele frequencies" at each locus,
-which we will specify by a vector `p`. Specifically, `p[r]` specifies
-the frequency of the `1` allele at locus `r`.
+which we will specify by a vector $p$. Specifically, $p_r$ specifies
+the frequency of the 1 allele at locus $r$.
 
 The following code simulates from this model.
 
-```{r}
+```{r r-haploid-genotypes}
 #' @param n number of samples
 #' @param p a vector of allele frequencies
 r_haploid_genotypes = function(n,p){
@@ -286,3 +285,4 @@ posterior_param[,2,] # these should be the posterior parameters for population 2
 ```
 
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/r_simplemix.pdf
+[intro_to_mixture_models]: https://pcarbo.github.io/fiveMinuteStats/intro_to_mixture_models.html

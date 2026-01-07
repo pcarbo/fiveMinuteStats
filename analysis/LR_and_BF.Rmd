@@ -3,7 +3,7 @@ title: "Likelihood Ratio: how big is convincing?"
 author: 
   name: Matthew Stephens
   affiliation: University of Chicago
-date: January 6, 2025
+date: January 6, 2026
 output:
   pdf_document:
     keep_tex: false
