@@ -115,14 +115,14 @@ population.
 
 ```{r r-simplemix}
 #' @param n The number of samples.
-#' @param P An 2 x R matrix of allele frequencies.
+#' @param P A 2 x R matrix of allele frequencies.
 #' @return A list containing a matrix of genotypes (x) and
 #'   the populations of origin (z).
 r_simplemix <- function (n, P) {
   R <- ncol(P)
   z <- rep(0,n)
   x <- matrix(0,n,R)
-  for(i in 1:n){
+  for (i in 1:n) {
     z[i]  <- sample(2,1,prob = c(0.5,0.5))
 	k     <- z[i]
     x[i,] <- r_haploid_genotypes(1,P[k,])
@@ -141,7 +141,7 @@ to illustrate the ideas.
 
 ```{r r-simplemix-demo}
 set.seed(123)
-P <- rbind(p,1 - p,make.row.names = FALSE)
+P <- rbind(p,1 - p,deparse.level = 0)
 print(P)
 sim <- r_simplemix(20,P)
 ```
@@ -165,18 +165,18 @@ Inference problems
 ==================
 
 These types of data can help motivate a number of statistical
-inference problems.
+inference problems, including:
  
-1. Given the allele frequencies `P` and the genotypes `x`, how might
-you infer the populations of origin `z`? In the genetic literature
-this is sometimes called the "assignment problem"; more generally, it
-is an example of a "classification problem".
+1. Given the allele frequencies ${\bf P}$ and the genotypes ${\bf X}$,
+how might you infer the populations of origin $z$? In the genetic
+literature, this is sometimes called the "assignment problem"; more
+generally, it is an example of a "classification problem".
 
-2. Given the populations of origin `z` and the genotypes `x`, how
-might you infer the population allele frequencies `P`?
+2. Given the populations of origin $z$ and the genotypes ${\bf X}$, how
+might you infer the population allele frequencies ${\bf P}$?
 
-3. Given just the genotypes `x` how might you infer both `z` and `P`?
-(This is an example of a "clustering" problem).
+3. Given just the genotypes ${\bf X}$ how might you infer *both* $z$
+and ${\bf P}$? This is an example of a "clustering problem".
 
 Exercises
 =========
@@ -188,21 +188,21 @@ be specified, rather than fixed at (0.5,0.5). You could do this by
 adding a parameter `w` to the function that specifies the proportions
 to use (`w` for "weights").
 
-2. Write a function, `posterior_prob_assignment=function(x,P,w)`, to
+2. Write a function, `posterior_prob_assignment(x,P,w)`, to
 compute the posterior probability that each individual came from each
 population, given the genotypes `x`, the allele frequencies `P` and
 the mixture proportions `w`.  Apply your function to the simulated
 data.
 
 3. Write a function
-`posterior_param_allele_frequencies=function(x,z,a)` to compute the
+`posterior_param_allele_frequencies(x,z,a)` to compute the
 parameters of the beta posterior in each population at each locus.
 Here `a` is a vector of length 2 giving the parameters of the beta
 prior for `P[k,r]`. That is, the prior is `P[k,r]` $\sim$
-Beta(`a[1]`,`a[2]`). Because the Beta distribution has two
-parameters, there will be 2 parameters for each locus and each
-population. So the output of your function should be a 2 x 'K' x `R`
-array (where 'K=2' because we have a mixture of 2 populations).
+Beta(`a[1]`,`a[2]`). Because the Beta distribution has two parameters,
+there will be 2 parameters for each locus and each population. So the
+output of your function should be a 2 x 'K' x `R` array (where 'K=2'
+because we have a mixture of 2 populations).
 
 Answer templates
 ================
