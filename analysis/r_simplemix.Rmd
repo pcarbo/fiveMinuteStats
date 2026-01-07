@@ -296,7 +296,7 @@ posterior_param_allele_frequencies <- function (x, z, a) {
 
 
 Once you have implemented this function, try running it on an example
-data set
+data set:
 
 ```{r posterior-param-allele-frequencies-test, eval=FALSE}
 set.seed(123)
