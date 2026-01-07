@@ -243,8 +243,8 @@ Function to compute the posterior assignment probabilities:
 #' @param w A vector of mixture proportions of length 2.
 #' @return An n x 2 matrix of posterior assignment probabilities.
 posterior_prob_assignment <- function (x, P, w) {
-  n <- nrow(x)
   K <- 2
+  n <- nrow(x)
   post <- matrix(0,n,K)
   lik <- rep(0,K)
   for (i in 1:n) {
@@ -272,33 +272,38 @@ plot(sim$z,posterior[,2],xlab = "true population",
 Exercise 3
 ----------
 
-```{r, eval=FALSE}
-#' Compute the posterior parameters for allele frequencies given genotypes 
-#' and population labels
-#' @param x an n by R matrix of genotypes
-#' @param z an n vector of population assignments
-#' @param a a 2-vector of prior parameters
-posterior_param_allele_frequencies=function(x,z,a){
- K = 2
- R = ncol(x)
- post_param = array(dim=c(2,K,R))
- for(k in 1:K){
-   for(r in 1:R){
-     ...
+Function to compute the posterior distribution of the allele frequencies
+for each population and for each locus.
+
+```{r posterior-param-allele-frequencies}
+#' @param x An n by R matrix of genotypes.
+#' @param z An vector of population assignments of length n.
+#' @param a A vector of length 2 specifying the Beta prior.
+#' @return A 2 x 2 x R array containing the posterior parameters for the
+#'    the allele frequencies given the genotypes and population labels.
+posterior_param_allele_frequencies <- function (x, z, a) {
+ K <- 2
+ R <- ncol(x)
+ post_param <- array(0,c(2,K,R))
+ for (k in 1:K) {
+   for (r in 1:R) {
+     # Add your code here.
    }
  }
  return(post_param)
 }
 ```
 
-Here we can run this on the example data:
 
-```{r, eval=FALSE}
+Once you have implemented this function, try running it on an example
+data set
+
+```{r posterior-param-allele-frequencies-test, eval=FALSE}
 set.seed(123)
-sim = r_simplemix(n=20,P)
-posterior_param = posterior_param_allele_frequencies(sim$x,sim$z,a = c(1,1))
-posterior_param[,1,] # these should be the posterior parameters for population 1
-posterior_param[,2,] # these should be the posterior parameters for population 2
+sim <- r_simplemix(20,P)
+posterior_param <- posterior_param_allele_frequencies(sim$x,sim$z,a = c(1,1))
+posterior_param[,1,] # Posterior for population 1.
+posterior_param[,2,] # Posterior for population 2.
 ```
 
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/r_simplemix.pdf
