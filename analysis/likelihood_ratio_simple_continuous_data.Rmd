@@ -52,7 +52,7 @@ have exactly the same expression for the LR,
 $$
 \mathrm{LR}(M_1,M_0) := \frac{p(x \mid M_1)}{p(x \mid M_0)},
 $$
-but now $p(\cdot | M_1)$ and $p(\cdot | M_0)$ are probability density
+but now $p(x \mid M_1)$ and $p(x \mid M_0)$ are probability density
 functions instead of probability mass functions.
 
 Example
