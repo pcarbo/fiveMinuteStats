@@ -40,7 +40,7 @@ Motivating Problem
 ==================
 
 **Technical note:** To simplify this problem I have assumed that
-elephants are [haploid][plody], which
+elephants are [haploid][ploidy], which
 they are not. If you do not know what this means you should simply
 ignore this comment.
 
