@@ -183,77 +183,90 @@ Exercises
 
 Here are some things you might like to try:
 
-1. Modify the `r_simplemix` code to allow the mixture proportions to
-be specified, rather than fixed at (0.5,0.5). You could do this by
-adding a parameter `w` to the function that specifies the proportions
-to use (`w` for "weights").
+1. Modify the `r_simplemix` function to allow the mixture proportions
+to be specified as an input argument, rather than fixed at
+$(0.5, 0.5)$. You could do this by adding a parameter "w" to the
+function that specifies the proportions to use ("w" is short for
+"weights").
 
-2. Write a function, `posterior_prob_assignment(x,P,w)`, to
-compute the posterior probability that each individual came from each
-population, given the genotypes `x`, the allele frequencies `P` and
-the mixture proportions `w`.  Apply your function to the simulated
-data.
+2. Write a function `posterior_prob_assignment(x,P,w)` to compute the
+posterior probability that each individual came from each population,
+given the genotypes "x", the allele frequencies "P" and the mixture
+proportions "w".  Apply your function to the data you simulated.
 
-3. Write a function
-`posterior_param_allele_frequencies(x,z,a)` to compute the
-parameters of the beta posterior in each population at each locus.
-Here `a` is a vector of length 2 giving the parameters of the beta
-prior for `P[k,r]`. That is, the prior is `P[k,r]` $\sim$
-Beta(`a[1]`,`a[2]`). Because the Beta distribution has two parameters,
-there will be 2 parameters for each locus and each population. So the
-output of your function should be a 2 x 'K' x `R` array (where 'K=2'
-because we have a mixture of 2 populations).
+3. Write a function `posterior_param_allele_frequencies(x,z,a)` to
+compute the parameters of the Beta posterior in each population at
+each locus.  Here, "a" is a vector of length 2 giving the parameters
+of the Beta prior for $p_{kr}$; that is, the prior is $p_{kr} \sim
+\mathrm{Beta}(a_1, a_2)$. Because the Beta distribution has two
+parameters, there will be 2 parameters for each locus and for each
+population. So the output of your function should be two $2 \times R$
+matrices, or a $2 \times 2 \times R$ array.
 
 Answer templates
 ================
 
-Here are some answer templates for Exercises 2 and 3.  You will need
-to fill in the "..."  (Note: these chunks have the option set
-`eval=FALSE` so that this document compiles; you will have to remove
-these if you want to run these chunks on compilation.)
+Here are some answer templates for Exercises 2 and 3. You will need to
+fill in the "add your code here" comments. (*Note:* some of these code
+chunks have the option set `eval = FALSE` so that this document
+compiles. You will have to remove this option if you want these chunks
+to run on compilation.)
 
 Exercise 2
 ----------
 
-```{r eval=FALSE}
-#' Compute the likelihood for allele frequences p given genotype data x
-#' @param p an R vector of allele frequencies
-#' @param x an R vector of genotypes
-likelihood = function(p,x){
-  return(prod(p^x*(1-p)^(1-x)))
-}
+Function to compute the likelihood:
 
-#' normalize a vector, x, so it's elements sum to 1
-#' @param x a vector
-normalize = function(x){x/sum(x)}
+```{r likelihood}
+#' @param p A vector of allele frequencies of length R.
+#' @param x A vector of genotypes of length R.
+#' @return The likelihood for the allele frequences (p) given the
+#'   genotype data (x).
+likelihood <- function (p, x)
+  prod(p^x*(1-p)^(1-x))
+```
 
-#' Compute posterior assignment probabilities
-#' @param x an n by R matrix of genotypes
-#' @param P a 2 by R matrix of allele frequencies
-#' @param w a 2-vector of prior probabilities
-posterior_prob_assignment=function(x,P,w){
-  n = nrow(x)
-  K = length(w)
-  post = matrix(nrow=n, ncol=K) # to store the posterior probabilities
-  lik = rep(0,K) # a vector to store the likelihoods
-  for(i in 1:n){
-    for(k in 1:K){
-    ...
+Function to "normalize" a vector:
+
+```{r normalize}
+#' @param x A vector.
+#' @return The normalized vector in which its elements sum to 1.
+normalize <- function (x)
+  x/sum(x)
+```
+
+Function to compute the posterior assignment probabilities:
+
+```{r posterior-prob-assignment}
+#' @param x An n x R matrix of genotypes.
+#' @param P A 2 x R matrix of allele frequencies.
+#' @param w A vector of mixture proportions of length 2.
+#' @return An n x 2 matrix of posterior assignment probabilities.
+posterior_prob_assignment <- function (x, P, w) {
+  n <- nrow(x)
+  K <- 2
+  post <- matrix(0,n,K)
+  lik <- rep(0,K)
+  for (i in 1:n) {
+    for (k in 1:K) {
+      # Add your code here.
     }
-    ...
+    # Add your code here.
   }
   return(post)
 }
 ```
 
-Here we can run this on the example data, and compare the posterior
-probabilities with the true labels.
+Once you have implemented this function, try running it on an example
+data set, and compare the posterior assignment probabilities to the
+true labels:
 
-```{r, eval=FALSE}
+```{r posterior-prob-assignment-test, eval=FALSE}
 set.seed(123)
-sim = r_simplemix(n=20,P)
-posterior = posterior_prob_assignment(sim$x,P,w=c(0.5,0.5))
-plot(sim$z,posterior[,2],xlab="true population", ylab="posterior prob for population 2")
+sim <- r_simplemix(20,P)
+posterior <- posterior_prob_assignment(sim$x,P,w = c(0.5,0.5))
+plot(sim$z,posterior[,2],xlab = "true population",
+     ylab = "posterior prob for population 2")
 ```
 
 Exercise 3
