@@ -1,12 +1,27 @@
 ---
-title: "Bayesian inference for a binomial proportion"
-author: "Matthew Stephens"
-date: 2017-01-25
-output: workflowr::wflow_html
+title: Bayesian inference for a binomial proportion
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: January 8, 2026
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
+See [here][pdf_version] for a PDF version of this vignette.
 
-
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
+```
 
 # Overview
 
@@ -76,5 +91,4 @@ We can use this to summarize and interpret the posterior distribution, as illust
 - In cases where you do not recognize the posterior distribution, you may need
 to use computational methods to compute quantities of interest.
 
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bayes_beta_binomial.pdf

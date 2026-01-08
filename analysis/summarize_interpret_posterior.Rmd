@@ -1,12 +1,27 @@
 ---
-title: "Summarizing and Interpreting the Posterior (analytic)"
-author: "Matthew Stephens"
-date: 2017-01-28
-output: workflowr::wflow_html
+title: Summarizing and interpreting the posterior (analytic)
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: January 8, 2026
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
+See [here][pdf_version] for a PDF version of this vignette.
 
-
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
+```
 
 # Overview
 
@@ -106,4 +121,4 @@ a) a 90% Credible Interval for $\theta$.
 b) a 95% Credible Interval for $\theta$.
 c) a point estimate for $\theta$.
 
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/summarize_interpret_posterior.pdf

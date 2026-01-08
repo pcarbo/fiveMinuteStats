@@ -12,6 +12,9 @@ all: docs/index.html \
      docs/LR_and_BF.html \
      docs/bayes_multiclass.html \
      docs/r_simplemix.html \
+     docs/likelihood_function.html \
+     docs/bayes_beta_binomial.html \
+     docs/summarize_interpret_posterior.html \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
      docs/Importance_sampling.pdf \
@@ -19,7 +22,10 @@ all: docs/index.html \
      docs/likelihood_ratio_simple_continuous_data.pdf \
      docs/LR_and_BF.pdf \
      docs/bayes_multiclass.pdf \
-     docs/r_simplemix.pdf 
+     docs/r_simplemix.pdf \
+     docs/likelihood_function.pdf \
+     docs/bayes_beta_binomial.pdf \
+     docs/summarize_interpret_posterior.pdf
 
 docs/index.html : analysis/index.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/index.Rmd",view = FALSE)'
@@ -47,6 +53,15 @@ docs/bayes_multiclass.html : analysis/bayes_multiclass.Rmd
 
 docs/r_simplemix.html : analysis/r_simplemix.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/r_simplemix.Rmd",view = FALSE)'
+
+docs/likelihood_function.html : analysis/likelihood_function.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/likelihood_function.Rmd",view = FALSE)'
+
+docs/bayes_beta_binomial.html : analysis/bayes_beta_binomial.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/bayes_beta_binomial.Rmd",view = FALSE)'
+
+docs/summarize_interpret_posterior.html : analysis/summarize_interpret_posterior.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/summarize_interpret_posterior.Rmd",view = FALSE)'
 
 docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
@@ -88,6 +103,21 @@ docs/r_simplemix.pdf : analysis/r_simplemix.Rmd readable.tex
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/r_simplemix.pdf")'
 	rm temp.Rmd
 
+docs/likelihood_function.pdf : analysis/likelihood_function.Rmd readable.tex
+	cp analysis/likelihood_function.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/likelihood_function.pdf")'
+	rm temp.Rmd
+
+docs/summarize_interpret_posterior.pdf : analysis/summarize_interpret_posterior.Rmd readable.tex
+	cp analysis/summarize_interpret_posterior.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/summarize_interpret_posterior.pdf")'
+	rm temp.Rmd
+
+docs/bayes_beta_binomial.pdf : analysis/bayes_beta_binomial.Rmd readable.tex
+	cp analysis/bayes_beta_binomial.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/bayes_beta_binomial.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf
@@ -97,5 +127,8 @@ clean:
 	rm -f docs/LR_and_BF.pdf
 	rm -f docs/bayes_multiclass.pdf
 	rm -f docs/r_simplemix.pdf
+	rm -f docs/likelihood_function.pdf
+	rm -f docs/bayes_beta_binomial.pdf
+	rm -f docs/summarize_interpret_posterior.pdf
 	rm -f temp.Rmd
 
