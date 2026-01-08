@@ -14,6 +14,7 @@ all: docs/index.html \
      docs/r_simplemix.html \
      docs/likelihood_function.html \
      docs/bayes_beta_binomial.html \
+     docs/bayes_conjugate.html \
      docs/summarize_interpret_posterior.html \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
@@ -25,6 +26,7 @@ all: docs/index.html \
      docs/r_simplemix.pdf \
      docs/likelihood_function.pdf \
      docs/bayes_beta_binomial.pdf \
+     docs/bayes_conjugate.pdf \
      docs/summarize_interpret_posterior.pdf
 
 docs/index.html : analysis/index.Rmd
@@ -59,6 +61,9 @@ docs/likelihood_function.html : analysis/likelihood_function.Rmd
 
 docs/bayes_beta_binomial.html : analysis/bayes_beta_binomial.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/bayes_beta_binomial.Rmd",view = FALSE)'
+
+docs/bayes_conjugate.html : analysis/bayes_conjugate.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/bayes_conjugate.Rmd",view = FALSE)'
 
 docs/summarize_interpret_posterior.html : analysis/summarize_interpret_posterior.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/summarize_interpret_posterior.Rmd",view = FALSE)'
@@ -108,14 +113,19 @@ docs/likelihood_function.pdf : analysis/likelihood_function.Rmd readable.tex
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/likelihood_function.pdf")'
 	rm temp.Rmd
 
-docs/summarize_interpret_posterior.pdf : analysis/summarize_interpret_posterior.Rmd readable.tex
-	cp analysis/summarize_interpret_posterior.Rmd temp.Rmd
-	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/summarize_interpret_posterior.pdf")'
-	rm temp.Rmd
-
 docs/bayes_beta_binomial.pdf : analysis/bayes_beta_binomial.Rmd readable.tex
 	cp analysis/bayes_beta_binomial.Rmd temp.Rmd
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/bayes_beta_binomial.pdf")'
+	rm temp.Rmd
+
+docs/bayes_conjugate.pdf : analysis/bayes_conjugate.Rmd readable.tex
+	cp analysis/bayes_conjugate.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/bayes_conjugate.pdf")'
+	rm temp.Rmd
+
+docs/summarize_interpret_posterior.pdf : analysis/summarize_interpret_posterior.Rmd readable.tex
+	cp analysis/summarize_interpret_posterior.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/summarize_interpret_posterior.pdf")'
 	rm temp.Rmd
 
 clean:
@@ -130,5 +140,7 @@ clean:
 	rm -f docs/likelihood_function.pdf
 	rm -f docs/bayes_beta_binomial.pdf
 	rm -f docs/summarize_interpret_posterior.pdf
+	rm -f docs/bayes_conjugate.pdf
 	rm -f temp.Rmd
+
 

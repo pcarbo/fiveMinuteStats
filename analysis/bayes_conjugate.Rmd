@@ -1,13 +1,27 @@
 ---
-title: "Conjugate Bayesian Analysis"
-author: "Matthew Stephens"
-date: 2017-02-19
-output: workflowr::wflow_html
+title: Conjugate Bayesian analysis
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: January 8, 2026
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
+See [here][pdf_version] for a PDF version of this vignette.
 
-
-
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
+```
 
 # Overview
 
@@ -78,5 +92,4 @@ distribution with parameters $n$ and $\lambda$. Show that the posterior distribu
 
 Hint: you should take the following steps. 1. write down the likelihood $p(X|\mu)$ for $\mu$ (look up the Poisson distribution if you cannot remember it). 2. Write down the prior density for $\mu$ (look up the density of a Gamma distribution if you cannot remember it). 3. Multiply them together to obtain the posterior density (up to a constant of proportionality), and notice that it has the same form as the gamma distribution. 
 
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bayes_conjugate.pdf

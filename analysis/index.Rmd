@@ -23,7 +23,7 @@ title: Home
 * [Bayesian inference for comparing multiple fully-specified models](bayes_multiclass.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bayes_multiclass.pdf))
 * [Bayesian inference for a continuous parameter: analytic calculation](bayes_beta_binomial.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bayes_beta_binomial.pdf))
 * [Bayesian inference for a continuous parameter: summarizing the posterior](summarize_interpret_posterior.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/summarize_interpret_posterior.pdf))
-* [Bayesian inference for a continuous parameter: conjugacy](bayes_conjugate.html)
+* [Bayesian inference for a continuous parameter: conjugacy](bayes_conjugate.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bayes_conjugate.pdf))
 * [Bayesian inference for a normal mean](bayes_conjugate_normal_mean.html)
 * [Bayesian inference for a normal mean (shiny app illustration)](shiny_normal_example.html)
 * [Bayesian inference for multiple independent parameters](bayes_independent.html)
