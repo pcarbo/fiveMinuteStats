@@ -15,7 +15,9 @@ all: docs/index.html \
      docs/likelihood_function.html \
      docs/bayes_beta_binomial.html \
      docs/bayes_conjugate.html \
+     docs/bayes_conjugate_normal_mean.html \
      docs/summarize_interpret_posterior.html \
+     docs/shiny_normal_example.html \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
      docs/Importance_sampling.pdf \
@@ -27,6 +29,7 @@ all: docs/index.html \
      docs/likelihood_function.pdf \
      docs/bayes_beta_binomial.pdf \
      docs/bayes_conjugate.pdf \
+     docs/bayes_conjugate_normal_mean.pdf \
      docs/summarize_interpret_posterior.pdf
 
 docs/index.html : analysis/index.Rmd
@@ -67,6 +70,9 @@ docs/bayes_conjugate.html : analysis/bayes_conjugate.Rmd
 
 docs/summarize_interpret_posterior.html : analysis/summarize_interpret_posterior.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/summarize_interpret_posterior.Rmd",view = FALSE)'
+
+docs/shiny_normal_example.html : analysis/shiny_normal_example.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/shiny_normal_example.Rmd",view = FALSE)'
 
 docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
@@ -123,6 +129,14 @@ docs/bayes_conjugate.pdf : analysis/bayes_conjugate.Rmd readable.tex
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/bayes_conjugate.pdf")'
 	rm temp.Rmd
 
+docs/bayes_conjugate_normal_mean.pdf : analysis/bayes_conjugate_normal_mean.Rmd readable.tex
+	cp analysis/bayes_conjugate_normal_mean.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/bayes_conjugate_normal_mean.pdf")'
+	rm temp.Rmd
+
+docs/bayes_conjugate_normal_mean.html : analysis/bayes_conjugate_normal_mean.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/bayes_conjugate_normal_mean.Rmd",view = FALSE)'
+
 docs/summarize_interpret_posterior.pdf : analysis/summarize_interpret_posterior.Rmd readable.tex
 	cp analysis/summarize_interpret_posterior.Rmd temp.Rmd
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/summarize_interpret_posterior.pdf")'
@@ -141,6 +155,6 @@ clean:
 	rm -f docs/bayes_beta_binomial.pdf
 	rm -f docs/summarize_interpret_posterior.pdf
 	rm -f docs/bayes_conjugate.pdf
+	rm -f docs/bayes_conjugate_normal_mean.pdf
 	rm -f temp.Rmd
-
 

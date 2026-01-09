@@ -1,28 +1,27 @@
 ---
-title: 'Simple example: Bayesian inference for normal mean (known variance)'
-author: "Nan Xiao"
-date: 2016-04-13
+title: Simple example: Bayesian inference for normal mean (known variance)
+author: Nan Xiao
+date: January 9, 2026
 ---
-
-
 
 This illustrates how the prior, likelihood, and posterior behave for
 inference for a normal mean ($\mu$) from normal-distributed data, with
 a conjugate prior on $\mu$.
 
-Specifically the prior on $\mu$ is N($\mu_0$, $\tau_0^2$) [dotted line] and
-the data is sampled from a normal distribution N($\mu$, $\sigma^2$),
-which gives the likelihood [black line]. Note that the likelihood is scaled so
-it fits nicely on the graph (remember, likelihoods only
-matter up to a constant, so you can scale them however is convenient).
+Specifically the prior on $\mu$ is N($\mu_0$, $\tau_0^2$)
+[the dotted line in the interactive plot below], and the data is
+sampled from a normal distribution N($\mu$, $\sigma^2$), which gives
+the likelihood [black line]. Note that the likelihood is scaled so it
+fits nicely on the graph (remember, likelihoods only matter up to a
+constant, so you can scale them however is convenient).
 
-Because the normal distribution is the conjugate prior for normal sampling,
-the posterior distribution is also a normal distribution, and is shown in red.
+Because the normal distribution is the conjugate prior for normal
+sampling, the posterior distribution is also a normal distribution,
+and is shown in red.
 
-By Bayes theorem:
-
+By Bayes theorem, we have
 $$
-\text{Pr}(\mu \, | \, \mathbf{y}, \sigma^2) \propto \text{Pr}(\mathbf{y} \, | \, \mu, \sigma^2) \text{Pr}(\mu)
+\text{Pr}(\mu \mid \mathbf{y}, \sigma^2) \propto \text{Pr}(\mathbf{y} \, | \, \mu, \sigma^2) \text{Pr}(\mu)
 $$
 
 $$

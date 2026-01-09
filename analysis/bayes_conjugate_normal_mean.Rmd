@@ -1,12 +1,26 @@
 ---
-title: "Bayesian computations for the mean of a normal distribution"
-author: "Matthew Stephens"
-date: "April 23, 2018"
-output: workflowr::wflow_html
+title: Bayesian computations for the mean of a normal distribution
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: January 9, 2026
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+See [here][pdf_version] for a PDF version of this vignette.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
 ```
 
 ## Introduction
@@ -79,4 +93,4 @@ In contrast, if the data are imprecise compared with the prior ($\tau << \tau_0$
 
 You can see a visual illustration of this result in [this shiny app](shiny_normal_example.html).
 
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bayes_conjugate_normal_mean.pdf
