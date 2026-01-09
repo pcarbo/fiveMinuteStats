@@ -18,6 +18,8 @@ all: docs/index.html \
      docs/bayes_conjugate_normal_mean.html \
      docs/summarize_interpret_posterior.html \
      docs/shiny_normal_example.html \
+     docs/mixture_models_01.html \
+     docs/em_algorithm_01.html \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
      docs/Importance_sampling.pdf \
@@ -30,7 +32,9 @@ all: docs/index.html \
      docs/bayes_beta_binomial.pdf \
      docs/bayes_conjugate.pdf \
      docs/bayes_conjugate_normal_mean.pdf \
-     docs/summarize_interpret_posterior.pdf
+     docs/summarize_interpret_posterior.pdf \
+     docs/mixture_models_01.pdf \
+     docs/em_algorithm_01.pdf
 
 docs/index.html : analysis/index.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/index.Rmd",view = FALSE)'
@@ -73,6 +77,12 @@ docs/summarize_interpret_posterior.html : analysis/summarize_interpret_posterior
 
 docs/shiny_normal_example.html : analysis/shiny_normal_example.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/shiny_normal_example.Rmd",view = FALSE)'
+
+docs/mixture_models_01.html : analysis/mixture_models_01.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/mixture_models_01.Rmd",view = FALSE)'
+
+docs/em_algorithm_01.html : analysis/em_algorithm_01.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/em_algorithm_01.Rmd",view = FALSE)'
 
 docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
@@ -142,6 +152,16 @@ docs/summarize_interpret_posterior.pdf : analysis/summarize_interpret_posterior.
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/summarize_interpret_posterior.pdf")'
 	rm temp.Rmd
 
+docs/mixture_models_01.pdf : analysis/mixture_models_01.Rmd readable.tex
+	cp analysis/mixture_models_01.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/mixture_models_01.pdf")'
+	rm temp.Rmd
+
+docs/em_algorithm_01.pdf : analysis/em_algorithm_01.Rmd readable.tex
+	cp analysis/em_algorithm_01.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/em_algorithm_01.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf
@@ -156,5 +176,7 @@ clean:
 	rm -f docs/summarize_interpret_posterior.pdf
 	rm -f docs/bayes_conjugate.pdf
 	rm -f docs/bayes_conjugate_normal_mean.pdf
+	rm -f docs/mixture_models_01.pdf
+	rm -f docs/em_algorithm_01.pdf
 	rm -f temp.Rmd
 

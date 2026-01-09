@@ -45,8 +45,8 @@ title: Home
 
 ### Mixture Models
 
-* [Introduction to Mixture Models](mixture_models_01.html)
-* [Introduction to the EM algorithm](em_algorithm_01.html)
+* [Introduction to Mixture Models](mixture_models_01.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/mixture_models_01.pdf))
+* [Introduction to the EM algorithm](em_algorithm_01.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/em_algorithm_01.pdf))
 * [A variational view of the EM algorithm](em_variational.html)
 * [EM for Gaussian Mixture Models](intro_to_em.html)
 * [Archive: Alternative Introduction to Mixture Models](intro_to_mixture_models.html)

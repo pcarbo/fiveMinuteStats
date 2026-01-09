@@ -1,11 +1,27 @@
 ---
-title: "A prelude to the EM algorithm"
-author: "Matthew Stephens"
-date: "2021-01-26"
-output: workflowr::wflow_html
-editor_options:
-  chunk_output_type: console
+title: A prelude to the EM algorithm
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: January 9, 2026
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
+
+See [here][pdf_version] for a PDF version of this vignette.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
+```
 
 # Pre-requisites
 
@@ -130,3 +146,4 @@ plot(pi1_vec,loglik-max(loglik), ylim=c(-10,0),type="l", main="log-likelihood (z
 abline(v=pi1.iter[101])
 ```
 
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/em_algorithm_01.pdf

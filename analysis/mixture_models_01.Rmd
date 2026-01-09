@@ -1,11 +1,27 @@
 ---
-title: "Mixture Models"
-author: "Matthew Stephens"
-date: "2021-01-25"
-output: workflowr::wflow_html
-editor_options:
-  chunk_output_type: console
+title: Mixture models
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: January 9, 2026
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
+
+See [here][pdf_version] for a PDF version of this vignette.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
+```
 
 # Pre-requisites 
 
@@ -154,3 +170,4 @@ $$p(Z=k) = \pi_k$$
 $$p(x | Z=k) = f_k(x)$$
 is called the *latent variable representation* of the mixture model.
 
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/mixture_models_01.pdf
