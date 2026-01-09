@@ -9,28 +9,35 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Matthew Stephens" />
 
-<meta name="date" content="2021-01-25" />
+<meta name="date" content="2026-01-09" />
 
-<title>Mixture Models</title>
+<title>Mixture models</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -38,12 +45,18 @@ div.section {
 }
 </style>
 
-<style type="text/css">code{white-space: pre;}</style>
+
+
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -56,32 +69,8 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
+
 
 
 
@@ -91,10 +80,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -111,40 +96,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -172,7 +133,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -184,7 +145,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -194,11 +155,28 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -210,13 +188,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -224,16 +201,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -336,7 +306,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -350,7 +320,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -371,30 +341,30 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/stephens999/fiveMinuteStats">
-    <span class="fa fa-github"></span>
-     
-  </a>
+  <a href="https://github.com/pcarbo/fiveMinuteStats">source</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
-<h1 class="title toc-ignore">Mixture Models</h1>
+<h1 class="title toc-ignore">Mixture models</h1>
 <h4 class="author">Matthew Stephens</h4>
-<h4 class="date">2021-01-25</h4>
+<address class="author_afil">
+University of Chicago<br><h4 class="date">January 9, 2026</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -403,7 +373,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -412,17 +384,27 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-04-20
+<strong>Last updated:</strong> 2026-01-09
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
 </p>
 <p>
-<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
+<span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -431,116 +413,153 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(12345)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(12345)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed12345code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed12345code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(12345)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(12345)</code> was run prior to running the
+code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstreecc566d37c19e69fb2107063824c3beda60a0b620targetblankcc566d3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephens999/fiveMinuteStats/tree/cc566d37c19e69fb2107063824c3beda60a0b620" target="_blank">cc566d3</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree869a274f861b35bed4e60550ff0f91c1f6185c66targetblank869a274a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/869a274f861b35bed4e60550ff0f91c1f6185c66" target="_blank">869a274</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstreecc566d37c19e69fb2107063824c3beda60a0b620targetblankcc566d3a" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree869a274f861b35bed4e60550ff0f91c1f6185c66targetblank869a274a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephens999/fiveMinuteStats/tree/cc566d37c19e69fb2107063824c3beda60a0b620" target="_blank">cc566d3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/869a274f861b35bed4e60550ff0f91c1f6185c66" target="_blank">869a274</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    .Rhistory
-    Ignored:    .Rproj.user/
-    Ignored:    analysis/.Rhistory
-    Ignored:    analysis/bernoulli_poisson_process_cache/
-
-Untracked files:
-    Untracked:  _workflowr.yml
-    Untracked:  analysis/CI.Rmd
-    Untracked:  analysis/gibbs_structure.Rmd
-    Untracked:  analysis/libs/
-    Untracked:  analysis/results.Rmd
-    Untracked:  analysis/shiny/tester/
-
 Unstaged changes:
-    Modified:   analysis/LR_and_BF.Rmd
-    Modified:   analysis/MH-examples1.Rmd
-    Modified:   analysis/MH_intro.Rmd
-    Deleted:    analysis/r_simplemix_extended.Rmd
+    Modified:   Makefile
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/mixture_models_01.Rmd
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -551,7 +570,12 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/mixture_models_01.Rmd</code>) and HTML (<code>docs/mixture_models_01.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/mixture_models_01.Rmd</code>) and
+HTML (<code>docs/mixture_models_01.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -577,10 +601,10 @@ Message
 <tbody>
 <tr>
 <td>
-Rmd
+html
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/cc566d37c19e69fb2107063824c3beda60a0b620/analysis/mixture_models_01.Rmd" target="_blank">cc566d3</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/803554afc74e2bbf64ed3fb4fba95df1c7cd64fc/docs/mixture_models_01.html" target="_blank">803554a</a>
 </td>
 <td>
 Matthew Stephens
@@ -589,7 +613,24 @@ Matthew Stephens
 2021-04-20
 </td>
 <td>
-workflowr::wflow_publish(“analysis/mixture_models_01.Rmd”)
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/cc566d37c19e69fb2107063824c3beda60a0b620/analysis/mixture_models_01.Rmd" target="_blank">cc566d3</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2021-04-20
+</td>
+<td>
+workflowr::wflow_publish("analysis/mixture_models_01.Rmd")
 </td>
 </tr>
 <tr>
@@ -597,7 +638,7 @@ workflowr::wflow_publish(“analysis/mixture_models_01.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/4ced11ac5653610fb2624cb3f021c5e777fc02c8/docs/mixture_models_01.html" target="_blank">4ced11a</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/4ced11ac5653610fb2624cb3f021c5e777fc02c8/docs/mixture_models_01.html" target="_blank">4ced11a</a>
 </td>
 <td>
 Matthew Stephens
@@ -614,7 +655,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/4b1238c9497c8460cbb65667f667262b41a7af69/analysis/mixture_models_01.Rmd" target="_blank">4b1238c</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/4b1238c9497c8460cbb65667f667262b41a7af69/analysis/mixture_models_01.Rmd" target="_blank">4b1238c</a>
 </td>
 <td>
 Matthew Stephens
@@ -623,7 +664,7 @@ Matthew Stephens
 2021-01-26
 </td>
 <td>
-workflowr::wflow_publish(“mixture_models_01.Rmd”)
+workflowr::wflow_publish("mixture_models_01.Rmd")
 </td>
 </tr>
 <tr>
@@ -631,7 +672,7 @@ workflowr::wflow_publish(“mixture_models_01.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/f4bada48aaf826f2ba7b71bb1ffa0cf2f5bca092/docs/mixture_models_01.html" target="_blank">f4bada4</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/f4bada48aaf826f2ba7b71bb1ffa0cf2f5bca092/docs/mixture_models_01.html" target="_blank">f4bada4</a>
 </td>
 <td>
 Matthew Stephens
@@ -648,7 +689,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/be59a00e50405a82727c31e1faefc52515626932/analysis/mixture_models_01.Rmd" target="_blank">be59a00</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/be59a00e50405a82727c31e1faefc52515626932/analysis/mixture_models_01.Rmd" target="_blank">be59a00</a>
 </td>
 <td>
 Matthew Stephens
@@ -657,7 +698,7 @@ Matthew Stephens
 2021-01-25
 </td>
 <td>
-workflowr::wflow_publish(“mixture_models_01.Rmd”)
+workflowr::wflow_publish("mixture_models_01.Rmd")
 </td>
 </tr>
 </tbody>
@@ -667,27 +708,72 @@ workflowr::wflow_publish(“mixture_models_01.Rmd”)
 </div>
 </div>
 </div>
+<p>See <a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/mixture_models_01.pdf">here</a>
+for a PDF version of this vignette.</p>
 <div id="pre-requisites" class="section level1">
 <h1>Pre-requisites</h1>
-<p>You should be familiar with basic probability, including the law of total probability, the notion of distibution and density, and with standard distributions (particularly the Gamma distribution).</p>
+<p>You should be familiar with basic probability, including the law of
+total probability, the notion of distibution and density, and with
+standard distributions (particularly the Gamma distribution).</p>
 </div>
 <div id="overview" class="section level1">
 <h1>Overview</h1>
-<p>This vignette introduces the idea of a mixture model. These models are widely used in statistics to model data where observations come from a “mixture” of two or more different distributions. The vignette introduces the basic idea of a mixture, its density/mass function, and terminology like “mixture proportions”, “mixture components” and “latent variable representation”.</p>
+<p>This vignette introduces the idea of a mixture model. These models
+are widely used in statistics to model data where observations come from
+a “mixture” of two or more different distributions. The vignette
+introduces the basic idea of a mixture, its density/mass function, and
+terminology like “mixture proportions”, “mixture components” and “latent
+variable representation”.</p>
 </div>
 <div id="example" class="section level1">
 <h1>Example</h1>
-<p>We begin this vignette with an example. A medical screening test for a disease involves measuring the concentration (<span class="math inline">\(X\)</span>) of a protein in the blood. In normal individuals <span class="math inline">\(X\)</span> has a Gamma distribution with mean 1 and shape 2 (so scale parameter is 0.5 as scale = mean/shape). In diseased individuals the protein becomes elevated, and <span class="math inline">\(X\)</span> has a Gamma distribution with mean 2 and shape 2 (so scale =1).</p>
-<p>Suppose that in a particular population 70% of individuals are normal and 30% are diseased. What will be the overall distribution of the protein levels in this population? How could you simulate from this distribution?</p>
+<p>We begin this vignette with an example. A medical screening test for
+a disease involves measuring the concentration (<span
+class="math inline">\(X\)</span>) of a protein in the blood. In normal
+individuals <span class="math inline">\(X\)</span> has a Gamma
+distribution with mean 1 and shape 2 (so scale parameter is 0.5 as scale
+= mean/shape). In diseased individuals the protein becomes elevated, and
+<span class="math inline">\(X\)</span> has a Gamma distribution with
+mean 2 and shape 2 (so scale =1).</p>
+<p>Suppose that in a particular population 70% of individuals are normal
+and 30% are diseased. What will be the overall distribution of the
+protein levels in this population? How could you simulate from this
+distribution?</p>
 <div id="answer" class="section level2">
 <h2>Answer</h2>
 <div id="the-overall-distribution" class="section level3">
 <h3>The overall distribution</h3>
-<p>Let <span class="math inline">\(X\)</span> denote the protein concentration of a randomly chosen individual from the population. Let <span class="math inline">\(Z\)</span> denote whether that same randomly-chosen individual is normal (<span class="math inline">\(Z=1\)</span>) or diseased (<span class="math inline">\(Z=2\)</span>). Here we assume that <span class="math inline">\(Z\)</span> is unobserved; it has been introduced to help with notation and derivations.</p>
-<p>By the law of total probability we can write the density of <span class="math inline">\(X\)</span> as: <span class="math display">\[p(x) = \Pr(Z = 1) p(x | Z=1)  + \Pr(Z=2) p(x|Z=2).\]</span> [In words, this represents $$p(x) = (normal) p(x | normal) + (diseased) p(x | diseased).]$$</p>
-<p>From the information given we know that <span class="math inline">\(\Pr(\text{normal})=0.7\)</span> and <span class="math inline">\(\Pr(\text{diseased})=0.3\)</span>. We also know <span class="math inline">\(p(x| \text{normal})\)</span> and <span class="math inline">\(p(x| \text{diseased})\)</span> are each given by the density of a gamma distribution. So we can write</p>
-<p><span class="math display">\[p(x) = 0.7 \Gamma(x;0.5,2) + 0.3 \Gamma(x; 1, 2)\]</span> where <span class="math inline">\(\Gamma(x; a,b)\)</span> denotes the density of a Gamma distribution with scale <span class="math inline">\(a\)</span> and shape <span class="math inline">\(b\)</span>.</p>
-<p>This distribution is an example of a “mixture distribution” (in particular it is a “mixture of two Gamma distributions”). Here we plot the density of this mixture distribution (blue) as well as the densities of the individual distributions that were combined to make the mixture (black for normal, red for disease). In mixture terminology these individual distributions are called the “component distributions”.</p>
+<p>Let <span class="math inline">\(X\)</span> denote the protein
+concentration of a randomly chosen individual from the population. Let
+<span class="math inline">\(Z\)</span> denote whether that same
+randomly-chosen individual is normal (<span
+class="math inline">\(Z=1\)</span>) or diseased (<span
+class="math inline">\(Z=2\)</span>). Here we assume that <span
+class="math inline">\(Z\)</span> is unobserved; it has been introduced
+to help with notation and derivations.</p>
+<p>By the law of total probability we can write the density of <span
+class="math inline">\(X\)</span> as: <span class="math display">\[p(x) =
+\Pr(Z = 1) p(x | Z=1)  + \Pr(Z=2) p(x|Z=2).\]</span> [In words, this
+represents <span class="math display">\[p(x) = \Pr(normal) p(x | normal)
++ \Pr(diseased) p(x | diseased).]\]</span></p>
+<p>From the information given we know that <span
+class="math inline">\(\Pr(\text{normal})=0.7\)</span> and <span
+class="math inline">\(\Pr(\text{diseased})=0.3\)</span>. We also know
+<span class="math inline">\(p(x| \text{normal})\)</span> and <span
+class="math inline">\(p(x| \text{diseased})\)</span> are each given by
+the density of a gamma distribution. So we can write</p>
+<p><span class="math display">\[p(x) = 0.7 \Gamma(x;0.5,2) + 0.3
+\Gamma(x; 1, 2)\]</span> where <span class="math inline">\(\Gamma(x;
+a,b)\)</span> denotes the density of a Gamma distribution with scale
+<span class="math inline">\(a\)</span> and shape <span
+class="math inline">\(b\)</span>.</p>
+<p>This distribution is an example of a “mixture distribution” (in
+particular it is a “mixture of two Gamma distributions”). Here we plot
+the density of this mixture distribution (blue) as well as the densities
+of the individual distributions that were combined to make the mixture
+(black for normal, red for disease). In mixture terminology these
+individual distributions are called the “component distributions”.</p>
 <pre class="r"><code>x = seq(0,10,length=100)
 plot(x, 0.7*dgamma(x,scale = 0.5,shape = 2) + 0.3 * dgamma(x,scale = 1,shape = 2)
        , col=&quot;blue&quot;, type=&quot;l&quot;, xlab=&quot;protein concentration&quot;, main=&quot;mixture distribution (blue)\n and component distributions (black,red)&quot;, ylab=&quot;density&quot;, ylim=c(0,0.8))
@@ -718,7 +804,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/f4bada48aaf826f2ba7b71bb1ffa0cf2f5bca092/docs/figure/mixture_models_01.Rmd/unnamed-chunk-1-1.png" target="_blank">f4bada4</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/f4bada48aaf826f2ba7b71bb1ffa0cf2f5bca092/docs/figure/mixture_models_01.Rmd/unnamed-chunk-1-1.png" target="_blank">f4bada4</a>
 </td>
 <td>
 Matthew Stephens
@@ -734,8 +820,20 @@ Matthew Stephens
 </div>
 <div id="simulation" class="section level3">
 <h3>Simulation</h3>
-<p>One nice thing about mixture models is that they are super-easy to simulate from. The trick is to simulate both <span class="math inline">\((Z,X)\)</span> from the joint distribution <span class="math inline">\(p(Z,X)\)</span>, and then to simply ignore <span class="math inline">\(Z\)</span>. This ensures that <span class="math inline">\(X\)</span> comes from its marginal distribution <span class="math inline">\(p(X)\)</span>.</p>
-<p>Simulating from <span class="math inline">\(p(Z,X)\)</span> can be achieved by a two-stage process, simulating <span class="math inline">\(Z \sim p(Z)\)</span> and then <span class="math inline">\(X|Z \sim p(X|Z)\)</span>, both of which are easy. The following code illustrates this idea by simulating 10000 samples from the mixture, and then plotting a histogram of the samples. As you can see the histogram closely matches the mixture density.</p>
+<p>One nice thing about mixture models is that they are super-easy to
+simulate from. The trick is to simulate both <span
+class="math inline">\((Z,X)\)</span> from the joint distribution <span
+class="math inline">\(p(Z,X)\)</span>, and then to simply ignore <span
+class="math inline">\(Z\)</span>. This ensures that <span
+class="math inline">\(X\)</span> comes from its marginal distribution
+<span class="math inline">\(p(X)\)</span>.</p>
+<p>Simulating from <span class="math inline">\(p(Z,X)\)</span> can be
+achieved by a two-stage process, simulating <span
+class="math inline">\(Z \sim p(Z)\)</span> and then <span
+class="math inline">\(X|Z \sim p(X|Z)\)</span>, both of which are easy.
+The following code illustrates this idea by simulating 10000 samples
+from the mixture, and then plotting a histogram of the samples. As you
+can see the histogram closely matches the mixture density.</p>
 <pre class="r"><code>n = 10000 # number of samples
 x = rep(0,n) # to store the samples
 shape = c(2,2) # shapes of the two components
@@ -777,7 +875,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/f4bada48aaf826f2ba7b71bb1ffa0cf2f5bca092/docs/figure/mixture_models_01.Rmd/unnamed-chunk-2-1.png" target="_blank">f4bada4</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/f4bada48aaf826f2ba7b71bb1ffa0cf2f5bca092/docs/figure/mixture_models_01.Rmd/unnamed-chunk-2-1.png" target="_blank">f4bada4</a>
 </td>
 <td>
 Matthew Stephens
@@ -795,98 +893,148 @@ Matthew Stephens
 </div>
 <div id="exercises" class="section level1">
 <h1>Exercises</h1>
-<p>The following exercises are designed to help you generalize the ideas used in example above to other settings.</p>
+<p>The following exercises are designed to help you generalize the ideas
+used in example above to other settings.</p>
 <div id="other-mixture-component-distributions" class="section level2">
 <h2>1. Other mixture component distributions</h2>
-<p>In the above example there is nothing special about the Gamma distribution; one can similarly form mixtures of other distributions. This exercise illustrates this idea.</p>
-<p>Consider modelling the heights of people sampled from a population that is 50% male and 50% female, where the males have heights that are normally distributed with mean 70 inches and standard deviation 3 inches, and the females have heights that are normally distributed with mean 64.5 inches and standard deviation 2.5 inches. Write the density of the mixture model. Identify the mixture proportions and the mixture component densities. Plot the mixture density and the component densities in a plot similar to the one in the example above.</p>
+<p>In the above example there is nothing special about the Gamma
+distribution; one can similarly form mixtures of other distributions.
+This exercise illustrates this idea.</p>
+<p>Consider modelling the heights of people sampled from a population
+that is 50% male and 50% female, where the males have heights that are
+normally distributed with mean 70 inches and standard deviation 3
+inches, and the females have heights that are normally distributed with
+mean 64.5 inches and standard deviation 2.5 inches. Write the density of
+the mixture model. Identify the mixture proportions and the mixture
+component densities. Plot the mixture density and the component
+densities in a plot similar to the one in the example above.</p>
 </div>
 <div id="more-than-two-distributions" class="section level2">
 <h2>2. More than two distributions</h2>
-<p>Similarly, there is nothing that limits us to mixing just two distributions – you can mix any number of distributions together. This exercise illustrates this idea.</p>
-<p>Suppose that in the protein concentration example above the population consists of males and females, who have different rates of disease, and also different protein distributions. So now there are four different groups, “male, diseased”, “male, normal”, “female, diseased”, and “female, normal”. Making whatever assumptions you want about the component distributions (say what they are), and about the relative frequency of each group in the population (again, say what they are), write out a mixture distribution that could represent this situation. Plot the components of your assumed mixture and the mixture density.</p>
+<p>Similarly, there is nothing that limits us to mixing just two
+distributions – you can mix any number of distributions together. This
+exercise illustrates this idea.</p>
+<p>Suppose that in the protein concentration example above the
+population consists of males and females, who have different rates of
+disease, and also different protein distributions. So now there are four
+different groups, “male, diseased”, “male, normal”, “female, diseased”,
+and “female, normal”. Making whatever assumptions you want about the
+component distributions (say what they are), and about the relative
+frequency of each group in the population (again, say what they are),
+write out a mixture distribution that could represent this situation.
+Plot the components of your assumed mixture and the mixture density.</p>
 </div>
 <div id="discrete-data" class="section level2">
 <h2>3. Discrete data</h2>
-<p>The above example involves a mixture of two continuous distributions (Gamma distributions) and so the mixture distribution is also continuous. However, mixtures of discrete distributions work in the same way: you just use probability mass functions instead of probability density functions.</p>
-<p>For example, let <span class="math inline">\(X\)</span> denote the number of molecules of a particular gene in a cell randomly drawn from some population of cells. Assume that the population contains three cell types, in proportions <span class="math inline">\((0.2,0.4,0.4)\)</span>. Suppose that in each cell type the number of molecules follows a Poisson distribution with mean parameter <span class="math inline">\(\lambda=2,5,10\)</span> respectively. The distribution of <span class="math inline">\(X\)</span> is therefore a mixture of three poisson distributions. Can you write down its probability mass function?</p>
+<p>The above example involves a mixture of two continuous distributions
+(Gamma distributions) and so the mixture distribution is also
+continuous. However, mixtures of discrete distributions work in the same
+way: you just use probability mass functions instead of probability
+density functions.</p>
+<p>For example, let <span class="math inline">\(X\)</span> denote the
+number of molecules of a particular gene in a cell randomly drawn from
+some population of cells. Assume that the population contains three cell
+types, in proportions <span
+class="math inline">\((0.2,0.4,0.4)\)</span>. Suppose that in each cell
+type the number of molecules follows a Poisson distribution with mean
+parameter <span class="math inline">\(\lambda=2,5,10\)</span>
+respectively. The distribution of <span class="math inline">\(X\)</span>
+is therefore a mixture of three poisson distributions. Can you write
+down its probability mass function?</p>
 </div>
 </div>
 <div id="general-case" class="section level1">
 <h1>General case</h1>
 <p>Putting the above ideas together we can write the density for a<br />
-mixture of <span class="math inline">\(K\)</span> continuous distributions that have densities <span class="math inline">\(f_1,\dots,f_K\)</span>, in proportions <span class="math inline">\(\pi_1,\dots,\pi_K\)</span>. Such a mixture would have density: <span class="math display">\[p(x) = \sum_{k=1}^K \pi_k f_k(x).\]</span> (Exactly the same equation holds for a mixture of <span class="math inline">\(K\)</span> discrete distibutions, but with <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(f_k\)</span> representing probability mass functions instead of densities.)</p>
+mixture of <span class="math inline">\(K\)</span> continuous
+distributions that have densities <span
+class="math inline">\(f_1,\dots,f_K\)</span>, in proportions <span
+class="math inline">\(\pi_1,\dots,\pi_K\)</span>. Such a mixture would
+have density: <span class="math display">\[p(x) = \sum_{k=1}^K \pi_k
+f_k(x).\]</span> (Exactly the same equation holds for a mixture of <span
+class="math inline">\(K\)</span> discrete distibutions, but with <span
+class="math inline">\(p(x)\)</span> and <span
+class="math inline">\(f_k\)</span> representing probability mass
+functions instead of densities.)</p>
 <p>Some important terminology:</p>
 <ul>
-<li><p>This is called a <em>mixture distribution</em> (or mixture model, or just mixture) with <span class="math inline">\(K\)</span> <em>components</em>. (Sometimes it is called a <em>finite mixture</em> because one can also further generalize the ideas to an uncountably infinite number of components!)</p></li>
-<li><p>The <span class="math inline">\(f_1,\dots,f_K\)</span> are called the <em>component densities</em> (or <em>component distributions</em>). So <span class="math inline">\(f_1\)</span> is the density of component 1, and <span class="math inline">\(f_k\)</span> is the density of component <span class="math inline">\(k\)</span>.</p></li>
-<li><p>The <span class="math inline">\(\pi_1,\dots,\pi_K\)</span> are called the <em>mixture proportions</em>. Of course we must have <span class="math inline">\(\pi_k \geq 0\)</span> and <span class="math inline">\(\sum_{k=1}^K \pi_k =1\)</span>.</p></li>
-<li><p>The unobserved random variable <span class="math inline">\(Z\)</span> is sometimes referred to as the “component of origin” or the “component that gave rise to” the observation <span class="math inline">\(X\)</span>. If we have <span class="math inline">\(n\)</span> observations <span class="math inline">\(X_1,\dots,X_n\)</span> from a mixture model it is common to let <span class="math inline">\(Z_i\)</span> denote the component that gave rise to <span class="math inline">\(X_i\)</span>.</p></li>
-<li><p>Introducing unobserved variables, <span class="math inline">\(Z_i\)</span>, to help with computations or derivations is a common trick that is used beyond mixture models. This trick is sometimes called <em>data augmentation</em>. The unobserved random variables are sometimes called <em>hidden variables</em> or <em>latent variables</em>. Representing the mixture model <span class="math display">\[p(x) = \sum_{k=1}^K \pi_k f_k(x).\]</span> by the two-stage process: <span class="math display">\[p(Z=k) = \pi_k\]</span> <span class="math display">\[p(x | Z=k) = f_k(x)\]</span> is called the <em>latent variable representation</em> of the mixture model.</p></li>
+<li><p>This is called a <em>mixture distribution</em> (or mixture model,
+or just mixture) with <span class="math inline">\(K\)</span>
+<em>components</em>. (Sometimes it is called a <em>finite mixture</em>
+because one can also further generalize the ideas to an uncountably
+infinite number of components!)</p></li>
+<li><p>The <span class="math inline">\(f_1,\dots,f_K\)</span> are called
+the <em>component densities</em> (or <em>component distributions</em>).
+So <span class="math inline">\(f_1\)</span> is the density of component
+1, and <span class="math inline">\(f_k\)</span> is the density of
+component <span class="math inline">\(k\)</span>.</p></li>
+<li><p>The <span class="math inline">\(\pi_1,\dots,\pi_K\)</span> are
+called the <em>mixture proportions</em>. Of course we must have <span
+class="math inline">\(\pi_k \geq 0\)</span> and <span
+class="math inline">\(\sum_{k=1}^K \pi_k =1\)</span>.</p></li>
+<li><p>The unobserved random variable <span
+class="math inline">\(Z\)</span> is sometimes referred to as the
+“component of origin” or the “component that gave rise to” the
+observation <span class="math inline">\(X\)</span>. If we have <span
+class="math inline">\(n\)</span> observations <span
+class="math inline">\(X_1,\dots,X_n\)</span> from a mixture model it is
+common to let <span class="math inline">\(Z_i\)</span> denote the
+component that gave rise to <span
+class="math inline">\(X_i\)</span>.</p></li>
+<li><p>Introducing unobserved variables, <span
+class="math inline">\(Z_i\)</span>, to help with computations or
+derivations is a common trick that is used beyond mixture models. This
+trick is sometimes called <em>data augmentation</em>. The unobserved
+random variables are sometimes called <em>hidden variables</em> or
+<em>latent variables</em>. Representing the mixture model <span
+class="math display">\[p(x) = \sum_{k=1}^K \pi_k f_k(x).\]</span> by the
+two-stage process: <span class="math display">\[p(Z=k) = \pi_k\]</span>
+<span class="math display">\[p(x | Z=k) = f_k(x)\]</span> is called the
+<em>latent variable representation</em> of the mixture model.</p></li>
 </ul>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.6.0 (2019-04-26)
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
-Running under: macOS  10.16
-
-Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
-
-locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-loaded via a namespace (and not attached):
- [1] Rcpp_1.0.6       rstudioapi_0.13  whisker_0.4      knitr_1.29      
- [5] magrittr_1.5     workflowr_1.6.2  R6_2.4.1         rlang_0.4.10    
- [9] stringr_1.4.0    tools_3.6.0      xfun_0.16        git2r_0.27.1    
-[13] htmltools_0.5.0  ellipsis_0.3.1   yaml_2.2.1       digest_0.6.27   
-[17] rprojroot_1.3-2  tibble_3.0.4     lifecycle_1.0.0  crayon_1.3.4    
-[21] later_1.1.0.1    vctrs_0.3.4      fs_1.5.0         promises_1.1.1  
-[25] glue_1.4.2       evaluate_0.14    rmarkdown_2.3    stringi_1.4.6   
-[29] compiler_3.6.0   pillar_1.4.6     backports_1.1.10 httpuv_1.5.4    
-[33] pkgconfig_2.0.3 </code></pre>
+<pre class="r"><code>sessionInfo()
+# R version 4.3.3 (2024-02-29)
+# Platform: aarch64-apple-darwin20 (64-bit)
+# Running under: macOS 15.7.1
+# 
+# Matrix products: default
+# BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+# LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+# 
+# locale:
+# [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+# 
+# time zone: America/Chicago
+# tzcode source: internal
+# 
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# 
+# loaded via a namespace (and not attached):
+#  [1] vctrs_0.6.5       cli_3.6.5         knitr_1.50        rlang_1.1.6      
+#  [5] xfun_0.52         stringi_1.8.7     promises_1.3.3    jsonlite_2.0.0   
+#  [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.33.0     
+# [13] htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.10       rmarkdown_2.29   
+# [17] evaluate_1.0.4    jquerylib_0.1.4   tibble_3.3.0      fastmap_1.2.0    
+# [21] yaml_2.3.10       lifecycle_1.0.4   whisker_0.4.1     stringr_1.5.1    
+# [25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
+# [29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
+# [33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0</code></pre>
 </div>
 </div>
 
-<hr>
-<p>
-    This site was created with <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-</p>
-<hr>
-
-<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
-
-<!-- disqus
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'rmarkdown'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
--->
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->
@@ -895,6 +1043,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 </div>
@@ -906,7 +1056,7 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -924,7 +1074,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -933,6 +1083,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

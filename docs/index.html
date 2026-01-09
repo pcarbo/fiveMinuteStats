@@ -359,7 +359,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -370,8 +370,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -380,13 +380,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-01-07
+<strong>Last updated:</strong> 2026-01-09
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
@@ -409,33 +409,36 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreeaae635b03b20847122c5e22fe92c2695a5dad975targetblankaae635ba">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree4e442397dc3a23b48687580de7c5b9929cd277d4targetblank4e44239a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/aae635b03b20847122c5e22fe92c2695a5dad975" target="_blank">aae635b</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/4e442397dc3a23b48687580de7c5b9929cd277d4" target="_blank">4e44239</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreeaae635b03b20847122c5e22fe92c2695a5dad975targetblankaae635ba"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree4e442397dc3a23b48687580de7c5b9929cd277d4targetblank4e44239a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -445,7 +448,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/aae635b03b20847122c5e22fe92c2695a5dad975" target="_blank">aae635b</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/4e442397dc3a23b48687580de7c5b9929cd277d4" target="_blank">4e44239</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -460,7 +463,9 @@ were generated:
 </p>
 <pre><code>
 Unstaged changes:
-    Modified:   analysis/r_simplemix.Rmd
+    Modified:   Makefile
+    Modified:   analysis/em_variational.Rmd
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -505,6 +510,91 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/4e442397dc3a23b48687580de7c5b9929cd277d4/analysis/index.Rmd" target="_blank">4e44239</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-09
+</td>
+<td>
+Added pdf versions of mixture_models_01 and em_algorithm_01 vignettes.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/869a274f861b35bed4e60550ff0f91c1f6185c66/analysis/index.Rmd" target="_blank">869a274</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-09
+</td>
+<td>
+Added a link to one of the pdfs.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/788b7d8e965d77b53f074c466176615a7827ec80/analysis/index.Rmd" target="_blank">788b7d8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-08
+</td>
+<td>
+Added pdf version of bayes_conjugate vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/25e1cf5973a15cc8da373318d89aed09ee4b0607/analysis/index.Rmd" target="_blank">25e1cf5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-08
+</td>
+<td>
+Adding pdf versions of three other vignettes.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/a473a0faa538901dac1878683e46e3ac7ca5abca/docs/index.html" target="_blank">a473a0f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-07
+</td>
+<td>
+Ran wflow_publish("analysis/index.Rmd").
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2642,10 +2732,11 @@ href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/likelihood_rati
 data</a></li>
 </ul></li>
 <li><a href="LR_and_BF.html">Likelihood Ratios: how big is
-convincing?</a> <a
-href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/LR_and_BF.pdf">(PDF</a>)</li>
+convincing?</a> (<a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/LR_and_BF.pdf">PDF</a>)</li>
 <li><a href="wilks.html">Likelihood Ratios: Wilks’s Theorem</a></li>
-<li><a href="likelihood_function.html">The Likelihood Function</a></li>
+<li><a href="likelihood_function.html">The Likelihood Function</a> (<a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/likelihood_function.pdf">PDF</a>)</li>
 <li><a href="asymptotic_normality_mle.html">Asymptotic Normality of
 MLE</a></li>
 </ul>
@@ -2659,13 +2750,17 @@ fully-specified models</a></li>
 multiple fully-specified models</a> (<a
 href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bayes_multiclass.pdf">PDF</a>)</li>
 <li><a href="bayes_beta_binomial.html">Bayesian inference for a
-continuous parameter: analytic calculation</a></li>
+continuous parameter: analytic calculation</a> (<a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bayes_beta_binomial.pdf">PDF</a>)</li>
 <li><a href="summarize_interpret_posterior.html">Bayesian inference for
-a continuous parameter: summarizing the posterior</a></li>
+a continuous parameter: summarizing the posterior</a> (<a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/summarize_interpret_posterior.pdf">PDF</a>)</li>
 <li><a href="bayes_conjugate.html">Bayesian inference for a continuous
-parameter: conjugacy</a></li>
+parameter: conjugacy</a> (<a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bayes_conjugate.pdf">PDF</a>)</li>
 <li><a href="bayes_conjugate_normal_mean.html">Bayesian inference for a
-normal mean</a></li>
+normal mean</a> (<a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bayes_conjugate_normal_mean.pdf">PDF</a>)</li>
 <li><a href="shiny_normal_example.html">Bayesian inference for a normal
 mean (shiny app illustration)</a></li>
 <li><a href="bayes_independent.html">Bayesian inference for multiple
@@ -2702,12 +2797,15 @@ decision theory for prediction problems</a></li>
 <div id="mixture-models" class="section level3">
 <h3>Mixture Models</h3>
 <ul>
-<li><a href="mixture_models_01.html">Introduction to Mixture
-Models</a></li>
-<li><a href="em_algorithm_01.html">Introduction to the EM
-algorithm</a></li>
+<li><a href="mixture_models_01.html">Introduction to Mixture Models</a>
+(<a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/mixture_models_01.pdf">PDF</a>)</li>
+<li><a href="em_algorithm_01.html">Introduction to the EM algorithm</a>
+(<a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/em_algorithm_01.pdf">PDF</a>)</li>
 <li><a href="em_variational.html">A variational view of the EM
-algorithm</a></li>
+algorithm</a> (<a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/em_variational.pdf">PDF</a>)</li>
 <li><a href="intro_to_em.html">EM for Gaussian Mixture Models</a></li>
 <li><a href="intro_to_mixture_models.html">Archive: Alternative
 Introduction to Mixture Models</a></li>
