@@ -20,6 +20,7 @@ all: docs/index.html \
      docs/shiny_normal_example.html \
      docs/mixture_models_01.html \
      docs/em_algorithm_01.html \
+     docs/em_variational.html \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
      docs/Importance_sampling.pdf \
@@ -34,7 +35,8 @@ all: docs/index.html \
      docs/bayes_conjugate_normal_mean.pdf \
      docs/summarize_interpret_posterior.pdf \
      docs/mixture_models_01.pdf \
-     docs/em_algorithm_01.pdf
+     docs/em_algorithm_01.pdf \
+     docs/em_variational.pdf
 
 docs/index.html : analysis/index.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/index.Rmd",view = FALSE)'
@@ -83,6 +85,9 @@ docs/mixture_models_01.html : analysis/mixture_models_01.Rmd
 
 docs/em_algorithm_01.html : analysis/em_algorithm_01.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/em_algorithm_01.Rmd",view = FALSE)'
+
+docs/em_variational.html : analysis/em_variational.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/em_variational.Rmd",view = FALSE)'
 
 docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
@@ -162,6 +167,11 @@ docs/em_algorithm_01.pdf : analysis/em_algorithm_01.Rmd readable.tex
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/em_algorithm_01.pdf")'
 	rm temp.Rmd
 
+docs/em_variational.pdf : analysis/em_variational.Rmd readable.tex
+	cp analysis/em_variational.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/em_variational.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf
@@ -178,5 +188,6 @@ clean:
 	rm -f docs/bayes_conjugate_normal_mean.pdf
 	rm -f docs/mixture_models_01.pdf
 	rm -f docs/em_algorithm_01.pdf
+	rm -f docs/em_variational.pdf
 	rm -f temp.Rmd
 
