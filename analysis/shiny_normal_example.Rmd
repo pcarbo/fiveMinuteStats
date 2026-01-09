@@ -1,5 +1,5 @@
 ---
-title: Simple example: Bayesian inference for normal mean (known variance)
+title: "Simple example: Bayesian inference for normal mean (known variance)"
 author: Nan Xiao
 date: January 9, 2026
 ---
