@@ -152,41 +152,36 @@ the above code so that it is scaled like a density (i.e., area =
 Exercises
 =========
 
-The following exercises are designed to 
-help you generalize the ideas used in
-example above to other settings.
+The following exercises are designed to help you generalize the ideas
+in example above to other settings.
 
 ## 1. Other mixture component distributions
 
-In the above example there is nothing special about the Gamma
-distribution; one can similarly form mixtures of other
-distributions. This exercise illustrates this idea.
-
-Consider modelling the heights of people sampled from a population
-that is 50% male and 50% female, where the males have heights that are
-normally distributed with mean 70 inches and standard deviation 3
-inches, and the females have heights that are normally distributed
-with mean 64.5 inches and standard deviation 2.5 inches. Write the
-density of the mixture model. Identify the mixture proportions and the
-mixture component densities. Plot the mixture density and the
-component densities in a plot similar to the one in the example above.
+In the above example, there was people sampled from a population that
+is 50% male and 50% female, where the males have heights that are
+normally distributed with mean 70 in and standard deviation 3 in, and
+the females have heights that are normally distributed with mean 64.5
+in and standard deviation 2.5 in. Write the density of the mixture
+model. Identify the mixture proportions and the mixture component
+densities. Plot the mixture density and the component densities in a
+plot similar to the one in the example above.
 
 ## 2. More than two distributions
 
 Similarly, there is nothing that limits us to mixing just two
-distributions -- you can mix any number of distributions
+distributions — you can mix any number of distributions
 together. This exercise illustrates this idea.
 
-Suppose that in the protein concentration example above the population
-consists of males and females, who have different rates of disease,
-and also different protein distributions. So now there are four
-different groups, "male, diseased", "male, normal", "female,
-diseased", and "female, normal".  Making whatever assumptions you want
-about the component distributions (say what they are), and about the
-relative frequency of each group in the population (again, say what
-they are), write out a mixture distribution that could represent this
-situation.  Plot the components of your assumed mixture and the
-mixture density.
+Suppose that in the protein concentration example above, the
+population consists of males and females, who have different rates of
+disease, and also different protein distributions. So now there are
+four groups: "male, diseased"; "male, normal"; "female, diseased"; and
+"female, normal".  Making whatever assumptions you want to make about the
+component distributions (say what they are), and about the relative
+frequency of each group in the population (again, say what they are),
+write out a mixture distribution that could represent this
+situation. Plot the components of your assumed mixture and the mixture
+density.
 
 ## 3. Discrete data
 
@@ -199,53 +194,63 @@ probability density functions.
 For example, let $X$ denote the number of molecules of a particular
 gene in a cell randomly drawn from some population of cells. Assume
 that the population contains three cell types, in proportions
-$(0.2,0.4,0.4)$. Suppose that in each cell type the number of
-molecules follows a Poisson distribution with mean parameter
-$\lambda=2,5,10$ respectively.  The distribution of $X$ is therefore a
-mixture of three poisson distributions. Can you write down its
+0.2, 0.4, 0.4. Further suppose that in each cell type the number of
+molecules follows a Poisson distribution with mean parameter $\lambda
+= 2, 5, 10$, respectively. The distribution of $X$ is therefore a
+mixture of three Poisson distributions. Can you write down its
 probability mass function?
 
-General case
-============
+The general case
+================
 
-Putting the above ideas together we can write the density for a  
-mixture of $K$ continuous distributions that have densities $f_1,\dots,f_K$,
-in proportions $\pi_1,\dots,\pi_K$. Such a mixture would have density:
+Putting the above ideas together, we can write the density for a
+mixture of $K$ continuous distributions that have densities $f_1,
+\dots, f_K$ in proportions $\pi_1, \dots, \pi_K$. Such a mixture would
+have density
 $$
 p(x) = \sum_{k=1}^K \pi_k f_k(x).
 $$
-(Exactly the same equation holds for a mixture of $K$ discrete
+Exactly the same equation holds for a mixture of $K$ discrete
 distibutions, but with $p(x)$ and $f_k$ representing probability mass
-functions instead of densities.)
+functions instead of densities.
 
 Some important terminology
 --------------------------
 
 + This is called a *mixture distribution* (or mixture model, or just
-mixture) with $K$ *components*. (Sometimes it is called a *finite
-mixture* because one can also further generalize the ideas to an
-uncountably infinite number of components!)
+  mixture) with $K$ *components*. (Sometimes it is called a *finite
+  mixture* because one can also further generalize the ideas to an
+  uncountably infinite number of components!)
 
-+ The $f_1,\dots,f_K$ are called the *component densities* (or
-*component distributions*). So $f_1$ is the density of component 1,
-and $f_k$ is the density of component $k$.
++ The $f_1, \dots, f_K$ are called the *component densities* (or
+  *component distributions*). So $f_1$ is the density of component 1,
+  and $f_k$ is the density of component $k$.
 
-+ The $\pi_1,\dots,\pi_K$ are called the *mixture proportions*. Of
-course we must have $\pi_k \geq 0$ and $\sum_{k=1}^K \pi_k =1$.
++ The $\pi_1, \dots, \pi_K$ are called the *mixture proportions*. Of
+  course, we must have $\pi_k \geq 0$ and $\sum_{k=1}^K \pi_k =1$.
 
 + The unobserved random variable $Z$ is sometimes referred to as the
-"component of origin" or the "component that gave rise to" the
-observation $X$. If we have $n$ observations $X_1,\dots,X_n$ from a
-mixture model it is common to let $Z_i$ denote the component that gave
-rise to $X_i$.
+  "component of origin" or the "component that gave rise to" the
+  observation $X$. If we have $n$ observations $X_1,\dots,X_n$ from a
+  mixture model it is common to use $Z_i$ to denote the component that
+  gave rise to $X_i$.
 
-+ Introducing unobserved variables, $Z_i$, to help with computations
-or derivations is a common trick that is used beyond mixture models.
-This trick is sometimes called *data augmentation*.  The unobserved
-random variables are sometimes called *hidden variables* or *latent
-variables*.  Representing the mixture model $$p(x) = \sum_{k=1}^K
-\pi_k f_k(x).$$ by the two-stage process: $$p(Z=k) = \pi_k$$ $$p(x |
-Z=k) = f_k(x)$$ is called the *latent variable representation* of the
-mixture model.
++ Introducing unobserved variables to help with computations
+  or derivations is a common trick that is used beyond mixture models.
+  This trick is sometimes called *data augmentation*.  The unobserved
+  random variables are sometimes called "hidden variables" or "latent
+  variables".  Representing the mixture model
+  $$
+  p(x) = \sum_{k=1}^K
+  \pi_k f_k(x)
+  $$
+  by the two-stage process
+  $$
+  \begin{aligned}
+  p(Z=k) &= \pi_k \\
+  p(x \mid Z = k) &= f_k(x), \quad k = 1, \ldots, K
+  \end{aligned}
+  $$ is called the *latent variable representation* of
+  the mixture model.
 
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/mixture_models_01.pdf
