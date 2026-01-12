@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2026-01-08" />
+<meta name="date" content="2026-01-12" />
 
 <title>Bayesian inference for a binomial proportion</title>
 
@@ -356,7 +356,7 @@ div.tocify {
 proportion</h1>
 <h4 class="author">Matthew Stephens</h4>
 <address class="author_afil">
-University of Chicago<br><h4 class="date">January 8, 2026</h4>
+University of Chicago<br><h4 class="date">January 12, 2026</h4>
 
 </div>
 
@@ -364,7 +364,7 @@ University of Chicago<br><h4 class="date">January 8, 2026</h4>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -375,8 +375,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -385,13 +385,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-01-08
+<strong>Last updated:</strong> 2026-01-12
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
@@ -414,21 +414,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -519,15 +516,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree601244e0c3605612829d06471834841f08ef9242targetblank601244ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree3e5a1b9faa0b7f06b74b501bfe37f6294d629a1btargetblank3e5a1b9a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/601244e0c3605612829d06471834841f08ef9242" target="_blank">601244e</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/3e5a1b9faa0b7f06b74b501bfe37f6294d629a1b" target="_blank">3e5a1b9</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree601244e0c3605612829d06471834841f08ef9242targetblank601244ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree3e5a1b9faa0b7f06b74b501bfe37f6294d629a1btargetblank3e5a1b9a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -537,7 +534,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/601244e0c3605612829d06471834841f08ef9242" target="_blank">601244e</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/3e5a1b9faa0b7f06b74b501bfe37f6294d629a1b" target="_blank">3e5a1b9</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -551,12 +548,7 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Unstaged changes:
-    Modified:   Makefile
-    Modified:   analysis/bayes_beta_binomial.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/likelihood_function.Rmd
-
+working directory clean
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not
@@ -601,6 +593,91 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/98191c48d3cd08bfdeeecfe9a422b1cf38622737/analysis/bayes_beta_binomial.Rmd" target="_blank">98191c4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-12
+</td>
+<td>
+A few more small updates to the bayes_beta_binomial vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/2853350626eb478d53c05072d70ed18c6e09cb50/analysis/bayes_beta_binomial.Rmd" target="_blank">2853350</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-12
+</td>
+<td>
+A few minor updates for the bayes_beta_binomial vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/dfbb324352c1376b2ca6e5e0793570bccb889c6e/analysis/bayes_beta_binomial.Rmd" target="_blank">dfbb324</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-12
+</td>
+<td>
+Updated links in bayes_beta_binomial vignette.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/a2212405e4ac7f933f5917fae9375c3b98998391/docs/bayes_beta_binomial.html" target="_blank">a221240</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-09
+</td>
+<td>
+Push a bunch of updates to the webpages.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/25e1cf5973a15cc8da373318d89aed09ee4b0607/analysis/bayes_beta_binomial.Rmd" target="_blank">25e1cf5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-08
+</td>
+<td>
+Adding pdf versions of three other vignettes.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -818,115 +895,127 @@ for a PDF version of this vignette.</p>
 <div id="overview" class="section level1">
 <h1>Overview</h1>
 <p>This vignette illustrates how to perform Bayesian inference for a
-continuous parameter, specifically a binomial proportion. Specifically
+continuous parameter, specifically a binomial proportion. Specifically,
 it illustrates the mechanics of how we actually calculate the posterior
 distribution.</p>
-<p>You should be familiar with the concepts of <a
-href="likelihood_function.html">Likelihood function</a>, and <a
-href="bayes_multiclass.html">Bayesian inference for discrete random
-variables</a>. You should also be familiar with the binomial
-distribution and the <a href="beta.html">Beta distribution</a>.</p>
+<p>You should be familiar with the concepts of the <a
+href="https://pcarbo.github.io/fiveMinuteStats/likelihood_function.html">likelihood
+function</a> and <a
+href="https://pcarbo.github.io/fiveMinuteStats/bayes_multiclass.html">Bayesian
+inference for discrete random variables</a>. You should also be familiar
+with the binomial distribution and the <a
+href="https://pcarbo.github.io/fiveMinuteStats/beta.html">Beta
+distribution</a>.</p>
 </div>
 <div id="motivation" class="section level1">
 <h1>Motivation</h1>
-<p>[Technical Note: to simplify this problem I have assumed that
-elephants are haploid, which they are not. If you do not know what this
-means you should simply ignore this comment.]</p>
+<p><strong>Technical note:</strong> To simplify this problem, I have
+assumed that elephants are haploid, which they are not. If you do not
+know what this means then you should simply ignore this comment.</p>
 <p>Suppose we sample 100 elephants from a population, and measure their
-DNA at a location in their genome (“locus”) where there are two types
-(“alleles”), which it is convenient to label 0 and 1.</p>
-<p>In my sample, I observe that 30 of the elephants have the “1” allele
-and 70 have the “0” allele. What can I say about the frequency (<span
-class="math inline">\(q\)</span> say) of the “1” allele in the
-population?</p>
+DNA at one location (“locus”) in their genome, where there are two types
+(“alleles”). We label these alleles as “0” and “1”.</p>
+<p>In my sample, I observe that 30 of the elephants have the 1 allele,
+and 70 have the 0 allele. What can I say about the frequency (<span
+class="math inline">\(q\)</span>) of the 1 allele in the population?</p>
 </div>
 <div id="bayesian-inference-calculating-the-posterior"
 class="section level1">
 <h1>Bayesian inference: calculating the posterior</h1>
-<p>Here we are doing inference for a parameter <span
-class="math inline">\(q\)</span> that can, in principle, take any value
+<p>Here we are doing inference for a parameter, <span
+class="math inline">\(q\)</span>, that can, in principle, take any value
 between 0 and 1. That is, we are doing inference for a “continuous”
 parameter. Bayesian inference for a continuous parameter proceeds in
-essentially exactly the same way as Bayesian inference for a <a
-href="bayes_multiclass.html">discrete quantity</a>, except that
-probability mass functions get replaced by densities.</p>
-<p>Specifically remember the form of Bayes Theorem: <span
-class="math display">\[\text{posterior} \propto
-\text{likelihood} \times \text{prior}.\]</span> To apply this we need to
-have both the prior distribution and the likelihood.</p>
-<div id="likelihood" class="section level3">
-<h3>Likelihood</h3>
-<p>Here the likelihood for <span class="math inline">\(q\)</span> is
-<span class="math display">\[L(q):= \Pr(D | q) \propto q^{30}
-(1-q)^{70}\]</span> where <span class="math inline">\(D\)</span> here
-denotes the data. This expression comes from the fact that the data
-consist of 30 “1” alleles (each of which occur with probability <span
+essentially the same way as Bayesian inference for a <a
+href="https://pcarbo.github.io/fiveMinuteStats/bayes_multiclass.html">discrete
+quantity</a> except that probability mass functions get replaced by
+densities.</p>
+<p>Remember Bayes Theorem: <span class="math display">\[
+\text{posterior} \propto
+\text{likelihood} \times \text{prior}.
+\]</span> To apply this, we need to have both the prior distribution and
+the likelihood.</p>
+<div id="likelihood" class="section level2">
+<h2>Likelihood</h2>
+<p>Here, the likelihood for <span class="math inline">\(q\)</span> is
+<span class="math display">\[
+L(q) := p(D \mid q) \propto q^{30} (1-q)^{70},
+\]</span> where <span class="math inline">\(D\)</span> here denotes the
+data. This expression comes from the fact that the data consist of 30
+“1” alleles (each of which occur with probability <span
 class="math inline">\(q\)</span>) and 70 “0” alleles (each of which
 occur with probability <span class="math inline">\(1-q\)</span>), and we
 assume that the samples are independent. (You might have heard this
 likelihood called the “binomial likelihood”, because it arises when the
 data come from a binomial distribution.)</p>
 </div>
-<div id="prior" class="section level3">
-<h3>Prior</h3>
+<div id="prior" class="section level2">
+<h2>Prior</h2>
 <p>Recall that the prior distribution is a distribution that is supposed
 to reflect what we know about <span class="math inline">\(q\)</span>
-<em>prior</em> to seeing the data. For the purposes of illustration we
-will assume a uniform prior on <span class="math inline">\(q\)</span>:
-<span class="math inline">\(q \sim U[0,1]\)</span>. That is <span
-class="math display">\[p(q) = 1 \qquad (q \in [0,1]).\]</span></p>
-<p>This <span class="math inline">\(U[0,1]\)</span> prior says many
-things. For example, it says that before seeing the data the idea that
-<span class="math inline">\(q&lt;0.5\)</span> is just as plausible as
-<span class="math inline">\(q&gt;0.5\)</span>. And it says that <span
-class="math inline">\(q&lt;0.1\)</span> is just as plausible as <span
-class="math inline">\(q&gt;0.9\)</span>, or <span
-class="math inline">\(0.4&lt;q&lt;0.5\)</span>. If for some reason these
-are not equally plausible then you should use a different prior, at
-least in principle. However, in practice it is sometimes (but not
-always) the case that the results of Bayesian inference are robust to
-the choice of prior distribution, so in such cases is common not to
-worry too much about minor deviations between what you believe and what
-the prior implies.</p>
+before (“prior to”) to seeing the data. For illustration, we will assume
+a uniform prior on <span class="math inline">\(q\)</span>, <span
+class="math display">\[
+q \sim U[0,1].
+\]</span> That is, <span class="math display">\[
+p(q) = 1, \quad q \in [0,1].
+\]</span></p>
+<p>This prior says many things. For example, it says that, before seeing
+the data, a <span class="math inline">\(q\)</span> less than 0.5 is just
+as plausible as a <span class="math inline">\(q\)</span> greater than
+0.5. It also says that a <span class="math inline">\(q\)</span> less
+than 0.1 is just as plausible as a <span
+class="math inline">\(q\)</span> greater than 0.9 or a <span
+class="math inline">\(q\)</span> between 0.5 and 0.5. If for some reason
+these are not equally plausible, then you should use a different prior.
+However, in practice it is sometimes (but not always!) the case that the
+results of Bayesian inference are robust to the choice of prior
+distribution, and in such cases it is common not to worry too much about
+minor discrepancies between what you believe and what the prior
+implies.</p>
 <p>For now, we are simply aiming to show how the Bayesian calculations
-are done under this prior specification.</p>
+are done under this prior.</p>
 </div>
-<div id="posterior-calculation" class="section level3">
-<h3>Posterior calculation</h3>
+<div id="posterior-calculation" class="section level2">
+<h2>Posterior calculation</h2>
 <p>Using Bayes Theorem to combine the prior distribution and the
-likelihood we obtain: <span class="math display">\[p(q | D) \propto
-p(D|q) p(q) = q^{30} (1-q)^{70} \qquad (q \in [0,1]).\]</span></p>
-<p>Here, because <span class="math inline">\(q\)</span> is a continuous
-parameter, this is referred to as the “posterior density”” for <span
+likelihood, we obtain <span class="math display">\[
+p(q \mid D) \propto p(D \mid q) \,
+p(q) = q^{30} (1-q)^{70}, \quad q \in [0,1].
+\]</span> Because <span class="math inline">\(q\)</span> is a continuous
+parameter, this is called the <em>posterior density</em> for <span
 class="math inline">\(q\)</span>.</p>
-<p>Now the final “trick” is to notice that this density, <span
-class="math inline">\(q^{30} (1-q)^{70}\)</span> is exactly the density
-of a <a href="beta.html">Beta distribution</a>. Indeed, specifically it
-is the density of a Beta(31,71) distribution. So the posterior
-distribution for <span class="math inline">\(q\)</span> is Beta(31,71),
-and we might write <span class="math inline">\(q | D \sim
-\text{Beta}(31,71)\)</span>.</p>
-<p>This kind of “trick” is common in Bayesian inference: you look at the
+<p>Now the final trick is to notice that this density, <span
+class="math inline">\(q^{30}
+(1-q)^{70}\)</span> is <em>exactly the density of a <a
+href="https://pcarbo.github.io/fiveMinuteStats/beta.html">Beta
+distribution</a>.</em> Specifically, it is the density of a <span
+class="math inline">\(\mathrm{Beta}(31,71)\)</span> distribution. So the
+posterior distribution for <span class="math inline">\(q\)</span> is
+<span class="math inline">\(\mathrm{Beta}(31,71)\)</span>, which we
+write as <span class="math inline">\(q \mid D \sim
+\mathrm{Beta}(31,71)\)</span>.</p>
+<p>This kind of trick is common in Bayesian inference: you look at the
 posterior density and “recognize” it as a distribution you know. It
 turns out that the number of distributions in common use is relatively
 small, so you only need to learn a few distributions to get sufficiently
 good at this trick for practical purposes. For example, it is a good
 start to be able to recognize the following distributions: exponential,
-binomial, Poisson, Gamma, Beta, Dirichlet, and Normal. If your posterior
-distribution does not look like one of these, then you may well be in a
-situation where you need to use computational methods (like <a
-href="is_simple.html">Importance Sampling</a> or <a
-href="MH-examples1.html">Markov chain Monte Carlo</a>) to do your
-computations.</p>
-<p>So, in this case we are lucky: the posterior distribution is a nice
-distribution that we recognize, and this means we can do lots of
-calculations very easily: <code>R</code> has lots of built-in functions
-to deal with the Beta distribution, and many analytic properties have
-been derived (e.g. <a
-href="https://en.wikipedia.org/wiki/Beta_distribution">Wikipedia</a>.)
-We can use this to summarize and interpret the posterior distribution,
-as illustrated <a
-href="summarize_interpret_posterior.html">here</a>.</p>
+binomial, Poisson, Gamma, Beta, Dirichlet and normal. If your posterior
+distribution does not look like one of these, then you may be in a
+situation where you need to use computational methods like [Importance
+Sampling][importance_saampling] or <a
+href="https://pcarbo.github.io/fiveMinuteStats/MH-examples1.html">Markov
+chain Monte Carlo</a> to do your computations.</p>
+<p>In this case, we were lucky: the posterior distribution is a
+distribution that we recognize, and this means we can do many
+calculations very easily. R has many built-in functions for calculations
+with the Beta distribution, and many analytic properties have been
+derived (e.g., <a
+href="https://en.wikipedia.org/wiki/Beta_distribution">see the Wikipedia
+page</a>.) And we can use this result to summarize and interpret the
+posterior distribution, as we illustrate <a
+href="https://pcarbo.github.io/fiveMinuteStats/summarize_interpret_posterior.html">here</a>.</p>
 </div>
 </div>
 <div id="summary" class="section level1">
@@ -935,13 +1024,14 @@ href="summarize_interpret_posterior.html">here</a>.</p>
 <li><p>To compute the posterior density of a continuous parameter, up to
 a normalizing constant, you multiply the likelihood by the prior
 density.</p></li>
-<li><p>In simple cases you may find that the result is the density of a
+<li><p>In simple cases, you may find that the result is the density of a
 distribution you recognize. If so, you can often use known properties of
-that distribution to compute quantities of interest. <a
-href="summarize_interpret_posterior.html">Example</a>.</p></li>
+that distribution to compute quantities of interest. See <a
+href="https://pcarbo.github.io/fiveMinuteStats/summarize_interpret_posterior.html">here</a>
+for an example.</p></li>
 <li><p>In cases where you do not recognize the posterior distribution,
-you may need to use computational methods to compute quantities of
-interest.</p></li>
+you may need to use computational methods like importance sampling or
+Markov chain Monte Carlo to compute quantities of interest.</p></li>
 </ul>
 <br>
 <p>
