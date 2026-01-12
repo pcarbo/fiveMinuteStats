@@ -75,7 +75,7 @@ Likelihood
 
 Here, the likelihood for $q$ is 
 $$
-L(q) := \Pr(D \mid q) \propto q^{30} (1-q)^{70},
+L(q) := p(D \mid q) \propto q^{30} (1-q)^{70},
 $$
 where $D$ here denotes the data. This expression comes from the fact
 that the data consist of 30 "1" alleles (each of which occur with
@@ -118,39 +118,40 @@ Posterior calculation
 ---------------------
 
 Using Bayes Theorem to combine the prior distribution and the
-likelihood we obtain:
+likelihood, we obtain
 $$
-p(q | D) \propto p(D|q) p(q) = q^{30} (1-q)^{70} \qquad (q \in [0,1]).
+p(q \mid D) \propto p(D \mid q) \,
+p(q) = q^{30} (1-q)^{70}, \quad q \in [0,1].
 $$
-Here, because $q$ is a continuous parameter, this is referred to as
-the "posterior density"" for $q$.
+Because $q$ is a continuous parameter, this is called
+the *posterior density* for $q$.
 
-Now the final "trick" is to notice that this density, $q^{30}
-(1-q)^{70}$ is exactly the density of a
-[Beta distribution][beta]. Indeed, specifically it is the density of a
-Beta(31,71) distribution.  So the posterior distribution for $q$ is
-Beta(31,71), and we might write $q | D \sim \text{Beta}(31,71)$.
+Now the final trick is to notice that this density, $q^{30}
+(1-q)^{70}$ is *exactly the density of a [Beta distribution][beta].*
+Specifically, it is the density of a $\mathrm{Beta}(31,71)$
+distribution.  So the posterior distribution for $q$ is
+$\mathrm{Beta}(31,71)$, which we write as $q \mid D \sim
+\mathrm{Beta}(31,71)$.
 
-This kind of "trick" is common in Bayesian inference: you look at the
+This kind of trick is common in Bayesian inference: you look at the
 posterior density and "recognize" it as a distribution you know. It
 turns out that the number of distributions in common use is relatively
 small, so you only need to learn a few distributions to get
 sufficiently good at this trick for practical purposes. For example,
 it is a good start to be able to recognize the following
-distributions: exponential, binomial, Poisson, Gamma, Beta, Dirichlet,
-and Normal.  If your posterior distribution does not look like one of
-these, then you may well be in a situation where you need to use
-computational methods (like [Importance Sampling][importance_sampling]
-or [Markov chain Monte Carlo][mh_examples1]) to do your computations.
+distributions: exponential, binomial, Poisson, Gamma, Beta, Dirichlet
+and normal.  If your posterior distribution does not look like one of
+these, then you may be in a situation where you need to use
+computational methods like [Importance Sampling][importance_saampling]
+or [Markov chain Monte Carlo][mh_examples1] to do your computations.
 
-So, in this case we are lucky: the posterior distribution is a nice
-distribution that we recognize, and this means we can do lots of
-calculations very easily: `R` has lots of built-in functions to deal
-with the Beta distribution, and many analytic properties have been
-derived
-(e.g., [Wikipedia][beta_distribution].)
-We can use this to summarize and interpret the posterior distribution,
-as illustrated [here][summarize_interpret_posterior].
+In this case, we were lucky: the posterior distribution is a
+distribution that we recognize, and this means we can do many
+calculations very easily. R has many built-in functions for
+calculations with the Beta distribution, and many analytic properties
+have been derived (e.g., [see the Wikipedia page][beta_distribution].)
+And we can use this result to summarize and interpret the posterior
+distribution, as we illustrate [here][summarize_interpret_posterior].
 
 Summary
 =======
@@ -159,14 +160,14 @@ Summary
   normalizing constant, you multiply the likelihood by the prior
   density.
 
-+ In simple cases you may find that the result is the density of a
++ In simple cases, you may find that the result is the density of a
   distribution you recognize. If so, you can often use known
   properties of that distribution to compute quantities of
-  interest. [Example][summarize_interpret_posterior].
+  interest. See [here][summarize_interpret_posterior] for an example.
 
 + In cases where you do not recognize the posterior distribution, you
-may need to use computational methods to compute quantities of
-interest.
+  may need to use computational methods like importance sampling or
+  Markov chain Monte Carlo to compute quantities of interest.
 
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bayes_beta_binomial.pdf
 [beta_distribution]: https://en.wikipedia.org/wiki/Beta_distribution
