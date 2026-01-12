@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2026-01-08" />
+<meta name="date" content="2026-01-12" />
 
 <title>Summarizing and interpreting the posterior (analytic)</title>
 
@@ -356,7 +356,7 @@ div.tocify {
 (analytic)</h1>
 <h4 class="author">Matthew Stephens</h4>
 <address class="author_afil">
-University of Chicago<br><h4 class="date">January 8, 2026</h4>
+University of Chicago<br><h4 class="date">January 12, 2026</h4>
 
 </div>
 
@@ -364,7 +364,7 @@ University of Chicago<br><h4 class="date">January 8, 2026</h4>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -375,8 +375,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -385,13 +385,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-01-08
+<strong>Last updated:</strong> 2026-01-12
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
@@ -414,21 +414,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -519,15 +516,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree601244e0c3605612829d06471834841f08ef9242targetblank601244ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree68483e088700e2771194cd9cdd21c3b884c42f4dtargetblank68483e0a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/601244e0c3605612829d06471834841f08ef9242" target="_blank">601244e</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/68483e088700e2771194cd9cdd21c3b884c42f4d" target="_blank">68483e0</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree601244e0c3605612829d06471834841f08ef9242targetblank601244ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree68483e088700e2771194cd9cdd21c3b884c42f4dtargetblank68483e0a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -537,7 +534,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/601244e0c3605612829d06471834841f08ef9242" target="_blank">601244e</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/68483e088700e2771194cd9cdd21c3b884c42f4d" target="_blank">68483e0</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -551,17 +548,7 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Untracked files:
-    Untracked:  figure/
-    Untracked:  temp.Rmd
-
-Unstaged changes:
-    Modified:   Makefile
-    Modified:   analysis/bayes_beta_binomial.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/likelihood_function.Rmd
-    Modified:   analysis/summarize_interpret_posterior.Rmd
-
+working directory clean
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not
@@ -607,6 +594,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/68483e088700e2771194cd9cdd21c3b884c42f4d/analysis/summarize_interpret_posterior.Rmd" target="_blank">68483e0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-12
+</td>
+<td>
+Minor updates to summarize_interpret_posterior vignette.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/a2212405e4ac7f933f5917fae9375c3b98998391/docs/summarize_interpret_posterior.html" target="_blank">a221240</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-09
+</td>
+<td>
+Push a bunch of updates to the webpages.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/25e1cf5973a15cc8da373318d89aed09ee4b0607/analysis/summarize_interpret_posterior.Rmd" target="_blank">25e1cf5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-08
+</td>
+<td>
+Adding pdf versions of three other vignettes.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -793,174 +831,111 @@ for a PDF version of this vignette.</p>
 distribution that has been computed analytically.</p>
 <p>You should be familiar with simple analytic calculations of the
 posterior distribution of a parameter, such as for a <a
-href="bayes_beta_binomial.html">binomial proportion</a>.</p>
+href="https://pcarbo.github.io/fiveMinuteStats/bayes_beta_binomial.html">binomial
+proportion</a>.</p>
 </div>
-<div id="summarising-and-interpreting-a-posterior"
+<div id="summarizing-and-interpreting-a-posterior"
 class="section level1">
-<h1>Summarising and interpreting a posterior</h1>
-<p>Suppose we have a parameter <span class="math inline">\(q\)</span>,
-whose posterior distribution we have computed to be Beta(31, 71) (as <a
-href="bayes_beta_bimomial.html">here</a> for example). What does this
-mean? What statements can we make about <span
-class="math inline">\(q\)</span>? How do we obtain interval estimates
-and point estimates for <span class="math inline">\(q\)</span>?</p>
+<h1>Summarizing and interpreting a posterior</h1>
+<p>Suppose we have a parameter, <span class="math inline">\(q\)</span>,
+whose posterior distribution we have computed to be <span
+class="math inline">\(\mathrm{Beta}(31, 71)\)</span> (as we obtained <a
+href="https://pcarbo.github.io/fiveMinuteStats/bayes_beta_binomial.html">here</a>
+for example). What does this mean? What statements can we make about
+<span class="math inline">\(q\)</span>? How do we obtain interval
+estimates and point estimates for <span
+class="math inline">\(q\)</span>?</p>
 <p>Remember that the posterior distribution represents our uncertainty
 (or certainty) in <span class="math inline">\(q\)</span>, after
 combining the information in the data (the likelihood) with what we knew
 before collecting data (the prior).</p>
 <p>To get some intuition, we could plot the posterior distribution so we
-can see what it looks like.</p>
-<pre class="r"><code>q = seq(0,1,length=100)
-plot(q, dbeta(q, 31,71), main=&quot;Posterior for $q$&quot;, ylab=&quot;density&quot;, type=&quot;l&quot;)</code></pre>
-<p><img src="figure/summarize_interpret_posterior.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
-Past versions of unnamed-chunk-1-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-1-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/summarize_interpret_posterior.Rmd/unnamed-chunk-1-1.png" target="_blank">5f62ee6</a>
-</td>
-<td>
-Matthew Stephens
-</td>
-<td>
-2019-03-31
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pcarbo/fiveMinuteStats/blob/0cd28bd3e7aea2258f9c3a55e2e0060c55403123/docs/figure/summarize_interpret_posterior.Rmd/unnamed-chunk-1-1.png" target="_blank">0cd28bd</a>
-</td>
-<td>
-Matthew Stephens
-</td>
-<td>
-2019-03-31
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pcarbo/fiveMinuteStats/blob/34bcc51fef570dd7d5a70859f262c983fed17381/docs/figure/summarize_interpret_posterior.Rmd/unnamed-chunk-1-1.png" target="_blank">34bcc51</a>
-</td>
-<td>
-John Blischak
-</td>
-<td>
-2017-03-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/pcarbo/fiveMinuteStats/blob/dc8a1bb2f6c36271b0b25278ade2f94f7d97a702/docs/figure/summarize_interpret_posterior.Rmd/unnamed-chunk-1-1.png" target="_blank">dc8a1bb</a>
-</td>
-<td>
-stephens999
-</td>
-<td>
-2017-01-28
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Based on this plot we can visually see that this posterior
+can see what it looks like:</p>
+<pre class="r"><code>q &lt;- seq(0,1,length.out = 100)
+plot(q,dbeta(q,31,71),main = &quot;posterior for q&quot;,ylab = &quot;density&quot;,type = &quot;l&quot;)</code></pre>
+<p><img src="figure/summarize_interpret_posterior.Rmd/posterior-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>Based on this plot, we can visually see that this posterior
 distribution has the property that <span
 class="math inline">\(q\)</span> is highly likely to be less than 0.4
-(say) because most of the mass of the distribution lies below 0.4. In
-Bayesian inference we quantify statements like this – that a particular
-event is “highly likely” – by computing the “posterior probability” of
-the event, which is the probability of the event under the posterior
+because most of the mass of the distribution lies below 0.4. In Bayesian
+inference, we quantify statements like this — that a particular event is
+“highly likely” — by computing the “posterior probability” of the event,
+which is the probability of the event under the posterior
 distribution.</p>
 <p>For example, in this case we can compute the (posterior) probability
 that <span class="math inline">\(q&lt;0.4\)</span>, or <span
-class="math inline">\(\Pr(q &lt;0.4 | D)\)</span>. Since we know the
-posterior distribution is a Be(31,71) distribution, this probability is
-easy to compute using the <code>pbeta</code> function:</p>
+class="math inline">\(\Pr(q &lt; 0.4 \mid D)\)</span>. Since we know the
+posterior distribution is a <span
+class="math inline">\(\mathrm{Beta}(31,71)\)</span> distribution, this
+probability is easy to compute using the <code>pbeta</code>
+function:</p>
 <pre class="r"><code>pbeta(0.4,31,71)
 # [1] 0.9792202</code></pre>
-<p>So we would say “The posterior probability that <span
-class="math inline">\(q&lt;0.4\)</span> is 0.98”.</p>
+<p>So we would say, “The posterior probability that <span
+class="math inline">\(q\)</span> is less than 0.4 is 0.98.”</p>
 <div id="interval-estimates" class="section level2">
 <h2>Interval estimates</h2>
 <p>We can extend this idea to assess the certainty (or confidence) that
 <span class="math inline">\(q\)</span> lies in any interval. For
 example, from the plot it looks like <span
 class="math inline">\(q\)</span> will very likely lie in the interval
-[0.2,0.4] because most of the posterior distribution mass lies between
-these two numbers. To quantify <em>how</em> likely we compute the
-(posterior) probability that <span class="math inline">\(q\)</span> lies
-in the interval <span class="math inline">\([0.2,0.4]\)</span>, <span
-class="math inline">\(\Pr(q \in [0.2,0.4] | D)\)</span>. Again, this can
-be computed using the <code>pbeta</code> function:</p>
+[0.2, 0.4] because most of the posterior mass lies between these two
+numbers. To quantify how likely, we compute the (posterior) probability
+that <span class="math inline">\(q\)</span> lies in the interval <span
+class="math inline">\([0.2, 0.4]\)</span>, <span
+class="math inline">\(\Pr(q \in [0.2, 0.4] \mid D)\)</span>. Again, this
+can be done using the “pbeta” function:</p>
 <pre class="r"><code>pbeta(0.4,31,71) - pbeta(0.2,31,71)
 # [1] 0.9721229</code></pre>
 <p>Thus, based on our prior and the data, we would be highly confident
-(probability approximately 97%) that <span
-class="math inline">\(q\)</span> lies between 0.2 and 0.4. That is,
-<span class="math inline">\([0.2,0.4]\)</span> is a 97% Bayesian
-Confidence Interval for <span class="math inline">\(q\)</span>.
-(Bayesian Confidence Intervals are often referred to as “Credible
-Intervals”, and also often abbreviated to CI.)</p>
-<p>In practice, it is more common to compute Bayesian Confidence
-Intervals the other way around: specify the level of confidence we want
-to achieve and find an interval that achieves that level of confidence.
+(probability of 97%) that <span class="math inline">\(q\)</span> lies
+between 0.2 and 0.4. That is, <span
+class="math inline">\([0.2,0.4]\)</span> is a 97% Bayesian confidence
+interval for <span class="math inline">\(q\)</span>. (Bayesian
+confidence intervals are often called “credible intervals”, and also
+often abbreviated to CI.)</p>
+<p>In practice, it is more common to compute Bayesian confidence
+intervals the other way around: specify the level of confidence we want
+to achieve, and find an interval that achieves that level of confidence.
 This can be done by computing the quantiles of the posterior
 distribution. For example, the 0.05 and 0.95 quantiles of the posterior
-would define a 90% Bayesian Confidence Interval.</p>
-<p>In our example, these quantiles of the Beta distribution can be
-computed using the <code>qbeta</code> function, like this:</p>
+would define a 90% Bayesian confidence interval. In our example, these
+quantiles of the Beta distribution can be computed using the “qbeta”
+function:</p>
 <pre class="r"><code>qbeta(0.05,31,71)
 # [1] 0.2315858
 qbeta(0.95,31,71)
 # [1] 0.38065</code></pre>
-<p>So [0.23, 0.38] is a 90% Bayesian Confidence Interval for <span
+<p>So [0.23, 0.38] is a 90% Bayesian confidence interval for <span
 class="math inline">\(q\)</span>. (It is 90% because there is a 5%
 chance of it being below 0.23 and 5% of it being above 0.38).</p>
 </div>
 <div id="point-estimates" class="section level2">
-<h2>Point Estimates</h2>
-<p>In some cases we might be happy to give our “best guess” for <span
-class="math inline">\(q\)</span>, rather than worrying about our
+<h2>Point estimates</h2>
+<p>In some, cases, we might be happy to give our “best guess” for <span
+class="math inline">\(q\)</span>, rather than worrying about the
 uncertainty. That is, we might be interested in giving a “point
-estimate” for <span class="math inline">\(q\)</span>. Essentially this
+estimate” for <span class="math inline">\(q\)</span>. Essentially, this
 boils down to summarizing the posterior distribution by a single
 number.</p>
-<p>When <span class="math inline">\(q\)</span> is a continuous-valued
-variable, as here, the most common Bayesian point estimate is the
+<p>When <span class="math inline">\(q\)</span> is a continuously-valued
+variable, as it is here, the most common Bayesian point estimate is the
 <em>mean</em> (or expectation) of the posterior distribution, which is
-called the “posterior mean”. The mean of the Beta(31,71) distribution is
-31/(31+71) = 0.3. So we would say “The posterior mean for <span
+called the “posterior mean”. The mean of the <span
+class="math inline">\(\mathrm{Beta}(31, 71)\)</span> distribution is
+31/(31+71) = 0.3. So we would say, “The posterior mean for <span
 class="math inline">\(q\)</span> is 0.3.”</p>
-<p>An alternative to the mean is the median. The median of the
-Beta(31,71) distribution can be found using <code>qbeta</code>:</p>
+<p>An alternative to the mean is the median. The median of the <span
+class="math inline">\(\mathrm{Beta}(31, 71)\)</span> distribution can be
+found using <code>qbeta</code>:</p>
 <pre class="r"><code>qbeta(0.5, 31,71)
 # [1] 0.3026356</code></pre>
-<p>So we would say “The posterior median for <span
-class="math inline">\(q\)</span> is 0.3”.</p>
+<p>So we would say, “The posterior median for <span
+class="math inline">\(q\)</span> is 0.3.”</p>
 <p>The mode of the posterior (“posterior mode”) is another possible
 summary, although this perhaps makes more sense in settings where <span
 class="math inline">\(q\)</span> is a discrete variable rather than a
-continuous variable as here.</p>
+continuous variable.</p>
 </div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>
@@ -968,28 +943,27 @@ continuous variable as here.</p>
 <li><p>The most common summaries of a posterior distribution are
 interval estimates and point estimates.</p></li>
 <li><p>Interval estimates can be obtained by computing quantiles of the
-posterior distribution. Bayesian Confidence intervals are often called
-“Credible Intervals”.</p></li>
+posterior distribution. Bayesian confidence intervals are often called
+“credible intervals”.</p></li>
 <li><p>Point estimates are typically obtained by computing the mean or
 median (or mode) of the posterior distribution. These are called the
-“posterior mean” or the “posterior median” (or “posterior
-mode”).</p></li>
+“posterior mean”, “posterior median” and “posterior mode”.</p></li>
 </ul>
 </div>
 </div>
 <div id="exercise" class="section level1">
 <h1>Exercise</h1>
 <p>Suppose you are interested in a parameter <span
-class="math inline">\(\theta\)</span> and obtain a posterior
-distribution for <span class="math inline">\(\theta\)</span> to be
-normal with mean 0.2 and standard deviation 0.4. Find</p>
+class="math inline">\(\theta\)</span>, and you obtain a posterior
+distribution for <span class="math inline">\(\theta\)</span> that is
+normal with mean 0.2 and standard deviation 0.4. Find:</p>
 <ol style="list-style-type: lower-alpha">
-<li>a 90% Credible Interval for <span
-class="math inline">\(\theta\)</span>.</li>
-<li>a 95% Credible Interval for <span
-class="math inline">\(\theta\)</span>.</li>
-<li>a point estimate for <span
-class="math inline">\(\theta\)</span>.</li>
+<li><p>A 90% credible interval for <span
+class="math inline">\(\theta\)</span>.</p></li>
+<li><p>A 95% credible interval for <span
+class="math inline">\(\theta\)</span>.</p></li>
+<li><p>A point estimate for <span
+class="math inline">\(\theta\)</span>.</p></li>
 </ol>
 <br>
 <p>
