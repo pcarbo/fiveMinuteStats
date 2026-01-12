@@ -124,17 +124,18 @@ Show that the Gamma distribution is the conjugate prior for a Poisson
 mean.
 
 That is, suppose we have observations $X$ that are Poisson
-distributed, $X \sim Poi(\mu)$. Assume that your prior distribution on
-$\mu$ is a Gamma distribution with parameters $n$ and $\lambda$. Show
-that the posterior distribution on $\mu$ is also a Gamma distribution.
+distributed, $X \sim \mathrm{Poisson}(\mu)$. Assume that your prior
+distribution on $\mu$ is a Gamma distribution with scale $a$ and
+shape $b$. Show that the posterior distribution on $\mu$ is also a
+Gamma distribution.
 
-Hint: you should take the following steps. 1. write down the
-likelihood $p(X|\mu)$ for $\mu$ (look up the Poisson distribution if
-you cannot remember it). 2. Write down the prior density for $\mu$
-(look up the density of a Gamma distribution if you cannot remember
-it). 3. Multiply them together to obtain the posterior density (up to
-a constant of proportionality), and notice that it has the same form
-as the gamma distribution.
+*Hint:* You should take the following steps. 1. Write down the
+likelihood $p(X \mid \mu)$. (Look up the density function of the
+Poisson distribution if you cannot remember it.) 2. Write down the
+prior density for $\mu$. (Look up the density of the Gamma
+distribution if you cannot remember it.) 3. Multiply them together to
+obtain the posterior density (up to a constant of proportionality),
+and notice that it has the same form as a Gamma distribution.
 
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bayes_conjugate.pdf
 [bayes_beta_binomial]: https://pcarbo.github.io/fiveMinuteStats/bayes_beta_binomial.html
