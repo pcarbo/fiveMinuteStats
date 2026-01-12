@@ -27,12 +27,12 @@ Overview
 ========
 
 This vignette illustrates how to perform Bayesian inference for a
-continuous parameter, specifically a binomial proportion. Specifically
+continuous parameter, specifically a binomial proportion. Specifically,
 it illustrates the mechanics of how we actually calculate the
 posterior distribution.
 
-You should be familiar with the concepts of
-[Likelihood function][likelihood_function], and
+You should be familiar with the concepts of the
+[likelihood function][likelihood_function] and
 [Bayesian inference for discrete random variables][bayes_multiclass]. You
 should also be familiar with the binomial distribution and the
 [Beta distribution][beta].
@@ -40,42 +40,42 @@ should also be familiar with the binomial distribution and the
 Motivation
 ==========
 
-[Technical Note: to simplify this problem I have assumed that elephants are
-haploid, which they are not. If you do not know what this means you should
-simply ignore this comment.]
+**Technical note:** To simplify this problem, I have assumed that
+elephants are haploid, which they are not. If you do not know what
+this means then you should simply ignore this comment.
 
 Suppose we sample 100 elephants from a population, and measure their
-DNA at a location in their genome ("locus") where there are two types
-("alleles"), which it is convenient to label 0 and 1.
+DNA at one location ("locus") in their genome, where there are two types
+("alleles"). We label these alleles as "0" and "1".
 
-In my sample, I observe that 30 of the elephants have the "1" allele
-and 70 have the "0" allele. What can I say about the frequency ($q$
-say) of the "1" allele in the population?
+In my sample, I observe that 30 of the elephants have the 1 allele,
+and 70 have the 0 allele. What can I say about the frequency ($q$) of
+the 1 allele in the population?
 
 Bayesian inference: calculating the posterior
 =============================================
 
-Here we are doing inference for a parameter $q$ that can, in
+Here we are doing inference for a parameter, $q$, that can, in
 principle, take any value between 0 and 1. That is, we are doing
 inference for a "continuous" parameter. Bayesian inference for a
-continuous parameter proceeds in essentially exactly the same way as
-Bayesian inference for a [discrete quantity][bayes_multiclass],
+continuous parameter proceeds in essentially the same way as
+Bayesian inference for a [discrete quantity][bayes_multiclass]
 except that probability mass functions get replaced by densities.
 
-Specifically remember the form of Bayes Theorem:
+Remember Bayes Theorem:
 $$
 \text{posterior} \propto 
 \text{likelihood} \times \text{prior}.
 $$
-To apply this we need to have both the prior distribution and the
+To apply this, we need to have both the prior distribution and the
 likelihood.
 
 Likelihood
 ----------
 
-Here the likelihood for $q$ is 
+Here, the likelihood for $q$ is 
 $$
-L(q):= \Pr(D | q) \propto q^{30} (1-q)^{70}
+L(q) := \Pr(D \mid q) \propto q^{30} (1-q)^{70},
 $$
 where $D$ here denotes the data. This expression comes from the fact
 that the data consist of 30 "1" alleles (each of which occur with
@@ -89,25 +89,30 @@ Prior
 -----
 
 Recall that the prior distribution is a distribution that is supposed
-to reflect what we know about $q$ *prior* to seeing the data. For the
-purposes of illustration we will assume a uniform prior on $q$: $q
-\sim U[0,1]$. That is
+to reflect what we know about $q$ before ("prior to") to seeing the
+data. For illustration, we will assume a uniform prior
+on $q$,
 $$
-p(q) = 1 \qquad (q \in [0,1]).
+q \sim U[0,1].
+$$
+That is,
+$$
+p(q) = 1, \quad q \in [0,1].
 $$
 
-This $U[0,1]$ prior says many things. For example, it says that before
-seeing the data the idea that $q<0.5$ is just as plausible as
-$q>0.5$. And it says that $q<0.1$ is just as plausible as $q>0.9$, or
-$0.4<q<0.5$. If for some reason these are not equally plausible then
-you should use a different prior, at least in principle. However, in
-practice it is sometimes (but not always) the case that the results of
-Bayesian inference are robust to the choice of prior distribution, so
-in such cases is common not to worry too much about minor deviations
-between what you believe and what the prior implies.
+This prior says many things. For example, it says that, before seeing
+the data, a $q$ less than 0.5 is just as plausible as a $q$ greater
+than 0.5. It also says that a $q$ less than 0.1 is just as plausible
+as a $q$ greater than 0.9 or a $q$ between 0.5 and 0.5. If for some
+reason these are not equally plausible, then you should use a
+different prior. However, in practice it is sometimes (but not
+always!) the case that the results of Bayesian inference are robust to
+the choice of prior distribution, and in such cases it is common not
+to worry too much about minor discrepancies between what you believe and
+what the prior implies.
 
 For now, we are simply aiming to show how the Bayesian calculations
-are done under this prior specification.
+are done under this prior.
 
 Posterior calculation
 ---------------------

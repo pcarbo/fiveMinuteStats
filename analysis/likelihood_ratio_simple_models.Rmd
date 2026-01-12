@@ -40,9 +40,8 @@ Motivating Problem
 ==================
 
 **Technical note:** To simplify this problem I have assumed that
-elephants are [haploid][ploidy], which
-they are not. If you do not know what this means you should simply
-ignore this comment.
+elephants are [haploid][ploidy], which they are not. If you do not
+know what this means you should simply ignore this comment.
 
 There are two subspecies of African Elephant: savannah and forest
 elephants, which differ in their genetic makeup. Interpol have seized
