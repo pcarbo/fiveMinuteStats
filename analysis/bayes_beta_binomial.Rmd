@@ -142,7 +142,7 @@ it is a good start to be able to recognize the following
 distributions: exponential, binomial, Poisson, Gamma, Beta, Dirichlet
 and normal.  If your posterior distribution does not look like one of
 these, then you may be in a situation where you need to use
-computational methods like [Importance Sampling][importance_saampling]
+computational methods like [Importance Sampling][importance_sampling]
 or [Markov chain Monte Carlo][mh_examples1] to do your computations.
 
 In this case, we were lucky: the posterior distribution is a
