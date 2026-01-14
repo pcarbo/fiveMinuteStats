@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2026-01-12" />
+<meta name="date" content="2026-01-14" />
 
 <title>Conjugate Bayesian analysis</title>
 
@@ -355,7 +355,7 @@ div.tocify {
 <h1 class="title toc-ignore">Conjugate Bayesian analysis</h1>
 <h4 class="author">Matthew Stephens</h4>
 <address class="author_afil">
-University of Chicago<br><h4 class="date">January 12, 2026</h4>
+University of Chicago<br><h4 class="date">January 14, 2026</h4>
 
 </div>
 
@@ -384,7 +384,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-01-12
+<strong>Last updated:</strong> 2026-01-14
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -515,15 +515,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreee7d521b40537b9f1f0bc7d02d9a8c5c18b9ef62etargetblanke7d521ba">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree29fc90bf7b81d8e23b79ecd0ae3381f49197d01btargetblank29fc90ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/e7d521b40537b9f1f0bc7d02d9a8c5c18b9ef62e" target="_blank">e7d521b</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/29fc90bf7b81d8e23b79ecd0ae3381f49197d01b" target="_blank">29fc90b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreee7d521b40537b9f1f0bc7d02d9a8c5c18b9ef62etargetblanke7d521ba"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree29fc90bf7b81d8e23b79ecd0ae3381f49197d01btargetblank29fc90ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -533,7 +533,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/e7d521b40537b9f1f0bc7d02d9a8c5c18b9ef62e" target="_blank">e7d521b</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/29fc90bf7b81d8e23b79ecd0ae3381f49197d01b" target="_blank">29fc90b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -592,6 +592,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/29fc90bf7b81d8e23b79ecd0ae3381f49197d01b/analysis/bayes_conjugate.Rmd" target="_blank">29fc90b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-14
+</td>
+<td>
+Fixed use of propto for the likelihood.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/41e7f50e2fdc70b58144835c0f02ebcf022a7b47/analysis/bayes_conjugate.Rmd" target="_blank">41e7f50</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-12
+</td>
+<td>
+Small fix to equation in bayes_conjugate.Rmd.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/974c10870908d3b94501b9b04fa052cdf713aa84/docs/bayes_conjugate.html" target="_blank">974c108</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-12
+</td>
+<td>
+Ran wflow_publish("analysis/bayes_conjugate.Rmd").
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -853,7 +904,7 @@ p(q \mid D) \propto p(D \mid q) \, p(q),
 observed data. In this case, the likelihood <span
 class="math inline">\(p(D \mid q)\)</span> is given by <span
 class="math display">\[
-p(D \mid q) \propto q^{30} (1-q)^{70}.
+p(D \mid q) = q^{30} (1-q)^{70}.
 \]</span> If our prior distribution on <span
 class="math inline">\(q\)</span> is a Beta distribution, say, <span
 class="math inline">\(\mathrm{Beta}(a,b)\)</span>, then the prior
@@ -862,8 +913,10 @@ class="math display">\[
 p(q) \propto q^{a-1}(1-q)^{b-1} \qquad (q \in [0,1]).
 \]</span></p>
 <p>Combining these two, we get <span class="math display">\[
-p(q \mid D) \propto q^{30} (1-q)^{70} q^{a-1} (1-q)^{b-1} \\
-\propto q^{30+a-1}(1-q)^{70+b-1}
+\begin{aligned}
+p(q \mid D) &amp;\propto q^{30} (1-q)^{70} q^{a-1} (1-q)^{b-1} \\
+&amp;\propto q^{30+a-1}(1-q)^{70+b-1}.
+\end{aligned}
 \]</span> At this point, we again apply the trick of recognizing this
 density as the density of a Beta distribution — specifically, the Beta
 distribution with parameters <span class="math inline">\(30+a\)</span>,
@@ -877,7 +930,7 @@ we observed. Suppose we observed <span
 class="math inline">\(n_1\)</span> of the 1 allele and <span
 class="math inline">\(n_0\)</span> of the 0 allele. Then the likelihood
 becomes <span class="math display">\[
-p(D \mid q) \propto q^{n_1} (1-q)^{n_0},
+p(D \mid q) = q^{n_1} (1-q)^{n_0},
 \]</span> and you should be able to show — <em>this is an exercise</em>
 — that the posterior is <span class="math display">\[
 q \mid D \sim \mathrm{Beta}(n_1+a, n_0+b).
