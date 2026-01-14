@@ -3,7 +3,7 @@ title: Conjugate Bayesian analysis
 author: 
   name: Matthew Stephens
   affiliation: University of Chicago
-date: January 12, 2026
+date: January 14, 2026
 output:
   pdf_document:
     keep_tex: false
@@ -76,7 +76,7 @@ $$
 where $D$ denotes the observed data.
 In this case, the likelihood $p(D \mid q)$ is given by
 $$
-p(D \mid q) \propto q^{30} (1-q)^{70}.
+p(D \mid q) = q^{30} (1-q)^{70}.
 $$
 If our prior distribution on $q$ is a Beta distribution, say,
 $\mathrm{Beta}(a,b)$, then the prior density $p(q)$ is 
@@ -103,7 +103,7 @@ There is nothing special about the 30 "1" alleles and 70
 "0" alleles we observed. Suppose we observed $n_1$ of the 1
 allele and $n_0$ of the 0 allele. Then the likelihood becomes
 $$
-p(D \mid q) \propto q^{n_1} (1-q)^{n_0},
+p(D \mid q) = q^{n_1} (1-q)^{n_0},
 $$
 and you should be able to show — *this is an exercise* —
 that the posterior is 
