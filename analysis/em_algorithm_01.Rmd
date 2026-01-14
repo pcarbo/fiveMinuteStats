@@ -51,7 +51,7 @@ The problem
 ===========
 
 Consider again the medical screening example from
-[this vignette][mixture_model_01]. This example involves a test for a
+[this vignette][mixture_models_01]. This example involves a test for a
 disease that is based on measuring the concentration ($X$) of a
 protein in the blood. In normal individuals, $X$ has a Gamma
 distribution with mean 1 and shape 2 (so the scale parameter is 0.5, as
