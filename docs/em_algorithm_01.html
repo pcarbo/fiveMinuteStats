@@ -384,7 +384,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-01-12
+<strong>Last updated:</strong> 2026-01-15
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -515,15 +515,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreec2a34a71ff5ae3f60fe5259dce4374d5e72109cetargetblankc2a34a7a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree3f1709110d356a5b21ed21f5b521960a52963ee4targetblank3f17091a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/c2a34a71ff5ae3f60fe5259dce4374d5e72109ce" target="_blank">c2a34a7</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/3f1709110d356a5b21ed21f5b521960a52963ee4" target="_blank">3f17091</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreec2a34a71ff5ae3f60fe5259dce4374d5e72109cetargetblankc2a34a7a"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree3f1709110d356a5b21ed21f5b521960a52963ee4targetblank3f17091a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -533,7 +533,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/c2a34a71ff5ae3f60fe5259dce4374d5e72109ce" target="_blank">c2a34a7</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/3f1709110d356a5b21ed21f5b521960a52963ee4" target="_blank">3f17091</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -547,7 +547,9 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-working directory clean
+Unstaged changes:
+    Modified:   Makefile
+
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not
@@ -592,6 +594,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/8eb184e9d1ce85715a1a10056ceccbd7081526f4/analysis/em_algorithm_01.Rmd" target="_blank">8eb184e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-14
+</td>
+<td>
+Fixed a link.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/52f56296197702f2c9ea2dbe010d08270efe56ef/docs/em_algorithm_01.html" target="_blank">52f5629</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-12
+</td>
+<td>
+Ran wflow_publish("analysis/em_algorithm_01.Rmd").
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -765,15 +801,16 @@ perfom this further study.</p>
 </div>
 <div id="the-problem" class="section level1">
 <h1>The problem</h1>
-<p>Consider again the medical screening example from [this
-vignette][mixture_model_01]. This example involves a test for a disease
-that is based on measuring the concentration (<span
-class="math inline">\(X\)</span>) of a protein in the blood. In normal
-individuals, <span class="math inline">\(X\)</span> has a Gamma
-distribution with mean 1 and shape 2 (so the scale parameter is 0.5, as
-scale = mean/shape). In diseased individuals the protein becomes
-elevated, and <span class="math inline">\(X\)</span> has a Gamma
-distribution with mean 2 and shape 2 (so scale = 1).</p>
+<p>Consider again the medical screening example from <a
+href="https://pcarbo.github.io/fiveMinuteStats/mixture_models_01.html">this
+vignette</a>. This example involves a test for a disease that is based
+on measuring the concentration (<span class="math inline">\(X\)</span>)
+of a protein in the blood. In normal individuals, <span
+class="math inline">\(X\)</span> has a Gamma distribution with mean 1
+and shape 2 (so the scale parameter is 0.5, as scale = mean/shape). In
+diseased individuals the protein becomes elevated, and <span
+class="math inline">\(X\)</span> has a Gamma distribution with mean 2
+and shape 2 (so scale = 1).</p>
 <p>Now consider the following question. Suppose we observe data <span
 class="math inline">\(x_1,
 \dots, x_n\)</span> on <span class="math inline">\(n\)</span>
@@ -828,10 +865,84 @@ for (i in 1:length(pi1_vec))
   loglik[i] &lt;- mix_loglik(pi1_vec[i],x)
 plot(pi1_vec,loglik,type = &quot;l&quot;,xlab = &quot;pi_1&quot;)</code></pre>
 <p><img src="figure/em_algorithm_01.Rmd/loglik-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-loglik-1">
+Past versions of loglik-1.png
+</button>
+</p>
+<div id="fig-loglik-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/52f56296197702f2c9ea2dbe010d08270efe56ef/docs/figure/em_algorithm_01.Rmd/loglik-1.png" target="_blank">52f5629</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>In this second plot we “zoom in” on the log-likelihood near the
 maximum:</p>
 <pre class="r"><code>plot(pi1_vec,loglik - max(loglik),ylim = c(-10,0),type = &quot;l&quot;,xlab = &quot;pi_1&quot;)</code></pre>
 <p><img src="figure/em_algorithm_01.Rmd/loglik-zoomed-in-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-loglik-zoomed-in-1">
+Past versions of loglik-zoomed-in-1.png
+</button>
+</p>
+<div id="fig-loglik-zoomed-in-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/52f56296197702f2c9ea2dbe010d08270efe56ef/docs/figure/em_algorithm_01.Rmd/loglik-zoomed-in-1.png" target="_blank">52f5629</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>We can see from these plots that the maximum likelihood estimate is
 near the true value of 0.7. However, we cannot actually find the maximum
 easily analytically (for example, try differentiating the log-likelihood
@@ -902,12 +1013,86 @@ what happens when we start at <span class="math inline">\(\pi_1 =
 <pre class="r"><code>pi1_iter &lt;- simple_em(x,pi1_init = 0.5,niter = 40)
 plot(pi1_iter,xlab = &quot;EM iteration&quot;,ylab = &quot;pi1&quot;,pch = 20)</code></pre>
 <p><img src="figure/em_algorithm_01.Rmd/simple-em-1-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-simple-em-1-1">
+Past versions of simple-em-1-1.png
+</button>
+</p>
+<div id="fig-simple-em-1-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/52f56296197702f2c9ea2dbe010d08270efe56ef/docs/figure/em_algorithm_01.Rmd/simple-em-1-1.png" target="_blank">52f5629</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>pi1_iter[41]
 # [1] 0.6926443</code></pre>
 <p>Let’s try another starting point:</p>
 <pre class="r"><code>pi1_iter = simple_em(x,pi1_init = 0.9,niter = 40)
 plot(pi1_iter,xlab = &quot;EM iteration&quot;,ylab = &quot;pi1&quot;,pch = 20)</code></pre>
 <p><img src="figure/em_algorithm_01.Rmd/simple-em-2-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-simple-em-2-1">
+Past versions of simple-em-2-1.png
+</button>
+</p>
+<div id="fig-simple-em-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/52f56296197702f2c9ea2dbe010d08270efe56ef/docs/figure/em_algorithm_01.Rmd/simple-em-2-1.png" target="_blank">52f5629</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>pi1_iter[41]
 # [1] 0.6927248</code></pre>
 <p>We see it converges to the same value.</p>
@@ -916,6 +1101,43 @@ estimate:</p>
 <pre class="r"><code>plot(pi1_vec,loglik - max(loglik),ylim = c(-10,0.5),type = &quot;l&quot;,xlab = &quot;pi_1&quot;)
 points(pi1_iter[41],mix_loglik(pi1_iter[41],x) - max(loglik),pch = 20)</code></pre>
 <p><img src="figure/em_algorithm_01.Rmd/em-vs-mle-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-em-vs-mle-1">
+Past versions of em-vs-mle-1.png
+</button>
+</p>
+<div id="fig-em-vs-mle-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/52f56296197702f2c9ea2dbe010d08270efe56ef/docs/figure/em_algorithm_01.Rmd/em-vs-mle-1.png" target="_blank">52f5629</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

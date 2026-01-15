@@ -1,11 +1,27 @@
 ---
-title: "Introduction to Discrete Markov Chains"
-author: "John Novembre"
-date: 2016-01-31
+title: Introduction to discrete Markov chains
+author: 
+  name: John Novembre
+  affiliation: University of Chicago
+date: January 15, 2026
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
+See [here][pdf_version] for a PDF version of this vignette.
 
-
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
+```
 
 # Pre-requisites
 
@@ -69,9 +85,6 @@ What do you notice about the rows?   And let's see what this does for various di
 c(1,0,0) %*%(P%^%100)
 c(0.2,0.5,0.3) %*%(P%^%100)
 ```
-Note that after a large number of steps the initial state does not matter any more, the probability of the chain being in any state $j$ is independent of where we started.  This is our first view of the *equilibrium distribuion* of a Markov Chain.  These are also known as the *limiting probabilities of a Markov chain* or *stationary distribution*.  
+Note that after a large number of steps the initial state does not matter any more, the probability of the chain being in any state $j$ is independent of where we started.  This is our first view of the *equilibrium distribuion* of a Markov Chain.  These are also known as the *limiting probabilities of a Markov chain* or *stationary distribution*.
 
-
-
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/markov_chains_discrete_intro.pdf

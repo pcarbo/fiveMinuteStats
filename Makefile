@@ -21,6 +21,7 @@ all: docs/index.html \
      docs/mixture_models_01.html \
      docs/em_algorithm_01.html \
      docs/em_variational.html \
+     docs/markov_chains_discrete_intro.html \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
      docs/Importance_sampling.pdf \
@@ -36,7 +37,8 @@ all: docs/index.html \
      docs/summarize_interpret_posterior.pdf \
      docs/mixture_models_01.pdf \
      docs/em_algorithm_01.pdf \
-     docs/em_variational.pdf
+     docs/em_variational.pdf \
+     docs/markov_chains_discrete_intro.pdf
 
 docs/index.html : analysis/index.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/index.Rmd",view = FALSE)'
@@ -88,6 +90,9 @@ docs/em_algorithm_01.html : analysis/em_algorithm_01.Rmd
 
 docs/em_variational.html : analysis/em_variational.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/em_variational.Rmd",view = FALSE)'
+
+docs/markov_chains_discrete_intro.html : analysis/markov_chains_discrete_intro.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/markov_chains_discrete_intro.Rmd",view = FALSE)'
 
 docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
@@ -172,6 +177,11 @@ docs/em_variational.pdf : analysis/em_variational.Rmd readable.tex
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/em_variational.pdf")'
 	rm temp.Rmd
 
+docs/markov_chains_discrete_intro.pdf : analysis/markov_chains_discrete_intro.Rmd readable.tex
+	cp analysis/markov_chains_discrete_intro.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/markov_chains_discrete_intro.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf
@@ -189,5 +199,6 @@ clean:
 	rm -f docs/mixture_models_01.pdf
 	rm -f docs/em_algorithm_01.pdf
 	rm -f docs/em_variational.pdf
+	rm -f docs/markov_chains_discrete_intro.pdf
 	rm -f temp.Rmd
 
