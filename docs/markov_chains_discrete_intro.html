@@ -12,7 +12,7 @@
 
 <meta name="date" content="2026-01-15" />
 
-<title>The likelihood function</title>
+<title>Introduction to discrete Markov chains</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -352,7 +352,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">The likelihood function</h1>
+<h1 class="title toc-ignore">Introduction to discrete Markov chains</h1>
 <h4 class="author">John Novembre</h4>
 <address class="author_afil">
 University of Chicago<br><h4 class="date">January 15, 2026</h4>
@@ -363,7 +363,7 @@ University of Chicago<br><h4 class="date">January 15, 2026</h4>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -374,8 +374,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -388,9 +388,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
@@ -413,21 +413,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -518,15 +515,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree3f1709110d356a5b21ed21f5b521960a52963ee4targetblank3f17091a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree82d368b3bf06b5b6e476c79f2dc8c2e4b9e863detargetblank82d368ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/3f1709110d356a5b21ed21f5b521960a52963ee4" target="_blank">3f17091</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/82d368b3bf06b5b6e476c79f2dc8c2e4b9e863de" target="_blank">82d368b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree3f1709110d356a5b21ed21f5b521960a52963ee4targetblank3f17091a"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree82d368b3bf06b5b6e476c79f2dc8c2e4b9e863detargetblank82d368ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +533,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/3f1709110d356a5b21ed21f5b521960a52963ee4" target="_blank">3f17091</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/82d368b3bf06b5b6e476c79f2dc8c2e4b9e863de" target="_blank">82d368b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -551,8 +548,7 @@ were generated:
 </p>
 <pre><code>
 Unstaged changes:
-    Modified:   Makefile
-    Modified:   analysis/markov_chains_discrete_intro.Rmd
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -599,6 +595,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/82d368b3bf06b5b6e476c79f2dc8c2e4b9e863de/analysis/markov_chains_discrete_intro.Rmd" target="_blank">82d368b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-15
+</td>
+<td>
+Generated pdf version of markov_chains_discrete_intro vignette.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/82d368b3bf06b5b6e476c79f2dc8c2e4b9e863de/docs/markov_chains_discrete_intro.html" target="_blank">82d368b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-15
+</td>
+<td>
+Generated pdf version of markov_chains_discrete_intro vignette.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
