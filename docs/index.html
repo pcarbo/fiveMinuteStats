@@ -359,7 +359,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -370,8 +370,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -380,13 +380,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2026-01-09
+<strong>Last updated:</strong> 2026-01-15
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
@@ -409,36 +409,33 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree4e442397dc3a23b48687580de7c5b9929cd277d4targetblank4e44239a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreecc90f59f51247fac8069d7d63bd90912d975adf8targetblankcc90f59a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/4e442397dc3a23b48687580de7c5b9929cd277d4" target="_blank">4e44239</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/cc90f59f51247fac8069d7d63bd90912d975adf8" target="_blank">cc90f59</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree4e442397dc3a23b48687580de7c5b9929cd277d4targetblank4e44239a"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreecc90f59f51247fac8069d7d63bd90912d975adf8targetblankcc90f59a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -448,7 +445,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/4e442397dc3a23b48687580de7c5b9929cd277d4" target="_blank">4e44239</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/cc90f59f51247fac8069d7d63bd90912d975adf8" target="_blank">cc90f59</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -464,8 +461,6 @@ were generated:
 <pre><code>
 Unstaged changes:
     Modified:   Makefile
-    Modified:   analysis/em_variational.Rmd
-    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -510,6 +505,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/cc90f59f51247fac8069d7d63bd90912d975adf8/analysis/index.Rmd" target="_blank">cc90f59</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-15
+</td>
+<td>
+wflow_publish("analysis/index.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/a2212405e4ac7f933f5917fae9375c3b98998391/docs/index.html" target="_blank">a221240</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-09
+</td>
+<td>
+Push a bunch of updates to the webpages.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/a7c1413ae55d3d8a4cb1e0e1eb310e274cb09bf1/analysis/index.Rmd" target="_blank">a7c1413</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-09
+</td>
+<td>
+Added pdf version of em_variational vignette.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2864,17 +2910,21 @@ approximations, objectives and algorithms</a></li>
 <h3>Discrete-Time Markov Chains</h3>
 <ul>
 <li><a href="markov_chains_discrete_intro.html">Discrete-Time Markov
-Chains: Introduction</a></li>
+Chains: Introduction</a> (<a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/markov_chains_discrete_intro.pdf">PDF</a>)</li>
 <li><a href="stationary_distribution.html">Discrete-Time Markov Chains:
 Finding the Stationary Distribution via solution of the global balance
-equations</a></li>
+equations</a> (<a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/stationary_distribution.pdf">PDF</a>)</li>
 <li><a href="markov_chains_discrete_stationary_dist.html">Discrete-Time
 Markov Chains: Finding the Stationary Distribution via
 eigendecomposition</a></li>
 <li><a href="simulating_discrete_chains_1.html">Simulating Discrete-Time
-Markov Chains: An Introduction</a></li>
+Markov Chains: An Introduction</a> (<a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/simulating_discrete_chains_1.pdf">PDF</a>)</li>
 <li><a href="simulating_discrete_chains_2.html">Simulating Discrete-Time
-Markov Chains: Limiting Distributions</a></li>
+Markov Chains: Limiting Distributions</a> (<a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/simulating_discrete_chains_2.pdf">PDF</a>)</li>
 </ul>
 </div>
 <div id="poisson-processes" class="section level3">
