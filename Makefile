@@ -22,6 +22,9 @@ all: docs/index.html \
      docs/em_algorithm_01.html \
      docs/em_variational.html \
      docs/markov_chains_discrete_intro.html \
+     docs/simulating_discrete_chains_1.html \
+     docs/simulating_discrete_chains_2.html \
+     docs/stationary_distribution.html \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
      docs/Importance_sampling.pdf \
@@ -38,7 +41,10 @@ all: docs/index.html \
      docs/mixture_models_01.pdf \
      docs/em_algorithm_01.pdf \
      docs/em_variational.pdf \
-     docs/markov_chains_discrete_intro.pdf
+     docs/markov_chains_discrete_intro.pdf \
+     docs/simulating_discrete_chains_1.pdf \
+     docs/simulating_discrete_chains_2.pdf \
+     docs/stationary_distribution.pdf
 
 docs/index.html : analysis/index.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/index.Rmd",view = FALSE)'
@@ -93,6 +99,15 @@ docs/em_variational.html : analysis/em_variational.Rmd
 
 docs/markov_chains_discrete_intro.html : analysis/markov_chains_discrete_intro.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/markov_chains_discrete_intro.Rmd",view = FALSE)'
+
+docs/simulating_discrete_chains_1.html : analysis/simulating_discrete_chains_1.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/simulating_discrete_chains_1.Rmd",view = FALSE)'
+
+docs/simulating_discrete_chains_2.html : analysis/simulating_discrete_chains_2.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/simulating_discrete_chains_2.Rmd",view = FALSE)'
+
+docs/stationary_distribution.html : analysis/stationary_distribution.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/stationary_distribution.Rmd",view = FALSE)'
 
 docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
@@ -182,6 +197,21 @@ docs/markov_chains_discrete_intro.pdf : analysis/markov_chains_discrete_intro.Rm
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/markov_chains_discrete_intro.pdf")'
 	rm temp.Rmd
 
+docs/simulating_discrete_chains_1.pdf : analysis/simulating_discrete_chains_1.Rmd readable.tex
+	cp analysis/simulating_discrete_chains_1.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/simulating_discrete_chains_1.pdf")'
+	rm temp.Rmd
+
+docs/simulating_discrete_chains_2.pdf : analysis/simulating_discrete_chains_2.Rmd readable.tex
+	cp analysis/simulating_discrete_chains_2.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/simulating_discrete_chains_2.pdf")'
+	rm temp.Rmd
+
+docs/stationary_distribution.pdf : analysis/stationary_distribution.Rmd readable.tex
+	cp analysis/stationary_distribution.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/stationary_distribution.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf
@@ -200,5 +230,8 @@ clean:
 	rm -f docs/em_algorithm_01.pdf
 	rm -f docs/em_variational.pdf
 	rm -f docs/markov_chains_discrete_intro.pdf
+	rm -f docs/simulating_discrete_chains_1.pdf
+	rm -f docs/simulating_discrete_chains_2.pdf
+	rm -f docs/stationary_distribution.pdf
 	rm -f temp.Rmd
 

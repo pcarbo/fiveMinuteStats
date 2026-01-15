@@ -1,11 +1,27 @@
 ---
-title: "Simulating Discrete Markov Chains: An Introduction"
-author: "Matt Bonakdarpour"
-date: 2016-01-21
+title: "Simulating discrete Markov chains: an introduction"
+author: 
+  name: Matt Bonakdarpour
+  affiliation: University of Chicago
+date: January 15, 2026
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
+See [here][pdf_version] for a PDF version of this vignette.
 
-
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
+```
 
 # Pre-requisites
 
@@ -103,13 +119,15 @@ for(c in seq_len(num.chains)){
 }
 ```
 
-Our function returns a vector that contains the states of our simulated chain through time. Recall that our state space is $\{1,2,3\}$. Below, we  visualize how these chains evolve through time:
-```{r}
+Our function returns a vector that contains the states of our
+simulated chain through time. Recall that our state space is
+$\{1,2,3\}$. Below, we visualize how these chains evolve through time:
+
+```{r, fig.height=4, fig.width=5}
 matplot(chain.states, type='l', lty=1, col=1:5, ylim=c(0,4), ylab='state', xlab='time')
 abline(h=1, lty=3)
 abline(h=3, lty=3)
 ```
-
 
 # Simulation 2: 8x8 example
 
@@ -151,11 +169,11 @@ for(c in seq_len(num.chains)){
 ```
 
 And finally we plot the chains through time below:
-```{r}
+
+```{r, fig.height=4, fig.width=5}
 matplot(chain.states, type='l', lty=1, col=1:5, ylim=c(0,9), ylab='state', xlab='time')
 abline(h=1, lty=3)
 abline(h=8, lty=3)
 ```
 
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/simulating_discrete_chains_1.pdf

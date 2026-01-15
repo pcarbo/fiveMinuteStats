@@ -1,41 +1,62 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Matt Bonakdarpour" />
 
-<meta name="date" content="2016-01-21" />
+<meta name="date" content="2026-01-15" />
 
-<title>Simulating Discrete Markov Chains: Limiting Disributions</title>
+<title>Simulating discrete Markov chains: limiting disributions</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -48,37 +69,11 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
 
 
-</head>
 
-<body>
+
+
 
 <style type = "text/css">
 .main-container {
@@ -86,13 +81,8 @@ h6 {
   margin-left: auto;
   margin-right: auto;
 }
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -106,40 +96,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -167,7 +133,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -179,7 +145,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -189,15 +155,30 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -207,13 +188,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -221,16 +201,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -243,6 +216,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -255,48 +229,9 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -310,6 +245,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -345,8 +286,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -356,8 +295,18 @@ div.tocify {
 
 </style>
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -371,7 +320,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -392,37 +341,31 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/stephens999/fiveMinuteStats">
-    <span class="fa fa-github"></span>
-     
-  </a>
+  <a href="https://github.com/pcarbo/fiveMinuteStats">source</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
-
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
-<h1 class="title toc-ignore">Simulating Discrete Markov Chains: Limiting Disributions</h1>
-<h4 class="author"><em>Matt Bonakdarpour</em></h4>
-<h4 class="date"><em>2016-01-21</em></h4>
+<h1 class="title toc-ignore">Simulating discrete Markov chains: limiting
+disributions</h1>
+<h4 class="author">Matt Bonakdarpour</h4>
+<address class="author_afil">
+University of Chicago<br><h4 class="date">January 15, 2026</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -431,7 +374,9 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#report"> Report <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -440,118 +385,183 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-03-31
+<strong>Last updated:</strong> 2026-01-15
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
 </p>
 <p>
-<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
+<span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.2.0). The <em>Report</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
-<div id="report" class="tab-pane fade">
+<div id="checks" class="tab-pane fade">
 <div id="workflowr-checks" class="panel-group">
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(12345)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(12345)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed12345code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed12345code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(12345)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(12345)</code> was run prior to running the
+code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstree0cd28bd3e7aea2258f9c3a55e2e0060c55403123targetblank0cd28bda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephens999/fiveMinuteStats/tree/0cd28bd3e7aea2258f9c3a55e2e0060c55403123" target="_blank">0cd28bd</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstree0cd28bd3e7aea2258f9c3a55e2e0060c55403123targetblank0cd28bda" class="panel-collapse collapse">
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreea641c10e0611da9ec66059d72bee69882a07b0bdtargetblanka641c10a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/a641c10e0611da9ec66059d72bee69882a07b0bd" target="_blank">a641c10</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreea641c10e0611da9ec66059d72bee69882a07b0bdtargetblanka641c10a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/a641c10e0611da9ec66059d72bee69882a07b0bd" target="_blank">a641c10</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    .Rhistory
-    Ignored:    .Rproj.user/
-    Ignored:    analysis/.Rhistory
-    Ignored:    analysis/bernoulli_poisson_process_cache/
-
-Untracked files:
-    Untracked:  _workflowr.yml
-    Untracked:  analysis/CI.Rmd
-    Untracked:  analysis/gibbs_structure.Rmd
-    Untracked:  analysis/libs/
-    Untracked:  analysis/results.Rmd
-    Untracked:  analysis/shiny/tester/
-    Untracked:  docs/MH_intro_files/
-    Untracked:  docs/citations.bib
-    Untracked:  docs/figure/MH_intro.Rmd/
-    Untracked:  docs/figure/hmm.Rmd/
-    Untracked:  docs/hmm_files/
-    Untracked:  docs/libs/
-    Untracked:  docs/shiny/tester/
+Unstaged changes:
+    Modified:   Makefile
+    Modified:   analysis/simulating_discrete_chains_1.Rmd
+    Modified:   analysis/simulating_discrete_chains_2.Rmd
+    Modified:   analysis/stationary_distribution.Rmd
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -562,7 +572,13 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/simulating_discrete_chains_2.Rmd</code>) and HTML
+(<code>docs/simulating_discrete_chains_2.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -591,7 +607,41 @@ Message
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/34bcc51fef570dd7d5a70859f262c983fed17381/docs/simulating_discrete_chains_2.html" target="_blank">34bcc51</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/simulating_discrete_chains_2.html" target="_blank">5f62ee6</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/0cd28bd3e7aea2258f9c3a55e2e0060c55403123/analysis/simulating_discrete_chains_2.Rmd" target="_blank">0cd28bd</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+<td>
+workflowr::wflow_publish(all = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/34bcc51fef570dd7d5a70859f262c983fed17381/docs/simulating_discrete_chains_2.html" target="_blank">34bcc51</a>
 </td>
 <td>
 John Blischak
@@ -608,7 +658,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/5fbc8b5c658203baf6765874b24794d41da622a8/analysis/simulating_discrete_chains_2.Rmd" target="_blank">5fbc8b5</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5fbc8b5c658203baf6765874b24794d41da622a8/analysis/simulating_discrete_chains_2.Rmd" target="_blank">5fbc8b5</a>
 </td>
 <td>
 John Blischak
@@ -625,7 +675,7 @@ Update workflowr project with wflow_update (version 0.4.0).
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/391ba3c0cf210ea8de8125ee8063557ceff55080/analysis/simulating_discrete_chains_2.Rmd" target="_blank">391ba3c</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/391ba3c0cf210ea8de8125ee8063557ceff55080/analysis/simulating_discrete_chains_2.Rmd" target="_blank">391ba3c</a>
 </td>
 <td>
 John Blischak
@@ -642,16 +692,16 @@ Remove front and end matter of non-standard templates.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/fb0f6e37ced1f4d374ed6ced4b01cb465776f001/docs/simulating_discrete_chains_2.html" target="_blank">fb0f6e3</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/8e616835a4eccac7c4e0a8eeec86fdcefb1525ab/docs/simulating_discrete_chains_2.html" target="_blank">8e61683</a>
 </td>
 <td>
-stephens999
+Marcus Davy
 </td>
 <td>
 2017-03-03
 </td>
 <td>
-Merge pull request #33 from mdavy86/f/review
+rendered html using wflow_build(all=TRUE)
 </td>
 </tr>
 <tr>
@@ -659,16 +709,16 @@ Merge pull request #33 from mdavy86/f/review
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/0713277eda2ef15ef7f1bc52f287a9027db4e017/docs/simulating_discrete_chains_2.html" target="_blank">0713277</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/5d0fa13282db4a97dc7d62e2d704e88a5afdb824/docs/simulating_discrete_chains_2.html" target="_blank">5d0fa13</a>
 </td>
 <td>
-stephens999
+Marcus Davy
 </td>
 <td>
-2017-03-03
+2017-03-02
 </td>
 <td>
-Merge pull request #31 from mdavy86/f/review
+wflow_build() rendered html files
 </td>
 </tr>
 <tr>
@@ -676,13 +726,13 @@ Merge pull request #31 from mdavy86/f/review
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/d6741417d44f168473b77d41bba75ddf1acce30b/analysis/simulating_discrete_chains_2.Rmd" target="_blank">d674141</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/d6741417d44f168473b77d41bba75ddf1acce30b/analysis/simulating_discrete_chains_2.Rmd" target="_blank">d674141</a>
 </td>
 <td>
 Marcus Davy
 </td>
 <td>
-2017-02-27
+2017-02-26
 </td>
 <td>
 typos, refs
@@ -693,7 +743,7 @@ typos, refs
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/simulating_discrete_chains_2.html" target="_blank">c3b365a</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/simulating_discrete_chains_2.html" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -710,7 +760,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/67a857539cd8a4029e899208aed19da6c78b4b36/analysis/simulating_discrete_chains_2.Rmd" target="_blank">67a8575</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/67a857539cd8a4029e899208aed19da6c78b4b36/analysis/simulating_discrete_chains_2.Rmd" target="_blank">67a8575</a>
 </td>
 <td>
 John Blischak
@@ -727,7 +777,7 @@ Use external chunk to set knitr chunk options.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/5ec12c73e37fc3c7ec04a31f6d85eede0f6c436e/analysis/simulating_discrete_chains_2.Rmd" target="_blank">5ec12c7</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5ec12c73e37fc3c7ec04a31f6d85eede0f6c436e/analysis/simulating_discrete_chains_2.Rmd" target="_blank">5ec12c7</a>
 </td>
 <td>
 John Blischak
@@ -744,7 +794,7 @@ Use session-info chunk.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/f209a9acb8aaf6108249ee6b123a0125182b027e/analysis/simulating_discrete_chains_2.Rmd" target="_blank">f209a9a</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/f209a9acb8aaf6108249ee6b123a0125182b027e/analysis/simulating_discrete_chains_2.Rmd" target="_blank">f209a9a</a>
 </td>
 <td>
 mbonakda
@@ -761,7 +811,7 @@ fix up typos
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/0f93e3cab261ee6e2ff19059a53c73cb2a623159/analysis/simulating_discrete_chains_2.Rmd" target="_blank">0f93e3c</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/0f93e3cab261ee6e2ff19059a53c73cb2a623159/analysis/simulating_discrete_chains_2.Rmd" target="_blank">0f93e3c</a>
 </td>
 <td>
 mbonakda
@@ -780,36 +830,67 @@ split simulating discrete markov chains into three separate notes
 </div>
 </div>
 </div>
+<p>See <a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/simulating_discrete_chains_2.pdf">here</a>
+for a PDF version of this vignette.</p>
 <div id="pre-requisites" class="section level1">
 <h1>Pre-requisites</h1>
-<p>This document assumes basic familiarity with simulating Markov chains, as seen here: <a href="simulating_discrete_chains_1.html">Simulating Discrete Markov Chains: An Introduction</a>.</p>
+<p>This document assumes basic familiarity with simulating Markov
+chains, as seen here: <a
+href="simulating_discrete_chains_1.html">Simulating Discrete Markov
+Chains: An Introduction</a>.</p>
 </div>
 <div id="overview" class="section level1">
 <h1>Overview</h1>
-<p>In this note, we show the empirical relationship between the stationary distribution, limiting probabilities, and empirical probabilities for discrete Markov chains.</p>
+<p>In this note, we show the empirical relationship between the
+stationary distribution, limiting probabilities, and empirical
+probabilities for discrete Markov chains.</p>
 </div>
 <div id="limiting-probabilities" class="section level1">
 <h1>Limiting Probabilities</h1>
-<p>Let <span class="math inline">\(\pi^{(0)}\)</span> be our initial probability vector. For example, if we had a 3 state Markov chain with <span class="math inline">\(\pi^{(0)} = [0.5, 0.1, 0.4]\)</span>, this would tell us that our chain has a 50% probability of starting in state 1, a 10% probability of starting in state 2, and a 40% probability of starting in state 3. If we wanted to have our initial state equal to 1, we would set <span class="math inline">\(\pi^{(0)} = [1, 0, 0]\)</span>.</p>
-<p>Let <span class="math inline">\(P\)</span> be our probability transition matrix. Recall that the probability vector after <span class="math inline">\(n\)</span> steps is equal to: <span class="math display">\[\pi^{(n)} = \pi^{(0)}P^n\]</span> where <span class="math inline">\(P^n\)</span> is the matrix <span class="math inline">\(P\)</span> raised to the <span class="math inline">\(n\)</span>-th power.</p>
-<p>With the facts above, we could keep track of our probability vector <span class="math inline">\(\pi^{(n)}\)</span> as we simulate the Markov chain as follows:</p>
+<p>Let <span class="math inline">\(\pi^{(0)}\)</span> be our initial
+probability vector. For example, if we had a 3 state Markov chain with
+<span class="math inline">\(\pi^{(0)} = [0.5, 0.1, 0.4]\)</span>, this
+would tell us that our chain has a 50% probability of starting in state
+1, a 10% probability of starting in state 2, and a 40% probability of
+starting in state 3. If we wanted to have our initial state equal to 1,
+we would set <span class="math inline">\(\pi^{(0)} = [1, 0,
+0]\)</span>.</p>
+<p>Let <span class="math inline">\(P\)</span> be our probability
+transition matrix. Recall that the probability vector after <span
+class="math inline">\(n\)</span> steps is equal to: <span
+class="math display">\[\pi^{(n)} = \pi^{(0)}P^n\]</span> where <span
+class="math inline">\(P^n\)</span> is the matrix <span
+class="math inline">\(P\)</span> raised to the <span
+class="math inline">\(n\)</span>-th power.</p>
+<p>With the facts above, we could keep track of our probability vector
+<span class="math inline">\(\pi^{(n)}\)</span> as we simulate the Markov
+chain as follows:</p>
 <ol style="list-style-type: decimal">
-<li>Obtain probability transition matrix <span class="math inline">\(P\)</span><br />
+<li>Obtain probability transition matrix <span
+class="math inline">\(P\)</span><br />
 </li>
 <li>Set <span class="math inline">\(P_n = P\)</span><br />
 </li>
 <li>For t = 1…T:
 <ol style="list-style-type: decimal">
 <li>Simulate next step of Markov chain.</li>
-<li>Set <span class="math inline">\(\pi^{(n)} = \pi^{(0)}P_n\)</span><br />
+<li>Set <span class="math inline">\(\pi^{(n)} =
+\pi^{(0)}P_n\)</span><br />
 </li>
 <li>Set <span class="math inline">\(P_n = P_nP\)</span></li>
 </ol></li>
 </ol>
-<p>We augment our function for simulating Markov chains from <a href="simulating_discrete_chains_1.html">this note</a> with the following changes:<br />
-1. We keep track of <span class="math inline">\(\pi^{(n)}\)</span>.<br />
-2. We add the functionality of simulating multiple chains at once – as a result, the vectors we dealt with in the previous note have turned into matrices.<br />
-3. We use the <code>rmultinom()</code> function instead of our <code>inv.transform.sample()</code> method.</p>
+<p>We augment our function for simulating Markov chains from <a
+href="simulating_discrete_chains_1.html">this note</a> with the
+following changes:<br />
+1. We keep track of <span
+class="math inline">\(\pi^{(n)}\)</span>.<br />
+2. We add the functionality of simulating multiple chains at once – as a
+result, the vectors we dealt with in the previous note have turned into
+matrices.<br />
+3. We use the <code>rmultinom()</code> function instead of our
+<code>inv.transform.sample()</code> method.</p>
 <pre class="r"><code># simulate discrete Markov chains
 run.mc.sim &lt;- function( P,   # probability transition matrix
                         num.iters=50, 
@@ -853,29 +934,41 @@ run.mc.sim &lt;- function( P,   # probability transition matrix
 </div>
 <div id="simulation-1-3x3-example" class="section level1">
 <h1>Simulation 1: 3x3 example</h1>
-<p>Assume our probability transition matrix is: <span class="math display">\[P = \begin{bmatrix}
+<p>Assume our probability transition matrix is: <span
+class="math display">\[P = \begin{bmatrix}
     0.7 &amp; 0.2 &amp; 0.1 \\
     0.4 &amp; 0.6 &amp; 0 \\
-    0   &amp; 1   &amp; 0 
+    0   &amp; 1   &amp; 0
 \end{bmatrix}\]</span></p>
 <p>We initialize this matrix in R below:</p>
 <pre class="r"><code># setup transition matrix 
 P &lt;- t(matrix(c( 0.7, 0.2, 0.1, 
                  0.4, 0.6,   0, 
                    0,   1,   0  ), nrow=3, ncol=3))</code></pre>
-<p>We will inspect the limiting probabilities and compare them to the stationary distribution. In <a href="stationary_distribution.html">this note</a>, we derived the stationary distribution for this transition matrix. Recall that the stationary distribution <span class="math inline">\(\pi\)</span> is the vector such that <span class="math display">\[\pi = \pi P\]</span></p>
-<p>We found that: <span class="math display">\[\begin{align*}
+<p>We will inspect the limiting probabilities and compare them to the
+stationary distribution. In <a href="stationary_distribution.html">this
+note</a>, we derived the stationary distribution for this transition
+matrix. Recall that the stationary distribution <span
+class="math inline">\(\pi\)</span> is the vector such that <span
+class="math display">\[\pi = \pi P\]</span></p>
+<p>We found that: <span class="math display">\[
 \pi_1 \approx 0.54, \pi_2 \approx 0.41, \pi_3 \approx 0.05
-\end{align*}\]</span></p>
-<p>Therefore, with proper conditions (see below), we expect the Markov chain to spend more time in states 1 and 2 as the chain evolves.</p>
-<p>Now we will use the function we wrote in the previous section to check this result numerically.</p>
+\]</span></p>
+<p>Therefore, with proper conditions (see below), we expect the Markov
+chain to spend more time in states 1 and 2 as the chain evolves.</p>
+<p>Now we will use the function we wrote in the previous section to
+check this result numerically.</p>
 <pre class="r"><code>sim1 &lt;- run.mc.sim(P)</code></pre>
-<p>Our function returns a list containing two matrices. The second matrix called “states” contains the states of each of our simulated chains through time. Recall that our state space is <span class="math inline">\(\{1,2,3\}\)</span>. Below, we first visualize how 5 of these chains evolve:</p>
+<p>Our function returns a list containing two matrices. The second
+matrix called “states” contains the states of each of our simulated
+chains through time. Recall that our state space is <span
+class="math inline">\(\{1,2,3\}\)</span>. Below, we first visualize how
+5 of these chains evolve:</p>
 <pre class="r"><code>states &lt;- sim1[[2]]
 matplot(states[,1:5], type=&#39;l&#39;, lty=1, col=1:5, ylim=c(0,4), ylab=&#39;state&#39;, xlab=&#39;time&#39;)
 abline(h=1, lty=3)
 abline(h=3, lty=3)</code></pre>
-<p><img src="figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-4-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
 Past versions of unnamed-chunk-4-1.png
@@ -900,7 +993,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-4-1.png" target="_blank">c3b365a</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-4-1.png" target="_blank">5f62ee6</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-4-1.png" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -913,12 +1017,21 @@ John Blischak
 </table>
 </div>
 </div>
-<p>The first matrix we get from our function contains <span class="math inline">\(\pi^{(n)}\)</span> through time. We can see how <span class="math inline">\(\pi^{(n)}\)</span> evolves as <span class="math inline">\(n\)</span> grows, and we can check if it converges to the stationary distribution we found above. For irreducible finite state Markov chains, note that <span class="math inline">\(\pi^{(n)}\)</span> converges if and only if the Markov chain is aperiodic. In this note, we only consider finite, irreducible, and aperiodic Markov chains.</p>
-<p>Using <span class="math inline">\(\pi^{(n)}\)</span>, we plot the time evolution of the probability of being in each state:</p>
+<p>The first matrix we get from our function contains <span
+class="math inline">\(\pi^{(n)}\)</span> through time. We can see how
+<span class="math inline">\(\pi^{(n)}\)</span> evolves as <span
+class="math inline">\(n\)</span> grows, and we can check if it converges
+to the stationary distribution we found above. For irreducible finite
+state Markov chains, note that <span
+class="math inline">\(\pi^{(n)}\)</span> converges if and only if the
+Markov chain is aperiodic. In this note, we only consider finite,
+irreducible, and aperiodic Markov chains.</p>
+<p>Using <span class="math inline">\(\pi^{(n)}\)</span>, we plot the
+time evolution of the probability of being in each state:</p>
 <pre class="r"><code>all.probs &lt;- sim1[[1]]
 matplot(all.probs, type=&#39;l&#39;, col=1:3, lty=1, ylab=&#39;probability&#39;, xlab=&#39;time&#39;)
 legend(&#39;topright&#39;, c(&#39;state.1&#39;, &#39;state.2&#39;, &#39;state.3&#39;), lty=1, col=1:3)</code></pre>
-<p><img src="figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-5-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
 Past versions of unnamed-chunk-5-1.png
@@ -943,7 +1056,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-5-1.png" target="_blank">c3b365a</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-5-1.png" target="_blank">5f62ee6</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-5-1.png" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -956,8 +1080,15 @@ John Blischak
 </table>
 </div>
 </div>
-<p>Indeed, we see that these probabilities quickly converge. Just by looking at the plot, we can see that the final probabilities are about equal to the stationary distribution <span class="math inline">\(\pi\)</span> we found above.</p>
-<p>By inspecting the actual values, we confirm that the values of <span class="math inline">\(\pi^{(n)}\)</span> converge to the vector <span class="math inline">\(\pi\)</span> exactly. The first row in the matrix below is from the simulation, and the second row is the quantity we obtained by solving for the stationary distribution:</p>
+<p>Indeed, we see that these probabilities quickly converge. Just by
+looking at the plot, we can see that the final probabilities are about
+equal to the stationary distribution <span
+class="math inline">\(\pi\)</span> we found above.</p>
+<p>By inspecting the actual values, we confirm that the values of <span
+class="math inline">\(\pi^{(n)}\)</span> converge to the vector <span
+class="math inline">\(\pi\)</span> exactly. The first row in the matrix
+below is from the simulation, and the second row is the quantity we
+obtained by solving for the stationary distribution:</p>
 <pre class="r"><code># solve for stationary distribution
 A         &lt;- matrix(c(-0.3, 0.2, 0.1, 1, 0.4, -0.4, 0, 1, 0, 1, -1, 1 ), ncol=3,nrow=4)
 b         &lt;- c(0,0,0, 1)
@@ -966,15 +1097,17 @@ pi        &lt;- drop(solve(t(A) %*% A, t(A) %*% b))
 # show comparison
 results1           &lt;- t(data.frame(pi_n = all.probs[50,], pi = pi))
 colnames(results1) &lt;- c(&#39;state.1&#39;, &#39;state.2&#39;, &#39;state.3&#39;)
-results1</code></pre>
-<pre><code>       state.1   state.2    state.3
-pi_n 0.5405405 0.4054054 0.05405405
-pi   0.5405405 0.4054054 0.05405405</code></pre>
-<p>Finally, we can also plot the proportion of chains that are in each state through time. These should roughly equal the probability vectors above, with some noise due to random chance:</p>
+results1
+#        state.1   state.2    state.3
+# pi_n 0.5405405 0.4054054 0.05405405
+# pi   0.5405405 0.4054054 0.05405405</code></pre>
+<p>Finally, we can also plot the proportion of chains that are in each
+state through time. These should roughly equal the probability vectors
+above, with some noise due to random chance:</p>
 <pre class="r"><code>state.probs &lt;- t(apply(apply(sim1[[2]], 1, function(x) table(factor(x, levels=1:3))), 2, function(x) x/sum(x)))
 matplot(state.probs[1:50,], col=1:3, lty=1, type=&#39;l&#39;, ylab=&#39;empirical probability&#39;, xlab=&#39;time&#39;)
 legend(&#39;topright&#39;, c(&#39;state.1&#39;, &#39;state.2&#39;, &#39;state.3&#39;), lty=1, col=1:3)</code></pre>
-<p><img src="figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-7-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
 Past versions of unnamed-chunk-7-1.png
@@ -999,7 +1132,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-7-1.png" target="_blank">c3b365a</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-7-1.png" target="_blank">5f62ee6</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-7-1.png" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -1015,15 +1159,25 @@ John Blischak
 </div>
 <div id="simulation-2-8x8-example" class="section level1">
 <h1>Simulation 2: 8x8 example</h1>
-<p>Next we will quickly do two larger experiments with the size of our state space equal to 8. Assume our probability transition matrix is: <span class="math display">\[P = \begin{bmatrix}
-    0.33 &amp; 0.66 &amp; 0     &amp; 0   &amp; 0    &amp; 0     &amp; 0    &amp; 0 \\
-    0.33 &amp; 0.33 &amp; 0.33  &amp; 0   &amp; 0    &amp; 0     &amp; 0    &amp; 0 \\
-    0    &amp; 0.33 &amp; 0.33 &amp; 0.33 &amp; 0    &amp; 0     &amp; 0    &amp; 0 \\
-    0    &amp; 0    &amp; 0.33 &amp; 0.33 &amp; 0.33 &amp; 0     &amp; 0    &amp; 0 \\
-    0    &amp; 0    &amp; 0    &amp; 0.33 &amp; 0.33 &amp; 0.33  &amp; 0    &amp; 0   \\
-    0    &amp; 0    &amp; 0    &amp; 0    &amp; 0.33 &amp; 0.33  &amp; 0.33 &amp; 0   \\
-    0    &amp; 0    &amp; 0    &amp; 0    &amp; 0    &amp; 0.33  &amp; 0.33 &amp; 0.33 \\
-    0    &amp; 0    &amp; 0    &amp; 0    &amp; 0    &amp; 0     &amp; 0.66 &amp; 0.33 \\
+<p>Next we will quickly do two larger experiments with the size of our
+state space equal to 8. Assume our probability transition matrix is:
+<span class="math display">\[P = \begin{bmatrix}
+    0.33 &amp; 0.66 &amp; 0     &amp; 0   &amp; 0    &amp; 0     &amp;
+0    &amp; 0 \\
+    0.33 &amp; 0.33 &amp; 0.33  &amp; 0   &amp; 0    &amp; 0     &amp;
+0    &amp; 0 \\
+    0    &amp; 0.33 &amp; 0.33 &amp; 0.33 &amp; 0    &amp; 0     &amp;
+0    &amp; 0 \\
+    0    &amp; 0    &amp; 0.33 &amp; 0.33 &amp; 0.33 &amp; 0     &amp;
+0    &amp; 0 \\
+    0    &amp; 0    &amp; 0    &amp; 0.33 &amp; 0.33 &amp; 0.33  &amp;
+0    &amp; 0   \\
+    0    &amp; 0    &amp; 0    &amp; 0    &amp; 0.33 &amp; 0.33  &amp;
+0.33 &amp; 0   \\
+    0    &amp; 0    &amp; 0    &amp; 0    &amp; 0    &amp; 0.33  &amp;
+0.33 &amp; 0.33 \\
+    0    &amp; 0    &amp; 0    &amp; 0    &amp; 0    &amp; 0     &amp;
+0.66 &amp; 0.33 \\
 \end{bmatrix}\]</span></p>
 <p>We first initialize our transition matrix in R:</p>
 <pre class="r"><code>P &lt;- t(matrix(c( 1/3, 2/3,   0,   0,  0,   0,   0,   0,
@@ -1034,7 +1188,14 @@ John Blischak
                    0,   0,   0,   0, 1/3, 1/3, 1/3,  0,
                    0,   0,   0,   0,   0, 1/3, 1/3, 1/3,
                    0,   0,   0,   0,   0,   0, 2/3, 1/3), nrow=8, ncol=8))</code></pre>
-<p>After briefly studying this matrix, we can see that for states 2 through 7, this transition matrix forces the chain to either stay in the current state or move one state up or down, all with equal probability. For the edge cases, states 1 and 8, the chain can either stay or reflect towards the middle states. Since it’s “easier” to get to one of the middle states (either from above or below), we should see that the probabilities for these states converge to a higher number than the states on the boundaries.</p>
+<p>After briefly studying this matrix, we can see that for states 2
+through 7, this transition matrix forces the chain to either stay in the
+current state or move one state up or down, all with equal probability.
+For the edge cases, states 1 and 8, the chain can either stay or reflect
+towards the middle states. Since it’s “easier” to get to one of the
+middle states (either from above or below), we should see that the
+probabilities for these states converge to a higher number than the
+states on the boundaries.</p>
 <p>Now we run our simulation with the transition matrix above:</p>
 <pre class="r"><code>sim2a &lt;- run.mc.sim(P)</code></pre>
 <p>and now plot 5 of the chains through time below:</p>
@@ -1042,7 +1203,7 @@ John Blischak
 matplot(states[,1:5], type=&#39;l&#39;, lty=1, col=1:5, ylim=c(0,9), ylab=&#39;state&#39;, xlab=&#39;time&#39;)
 abline(h=1, lty=3)
 abline(h=8, lty=3)</code></pre>
-<p><img src="figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-10-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
 Past versions of unnamed-chunk-10-1.png
@@ -1067,7 +1228,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-10-1.png" target="_blank">c3b365a</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-10-1.png" target="_blank">5f62ee6</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-10-1.png" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -1080,12 +1252,13 @@ John Blischak
 </table>
 </div>
 </div>
-<p>Next we inspect <span class="math inline">\(\pi^{(n)}\)</span> through time:</p>
+<p>Next we inspect <span class="math inline">\(\pi^{(n)}\)</span>
+through time:</p>
 <pre class="r"><code>all.probs &lt;- sim2a[[1]]
 matplot(all.probs, type=&#39;l&#39;, col=1:8, lty=1, ylab=&#39;probability&#39;,
         xlab=&#39;time&#39;, ylim=c(0, 0.5))
 legend(&#39;topright&#39;, paste(&#39;state.&#39;, 1:8, sep=&#39;&#39;), lty=1, col=1:8)</code></pre>
-<p><img src="figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-11-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
 Past versions of unnamed-chunk-11-1.png
@@ -1110,7 +1283,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-11-1.png" target="_blank">c3b365a</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-11-1.png" target="_blank">5f62ee6</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-11-1.png" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -1123,16 +1307,26 @@ John Blischak
 </table>
 </div>
 </div>
-<p>These results match our intuition above. The probability of being in states 1 and 8 converge to smaller values than the others.</p>
-<p>Now we alter the transition matrix above to encourage the chain to stay in states 4 and 5: <span class="math display">\[P = \begin{bmatrix}
-    0.33 &amp; 0.66 &amp; 0     &amp; 0   &amp; 0    &amp; 0     &amp; 0    &amp; 0 \\
-    0.33 &amp; 0.33 &amp; 0.33  &amp; 0   &amp; 0    &amp; 0     &amp; 0    &amp; 0 \\
-    0    &amp; 0.08 &amp; 0.08 &amp; 0.84 &amp; 0    &amp; 0     &amp; 0    &amp; 0 \\
-    0    &amp; 0    &amp; 0.08 &amp; 0.84 &amp; 0.08 &amp; 0     &amp; 0    &amp; 0 \\
-    0    &amp; 0    &amp; 0    &amp; 0.08 &amp; 0.84 &amp; 0.08  &amp; 0    &amp; 0   \\
-    0    &amp; 0    &amp; 0    &amp; 0    &amp; 0.84 &amp; 0.08  &amp; 0.08 &amp; 0   \\
-    0    &amp; 0    &amp; 0    &amp; 0    &amp; 0    &amp; 0.33  &amp; 0.33 &amp; 0.33 \\
-    0    &amp; 0    &amp; 0    &amp; 0    &amp; 0    &amp; 0     &amp; 0.66 &amp; 0.33 \\
+<p>These results match our intuition above. The probability of being in
+states 1 and 8 converge to smaller values than the others.</p>
+<p>Now we alter the transition matrix above to encourage the chain to
+stay in states 4 and 5: <span class="math display">\[P = \begin{bmatrix}
+    0.33 &amp; 0.66 &amp; 0     &amp; 0   &amp; 0    &amp; 0     &amp;
+0    &amp; 0 \\
+    0.33 &amp; 0.33 &amp; 0.33  &amp; 0   &amp; 0    &amp; 0     &amp;
+0    &amp; 0 \\
+    0    &amp; 0.08 &amp; 0.08 &amp; 0.84 &amp; 0    &amp; 0     &amp;
+0    &amp; 0 \\
+    0    &amp; 0    &amp; 0.08 &amp; 0.84 &amp; 0.08 &amp; 0     &amp;
+0    &amp; 0 \\
+    0    &amp; 0    &amp; 0    &amp; 0.08 &amp; 0.84 &amp; 0.08  &amp;
+0    &amp; 0   \\
+    0    &amp; 0    &amp; 0    &amp; 0    &amp; 0.84 &amp; 0.08  &amp;
+0.08 &amp; 0   \\
+    0    &amp; 0    &amp; 0    &amp; 0    &amp; 0    &amp; 0.33  &amp;
+0.33 &amp; 0.33 \\
+    0    &amp; 0    &amp; 0    &amp; 0    &amp; 0    &amp; 0     &amp;
+0.66 &amp; 0.33 \\
 \end{bmatrix}\]</span></p>
 <p>and initialize the transition matrix in R:</p>
 <pre class="r"><code>P &lt;- t(matrix(c( 1/3,   2/3,    0,    0,    0,    0,    0,   0,
@@ -1144,12 +1338,14 @@ John Blischak
                    0,     0,    0,    0,    0,  1/3,  1/3, 1/3,
                    0,     0,    0,    0,    0,    0,  2/3, 1/3 ), nrow=8, ncol=8))</code></pre>
 <pre class="r"><code>sim2b &lt;- run.mc.sim(P)</code></pre>
-<p>Below we inspect <span class="math inline">\(\pi^{(n)}\)</span> through time and see that the probability vector converges to a vector placing most of the probability mass on states 4 and 5.</p>
+<p>Below we inspect <span class="math inline">\(\pi^{(n)}\)</span>
+through time and see that the probability vector converges to a vector
+placing most of the probability mass on states 4 and 5.</p>
 <pre class="r"><code>all.probs &lt;- sim2b[[1]]
 matplot(all.probs, type=&#39;l&#39;, col=1:8, lty=1, ylab=&#39;probability&#39;,
         xlab=&#39;time&#39;, ylim=c(0,1.2))
 legend(&#39;topright&#39;, paste(&#39;state.&#39;, 1:8, sep=&#39;&#39;), lty=1, col=1:8)</code></pre>
-<p><img src="figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-14-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
 Past versions of unnamed-chunk-14-1.png
@@ -1174,7 +1370,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-14-1.png" target="_blank">c3b365a</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-14-1.png" target="_blank">5f62ee6</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-14-1.png" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -1187,11 +1394,12 @@ John Blischak
 </table>
 </div>
 </div>
-<p>Finally we confirm that our empirical probabilities also exhibit similar behavior:</p>
+<p>Finally we confirm that our empirical probabilities also exhibit
+similar behavior:</p>
 <pre class="r"><code>state.probs &lt;- t(apply(apply(sim2b[[2]], 1, function(x) table(factor(x, levels=1:8))), 2, function(x) x/sum(x)))
 matplot(state.probs[1:50,], col=1:8, lty=1, type=&#39;l&#39;, ylab=&#39;empirical probability&#39;, xlab=&#39;time&#39;, ylim=c(0,1.2))
 legend(&#39;topright&#39;, paste(&#39;state.&#39;, 1:8, sep=&#39;&#39;), lty=1, col=1:8)</code></pre>
-<p><img src="figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-15-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
 Past versions of unnamed-chunk-15-1.png
@@ -1216,7 +1424,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-15-1.png" target="_blank">c3b365a</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-15-1.png" target="_blank">5f62ee6</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-15-1.png" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -1229,65 +1448,49 @@ John Blischak
 </table>
 </div>
 </div>
-<br> <br>
+<br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.5.2 (2018-12-20)
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
-Running under: macOS Mojave 10.14.1
-
-Matrix products: default
-BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
-
-locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-loaded via a namespace (and not attached):
- [1] workflowr_1.2.0 Rcpp_1.0.0      digest_0.6.18   rprojroot_1.3-2
- [5] backports_1.1.3 git2r_0.24.0    magrittr_1.5    evaluate_0.12  
- [9] stringi_1.2.4   fs_1.2.6        whisker_0.3-2   rmarkdown_1.11 
-[13] tools_3.5.2     stringr_1.3.1   glue_1.3.0      xfun_0.4       
-[17] yaml_2.2.0      compiler_3.5.2  htmltools_0.3.6 knitr_1.21     </code></pre>
+<pre class="r"><code>sessionInfo()
+# R version 4.3.3 (2024-02-29)
+# Platform: aarch64-apple-darwin20 (64-bit)
+# Running under: macOS 15.7.1
+# 
+# Matrix products: default
+# BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+# LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+# 
+# locale:
+# [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+# 
+# time zone: America/Chicago
+# tzcode source: internal
+# 
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# 
+# loaded via a namespace (and not attached):
+#  [1] vctrs_0.6.5       cli_3.6.5         knitr_1.50        rlang_1.1.6      
+#  [5] xfun_0.52         stringi_1.8.7     promises_1.3.3    jsonlite_2.0.0   
+#  [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.33.0     
+# [13] htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.10       rmarkdown_2.29   
+# [17] evaluate_1.0.4    jquerylib_0.1.4   tibble_3.3.0      fastmap_1.2.0    
+# [21] yaml_2.3.10       lifecycle_1.0.4   whisker_0.4.1     stringr_1.5.1    
+# [25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
+# [29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
+# [33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0</code></pre>
 </div>
 </div>
 
-<hr>
-<p>
-    This site was created with <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-</p>
-<hr>
-
-<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
-
-<!-- disqus
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'rmarkdown'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
--->
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->
@@ -1296,6 +1499,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 </div>
@@ -1307,13 +1512,59 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

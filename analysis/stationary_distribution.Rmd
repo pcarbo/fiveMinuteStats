@@ -1,11 +1,27 @@
 ---
-title: "Discrete Markov Chains: Finding the Stationary Distribution"
-author: "Matt Bonakdarpour; with edits by Matthew Stephens and Jitao David Zhang"
-date: 2016-01-21
+title: "Discrete Markov chains: finding the stationary distribution"
+author: 
+  name: Matt Bonakdarpour, with contributions by Matthew Stephens and Jitao David Zhang
+  affiliation: University of Chicago
+date: January 15, 2026
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
+See [here][pdf_version] for a PDF version of this vignette.
 
-
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
+```
 
 # Pre-requisites
 
@@ -28,18 +44,22 @@ Since every state is *accessible* from every other state, this Markov chain is i
 $$\pi = \pi P$$. 
 
 Therefore, we can find our stationary distribution by solving the following linear system:
-$$\begin{align*}
+$$
+\begin{aligned}
 0.7\pi_1 + 0.4\pi_2  &= \pi_1 \\
 0.2\pi_1 + 0.6\pi_2 + \pi_3 &= \pi_2 \\
 0.1\pi_1 &= \pi_3
-\end{align*}$$
+\end{aligned}
+$$
 subject to $\pi_1 + \pi_2 + \pi_3 = 1$. Putting these four equations together and moving all of the variables to the left hand side, we get the following linear system:
-$$\begin{align*}
+$$
+\begin{aligned}
 -0.3\pi_1 + 0.4\pi_2  &= 0 \\
 0.2\pi_1 + -0.4\pi_2 + \pi_3 &= 0 \\
 0.1\pi_1 - \pi_3 &= 0 \\
 \pi_1 + \pi_2 + \pi_3 &= 1
-\end{align*}$$
+\end{aligned}
+$$
 
 We will define the linear system in matrix notation:
 $$\underbrace{\begin{bmatrix}
@@ -78,9 +98,9 @@ pi
 ```
 
 We find that:
-$$\begin{align*}
+$$
 \pi_1 \approx 0.54, \pi_2 \approx 0.41, \pi_3 \approx 0.05
-\end{align*}$$
+$$
 
 Therefore, under proper conditions, we expect the Markov chain to spend more time in states 1 and 2 as the chain evolves.
 
@@ -89,11 +109,13 @@ Therefore, under proper conditions, we expect the Markov chain to spend more tim
 Recall that we are attempting to find a solution to 
 $$\pi = \pi P$$
 such that $\sum_i \pi_i =1$. First we rearrange the expression above to get:
-$$\begin{align}
+$$
+\begin{aligned}
 \pi - \pi P &= 0 \\
 \pi (I - P) &= 0 \\
 (I - P)^T\pi^T &= 0
-\end{align}$$
+\end{aligned}
+$$
 
 One challenge though is that we need the constrained solution which respects that $\pi$ describes a probability distribution (i.e. $\sum \pi_i = 1$).  Luckily this is a linear constraint that is easily represented by adding another equation to the system.  So as a small trick, we need to add a row of all 1's to our $(I-P)^T$ (call this new matrix $A$) and a 1 to the last element of the zero vector on the right hand side (call this new vector $b$). Now we want to solve $A\pi = b$ which is over-determined so we solve it as above using `qr.solve`.
 
@@ -118,3 +140,4 @@ stationary(matrix(c(0.7, 0.2, 0.1, 0.4, 0.6, 0, 0, 1, 0),
                   nrow=3, byrow=TRUE))
 ```
 
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/stationary_distribution.pdf
