@@ -364,7 +364,7 @@ University of Chicago<br><h4 class="date">January 15, 2026</h4>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -375,8 +375,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -389,9 +389,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
@@ -414,21 +414,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -519,15 +516,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreea641c10e0611da9ec66059d72bee69882a07b0bdtargetblanka641c10a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreea6e712d333be8bddd5b326936e33fe4e90b01cfftargetblanka6e712da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/a641c10e0611da9ec66059d72bee69882a07b0bd" target="_blank">a641c10</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/a6e712d333be8bddd5b326936e33fe4e90b01cff" target="_blank">a6e712d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreea641c10e0611da9ec66059d72bee69882a07b0bdtargetblanka641c10a"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreea6e712d333be8bddd5b326936e33fe4e90b01cfftargetblanka6e712da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -537,7 +534,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/a641c10e0611da9ec66059d72bee69882a07b0bd" target="_blank">a641c10</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/a6e712d333be8bddd5b326936e33fe4e90b01cff" target="_blank">a6e712d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -551,12 +548,7 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-Unstaged changes:
-    Modified:   Makefile
-    Modified:   analysis/simulating_discrete_chains_1.Rmd
-    Modified:   analysis/simulating_discrete_chains_2.Rmd
-    Modified:   analysis/stationary_distribution.Rmd
-
+working directory clean
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not
@@ -602,6 +594,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/a2840f734db21960983f6ed574fc6afcb89a4b99/analysis/simulating_discrete_chains_2.Rmd" target="_blank">a2840f7</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-15
+</td>
+<td>
+Generated pdf versions of the vignettes for week 3.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/a2840f734db21960983f6ed574fc6afcb89a4b99/docs/simulating_discrete_chains_2.html" target="_blank">a2840f7</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-15
+</td>
+<td>
+Generated pdf versions of the vignettes for week 3.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -993,6 +1019,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/a2840f734db21960983f6ed574fc6afcb89a4b99/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-4-1.png" target="_blank">a2840f7</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-4-1.png" target="_blank">5f62ee6</a>
 </td>
 <td>
@@ -1054,6 +1091,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/a2840f734db21960983f6ed574fc6afcb89a4b99/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-5-1.png" target="_blank">a2840f7</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-5-1.png" target="_blank">5f62ee6</a>
@@ -1130,6 +1178,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/a2840f734db21960983f6ed574fc6afcb89a4b99/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-7-1.png" target="_blank">a2840f7</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-7-1.png" target="_blank">5f62ee6</a>
@@ -1228,6 +1287,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/a2840f734db21960983f6ed574fc6afcb89a4b99/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-10-1.png" target="_blank">a2840f7</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-10-1.png" target="_blank">5f62ee6</a>
 </td>
 <td>
@@ -1281,6 +1351,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/a2840f734db21960983f6ed574fc6afcb89a4b99/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-11-1.png" target="_blank">a2840f7</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-11-1.png" target="_blank">5f62ee6</a>
@@ -1370,6 +1451,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/a2840f734db21960983f6ed574fc6afcb89a4b99/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-14-1.png" target="_blank">a2840f7</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-14-1.png" target="_blank">5f62ee6</a>
 </td>
 <td>
@@ -1422,6 +1514,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/a2840f734db21960983f6ed574fc6afcb89a4b99/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-15-1.png" target="_blank">a2840f7</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/simulating_discrete_chains_2.Rmd/unnamed-chunk-15-1.png" target="_blank">5f62ee6</a>
