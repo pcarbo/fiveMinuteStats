@@ -61,9 +61,9 @@ title: Home
 * [The Metropolis-Hastings algorithm, Part 1](MH_intro.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/MH_intro.pdf))
 * [The Metropolis-Hastings algorithm, Part 2](MH_intro_02.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/MH_intro_02.pdf))
 * [Simple examples of Metropolis-Hastings algorithm](MH-examples1.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/MH-examples1.pdf))
-* [Introduction to Gibbs Sampling](gibbs1.html)
-* [Gibbs Sampling for a univariate normal mixture](gibbs2.html)
-* [Gibbs Sampling for a mixture of product-bernoullis](gibbs_structure_simple.html)
+* [Introduction to Gibbs sampling](gibbs1.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/gibbs1.pdf))
+* [Gibbs sampling for a univariate normal mixture](gibbs2.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/gibbs2.pdf))
+* [Gibbs sampling for a mixture of product-Bernoullis](gibbs_structure_simple.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/gibbs_structure_simple.pdf))
 
 ### Variational inference
 
