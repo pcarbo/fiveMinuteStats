@@ -208,108 +208,111 @@ lines(x,dbeta(x,122,80))
 
 ## Exercise
 
-Investigate how the starting point and proposal standard deviation affect the convergence of the algorithm. 
+Investigate how the starting point and proposal standard deviation
+affect the convergence of the algorithm.
 
 Example 3: Estimating an allele frequency and inbreeding coefficient
 ====================================================================
 
-A slightly more complex alternative than HWE is to assume that
-there is a tendency for people to mate with others who are 
-slightly more closely-related than "random" (as might
-happen in a geographically-structured population, for example).
-This will result in an excess of homozygotes compared with
-HWE. A simple way to capture this is to introduce an extra parameter,
-the "inbreeding coefficient" $f$, and assume that the genotypes
-$AA$, $Aa$ and $aa$ have frequencies $fp + (1-f)p*p, (1-f) 2p(1-p)$,
-and $f(1-p) + (1-f)(1-p)(1-p)$.
+A slightly more complex alternative than HWE is to assume that there
+is a tendency for people to mate with others who are slightly more
+related than "random" (as might happen in a geographically structured
+population, for example). This will result in an excess of homozygotes
+compared with HWE. A simple way to capture this is to introduce an
+extra parameter, the "inbreeding coefficient" $f$, and assume that the
+genotypes $AA$, $Aa$ and $aa$ have frequencies $fp + (1-f)p^2$, $2(1-f)
+p(1-p)$, and $f(1-p) + (1-f)(1-p)^2$, respectively.
 
-In most cases it would be natural to treat $f$ as a feature of
+In most cases, it would be natural to treat $f$ as a feature of
 the population, and therefore assume $f$ is constant across loci.
-For simplicity we will consider just a single locus.
+For simplicity, we will consider just a single locus.
 
 Note that both $f$ and $p$ are constrained to lie between 0 and 1
-(inclusive). A simple prior for each of these two parameters is to assume
-that they are independent, uniform on $[0,1]$. Suppose
-that we sample $n$ individuals, and observe $n_{AA}$ with genotype $AA$,
-$n_{Aa}$ with genotype $Aa$ and $n_{aa}$ with genotype $aa$. 
+(inclusive). A simple prior for each of these two parameters is to
+assume that they are independent and uniform on $[0,1]$.
+
+Suppose that we sample $n$ individuals, and observe $n_{AA}$
+individuals with genotype $AA$, $n_{Aa}$ individuals with genotype
+$Aa$, and $n_{aa}$ individuals with genotype $aa$.
 
 Exercise
 --------
 
-- Write a short MCMC routine to sample from the joint
-distribution of $f$ and $p$. 
+1. Write an M-H algorithm to sample from the joint distribution of $f$
+and $p$. *Hint:* Below is some code to get you started. (You'll need
+to fill in the "...") As a first step, I suggest writing the function
+to compute the log-likelihood for the inbreeding model.
 
-Hint: here is a start; you'll need to fill in the ...
-
-```{r eval=FALSE}
-# The first step is probably to code a log-likelihood function for the inbreeding model....
-log_likelihood_inbreeding = function(...){
-  ...
-}
-
-# then use the log-likelihood within your MCMC scheme
-fpsampler = function(nAA, nAa, naa, niter, fstartval, pstartval, fproposalsd, pproposalsd){
-  f = rep(0,niter)
-  p = rep(0,niter)
-  f[1] = fstartval
-  p[1] = pstartval
-  for(i in 2:niter){
-    currentf = f[i-1]
-    currentp = p[i-1]
-    newf = currentf + ...
-    newp = currentp + ...
-    ...
-  }
-  return(list(f=f,p=p)) # return a "list" with two elements named f and p
+```{r log-likelihood-inbreeding}
+log_likelihood_inbreeding <- function (...) {
+  # ...
 }
 ```
 
-- Use this sample to obtain point estimates for
-$f$ and $p$ (e.g. using posterior means) and interval estimates for both $f$ and $p$
-(e.g. 90% posterior credible intervals), when the data are $n_{AA} = 50, n_{Aa} = 21, n_{aa}=29$.
+```{r fpsampler}
+fpsampler <- function (nAA, nAa, naa, niter, fstartval, pstartval,
+                       fproposalsd, pproposalsd) {
+  f <- rep(0,niter)
+  p <- rep(0,niter)
+  f[1] <- fstartval
+  p[1] <- pstartval
+  for (i in 2:niter) {
+    currentf <- f[i-1]
+    currentp <- p[i-1]
+    # newf <- currentf + ...
+    # newp <- currentp + ...
+    # ...
+  }
+  return(list(f = f,p = p))
+}
+```
+
+2. Use the output of your M-H algorithm to compute point estimates for
+$f$ and $p$ (e.g., posterior means) as well as interval estimates for
+$f$ and $p$ (e.g., 90% posterior credible intervals) when the data are
+$n_{AA} = 50$, $n_{Aa} = 21$, $n_{aa} = 29$.
 
 Addendum: Gibbs sampling
 ========================
 
-You could also tackle this problem with a Gibbs Sampler (see vignettes
-[here](gibbs1.Rmd) and [here](gibbs2.Rmd)).
-
-To do so you will want to use the following "latent variable"
-representation of the model:
-
+You could also tackle this problem with a Gibbs sampler (see also the
+[gibbs1][gibbs1] and [gibbs2][gibbs2] vignettes). To do so, you will
+want to use the following "latent variable" representation of the
+model:
 $$
-z_i \sim Bernoulli(f)
+\begin{aligned}
+\Pr(g_i = AA \mid z_i = 0) &= p^2 \\
+\Pr(g_i = AA \mid z_i = 1) &= p \\
+\Pr(g_i = Aa \mid z_i = 0) &= 2p(1-p) \\
+\Pr(g_i = Aa \mid z_i = 1) &= 0 \\
+\Pr(g_i = aa \mid z_i = 0) &= (1-p)^2 \\
+\Pr(g_i = aa \mid z_i = 1) &= (1-p),
+\end{aligned}
 $$
-
+and
 $$
-p(g_i=AA | z_i=1) = p; p(g_i=AA | z_i=0) = p^2
-$$
-
-$$
-p(g_i=Aa | z_i = 1)= 0; p(g_i=Aa | z_i=0) = 2p(1-p)
-$$
-
-$$
-p(g_i=aa | z_i = 1) = (1-p); p(g_i =aa | z_i=0) = (1-p)^2
+z_i \sim \mathrm{Bernoulli}(f).
 $$
 
-Summing over $z_i$ gives the same model as above:
-$$
-p(g_i=AA) = fp + (1-f)p^2
-$$
+Note that summing over $z_i$ gives the same model as above, e.g.,
+$\Pr(g_i = AA) = fp + (1-f)p^2$.  (As an exercise, show that the
+probabilities of $g_i = aa$ and $g_i = Aa$ from this "latent variable
+augmented" model are the same as above.)
 
 Exercise
 --------
 
-Using the above, implement a Gibbs Sampler to sample from the joint
-distribution of $z,f,$ and $p$ given genotype data $g$.
-
-Hint: this requires iterating the following steps
+Using the latent variable representation above, implement a Gibbs
+sampler to generate samples from the joint distribution of $z, f$ and
+$p$ given the genotype data $g$. *Hint:* this involves iterating the
+following steps:
   
-1. sample $z$ from $p(z | g, f, p)$
+1. Sample $z$ from $p(z \mid g, f, p)$.
   
-2. sample $f,p$ from $p(f, p | g, z)$
+2. Sample $f, p$ from $p(f, p \mid g, z)$.
 
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/MH-examples1.pdf
 [MH_intro]: https://pcarbo.github.io/fiveMinuteStats/MH_intro.html
 [MH_intro_02]: https://pcarbo.github.io/fiveMinuteStats/MH_intro_02.html
+[gibbs1]: https://pcarbo.github.io/fiveMinuteStats/gibbs1.html
+[gibbs2]: https://pcarbo.github.io/fiveMinuteStats/gibbs2.html
