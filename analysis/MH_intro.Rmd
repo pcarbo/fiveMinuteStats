@@ -42,11 +42,11 @@ for producing samples from distributions that may otherwise be
 difficult to sample from.
 
 Suppose we want to sample from a distribution $\pi$, which we will
-call the "target" distribution. For simplicity we assume that $\pi$ is
+call the "target distribution". For simplicity we assume that $\pi$ is
 a one-dimensional distribution on the real line, although it is easy
 to extend to more than one dimension (see below).
 
-The MH algorithm works by simulating a Markov Chain, whose stationary
+The M-H algorithm works by simulating a Markov Chain, whose stationary
 distribution is $\pi$.  This means that, in the long run, the samples
 from the Markov chain look like the samples from $\pi$. As we will
 see, the algorithm is incredibly simple and flexible.  Its main
@@ -54,87 +54,87 @@ limitation is that, for difficult problems, "in the long run" may mean
 after a *very* long time. However, for simple problems the algorithm
 can work well.
 
-
-The MH algorithm
-================
+The Metropolis-Hastings algorithm
+=================================
 
 The transition kernel
 ---------------------
 
-To implement the MH algorithm, the user (you!)  must provide a
+To implement the M-H algorithm, the user (you!)  must provide a
 "transition kernel", $Q$.  A transition kernel is simply a way of
 moving, randomly, to a new position in space ($y$ say), given a
 current position ($x$ say). That is, $Q$ is a distribution on $y$
-given $x$, and we will write it $Q(y | x)$. In many applications $Q$
-will be a continuous distribution, in which case $Q(y|x)$ will be a
-density on $y$, and so $\int Q(y|x) dy =1$ (for all $x$).
+given $x$, and we will write it $Q(y \mid x)$. In many applications, $Q$
+will be a continuous distribution, in which case $Q(y \mid x)$ will be a
+density on $y$, and so $\int Q(y \mid x) \, dy = 1$ (for all $x$).
 
 For example, a very simple way to generate a new position $y$ from a
 current position $x$ is to add an $N(0,1)$ random number to $x$. That
-is, set $y = x + N(0,1)$, or $y|x \sim N(x,1)$. So
+is, set $y = x + N(0,1)$, or $y \mid x \sim N(x,1)$. So we have
 $$
-Q(y | x) = 1/\sqrt{2\pi} \exp[-0.5(y-x)^2].
+Q(y \mid x) = \frac{1}{\sqrt{2\pi}} \times
+\textstyle \exp\big[-\frac{1}{2}(y-x)^2\big].
 $$
-This kind of kernel, which adds some random number to the current
-position $x$ to obtain $y$, is often used in practice and is called a
-"random walk" kernel.
+This kind of transition kernel, which adds some random number to the
+current position $x$ to obtain $y$, is often used in practice and is
+called a "random walk" transition kernel.
 
-Because of the role $Q$ plays in the MH algorithm (see below), it is
+Because of the role $Q$ plays in the M-H algorithm (see below), it is
 also sometimes called the "proposal distribution". And the example
 given above would be called a "random walk proposal".
 
 The algorithm
 -------------
 
-The MH algorithm for sampling from a target distribution $\pi$, using
+The M-H algorithm for sampling from a target distribution $\pi$, using
 transition kernel $Q$, consists of the following steps:
 
-+ Initialize, $X_1 = x_1$ say.
++ Initialize the Markov chain, $X_1 = x_1$.
 
-+ For $t=1,2,\dots$
++ For $t = 1,2,\ldots$
   
-    - sample $y$ from $Q(y | x_t)$. Think of $y$ as a "proposed" value
+    - Sample $y$ from $Q(y \mid x_t)$. Think of $y$ as a "proposed" value
       for $x_{t+1}$.
 	
-    - Compute $A= \min \left( 1, \frac{\pi(y)Q(x_t | y)}{\pi(x_t)Q(y
-      | x_t)} \right).$ $A$ is often called the "acceptance
+    - Compute $A= \min \big\{1, \frac{\pi(y)Q(x_t \mid  y)}{\pi(x_t)Q(y
+      \mid x_t)} \big\}.$ $A$ is often called the "acceptance
       probabilty".
 	
-    - with probability $A$ "accept" the proposed value, and set
-      $x_{t+1}=y$. Otherwise set $x_{t+1}=x_{t}$.
+    - With probability $A$, "accept" the proposed value, and set
+      $x_{t+1} = y$. Otherwise, set $x_{t+1} = x_t$.
 
-Add section title here
-----------------------
+The Metropolis algorithm
+------------------------
 
 Notice that the example random walk proposal $Q$ given above satisfies
-$Q(y|x)=Q(x|y)$ for all $x,y$.  Any proposal that satisfies this is
-called "symmetric". When $Q$ is symmetric the formula for $A$ in the
-MH algorithm simplifies to:
+$Q(y \mid x) = Q(x \mid y)$ for all $x, y$. Any proposal that
+satisfies this is called "symmetric". When $Q$ is symmetric, the
+formula for $A$ in the M-H algorithm simplifies to
 $$
-A= \min \left( 1, \frac{\pi(y)}{\pi(x_t)} \right).
+A = \min \bigg\{1, \frac{\pi(y)}{\pi(x_t)} \bigg\}.
 $$
 
 This special case of the algorithm, with $Q$ symmetric, was first
-presented by Metropolis et al, 1953, and for this reason it is
+presented by Metropolis et al (1953), and for this reason it is
 sometimes called the "Metropolis algorithm".
 
-In 1970 Hastings presented the more general version -- now known as
-the MH algorithm -- which allows that $Q$ may be
-assymmetric. Specifically Hastings modified the acceptance probability
-by introducing the term $Q(x_t|y)/Q(y|x_t)$. This ratio is sometimes
-called the "Hastings ratio".
+In 1970, Hastings presented the more general version — now known as
+the M-H algorithm — which allows that $Q$ may be assymmetric.
+Specifically, Hastings modified the acceptance probability by
+introducing the term $Q(x_t \mid y)/Q(y \mid x_t)$. This ratio is
+sometimes called the "Hastings ratio".
 
-Toy Example
+Toy example
 ===========
 
-To help understand the MH algorithm we now do a simple example: we
+To help understand the M-H algorithm we now do a simple example: we
 implement the algorithm to sample from an exponential distribution:
 $$
 \pi(x) = \exp(-x) \qquad (x \geq 0).
 $$
-Of course it would be much easier to sample from an exponential
+(Of course it would be much easier to sample from an exponential
 distribution in other ways; we are just using this to illustrate the
-algorithm.
+algorithm.)
 
 Remember that $\pi$ is called the "target" distribution, so we call
 our function to compute $\pi$ `target`:
@@ -145,7 +145,7 @@ target = function(x){
 }
 ```
 
-Now we implement the MH algorithm, using the simple normal random walk
+Now we implement the M-H algorithm, using the simple normal random walk
 transition kernel $Q$ mentioned above. Since this $Q$ is symmetric the
 Hastings ratio is 1, and we get the simpler form for the acceptance
 probability $A$ in the Metropolis algorithm.
@@ -171,7 +171,7 @@ Having run this code we can plot the locations visited by the Markov
 chain $x$ (sometimes called a trace plot).
 
 ```{r}
-plot(x,main="values of x visited by the MH algorithm")
+plot(x,main="values of x visited by the M-H algorithm")
 ```
 
 Remember that we designed this algorithm to sample from an exponential
@@ -180,7 +180,7 @@ enough!) the histogram of $x$ should look like an exponential
 distribution.  Here we check this:
 
 ```{r}
-hist(x,xlim=c(0,10),probability = TRUE, main="Histogram of values of x visited by MH algorithm")
+hist(x,xlim=c(0,10),probability = TRUE, main="Histogram of values of x visited by M-H algorithm")
 xx = seq(0,10,length=100)
 lines(xx,target(xx),col="red")
 ```
@@ -191,7 +191,7 @@ to an exponential distribution.
 Closing remarks
 ===============
 
-One particularly useful feature of the MH algorithm is that it can be
+One particularly useful feature of the M-H algorithm is that it can be
 implemented even when $\pi$ is known only up to a constant: that is,
 $\pi(x) = c f(x)$ for some known $f$, but unknown constant $c$. This
 is because the algorithm depends on $\pi$ only through the ratio
@@ -199,7 +199,7 @@ $\pi(y)/\pi(x_t)=cf(y)/cf(x_t) = f(y)/f(x_t)$.
 
 This issue arises in Bayesian applications, where the posterior
 distribution is proportional to the prior times the likelihood, but
-the constant of proportionality is often unknown. So the MH algorithm
+the constant of proportionality is often unknown. So the M-H algorithm
 is particularly useful for sampling from posterior distributions to
 perform analytically-intractible Bayesian calculations.
 
