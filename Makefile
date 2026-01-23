@@ -52,6 +52,8 @@ all: docs/index.html \
      docs/MH_intro_02.pdf \
      docs/MH-examples1.pdf
 
+index: docs/index.html
+
 docs/index.html : analysis/index.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/index.Rmd",view = FALSE)'
 
