@@ -9,13 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Matthew Stephens" />
 
-<meta name="date" content="2022-04-26" />
+<meta name="date" content="2026-01-23" />
 
-<title>The Metropolis Hastings Algorithm 2</title>
+<title>The Metropolis Hastings algorithm, Part 2</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
@@ -31,14 +30,12 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -77,6 +74,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -97,6 +95,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -154,11 +155,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -187,8 +192,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -196,16 +201,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -322,7 +320,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -343,10 +341,7 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/stephens999/fiveMinuteStats">
-    <span class="fa fa-github"></span>
-     
-  </a>
+  <a href="https://github.com/pcarbo/fiveMinuteStats">source</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -357,16 +352,20 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">The Metropolis Hastings Algorithm 2</h1>
+<h1 class="title toc-ignore">The Metropolis Hastings algorithm, Part
+2</h1>
 <h4 class="author">Matthew Stephens</h4>
-<h4 class="date">2022-04-26</h4>
+<address class="author_afil">
+University of Chicago<br><h4 class="date">January 23, 2026</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -375,7 +374,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -384,17 +385,27 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-04-26
+<strong>Last updated:</strong> 2026-01-23
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
+<span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -403,118 +414,148 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(12345)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(12345)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed12345code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed12345code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(12345)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(12345)</code> was run prior to running the
+code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstreecf196e8bf73d7d14fe24bb6614dff06654af149atargetblankcf196e8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephens999/fiveMinuteStats/tree/cf196e8bf73d7d14fe24bb6614dff06654af149a" target="_blank">cf196e8</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree16519f34b968754b1d101f243e8894183ba052a6targetblank16519f3a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/16519f34b968754b1d101f243e8894183ba052a6" target="_blank">16519f3</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstreecf196e8bf73d7d14fe24bb6614dff06654af149atargetblankcf196e8a" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree16519f34b968754b1d101f243e8894183ba052a6targetblank16519f3a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephens999/fiveMinuteStats/tree/cf196e8bf73d7d14fe24bb6614dff06654af149a" target="_blank">cf196e8</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/16519f34b968754b1d101f243e8894183ba052a6" target="_blank">16519f3</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    .Rhistory
-    Ignored:    .Rproj.user/
-    Ignored:    analysis/.Rhistory
-    Ignored:    analysis/bernoulli_poisson_process_cache/
-    Ignored:    data/
-
 Untracked files:
-    Untracked:  _workflowr.yml
-    Untracked:  analysis/CI.Rmd
-    Untracked:  analysis/gibbs_structure.Rmd
-    Untracked:  analysis/libs/
-    Untracked:  analysis/results.Rmd
-    Untracked:  analysis/shiny/tester/
-    Untracked:  analysis/stan_8schools.Rmd
-
-Unstaged changes:
-    Modified:   analysis/LR_and_BF.Rmd
-    Modified:   analysis/MH-examples1.Rmd
-    Modified:   analysis/MH_intro.Rmd
-    Deleted:    analysis/r_simplemix_extended.Rmd
+    Untracked:  figure/
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -525,7 +566,12 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/MH_intro_02.Rmd</code>) and HTML (<code>docs/MH_intro_02.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/MH_intro_02.Rmd</code>) and HTML
+(<code>docs/MH_intro_02.html</code>) files. If you’ve configured a
+remote Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -554,7 +600,24 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/cf196e8bf73d7d14fe24bb6614dff06654af149a/analysis/MH_intro_02.Rmd" target="_blank">cf196e8</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/85cb9073916364d171aba3fbfc8cc83b39efdb28/analysis/MH_intro_02.Rmd" target="_blank">85cb907</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-23
+</td>
+<td>
+Updates to MH_intro_02 vignette.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/76380cd5c40600967df7afea3b623050faa2a794/docs/MH_intro_02.html" target="_blank">76380cd</a>
 </td>
 <td>
 Matthew Stephens
@@ -563,7 +626,24 @@ Matthew Stephens
 2022-04-26
 </td>
 <td>
-workflowr::wflow_publish(“MH_intro_02.Rmd”)
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/cf196e8bf73d7d14fe24bb6614dff06654af149a/analysis/MH_intro_02.Rmd" target="_blank">cf196e8</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2022-04-26
+</td>
+<td>
+workflowr::wflow_publish("MH_intro_02.Rmd")
 </td>
 </tr>
 </tbody>
@@ -573,111 +653,135 @@ workflowr::wflow_publish(“MH_intro_02.Rmd”)
 </div>
 </div>
 </div>
-<div id="prerequisites" class="section level2">
-<h2>Prerequisites</h2>
-<p>You should be familiar with the <a href="MH_intro.html">Metropolis–Hastings algorithm</a>.</p>
+<p>See <a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/MH_intro_02.pdf">here</a>
+for a PDF version of this vignette.</p>
+<div id="prerequisites" class="section level1">
+<h1>Prerequisites</h1>
+<p>You should be familiar with the basics of the <a
+href="https://pcarbo.github.io/fiveMinuteStats/MH_intro.html">Metropolis-Hastings
+algorithm</a>.</p>
 </div>
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
-<p>In this vignette we follow up on the original algorithm with a couple of points: numerical issues that were glossed over, and a useful plot.</p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>In this vignette, we follow up on the original algorithm with a
+couple of points: (i) numerical issues that were glossed over, and (ii)
+a useful plot.</p>
 </div>
-<div id="avoiding-numerical-issues-in-acceptance-probability" class="section level2">
-<h2>Avoiding numerical issues in acceptance probability</h2>
-<p>The key to the MH algorithm is computing the acceptance probability, which recall is given by <span class="math display">\[A= \min \left( 1, \frac{\pi(y)Q(x_t | y)}{\pi(x_t)Q(y | x_t)} \right).\]</span></p>
-<p>In practice both terms in the fraction may be very close to 0, so on a computer you should do this computation on the logarithmic scale before exponentiating; something like this: <span class="math display">\[\frac{\pi(y)Q(x_t | y)}{\pi(x_t)Q(y | x_t)} = \exp\left[ \log\pi(y) + \log Q(x_t | y)  - \log \pi(x_t) - \log Q(y | x_t) \right]\]</span></p>
-<p>Furthermore, the log values in this expression should be computed directly, and not by computing them and then taking the log. For example, in our previous example we sampled from a target distribution that was the exponential: <span class="math display">\[\pi(x) = \exp(-x) \qquad (x&gt;0)\]</span> we we can directly compute <span class="math inline">\(\log \pi(x) = -x\)</span>. The code we had in that previous example can therefore be written as follows:</p>
-<pre class="r"><code>log_target = function(x){
-  return(ifelse(x&lt;0,-Inf,-x))
-}
-
-x = rep(0,10000)
-x[1] = 100     #initialize; For purposes of illustration I set this to 100
-for(i in 2:10000){
-  current_x = x[i-1]
-  proposed_x = current_x + rnorm(1,mean=0,sd=1)
-  A = exp(log_target(proposed_x) - log_target(current_x) )
-  if(runif(1)&lt;A){
-    x[i] = proposed_x       # accept move with probabily min(1,A)
-  } else {
-    x[i] = current_x        # otherwise &quot;reject&quot; move, and stay where we are
-  }
+<div id="avoiding-numerical-issues-in-the-acceptance-probability"
+class="section level1">
+<h1>Avoiding numerical issues in the acceptance probability</h1>
+<p>The key to the M-H algorithm is computing the acceptance probability,
+which recall is given by <span class="math display">\[
+A = \min \bigg\{ 1, \frac{\pi(y) \, Q(x_t \mid y)}{\pi(x_t) \, Q(y \mid
+x_t)}
+\bigg\}.
+\]</span> In practice, both terms in the fraction may be very close to
+zero, so on a computer you should do this computation on the logarithmic
+scale before exponentiating, something like this: <span
+class="math display">\[
+\frac{\pi(y) \, Q(x_t \mid y)}{\pi(x_t) \, Q(y \mid x_t)} =
+\exp\big\{
+\log\pi(y) - \log \pi(x_t) + \log Q(x_t \mid y) - \log Q(y \mid x_t)
+\big\}].
+\]</span> Furthermore, the log values in this expression should be
+computed directly, and not by computing them and then taking the log.
+For example, in our previous example we sampled from a target
+distribution, which was the exponential: <span class="math display">\[
+\pi(x) = e^{-x}, \quad x &gt; 0.
+\]</span></p>
+<p>Instead, we can directly compute <span
+class="math inline">\(\log\pi(x) = -x\)</span>. The code we had in that
+previous example can therefore be written as follows:</p>
+<pre class="r"><code>log_target &lt;- function (x) 
+  ifelse(x &lt; 0,-Inf,-x)
+x &lt;- rep(0,10000)
+x[1] &lt;- 100
+for (i in 2:10000) {
+  current_x &lt;- x[i-1]
+  proposed_x &lt;- current_x + rnorm(1)
+  A &lt;- exp(log_target(proposed_x) - log_target(current_x))
+  u &lt;- runif(1)
+  if (u &lt; A)
+    x[i] &lt;- proposed_x
+  else
+    x[i] &lt;- current_x
 }</code></pre>
 </div>
-<div id="an-important-and-useful-plot" class="section level2">
-<h2>An important and useful plot</h2>
-<p>In practice MCMC is usually performed in high dimensional space. It can therefore be really hard to visualize directly the values of the chain. A simple 1-d summary that is always available is the log-target density, <span class="math inline">\(\log \pi(x)\)</span>. So you should usually plot a trace of this whenever you run an MCMC scheme.</p>
-<pre class="r"><code>  plot(log_target(x), main = &quot;log-target value&quot;)</code></pre>
-<p><img src="figure/MH_intro_02.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Here the plot shows “typical” behaviour of MCMC scheme: because the starting point is chosen not to be close to the optimal of <span class="math inline">\(\pi\)</span>, the chain initially takes some iterations to find a part of the space where <span class="math inline">\(\pi(x)\)</span> is ``large". Once it finds that part of the space it starts to explore around the region where <span class="math inline">\(\pi(x)\)</span> is large.</p>
+<div id="an-important-and-useful-plot" class="section level1">
+<h1>An important and useful plot</h1>
+<p>In practice, MCMC is usually performed in high-dimensional space. It
+can therefore be really hard to visualize directly the values of the
+chain. A simple 1-d summary that is always available is the log-target
+density, <span class="math inline">\(\log \pi(x)\)</span>. So you should
+usually plot a trace of this whenever you run an MCMC scheme:</p>
+<pre class="r"><code>plot(log_target(x),xlab = &quot;time&quot;,ylab = &quot;log target&quot;,
+     main = &quot;log-target value&quot;)</code></pre>
+<p><img src="figure/MH_intro_02.Rmd/plot-log-target-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Here the plot shows “typical” behaviour of MCMC scheme: because the
+starting point was not close to the optimal of <span
+class="math inline">\(\pi\)</span>, the chain initially makes large
+changes to find a part of the space where <span
+class="math inline">\(\pi(x)\)</span> is “large”. Once it finds that
+part of the space, it starts to explore around the region where <span
+class="math inline">\(\pi(x)\)</span> is large.</p>
 </div>
-<div id="burn-in" class="section level2">
-<h2>Burn-in</h2>
-<p>The plot in the previous section immediately shows that there is an initial period of time where the Markov Chain is unduly influenced by its starting position. In other words, during those iterations the Markov Chain has not “converged” and those samples should not be considered to be samples from <span class="math inline">\(\pi\)</span>. To address this it is common to discard the first set of iterations of any chain; the iterations that are discarded are often called “burn-in”.</p>
-<p>Here, based on the plot we might discard the first 1000 iterations or so as burn-in. Here are comparisons of the samples with and without burnin discarded:</p>
-<pre class="r"><code>hist(x, main=&quot;without burn-in discarded&quot;)</code></pre>
-<p><img src="figure/MH_intro_02.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>hist(x[-(1:1000)], main=&quot;with burn-in discarded&quot;)</code></pre>
-<p><img src="figure/MH_intro_02.Rmd/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="burn-in" class="section level1">
+<h1>Burn-in</h1>
+<p>The plot in the previous section immediately shows that there is an
+initial period of time where the Markov chain is unduly influenced by
+its starting position. In other words, during those iterations the
+Markov chain has not “converged” and those samples should not be
+considered to be samples from <span class="math inline">\(\pi\)</span>.
+To address this, it is common to discard the first set of iterations of
+any chain; the iterations that are discarded are often called
+“burn-in”.</p>
+<p>Based on the plot, we might discard the first 1,000 iterations or so
+as “burn-in”. Here are comparisons of the samples with and without
+burnin discarded:</p>
+<pre class="r"><code>par(mfrow = c(1,2))
+hist(x,xlab = &quot;x&quot;,main = &quot;burnin not discarded&quot;)
+hist(x[-(1:1000)],xlab = &quot;x&quot;,main = &quot;burnin discarded&quot;)</code></pre>
+<p><img src="figure/MH_intro_02.Rmd/burnin-1.png" width="576" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.0 Patched (2021-07-20 r80657)
-Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Monterey 12.2
-
-Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRlapack.dylib
-
-locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7       whisker_0.4      knitr_1.36       magrittr_2.0.2  
- [5] workflowr_1.7.0  R6_2.5.1         rlang_0.4.12     fastmap_1.1.0   
- [9] fansi_0.5.0      highr_0.9        stringr_1.4.0    tools_4.1.0     
-[13] xfun_0.28        utf8_1.2.2       git2r_0.29.0     jquerylib_0.1.4 
-[17] htmltools_0.5.2  ellipsis_0.3.2   rprojroot_2.0.2  yaml_2.2.1      
-[21] digest_0.6.28    tibble_3.1.6     lifecycle_1.0.1  crayon_1.4.2    
-[25] later_1.3.0      sass_0.4.1       vctrs_0.3.8      fs_1.5.0        
-[29] promises_1.2.0.1 glue_1.5.0       evaluate_0.14    rmarkdown_2.11  
-[33] stringi_1.7.5    bslib_0.3.1      compiler_4.1.0   pillar_1.6.4    
-[37] jsonlite_1.7.2   httpuv_1.6.3     pkgconfig_2.0.3 </code></pre>
+<pre class="r"><code>sessionInfo()
+# R version 4.3.3 (2024-02-29)
+# Platform: aarch64-apple-darwin20 (64-bit)
+# Running under: macOS 15.7.1
+# 
+# Matrix products: default
+# BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+# LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+# 
+# locale:
+# [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+# 
+# time zone: America/Chicago
+# tzcode source: internal
+# 
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# 
+# loaded via a namespace (and not attached):
+#  [1] vctrs_0.6.5       cli_3.6.5         knitr_1.50        rlang_1.1.6      
+#  [5] xfun_0.52         stringi_1.8.7     promises_1.3.3    jsonlite_2.0.0   
+#  [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.33.0     
+# [13] htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.10       rmarkdown_2.29   
+# [17] evaluate_1.0.4    jquerylib_0.1.4   tibble_3.3.0      fastmap_1.2.0    
+# [21] yaml_2.3.10       lifecycle_1.0.4   whisker_0.4.1     stringr_1.5.1    
+# [25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
+# [29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
+# [33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0</code></pre>
 </div>
 </div>
 
-<hr>
-<p>
-    This site was created with <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-</p>
-<hr>
-
-<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
-
-<!-- disqus
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'rmarkdown'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
--->
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
