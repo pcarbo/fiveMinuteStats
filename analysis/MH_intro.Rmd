@@ -92,9 +92,9 @@ transition kernel $Q$, consists of the following steps:
     - Sample $y$ from $Q(y \mid x_t)$. Think of $y$ as a "proposed" value
       for $x_{t+1}$.
 	
-    - Compute $A= \min \big\{1, \frac{\pi(y)Q(x_t \mid  y)}{\pi(x_t)Q(y
-      \mid x_t)} \big\}.$ $A$ is often called the "acceptance
-      probabilty".
+    - Compute $A = \min \big\{1, \frac{\pi(y) \, Q(x_t \mid
+      y)}{\pi(x_t) \, Q(y \mid x_t)} \big\}.$ $A$ is often called the
+      "acceptance probabilty".
 	
     - With probability $A$, "accept" the proposed value, and set
       $x_{t+1} = y$. Otherwise, set $x_{t+1} = x_t$.
