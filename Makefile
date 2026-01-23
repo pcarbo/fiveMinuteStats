@@ -236,6 +236,11 @@ docs/MH_intro_02.pdf : analysis/MH_intro_02.Rmd readable.tex
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/MH_intro_02.pdf")'
 	rm temp.Rmd
 
+docs/MH-examples1.pdf : analysis/MH-examples1.Rmd readable.tex
+	cp analysis/MH-examples1.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/MH-examples1.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf

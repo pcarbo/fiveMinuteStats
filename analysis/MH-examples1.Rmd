@@ -1,22 +1,46 @@
 ---
-title: "Simple Examples of Metropolis--Hastings Algorithm"
-author: "Matthew Stephens"
-date: 2017-01-24
-output: workflowr::wflow_html
+title: Simple examples of the Metropolis-Hastings algorithm
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: January 23, 2026
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
+See [here][pdf_version] for a PDF version of this vignette.
 
-# Pre-requisites
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
+```
 
-You should be familiar with the Metropolis--Hastings Algorithm, introduced [here](MH_intro.html), and elaborated [here](MH_intro_02.html).
+Prerequisites
+=============
+
+You should be familiar with the Metropolis-Hastings Algorithm,
+introduced [here](MH_intro.html), and elaborated
+[here](MH_intro_02.html).
 
 
-# Caveat on code
+Caveat on code
+--------------
 
-Note: the code here is designed to be readable by a beginner, rather than "efficient". The idea is that you can use this code to learn about the basics of MCMC, but not as a model for how to program well in R!
+Note: the code here is designed to be readable by a beginner, rather
+than "efficient". The idea is that you can use this code to learn
+about the basics of MCMC, but not as a model for how to program well
+in R!
 
-
-# Example 1: sampling from an exponential distribution using MCMC
+Example 1: sampling from an exponential distribution using MCMC
+===============================================================
 
 Any MCMC scheme aims to produce (dependent) samples from a ``target" distribution. In this case we are going to use the exponential distribution with mean 1 as our target distribution. Here we define this function (on log scale):
 ```{r}
@@ -38,47 +62,47 @@ easyMCMC = function(log_target, niter, startval, proposalsd){
     proposedx = rnorm(1,mean=currentx,sd=proposalsd) 
     A = exp(log_target(proposedx) - log_target(currentx))
     if(runif(1)<A){
-      x[i] = proposedx       # accept move with probabily min(1,A)
+      x[i] = proposedx
     } else {
-      x[i] = currentx        # otherwise "reject" move, and stay where we are
+      x[i] = currentx
     }
   }
   return(x)
 }
 ```
 
+Now we run the MCMC three times from different starting points and
+compare results:
 
-Now we run the MCMC three times from different starting points and compare results:
 ```{r}
 z1=easyMCMC(log_exp_target, 1000,3,1)
 z2=easyMCMC(log_exp_target, 1000,1,1)
 z3=easyMCMC(log_exp_target, 1000,5,1)
-
 plot(z1,type="l")
 lines(z2,col=2)
 lines(z3,col=3)
-
 plot(log_exp_target(z1))
 lines(log_exp_target(z2),col=2)
 lines(log_exp_target(z3),col=3)
-
-par(mfcol=c(3,1)) #rather odd command tells R to put 3 graphs on a single page
+par(mfcol=c(3,1))
 maxz=max(c(z1,z2,z3))
 hist(z1,breaks=seq(0,maxz,length=20))
 hist(z2,breaks=seq(0,maxz,length=20))
 hist(z3,breaks=seq(0,maxz,length=20))
-
 ```
 
-
-
-## Exercise
+Exercise
+--------
 
 Use the function `easyMCMC` to explore the following:
 
-  a) how do different starting values affect the MCMC scheme? (try some extreme starting points) 
-  b) what is the effect of having a bigger/smaller proposal standard deviation? (again, try some extreme values)
-  c) try changing the (log-)target function to the following
+a. how do different starting values affect the MCMC scheme? (try some
+extreme starting points)
+
+b. what is the effect of having a bigger/smaller proposal standard
+deviation? (again, try some extreme values)
+
+c. try changing the (log-)target function to the following
 
 ```{r}
 log_target_bimodal = function(x){
@@ -89,25 +113,23 @@ log_target_bimodal = function(x){
 What does this target distribution look like?
 What happens if the proposal sd is too small here? (try e.g. 1 and 0.1)
 
-# Example 2: Estimating an allele frequency
+Example 2: Estimating an allele frequency
+=========================================
 
-A standard assumption when modelling genotypes of
-bi-allelic loci (e.g. loci with alleles $A$ and $a$) is
-that the population is "randomly mating". From this assumption
-it follows that the population will be in 
-"Hardy Weinberg Equilibrium" (HWE), which means that 
-if $p$ is the frequency of the allele $A$ then the
-genotypes $AA$, $Aa$ and $aa$ will have frequencies
-$p^2, 2p(1-p)$ and $(1-p)^2$ respectively.
+A standard assumption when modelling genotypes of bi-allelic loci
+(e.g. loci with alleles $A$ and $a$) is that the population is
+"randomly mating". From this assumption it follows that the population
+will be in "Hardy Weinberg Equilibrium" (HWE), which means that if $p$
+is the frequency of the allele $A$ then the genotypes $AA$, $Aa$ and
+$aa$ will have frequencies $p^2, 2p(1-p)$ and $(1-p)^2$ respectively.
 
+A simple prior for $p$ is to assume it is uniform on $[0,1]$.  Suppose
+that we sample $n$ individuals, and observe $n_{AA}$ with genotype
+$AA$, $n_{Aa}$ with genotype $Aa$ and $n_{aa}$ with genotype $aa$.
 
-A simple prior for $p$ is to assume it is uniform on $[0,1]$.
-Suppose that we sample $n$ individuals, and observe $n_{AA}$ with genotype $AA$,
-$n_{Aa}$ with genotype $Aa$ and $n_{aa}$ with genotype $aa$.  
-
-The following R code gives a short MCMC routine to sample from the posterior
-distribution of $p$. Try to go through the code to see how it works.
-
+The following R code gives a short MCMC routine to sample from the
+posterior distribution of $p$. Try to go through the code to see how
+it works.
 
 ```{r}
 log_prior = function(p){
@@ -136,16 +158,12 @@ psampler = function(nAA, nAa, naa, niter, pstartval, pproposalsd){
   }
   return(p)
 }
-
-
 ```
-
 
 Running this sample for $n_{AA}$ = 50, $n_{Aa}$ = 21, $n_{aa}$=29.
 ```{r}
 z=psampler(50,21,29,10000,0.5,0.01)
 ```
-
 
 Now some R code to compare the sample from the posterior
 with the theoretical posterior (which in this case is available analytically;
@@ -158,7 +176,6 @@ hist(z,prob=T)
 lines(x,dbeta(x,122, 80))  # overlays beta density on histogram
 ```
 
-
 You might also like to discard the first 5000 z's as "burnin".
 Here's one way in R to select only the last 5000 z's
 
@@ -166,14 +183,12 @@ Here's one way in R to select only the last 5000 z's
 hist(z[5001:10000])
 ```
 
-
 ## Exercise
 
 Investigate how the starting point and proposal standard deviation affect the convergence of the algorithm. 
 
-
-
-# Example 3: Estimating an allele frequency and inbreeding coefficient
+Example 3: Estimating an allele frequency and inbreeding coefficient
+====================================================================
 
 A slightly more complex alternative than HWE is to assume that
 there is a tendency for people to mate with others who are 
@@ -195,13 +210,13 @@ that they are independent, uniform on $[0,1]$. Suppose
 that we sample $n$ individuals, and observe $n_{AA}$ with genotype $AA$,
 $n_{Aa}$ with genotype $Aa$ and $n_{aa}$ with genotype $aa$. 
 
-## Exercise: 
+Exercise
+--------
 
 - Write a short MCMC routine to sample from the joint
 distribution of $f$ and $p$. 
 
 Hint: here is a start; you'll need to fill in the ...
-
 
 ```{r eval=FALSE}
 # The first step is probably to code a log-likelihood function for the inbreeding model....
@@ -230,32 +245,46 @@ fpsampler = function(nAA, nAa, naa, niter, fstartval, pstartval, fproposalsd, pp
 $f$ and $p$ (e.g. using posterior means) and interval estimates for both $f$ and $p$
 (e.g. 90% posterior credible intervals), when the data are $n_{AA} = 50, n_{Aa} = 21, n_{aa}=29$.
 
-# Addendum: Gibbs Sampling
+Addendum: Gibbs sampling
+========================
 
-You could also tackle this problem with a Gibbs Sampler (see vignettes [here](gibbs1.Rmd)
-and [here](gibbs2.Rmd)).
+You could also tackle this problem with a Gibbs Sampler (see vignettes
+[here](gibbs1.Rmd) and [here](gibbs2.Rmd)).
 
-To do so you will want to use 
-the following "latent variable" representation of the model:
-$$z_i \sim Bernoulli(f)$$
-$$p(g_i=AA | z_i=1) = p; p(g_i=AA | z_i=0) = p^2$$
-$$p(g_i=Aa | z_i = 1)= 0; p(g_i=Aa | z_i=0) = 2p(1-p)$$
-$$p(g_i=aa | z_i = 1) = (1-p); p(g_i =aa | z_i=0) = (1-p)^2$$
+To do so you will want to use the following "latent variable"
+representation of the model:
 
+$$
+z_i \sim Bernoulli(f)
+$$
+
+$$
+p(g_i=AA | z_i=1) = p; p(g_i=AA | z_i=0) = p^2
+$$
+
+$$
+p(g_i=Aa | z_i = 1)= 0; p(g_i=Aa | z_i=0) = 2p(1-p)
+$$
+
+$$
+p(g_i=aa | z_i = 1) = (1-p); p(g_i =aa | z_i=0) = (1-p)^2
+$$
 
 Summing over $z_i$ gives the same model as above:
-$$p(g_i=AA) = fp + (1-f)p^2$$
+$$
+p(g_i=AA) = fp + (1-f)p^2
+$$
 
-## Exercise: 
+Exercise
+--------
 
-Using the above, implement a Gibbs Sampler to sample from the joint distribution of $z,f,$ and $p$ given genotype data $g$.
+Using the above, implement a Gibbs Sampler to sample from the joint
+distribution of $z,f,$ and $p$ given genotype data $g$.
 
 Hint: this requires iterating the following steps
   
-  1) sample $z$ from $p(z | g, f, p)$
-  2) sample $f,p$ from $p(f, p | g, z)$
+1. sample $z$ from $p(z | g, f, p)$
+  
+2. sample $f,p$ from $p(f, p | g, z)$
 
-
-
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/MH-examples1.pdf
