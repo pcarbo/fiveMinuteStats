@@ -25,6 +25,9 @@ all: docs/index.html \
      docs/simulating_discrete_chains_1.html \
      docs/simulating_discrete_chains_2.html \
      docs/stationary_distribution.html \
+     docs/MH_intro.html \
+     docs/MH_intro_02.html \
+     docs/MH-examples1.html \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
      docs/Importance_sampling.pdf \
@@ -44,7 +47,10 @@ all: docs/index.html \
      docs/markov_chains_discrete_intro.pdf \
      docs/simulating_discrete_chains_1.pdf \
      docs/simulating_discrete_chains_2.pdf \
-     docs/stationary_distribution.pdf
+     docs/stationary_distribution.pdf \
+     docs/MH_intro.pdf \
+     docs/MH_intro_02.pdf \
+     docs/MH-examples1.pdf
 
 docs/index.html : analysis/index.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/index.Rmd",view = FALSE)'
@@ -108,6 +114,12 @@ docs/simulating_discrete_chains_2.html : analysis/simulating_discrete_chains_2.R
 
 docs/stationary_distribution.html : analysis/stationary_distribution.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/stationary_distribution.Rmd",view = FALSE)'
+
+docs/MH_intro.html : analysis/MH_intro.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/MH_intro.Rmd",view = FALSE)'
+
+docs/MH_intro_02.html : analysis/MH_intro_02.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/MH_intro_02.Rmd",view = FALSE)'
 
 docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
@@ -212,6 +224,16 @@ docs/stationary_distribution.pdf : analysis/stationary_distribution.Rmd readable
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/stationary_distribution.pdf")'
 	rm temp.Rmd
 
+docs/MH_intro.pdf : analysis/MH_intro.Rmd readable.tex
+	cp analysis/MH_intro.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/MH_intro.pdf")'
+	rm temp.Rmd
+
+docs/MH_intro_02.pdf : analysis/MH_intro_02.Rmd readable.tex
+	cp analysis/MH_intro_02.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/MH_intro_02.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf
@@ -233,5 +255,8 @@ clean:
 	rm -f docs/simulating_discrete_chains_1.pdf
 	rm -f docs/simulating_discrete_chains_2.pdf
 	rm -f docs/stationary_distribution.pdf
+	rm -f docs/MH_intro.pdf
+	rm -f docs/MH_intro_02.pdf
+	rm -f docs/MH-examples1.pdf
 	rm -f temp.Rmd
 
