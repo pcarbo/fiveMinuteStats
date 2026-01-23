@@ -363,7 +363,7 @@ University of Chicago<br><h4 class="date">January 23, 2026</h4>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -374,8 +374,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -388,9 +388,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
@@ -413,21 +413,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -518,15 +515,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree7d3d702ea7f3e2290d8d812ee9a167800a5eab53targetblank7d3d702a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreeed5fcb257b2c6ea01c0646a7893bf7e627148427targetblanked5fcb2a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/7d3d702ea7f3e2290d8d812ee9a167800a5eab53" target="_blank">7d3d702</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/ed5fcb257b2c6ea01c0646a7893bf7e627148427" target="_blank">ed5fcb2</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree7d3d702ea7f3e2290d8d812ee9a167800a5eab53targetblank7d3d702a"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreeed5fcb257b2c6ea01c0646a7893bf7e627148427targetblanked5fcb2a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -536,7 +533,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/7d3d702ea7f3e2290d8d812ee9a167800a5eab53" target="_blank">7d3d702</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/ed5fcb257b2c6ea01c0646a7893bf7e627148427" target="_blank">ed5fcb2</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -552,12 +549,7 @@ were generated:
 <pre><code>
 Untracked files:
     Untracked:  figure/
-    Untracked:  gibbs1.log
     Untracked:  temp.Rmd
-
-Unstaged changes:
-    Modified:   analysis/gibbs1.Rmd
-    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -602,6 +594,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/8dc27e52eaf7fb88db72013605146714ce866576/analysis/gibbs1.Rmd" target="_blank">8dc27e5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-23
+</td>
+<td>
+More updates to the gibbs1 vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/76bd60d4b417e78d7471a6be2dbb8095f3aea217/analysis/gibbs1.Rmd" target="_blank">76bd60d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-23
+</td>
+<td>
+Some updates to the gibbs1 vignette.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/76bd60d4b417e78d7471a6be2dbb8095f3aea217/docs/gibbs1.html" target="_blank">76bd60d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-23
+</td>
+<td>
+Some updates to the gibbs1 vignette.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -834,44 +877,44 @@ ways.</p>
 <h1>Gibbs sampling</h1>
 <p>Suppose <span class="math inline">\(X\)</span> and <span
 class="math inline">\(Y\)</span> are two binary random variables with
-joint distribution <span class="math inline">\(\Pr(X=x,Y=y) =
-p_{X,Y}(x,y)\)</span> given by the following table:</p>
+joint distribution <span class="math inline">\(\Pr(X = x, Y = y) =
+p_{X,Y}(x, y)\)</span> given by the following table:</p>
 <table>
 <thead>
 <tr class="header">
-<th>X \ Y</th>
-<th>0</th>
-<th>1</th>
+<th></th>
+<th>Y = 0</th>
+<th>Y = 1</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>0</td>
-<td>0.6</td>
-<td>0.1</td>
+<td>X = 0</td>
+<td>0.60</td>
+<td>0.10</td>
 </tr>
 <tr class="even">
-<td>1</td>
+<td>X = 1</td>
 <td>0.15</td>
 <td>0.15</td>
 </tr>
 </tbody>
 </table>
-<p>That is, for example, <span
-class="math inline">\(p_{X,Y}(0,0)=0.6\)</span>.</p>
+<p>That is, for example, <span class="math inline">\(p_{X,Y}(0,0) =
+0.6\)</span>.</p>
 <p>The conditional distribution of <span
 class="math inline">\(X\)</span> given any given value is easy to
 compute by the usual formula for conditional probability, <span
-class="math inline">\(\Pr(A | B)
-= \Pr(A \cap B)/\Pr(B)\)</span>. For example: <span
+class="math inline">\(\Pr(A \mid B)
+= \Pr(A \cap B)/\Pr(B)\)</span>. For example, <span
 class="math display">\[
-\Pr(X=0 \mid| Y=0) =
-\Pr(X=0 \cap Y=0)/Pr(Y=0) =
+\Pr(X=0 \mid Y=0) =
+\Pr(X=0 \cap Y=0)/\Pr(Y=0) =
 0.6/0.75 = 0.8,
 \]</span> and so <span class="math display">\[
 \Pr(X=1 \mid Y=0) = 1 - 0.8 = 0.2.
 \]</span> Similarly, <span class="math display">\[
-\Pr(X=0 | Y=1) = 0.1/0.25 = 0.4,
+\Pr(X=0 \mid Y=1) = 0.1/0.25 = 0.4,
 \]</span> and so <span class="math display">\[
 \Pr(X=1 \mid Y=1) = 0.6.
 \]</span></p>
@@ -879,59 +922,62 @@ class="math display">\[
 class="math inline">\(Y\)</span> for any given value of <span
 class="math inline">\(X\)</span>: <span class="math display">\[
 \begin{aligned}
-\Pr(Y=0 | X=0) = 6/7 \\
-\Pr(Y=1 | X=0) = 1/7 \\
-\Pr(Y=0 | X=1) = 1/2 \\
-\Pr(Y=1 | X=1) = 1/2
+\Pr(Y=0 \mid X=0) = 6/7 \\
+\Pr(Y=1 \mid X=0) = 1/7 \\
+\Pr(Y=0 \mid X=1) = 1/2 \\
+\Pr(Y=1 \mid X=1) = 1/2
 \end{aligned}
 \]</span></p>
-<p>Now the question: what if we start at some value of <span
+<p>Question: Suppose we start at some value of <span
 class="math inline">\(X,Y\)</span> and proceed to iterate the following
 steps:</p>
 <ol style="list-style-type: decimal">
 <li><p>Simulate a new value of <span class="math inline">\(X\)</span>
-from <span class="math inline">\(\Pr(X | Y=y)\)</span> where <span
+from <span class="math inline">\(\Pr(X \mid Y=y)\)</span>, where <span
 class="math inline">\(y\)</span> is the current value of <span
 class="math inline">\(Y\)</span>.</p></li>
 <li><p>Simulate a new value of <span class="math inline">\(Y\)</span>
-from <span class="math inline">\(\Pr(Y | X=x)\)</span> where <span
+from <span class="math inline">\(\Pr(Y \mid X=x)\)</span>, where <span
 class="math inline">\(x\)</span> is the current value of <span
-class="math inline">\(X\)</span> (generated in 1.)</p></li>
+class="math inline">\(X\)</span> (that is, the value generated in Step
+1.)</p></li>
 </ol>
-<p>What happens?</p>
-<p>Let’s try it:</p>
-<pre class="r"><code>#returns 1 with probability p, and 0 with probability 1-p
-rbernoulli=function(p){return(1*runif(1)&lt;p)}
-
-# sample from distribution X given Y above
-sample_XgivenY = function(y){
- if(y==0){
-   x = rbernoulli(0.2) # returns 1 with probability 0.2; otherwise 0
- } else {
-   x = rbernoulli(0.6)
- } 
+<p>What happens? Let’s try it.</p>
+<p>This function returns 1 with probability <span
+class="math inline">\(p\)</span> and 0 with probability <span
+class="math inline">\(1-p\)</span>:</p>
+<pre class="r"><code>rbernoulli &lt;- function (p)
+  as.numeric(runif(1) &lt; p)</code></pre>
+<p>This function samples from the conditional distribution of X given
+Y:</p>
+<pre class="r"><code>sample_XgivenY &lt;- function(y) {
+  if (y == 0)
+    x &lt;- rbernoulli(0.2)
+  else
+    x &lt;- rbernoulli(0.6)
   return(x)
-}
-#&#39; sample from distribution Y given X above
-sample_YgivenX = function(x){
-  if(x==0){
-    y = rbernoulli(1/7)
-  } else {
-    y = rbernoulli(0.5)
-  }
+}</code></pre>
+<p>This function samples from the conditional distribution of Y given
+X:</p>
+<pre class="r"><code>sample_YgivenX &lt;- function (x) {
+  if (x == 0)
+    y &lt;- rbernoulli(1/7)
+  else
+    y &lt;- rbernoulli(0.5)
   return(y)
+}</code></pre>
+<p>Now let’s repeat Steps 1 and 2 one thousand times:</p>
+<pre class="r"><code>set.seed(100)
+niter &lt;- 1000
+X &lt;- rep(0,niter)
+Y &lt;- rep(0,niter)
+X[1] &lt;- 1
+Y[1] &lt;- 1
+for (i in 2:niter) {
+  X[i] &lt;- sample_XgivenY(Y[i-1])
+  Y[i] &lt;- sample_YgivenX(X[i])
 }
-set.seed(100)
-niter = 1000
-X = rep(0,niter)
-Y = rep(0,niter)
-X[1]=1
-Y[1]=1 # start from (1,1)
-for(i in 2:niter){
-  X[i] = sample_XgivenY(Y[i-1])
-  Y[i] = sample_YgivenX(X[i])
-}
-res = data.frame(X=X,Y=Y)</code></pre>
+res &lt;- data.frame(X = X,Y = Y)</code></pre>
 <p>Here is what happens for the first 20 iterations:</p>
 <pre class="r"><code>head(res,20)
 #    X Y
@@ -957,23 +1003,23 @@ res = data.frame(X=X,Y=Y)</code></pre>
 # 20 1 0</code></pre>
 <p>And here is a summary of what proportion of the rows are of each
 type:</p>
-<pre class="r"><code>table(data.frame(X=X,Y=Y))/niter
+<pre class="r"><code>table(res)/niter
 #    Y
 # X       0     1
 #   0 0.617 0.092
 #   1 0.154 0.137</code></pre>
 <p>As you can see, the proportion of iterations in which <span
 class="math inline">\(X=x\)</span> and <span
-class="math inline">\(Y=y\)</span> is very close to <span
-class="math inline">\(\Pr(X=x,Y=y)=p_{X,Y}(x,y)\)</span>. This is not a
-coincidence!</p>
+class="math inline">\(Y=y\)</span> is quite close to <span
+class="math inline">\(\Pr(X=x,Y=y) = p_{X,Y}(x,y)\)</span>. This is not
+a coincidence!</p>
 </div>
 <div id="explanation" class="section level1">
 <h1>Explanation</h1>
 <p>What we have done here is simulate a Markov chain <span
 class="math display">\[
-(X_1,Y_1), (X_2,Y_2), (X_3,Y_3), \dots,
-\]</span> whose stationary distribution is <span
+(X_1,Y_1), (X_2,Y_2), (X_3,Y_3), \dots
+\]</span> whose <em>stationary distribution</em> is <span
 class="math inline">\(\Pr(X=x,Y=y)=p_{X,Y}(x,y)\)</span>.</p>
 <p>To see that the pairs <span class="math inline">\((X,Y)\)</span> form
 a Markov chain, note that the simulation of <span
@@ -988,47 +1034,47 @@ Markov chain. (And in fact it only depends on <span
 class="math inline">\(Y_{i-1}\)</span>, but that is not so
 important.)</p>
 <p>To see why it has stationary distribution <span
-class="math inline">\(p_{X,Y}(x,y)\)</span> imagine simulating <span
-class="math inline">\(X_1,Y_1\)</span> from this distribution, so <span
+class="math inline">\(p_{X,Y}(x,y)\)</span>, imagine simulating <span
+class="math inline">\(X_1, Y_1\)</span> from this distribution, so <span
 class="math inline">\(\Pr(X_1=x,Y_1=y)=
 p_{X,Y}(x,y)\)</span>, and in particular <span
-class="math inline">\(\Pr(Y_1=y)= \sum_x p_{X,Y}(x,y) =
+class="math inline">\(\Pr(Y_1=y) = \sum_x p_{X,Y}(x,y) =
 p_Y(y)\)</span>.</p>
 <p>Now, what is <span class="math inline">\(\Pr(X_2=x,Y_1=y)\)</span>?
 Well we know <span class="math display">\[
-\Pr(X_2=x,Y_1=y) = \Pr(Y_1=y) \Pr(X_2=x| Y_1=y).
+\Pr(X_2=x,Y_1=y) = \Pr(Y_1=y) \Pr(X_2=x \mid Y_1=y).
 \]</span> And we know from above that <span class="math display">\[
 \Pr(Y_1=y) = p_{Y}(y).
-\]</span> And we know that given <span
+\]</span> And we know that, given <span
 class="math inline">\(Y_1=y\)</span>, <span
 class="math inline">\(X_2\)</span> was simulated from the conditional
-distribution <span class="math inline">\(p_{X|Y}(x|y)\)</span>, so <span
-class="math display">\[
-\Pr(X_2=x | Y_1=y) = p_{X|Y}(x|y).
-\]</span> Putting these together we have <span class="math display">\[
-\Pr(X_2=x,Y_1=y) = p_{Y}(y)p_{X|Y}(x|y) = p_{X,Y}(x,y).
+distribution <span class="math inline">\(p_{X|Y}(x \mid y)\)</span>, so
+<span class="math display">\[
+\Pr(X_2=x \mid Y_1=y) = p_{X|Y}(x \mid y).
+\]</span> Putting these together, we have <span class="math display">\[
+\Pr(X_2=x,Y_1=y) = p_{Y}(y) p_{X|Y}(x \mid y) = p_{X,Y}(x,y).
 \]</span></p>
-<p>Now, essentially the same argument shows that <span
-class="math inline">\(\Pr(X_2=x, Y_2=y) = p_{X,Y}(x,y)\)</span>.
-[Exercise]</p>
+<p>Essentially the same argument shows that <span
+class="math inline">\(\Pr(X_2=x, Y_2=y) =
+p_{X,Y}(x,y)\)</span>. (This is left as an exercise.)</p>
 <p>Thus, we have shown that <em>if</em> <span
-class="math inline">\(\Pr(X_1=x, Y_1=y) = p_{X,Y}(x,y)\)</span> then
+class="math inline">\(\Pr(X_1=x, Y_1=y) = p_{X,Y}(x,y)\)</span>, then
 also <span class="math inline">\(\Pr(X_2=x, Y_2=y) =
 p_{X,Y}(x,y)\)</span>. That is exactly what it means for <span
-class="math inline">\(p_{X,Y}(x,y)\)</span> to be the stationary
-distribution: if we start the chain by simulating from that distribution
-then it remains in that distribution after one step, and so it remains
-in that distribution for ever.</p>
+class="math inline">\(p_{X,Y}(x,y)\)</span> to be the “stationary
+distribution”: if we start the chain by simulating from that
+distribution, then it remains in that distribution after one step, and
+so it remains in that distribution forever.</p>
 <p>Of course, we did <em>not</em> start the chain at that distribution.
 But the above argument shows that this is indeed the stationary
 distribution. There is a general result that discrete Markov chains
-converge to their stationary distribution, provided that they are what
-is called “irreducible and aperiodic” (which this Markov chain is). That
-is, for large enough <span class="math inline">\(n\)</span>, we should
-see <span class="math inline">\(\Pr(X_n=x, Y_n=y) \approx
-p_{X,Y}(x,y)\)</span> no matter where we start. Furthermore, in the
-long-run, the proportion of iterations spent in each state will also
-converge to this distribution.</p>
+“converge” to their stationary distribution provided that they
+“irreducible and aperiodic” (which this Markov chain is). That is, for
+large enough <span class="math inline">\(n\)</span>, we should see <span
+class="math inline">\(\Pr(X_n=x, Y_n=y) \approx
+p_{X,Y}(x,y)\)</span> no matter where we start. Furthermore, in the long
+run, the proportion of iterations spent in each state will also converge
+to this distribution.</p>
 <p>This explains the simulation result.</p>
 <br>
 <p>
