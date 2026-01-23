@@ -23,10 +23,6 @@ See [here][pdf_version] for a PDF version of this vignette.
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
 ```
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 Prerequisites
 =============
 
