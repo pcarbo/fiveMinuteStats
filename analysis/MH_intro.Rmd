@@ -128,80 +128,84 @@ Toy example
 ===========
 
 To help understand the M-H algorithm we now do a simple example: we
-implement the algorithm to sample from an exponential distribution:
+implement the algorithm to sample from an exponential distribution
+with $\lambda = 1$:
 $$
-\pi(x) = \exp(-x) \qquad (x \geq 0).
+\pi(x) = e^{-x}, \quad x \geq 0.
 $$
 (Of course it would be much easier to sample from an exponential
 distribution in other ways; we are just using this to illustrate the
 algorithm.)
 
 Remember that $\pi$ is called the "target" distribution, so we call
-our function to compute $\pi$ `target`:
+our function to compute $\pi$ "target":
 
-```{r}
-target = function(x){
-  return(ifelse(x<0,0,exp(-x)))
-}
+```{r target}
+target <- function (x)
+  ifelse(x < 0,0,exp(-x))
 ```
 
-Now we implement the M-H algorithm, using the simple normal random walk
-transition kernel $Q$ mentioned above. Since this $Q$ is symmetric the
+Now we implement the M-H algorithm using the simple normal random walk
+transition kernel $Q$ mentioned above. Since this $Q$ is symmetric, the
 Hastings ratio is 1, and we get the simpler form for the acceptance
 probability $A$ in the Metropolis algorithm.
 
 Here is the code:
 
-```{r}
-x = rep(0,10000)
-x[1] = 3     #initialize; I've set arbitrarily set this to 3
-for(i in 2:10000){
-  current_x = x[i-1]
-  proposed_x = current_x + rnorm(1,mean=0,sd=1)
-  A = target(proposed_x)/target(current_x) 
-  if(runif(1)<A){
-    x[i] = proposed_x       # accept move with probabily min(1,A)
-  } else {
-    x[i] = current_x        # otherwise "reject" move, and stay where we are
-  }
+```{r metropolis}
+x <- rep(0,10000)
+x[1] <- 3
+for (i in 2:10000) {
+  current_x <- x[i-1]
+  proposed_x <- current_x + rnorm(1)
+  A <- target(proposed_x)/target(current_x)
+  u <- runif(1)
+  if (u < A)
+    x[i] <- proposed_x
+  else
+    x[i] <- current_x
 }
 ```
 
-Having run this code we can plot the locations visited by the Markov
-chain $x$ (sometimes called a trace plot).
+Having run this code, we can plot the locations visited by the Markov
+chain, $x$ (sometimes called a "trace plot").
 
-```{r}
-plot(x,main="values of x visited by the M-H algorithm")
+```{r trace-plot, fig.height=3, fig.width=5}
+plot(x,xlab = "time",main = "values of x visited by the M-H algorithm")
 ```
 
 Remember that we designed this algorithm to sample from an exponential
-distribution. This means that (provided we ran the algorithm for long
-enough!) the histogram of $x$ should look like an exponential
-distribution.  Here we check this:
+distribution. This means that — provided we ran the algorithm for long
+enough! — the histogram of $x$ should look like an exponential
+distribution. Here we check this:
 
-```{r}
-hist(x,xlim=c(0,10),probability = TRUE, main="Histogram of values of x visited by M-H algorithm")
-xx = seq(0,10,length=100)
-lines(xx,target(xx),col="red")
+```{r hist, fig.height=3, fig.width=3}
+hist(x,xlim = c(0,10),probability = TRUE,main = "")
+xx <- seq(0,10,length = 100)
+lines(xx,target(xx),col = "red")
 ```
-So we see that, indeed, the histogram
-of the values in $x$ indeed provides a close fit
-to an exponential distribution.
+
+So we see that, indeed, the histogram of the values in $x$ indeed
+provides a close fit to an exponential distribution.
 
 Closing remarks
 ===============
 
 One particularly useful feature of the M-H algorithm is that it can be
 implemented even when $\pi$ is known only up to a constant: that is,
-$\pi(x) = c f(x)$ for some known $f$, but unknown constant $c$. This
-is because the algorithm depends on $\pi$ only through the ratio
-$\pi(y)/\pi(x_t)=cf(y)/cf(x_t) = f(y)/f(x_t)$.
+$\pi(x) = c f(x)$ for some known $f$ with unknown constant $c$. This
+is because the algorithm depends on $\pi$ only through the ratio:
+$$
+\frac{\pi(y)}{\pi(x_t)} =
+\frac{cf(y)}{cf(x_t)} =
+\frac{f(y)}{f(x_t)}.
+$$
 
-This issue arises in Bayesian applications, where the posterior
-distribution is proportional to the prior times the likelihood, but
+This issue arises in Bayesian applications where the posterior
+distribution is proportional to the prior times the likelihood but
 the constant of proportionality is often unknown. So the M-H algorithm
 is particularly useful for sampling from posterior distributions to
-perform analytically-intractible Bayesian calculations.
+perform analytically intractible Bayesian calculations.
 
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/MH_intro.pdf
 [markov_chains_discrete_intro]: https://pcarbo.github.io/fiveMinuteStats/markov_chains_discrete_intro.html
