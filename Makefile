@@ -28,6 +28,9 @@ all: docs/index.html \
      docs/MH_intro.html \
      docs/MH_intro_02.html \
      docs/MH-examples1.html \
+     docs/gibbs1.html \
+     docs/gibbs2.html \
+     docs/gibbs_structure_simple.html \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
      docs/Importance_sampling.pdf \
@@ -50,7 +53,10 @@ all: docs/index.html \
      docs/stationary_distribution.pdf \
      docs/MH_intro.pdf \
      docs/MH_intro_02.pdf \
-     docs/MH-examples1.pdf
+     docs/MH-examples1.pdf \
+     docs/gibbs1.pdf \
+     docs/gibbs2.pdf \
+     docs/gibbs_structure_simple.pdf
 
 index: docs/index.html
 
@@ -122,6 +128,15 @@ docs/MH_intro.html : analysis/MH_intro.Rmd
 
 docs/MH_intro_02.html : analysis/MH_intro_02.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/MH_intro_02.Rmd",view = FALSE)'
+
+docs/gibbs1.html : analysis/gibbs1.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/gibbs1.Rmd",view = FALSE)'
+
+docs/gibbs2.html : analysis/gibbs2.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/gibbs2.Rmd",view = FALSE)'
+
+docs/gibbs_structure_simple.html : analysis/gibbs_structure_simple.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/gibbs_structure_simple.Rmd",view = FALSE)'
 
 docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
@@ -241,6 +256,21 @@ docs/MH-examples1.pdf : analysis/MH-examples1.Rmd readable.tex
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/MH-examples1.pdf")'
 	rm temp.Rmd
 
+docs/gibbs1.pdf : analysis/gibbs1.Rmd readable.tex
+	cp analysis/gibbs1.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/gibbs1.pdf")'
+	rm temp.Rmd
+
+docs/gibbs2.pdf : analysis/gibbs2.Rmd readable.tex
+	cp analysis/gibbs2.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/gibbs2.pdf")'
+	rm temp.Rmd
+
+docs/gibbs_structure_simple.pdf : analysis/gibbs_structure_simple.Rmd readable.tex
+	cp analysis/gibbs_structure_simple.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/gibbs_structure_simple.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf
@@ -265,5 +295,8 @@ clean:
 	rm -f docs/MH_intro.pdf
 	rm -f docs/MH_intro_02.pdf
 	rm -f docs/MH-examples1.pdf
+	rm -f docs/gibbs1.pdf
+	rm -f docs/gibbs2.pdf
+	rm -f docs/gibbs_structure_simple.pdf
 	rm -f temp.Rmd
 
