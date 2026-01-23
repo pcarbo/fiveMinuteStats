@@ -45,9 +45,9 @@ Gibbs sampling
 Suppose $X$ and $Y$ are two binary random variables with joint
 distribution $\Pr(X = x, Y = y) = p_{X,Y}(x, y)$ given by the
 following table:
-    
+
 |       | Y = 0 | Y = 1 |
-| ----- | ----  | ----- |
+| :---: | :---: | :---: |
 | X = 0 | 0.60  | 0.10  |
 | X = 1 | 0.15  | 0.15  |
 
