@@ -59,8 +59,8 @@ Let $z_i \in \{0,1\}$ denote the group (forest vs. savanna) of
 individual $i$, and let $Z$ denote the vector $Z = (z_1, \dots, z_n)$.
 
 Let $P_{kj}$ denote the frequency of the 1 allele at locus $j$ in
-group $k$ ($j = 1, \dots,R$, $k = 0, 1$). (Here, group 0 means forest
-and group 1 means savanna.) Let $P_k$ denote the vector $(P_{k1},
+group $k$ ($j = 1, \dots,R$, $k = 0, 1$). (Here, 0 = forest
+and 1 = savanna.) Let $P_k$ denote the vector $(P_{k1},
 \dots, P_{kR})$, and let $P$ denote all the (unknown) allele frequencies
 $P = (P_0, P_1)$.
 
