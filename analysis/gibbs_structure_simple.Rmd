@@ -28,7 +28,7 @@ Prerequisites
 
 Be familiar with [Bayesian inference for the two class
 problem][LR_and_BF] and [conjugate Bayesian analysis for a
-binomial proportion](simple_nonconjugate.html).
+binomial proportion][simple_nonconjugate].
 
 Overview
 ========
@@ -52,48 +52,50 @@ Notation
 ========
 
 Let $x_i$ denote the genetic data for individual $i$ ($i = 1,\dots,
-n$). Thus $x_i$ is a binary vector (a vector of 0s and 1s) of length
-$R$. Let $X$ denote the combined genetic data, $X=(x_1,\dots,x_n)$.
+n$). Thus, $x_i$ is a binary vector (a vector of zeros and ones) of length
+$R$. Let $X$ denote the combined genetic data, $X = (x_1, \dots, x_n)$.
 
-Let $z_i \in \{0,1\}$ denote the group (forest vs savanna) of
-individual $i$, and let $Z$ denote the vector $Z=(z_1,\dots,z_n)$.
+Let $z_i \in \{0,1\}$ denote the group (forest vs. savanna) of
+individual $i$, and let $Z$ denote the vector $Z = (z_1, \dots, z_n)$.
 
-Let $P_{kj}$ denote the frequency of the "1" allele at locus $j$ in
-group $k$ ($j =1,\dots,R$; $k=0,1$). (Here group 0 means forest and
-group 1 means savanna.) Let $P_k$ denote the vector $(P_{k1}, \dots,
-P_{kR})$, and $P$ denote all the unknown allele frequencies
-$P=(P_0,P_1)$.
+Let $P_{kj}$ denote the frequency of the 1 allele at locus $j$ in
+group $k$ ($j = 1, \dots,R$, $k = 0, 1$). (Here, group 0 means forest
+and group 1 means savanna.) Let $P_k$ denote the vector $(P_{k1},
+\dots, P_{kR})$, and let $P$ denote all the (unknown) allele frequencies
+$P = (P_0, P_1)$.
 
-With this notation in place, we can state the problem: infer the
-unknowns $Z$ and $P$ from the observations $X$.
+With this notation in place, we can state the problem, which is to
+infer the unknowns $P$ and $Z$ from the genetic data $X$.
 
 Model
 =====
 
-To perform Bayesian inference for $Z$ and $P$ we need to specify the
-likelihood $p(X \mid Z, P)$ and a prior distribution $p(Z, P)$.
+To perform Bayesian inference for $Z$ and $P$, we need to specify the
+likelihood, $p(X \mid Z, P)$, and a prior distribution, $p(Z, P)$.
 
 Likelihood
 ----------
 
-For the likelihood, for each individual we will assume that if we knew
-its group of origin, and we knew the allele frequencies in each group,
-then the genetic data at different markers are independent draws from
-the relevant allele frequencies. This is exactly the model assumed
-[here](likelihood_ratio_simple_models.html).  In mathematical
-notation, we assume:
+For each individual, we will assume that if we knew its group of
+origin, and we knew the allele frequencies in each group, then the
+genetic data at the different markers are independent draws from the
+relevant allele frequencies. This is exactly the model assumed
+[here][likelihood_ratio_simple_models]. In mathematical notation, we
+assume
 $$
-p(x_i \mid z_i , P) = \prod_{j=1}^R P_{{z_i} j}^{x_{ij}}(1-P_{{z_i}j})^{(1-x_{ij})}.
+p(x_i \mid z_i, P) =
+\prod_{j=1}^R P_{{z_i}j}^{x_{ij}}(1 - P_{{z_i}j})^{1 - x_{ij}}.
 $$
-All the subscripts here make this a bit difficult to read. 
-To make things easier to read we can replace $z_i$ with $k$, like this:
+All the subscripts here make this difficult to read. 
+To make things easier to read, we can replace $z_i$ with $k$:
 $$
-p(x_i \mid z_i=k , P) = \prod_{j=1}^R P_{k j}^{x_{ij}}(1-P_{kj})^{(1-x_{ij})}.
+p(x_i \mid z_i = k, P) =
+\prod_{j=1}^R P_{kj}^{x_{ij}}(1 - P_{kj})^{1 - x_{ij}}.
 $$
 
 We will further assume that the different individuals are independent:
 $$
-p(X \mid Z, P) = \prod_i p(x_i \mid z_i, P).
+p(X \mid Z, P) = \prod_{i=1}^n p(x_i \mid z_i, P).
 $$
 This completes specification of the likelihood.
 
@@ -101,20 +103,20 @@ Prior
 -----
 
 We will assume that $P$ and $Z$ are *a priori* independent, so $p(P,Z)
-= p(P)p(Z)$.  This assumption seems reasonable: before seeing the
-genetic data $X$, telling you the allele frequencies in the two groups
-would not tell you anything about the group membership of each
-individual. (Of course, after seeing the genetic data $X$, the allele
+= p(P) \, p(Z)$.  This assumption seems reasonable: before seeing the
+genetic data ($X$), telling you the allele frequencies in the two
+groups would not tell you anything about the group membership of the
+elephants. (Of course, after seeing the genetic data $X$, the allele
 frequencies would help classify the individuals, so $P$ and $Z$ are
 not going to be *a posteriori* independent. However, here we are
 concerned with the prior, not the posterior.)
 
-For the prior on $P$ we will further assume that the allele
+For the prior on $P$, we will further assume that the allele
 frequencies in each group at each locus are independent, so $p(P) =
-\prod_k \prod_j p(P_{kj})$. This assumption could be improved, but at
-the cost of considerable extra complexity, and so we stick with
-independence for now.  Also for simplicity we will assume a uniform
-prior distribution for $P_{kj}$, so $p(P_{kj})=1$.
+\prod_{k=1}^2 \prod_{j=1}^R p(P_{kj})$. This assumption could be
+improved, but at the cost of considerable extra complexity, and so we
+stick with independence for now. Also, for simplicity we will assume a
+uniform prior distribution for $P_{kj}$, so $p(P_{kj}) = 1$.
 
 For $Z$ we will assume that the origin of each individual is independent, with an equal probability (0.5) of arising from each of the two groups. So 
 $$
@@ -273,3 +275,4 @@ image(t(res$z))
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/gibbs_structure_simple.pdf
 [LR_and_BF]: https://pcarbo.github.io/fiveMinuteStats/LR_and_BF.html
 [simple_nonconjugate]: https://pcarbo.github.io/fiveMinuteStats/simple_nonconjugate.html
+[likelihood_ratio_simple_models]: https://pcarbo.github.io/fiveMinuteStats/.html
