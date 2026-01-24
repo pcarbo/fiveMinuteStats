@@ -1,41 +1,62 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Matthew Stephens" />
 
-<meta name="date" content="2017-02-20" />
+<meta name="date" content="2026-01-24" />
 
-<title>Gibbs Sampling for clustering genetic data</title>
+<title>Gibbs sampling for clustering genetic data</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -48,37 +69,11 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
 
 
-</head>
 
-<body>
+
+
 
 <style type = "text/css">
 .main-container {
@@ -86,13 +81,8 @@ h6 {
   margin-left: auto;
   margin-right: auto;
 }
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -106,40 +96,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -167,7 +133,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -179,7 +145,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -189,15 +155,30 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -207,13 +188,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -221,16 +201,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -243,6 +216,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -255,48 +229,9 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -310,6 +245,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -345,8 +286,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -356,8 +295,18 @@ div.tocify {
 
 </style>
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -371,7 +320,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -392,37 +341,31 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/stephens999/fiveMinuteStats">
-    <span class="fa fa-github"></span>
-     
-  </a>
+  <a href="https://github.com/pcarbo/fiveMinuteStats">source</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
-
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
-<h1 class="title toc-ignore">Gibbs Sampling for clustering genetic data</h1>
-<h4 class="author"><em>Matthew Stephens</em></h4>
-<h4 class="date"><em>2017-02-20</em></h4>
+<h1 class="title toc-ignore">Gibbs sampling for clustering genetic
+data</h1>
+<h4 class="author">Matthew Stephens</h4>
+<address class="author_afil">
+University of Chicago<br><h4 class="date">January 24, 2026</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -431,7 +374,9 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#report"> Report <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -440,117 +385,177 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-03-31
+<strong>Last updated:</strong> 2026-01-24
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
+<span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.2.0). The <em>Report</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
-<div id="report" class="tab-pane fade">
+<div id="checks" class="tab-pane fade">
 <div id="workflowr-checks" class="panel-group">
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(12345)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(12345)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed12345code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed12345code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(12345)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(12345)</code> was run prior to running the
+code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstree0cd28bd3e7aea2258f9c3a55e2e0060c55403123targetblank0cd28bda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephens999/fiveMinuteStats/tree/0cd28bd3e7aea2258f9c3a55e2e0060c55403123" target="_blank">0cd28bd</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstree0cd28bd3e7aea2258f9c3a55e2e0060c55403123targetblank0cd28bda" class="panel-collapse collapse">
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree828954ad059508561db3f5f03e73ed795f8d5435targetblank828954aa">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/828954ad059508561db3f5f03e73ed795f8d5435" target="_blank">828954a</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree828954ad059508561db3f5f03e73ed795f8d5435targetblank828954aa"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/828954ad059508561db3f5f03e73ed795f8d5435" target="_blank">828954a</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    .Rhistory
-    Ignored:    .Rproj.user/
-    Ignored:    analysis/.Rhistory
-    Ignored:    analysis/bernoulli_poisson_process_cache/
-
 Untracked files:
-    Untracked:  _workflowr.yml
-    Untracked:  analysis/CI.Rmd
-    Untracked:  analysis/gibbs_structure.Rmd
-    Untracked:  analysis/libs/
-    Untracked:  analysis/results.Rmd
-    Untracked:  analysis/shiny/tester/
-    Untracked:  docs/MH_intro_files/
-    Untracked:  docs/citations.bib
-    Untracked:  docs/figure/MH_intro.Rmd/
-    Untracked:  docs/hmm_files/
-    Untracked:  docs/libs/
-    Untracked:  docs/shiny/tester/
+    Untracked:  figure/
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -561,7 +566,13 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/gibbs_structure_simple.Rmd</code>) and HTML
+(<code>docs/gibbs_structure_simple.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -587,10 +598,146 @@ Message
 <tbody>
 <tr>
 <td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/828954ad059508561db3f5f03e73ed795f8d5435/analysis/gibbs_structure_simple.Rmd" target="_blank">828954a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-24
+</td>
+<td>
+wflow_publish("analysis/gibbs_structure_simple.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5db660cb44e0111940227aded255fd473b5fdb47/analysis/gibbs_structure_simple.Rmd" target="_blank">5db660c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-24
+</td>
+<td>
+Further updates to the gibbs_structure_simple vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/897345239819d7e1cd82ec796368ddb7b29147c1/analysis/gibbs_structure_simple.Rmd" target="_blank">8973452</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-24
+</td>
+<td>
+Yet more updates to the gibbs_structure_simple vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/db927dfbe7f726a9e8f278468e5a6acbaacef5c2/analysis/gibbs_structure_simple.Rmd" target="_blank">db927df</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-24
+</td>
+<td>
+Fixed a couple links.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/8bded2d53a3f4de234dce53e2fa08599dbbf5b6d/analysis/gibbs_structure_simple.Rmd" target="_blank">8bded2d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-24
+</td>
+<td>
+More updates to the gibbs_structure_simple vignette.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5314608087850d6823787edd6a2756d2ccd92bd9/analysis/gibbs_structure_simple.Rmd" target="_blank">5314608</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-01-23
+</td>
+<td>
+Updates to the gibbs_structure_simple vignette.
+</td>
+</tr>
+<tr>
+<td>
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/fbb6c48b8689dd25ff8fddb896c82c8c76e2b451/docs/gibbs_structure_simple.html" target="_blank">fbb6c48</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/gibbs_structure_simple.html" target="_blank">5f62ee6</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/0cd28bd3e7aea2258f9c3a55e2e0060c55403123/analysis/gibbs_structure_simple.Rmd" target="_blank">0cd28bd</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+<td>
+workflowr::wflow_publish(all = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/fbb6c48b8689dd25ff8fddb896c82c8c76e2b451/docs/gibbs_structure_simple.html" target="_blank">fbb6c48</a>
 </td>
 <td>
 stephens999
@@ -607,7 +754,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/8183f19c3fe1f98c7ed2c1f7228097405b686610/analysis/gibbs_structure_simple.Rmd" target="_blank">8183f19</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/8183f19c3fe1f98c7ed2c1f7228097405b686610/analysis/gibbs_structure_simple.Rmd" target="_blank">8183f19</a>
 </td>
 <td>
 stephens999
@@ -616,7 +763,7 @@ stephens999
 2018-05-02
 </td>
 <td>
-workflowr::wflow_publish(“analysis/gibbs_structure_simple.Rmd”)
+workflowr::wflow_publish("analysis/gibbs_structure_simple.Rmd")
 </td>
 </tr>
 </tbody>
@@ -626,253 +773,305 @@ workflowr::wflow_publish(“analysis/gibbs_structure_simple.Rmd”)
 </div>
 </div>
 </div>
-<p><strong>Last updated:</strong> 2019-03-31</p>
-<p><strong>Code version:</strong> 0cd28bd</p>
-<div id="pre-requisites" class="section level1">
-<h1>Pre-requisites</h1>
-<p>Be familiar with <a href="LR_and_BF.html">Bayesian inference for the two class problem</a> and <a href="simple_nonconjugate.html">conjugate Bayesian analysis for a binomial proportion</a>.</p>
+<p>See <a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/gibbs_structure_simple.pdf">here</a>
+for a PDF version of this vignette.</p>
+<div id="prerequisites" class="section level1">
+<h1>Prerequisites</h1>
+<p>Be familiar with <a
+href="https://pcarbo.github.io/fiveMinuteStats/LR_and_BF.html">Bayesian
+inference for the two class problem</a> and <a
+href="https://pcarbo.github.io/fiveMinuteStats/bayes_conjugate.html">conjugate
+Bayesian analysis for a binomial proportion</a>.</p>
 </div>
 <div id="overview" class="section level1">
 <h1>Overview</h1>
-<p>Suppose we observe genetic data on a sample of <span class="math inline">\(n\)</span> elephants at <span class="math inline">\(R\)</span> locations in the genome (“loci”). For simplicity we will assume the elephants are haploid: that is they have just one copy of their genome. And we will assume that there are just two genetic types (“alleles”) at each locus, which we will label 0 and 1.</p>
-<p>We will further assume that there are two type of elephant: forest elephants and savanna elephants, and that the allele frequencies in forest elephants are different from those in savanna elephants, but that the allele frequencies for each of these two groups are unknown. Also, we do not know which samples are forest elephants and which are savanna elehants. Our goal is to infer both these sets of quantities: which individuals are forest vs savanna, and what are the allele frequencies in each group.</p>
+<p>Suppose we observe genetic data on a sample of <span
+class="math inline">\(n\)</span> elephants at <span
+class="math inline">\(R\)</span> locations (“loci”) in the genome. For
+simplicity, we will assume the elephants are haploid; that is, they have
+just one copy of their genome. And we will assume that there are just
+two genetic types (“alleles”) at each locus, which we will label as 0
+and 1.</p>
+<p>We will further assume that there are two type of elephant: forest
+elephants and savanna elephants, and that the allele frequencies in
+forest elephants are different from those in savanna elephants, but that
+the allele frequencies for each of these two groups are unknown. Also,
+we do not know which samples are forest elephants and which are savanna
+elehants. Our goal is to infer both these sets of unknowns: (i) which
+elephants are forest and which are savanna; (ii) what are the allele
+frequencies in each group of elephants.</p>
 </div>
 <div id="notation" class="section level1">
 <h1>Notation</h1>
-<p>Let <span class="math inline">\(x_i\)</span> denote the genetic data for individual <span class="math inline">\(i\)</span> (<span class="math inline">\(i = 1,\dots, n\)</span>). Thus <span class="math inline">\(x_i\)</span> is a binary vector (a vector of 0s and 1s) of length <span class="math inline">\(R\)</span>. Let <span class="math inline">\(X\)</span> denote the combined genetic data, <span class="math inline">\(X=(x_1,\dots,x_n)\)</span>.</p>
-<p>Let <span class="math inline">\(z_i \in \{0,1\}\)</span> denote the group (forest vs savanna) of individual <span class="math inline">\(i\)</span>, and let <span class="math inline">\(Z\)</span> denote the vector <span class="math inline">\(Z=(z_1,\dots,z_n)\)</span>.</p>
-<p>Let <span class="math inline">\(P_{kj}\)</span> denote the frequency of the “1” allele at locus <span class="math inline">\(j\)</span> in group <span class="math inline">\(k\)</span> (<span class="math inline">\(j =1,\dots,R\)</span>; <span class="math inline">\(k=0,1\)</span>). (Here group 0 means forest and group 1 means savanna.) Let <span class="math inline">\(P_k\)</span> denote the vector <span class="math inline">\((P_{k1}, \dots, P_{kR})\)</span>, and <span class="math inline">\(P\)</span> denote all the unknown allele frequencies <span class="math inline">\(P=(P_0,P_1)\)</span>.</p>
-<p>With this notation in place, we can state the problem: infer the unknowns <span class="math inline">\(Z\)</span> and <span class="math inline">\(P\)</span> from the observations <span class="math inline">\(X\)</span>.</p>
+<p>Let <span class="math inline">\(x_i\)</span> denote the genetic data
+for individual <span class="math inline">\(i\)</span> (<span
+class="math inline">\(i = 1,\dots,
+n\)</span>). Thus, <span class="math inline">\(x_i\)</span> is a binary
+vector (a vector of zeros and ones) of length <span
+class="math inline">\(R\)</span>. Let <span
+class="math inline">\(X\)</span> denote the combined genetic data, <span
+class="math inline">\(X = (x_1, \dots, x_n)\)</span>.</p>
+<p>Let <span class="math inline">\(z_i \in \{0,1\}\)</span> denote the
+group (forest vs. savanna) of individual <span
+class="math inline">\(i\)</span>, and let <span
+class="math inline">\(Z\)</span> denote the vector <span
+class="math inline">\(Z = (z_1, \dots, z_n)\)</span>.</p>
+<p>Let <span class="math inline">\(P_{kj}\)</span> denote the frequency
+of the 1 allele at locus <span class="math inline">\(j\)</span> in group
+<span class="math inline">\(k\)</span> (<span class="math inline">\(j =
+1, \dots,R\)</span>, <span class="math inline">\(k = 0, 1\)</span>).
+(Here, 0 = forest and 1 = savanna.) Let <span
+class="math inline">\(P_k\)</span> denote the vector <span
+class="math inline">\((P_{k1},
+\dots, P_{kR})\)</span>, and let <span class="math inline">\(P\)</span>
+denote all the (unknown) allele frequencies <span
+class="math inline">\(P = (P_0, P_1)\)</span>.</p>
+<p>With this notation in place, we can state the problem, which is to
+infer the unknowns <span class="math inline">\(P\)</span> and <span
+class="math inline">\(Z\)</span> from the genetic data <span
+class="math inline">\(X\)</span>.</p>
 </div>
 <div id="model" class="section level1">
 <h1>Model</h1>
-<p>To perform Bayesian inference for <span class="math inline">\(Z\)</span> and <span class="math inline">\(P\)</span> we need to specify the likelihood <span class="math inline">\(p(X | Z, P)\)</span> and a prior distribution <span class="math inline">\(p(Z,P)\)</span>.</p>
+<p>To perform Bayesian inference for <span
+class="math inline">\(Z\)</span> and <span
+class="math inline">\(P\)</span>, we need to specify the likelihood,
+<span class="math inline">\(p(X \mid Z, P)\)</span>, and a prior
+distribution, <span class="math inline">\(p(Z, P)\)</span>.</p>
 <div id="likelihood" class="section level2">
 <h2>Likelihood</h2>
-<p>For the likelihood, for each individual we will assume that if we knew its group of origin, and we knew the allele frequencies in each group, then the genetic data at different markers are independent draws from the relevant allele frequencies. This is exactly the model assumed <a href="likelihood_ratio_simple_models.html">here</a>. In mathematical notation, we assume: <span class="math display">\[p(x_i | z_i , P) = \prod_{j=1}^R P_{{z_i} j}^{x_{ij}}(1-P_{{z_i}j})^{(1-x_{ij})}.\]</span> All the subscripts here make this a bit difficult to read. To make things easier to read we can replace <span class="math inline">\(z_i\)</span> with <span class="math inline">\(k\)</span>, like this: <span class="math display">\[p(x_i | z_i=k , P) = \prod_{j=1}^R P_{k j}^{x_{ij}}(1-P_{kj})^{(1-x_{ij})}.\]</span></p>
-<p>We will further assume that the different individuals are independent: <span class="math display">\[p(X | Z, P) = \prod_i p(x_i | z_i, P).\]</span> This completes specification of the likelihood.</p>
+<p>For each individual, we will assume that if we knew its group of
+origin, and we knew the allele frequencies in each group, then the
+genetic data at the different markers are independent draws from the
+relevant allele frequencies. This is exactly the model assumed <a
+href="https://pcarbo.github.io/fiveMinuteStats/likelihood_ratio_simple_models.html">here</a>.
+In mathematical notation, we assume <span class="math display">\[
+p(x_i \mid z_i, P) =
+\prod_{j=1}^R P_{{z_i}j}^{x_{ij}}(1 - P_{{z_i}j})^{1 - x_{ij}}.
+\]</span> All the subscripts here make this difficult to read. To make
+things easier to read, we can replace <span
+class="math inline">\(z_i\)</span> with <span
+class="math inline">\(k\)</span>: <span class="math display">\[
+p(x_i \mid z_i = k, P) =
+\prod_{j=1}^R P_{kj}^{x_{ij}}(1 - P_{kj})^{1 - x_{ij}}.
+\]</span></p>
+<p>We will further assume that the different individuals are
+independent: <span class="math display">\[
+p(X \mid Z, P) = \prod_{i=1}^n p(x_i \mid z_i, P).
+\]</span> This completes specification of the likelihood.</p>
 </div>
 <div id="prior" class="section level2">
 <h2>Prior</h2>
-<p>We will assume that <span class="math inline">\(P\)</span> and <span class="math inline">\(Z\)</span> are <em>a priori</em> independent, so <span class="math inline">\(p(P,Z) = p(P)p(Z)\)</span>. This assumption seems reasonable: before seeing the genetic data <span class="math inline">\(X\)</span>, telling you the allele frequencies in the two groups would not tell you anything about the group membership of each individual. (Of course, after seeing the genetic data <span class="math inline">\(X\)</span>, the allele frequencies would help classify the individuals, so <span class="math inline">\(P\)</span> and <span class="math inline">\(Z\)</span> are not going to be <em>a posteriori</em> independent. However, here we are concerned with the prior, not the posterior.)</p>
-<p>For the prior on <span class="math inline">\(P\)</span> we will further assume that the allele frequencies in each group at each locus are independent, so <span class="math inline">\(p(P) = \prod_k \prod_j p(P_{kj})\)</span>. This assumption could be improved, but at the cost of considerable extra complexity, and so we stick with independence for now. Also for simplicity we will assume a uniform prior distribution for <span class="math inline">\(P_{kj}\)</span>, so <span class="math inline">\(p(P_{kj})=1\)</span>.</p>
-<p>For <span class="math inline">\(Z\)</span> we will assume that the origin of each individual is independent, with an equal probability (0.5) of arising from each of the two groups. So <span class="math display">\[p(Z) = \prod_{i=1}^n p(z_i),\]</span> and <span class="math inline">\(p(z_i=k) = 0.5\)</span>. Again, this assumption could be improved, but we start here for simplicity.</p>
+<p>We will assume that <span class="math inline">\(P\)</span> and <span
+class="math inline">\(Z\)</span> are <em>a priori</em> independent, so
+<span class="math inline">\(p(P,Z)
+= p(P) \, p(Z)\)</span>. This assumption seems reasonable: before seeing
+the genetic data (<span class="math inline">\(X\)</span>), telling you
+the allele frequencies in the two groups would not tell you anything
+about the group membership of the elephants. (Of course, after seeing
+the genetic data <span class="math inline">\(X\)</span>, the allele
+frequencies would help classify the individuals, so <span
+class="math inline">\(P\)</span> and <span
+class="math inline">\(Z\)</span> are not going to be <em>a
+posteriori</em> independent. However, here we are concerned with the
+prior, not the posterior.)</p>
+<p>For the prior on <span class="math inline">\(P\)</span>, we will
+further assume that the allele frequencies in each group at each locus
+are independent, so <span class="math inline">\(p(P) =
+\prod_{k=1}^2 \prod_{j=1}^R p(P_{kj})\)</span>. This assumption could be
+improved, but at the cost of considerable extra complexity, and so we
+stick with independence for now. Also, for simplicity we will assume a
+uniform prior distribution for <span
+class="math inline">\(P_{kj}\)</span>, so <span
+class="math inline">\(p(P_{kj}) = 1\)</span>.</p>
+<p>For <span class="math inline">\(Z\)</span>, we will assume that the
+origin of each individual is independent, with an equal probability
+(0.5) of arising from each of the two groups. So <span
+class="math display">\[
+p(Z) = \prod_{i=1}^n p(z_i),
+\]</span> and <span class="math inline">\(p(z_i = k) = 0.5\)</span>.
+Again, this assumption could be improved, but we start here for
+simplicity.</p>
 </div>
 </div>
 <div id="computation" class="section level1">
 <h1>Computation</h1>
-<p>Our goal is to compute (or sample from) the posterior distribution <span class="math inline">\(p(Z,P | X)\)</span>, which by Bayes Theorem is given by <span class="math display">\[p(Z, P | X) \propto p(X | Z,P) p(Z,P).\]</span></p>
-<p><span class="math display">\[\Pr(X_{ij} = a | Z_i = k) = p^a_{kj} (1-p)^(1-a)_{kj}\]</span> where <span class="math inline">\(a \in \{0,1\}\)</span>.</p>
-<p>One way to sample from this distribution is to implement a Gibbs sampler. This requires us to be able to do two things:</p>
+<p>Our goal is to compute (or sample from) the posterior distribution
+<span class="math inline">\(p(Z, P \mid X)\)</span>, which by Bayes
+Theorem is <span class="math display">\[
+p(Z, P \mid X) \propto p(X \mid Z,P) \, p(Z,P).
+\]</span></p>
+<p>One way to sample from this distribution is to implement a Gibbs
+sampler. This requires us to be able to do two things:</p>
 <ol style="list-style-type: decimal">
-<li>sample from Z | P,X</li>
-<li>sample from P | Z,X</li>
+<li><p>Sample from <span class="math display">\[p(Z \mid P,
+X)\]</span>.</p></li>
+<li><p>Sample from <span class="math display">\[p(P \mid Z,
+X)\]</span>.</p></li>
 </ol>
-<p>These are called the “full conditional distributions” for Z and P respectively. The use of the word “full” here indicates that they are conditional on <em>everything else</em> (ie the data and all the other parameters).</p>
+<p>These are called the “full conditional distributions” for Z and P
+respectively. The use of the word “full” here indicates that they are
+conditional on <em>everything else</em> (the data and all the other
+parameters).</p>
 <div id="full-conditional-for-z" class="section level2">
 <h2>Full conditional for Z</h2>
-<p>We know that: <span class="math display">\[p(Z| P,X) \propto p(Z,P,X) = \prod_i p(x_i | z_i, P) p(z_i) p(P)\]</span></p>
-<p>So we see that the full conditional for <span class="math inline">\(Z=(z_1,\dots,z_n)\)</span> factorizes over <span class="math inline">\(i\)</span> into terms that depend only on <span class="math inline">\(z_i\)</span> and not the other <span class="math inline">\(z\)</span>s. That is, <span class="math display">\[p(Z| P,X) \propto \prod_i f_i(z_i; x_i,P)\]</span></p>
-<p>for some functions <span class="math inline">\(f_i\)</span>.</p>
-<p>This implies that the <span class="math inline">\(z_i\)</span> are conditionally independent given <span class="math inline">\(X,P\)</span>, which is extremely convenient as it means we can compute their conditional distribution by just computing the marginals.</p>
-<p><span class="math display">\[p(Z_i = k | P,X) \propto p(x_i | z_i=k, P)\]</span></p>
-</div>
-<div id="todo-fill-in-derivation-of-the-conditional-for-p" class="section level2">
-<h2>TODO: fill in derivation of the conditional for P</h2>
+<p>We know that <span class="math display">\[
+p(Z \mid P,X) \propto p(Z,P,X) =
+\prod_{i=1}^n p(x_i \mid z_i, P) \, p(z_i) \, p(P).
+\]</span></p>
+<p>So we see that the full conditional for <span class="math inline">\(Z
+= (z_1, \dots, z_n)\)</span> factorizes over <span
+class="math inline">\(i\)</span> into terms that depend only on <span
+class="math inline">\(z_i\)</span> and not the other elements of <span
+class="math inline">\(Z\)</span>. That is, <span class="math display">\[
+p(Z \mid P, X) \propto \prod_{i=1}^n f_i(z_i; x_i, P)
+\]</span> for some (yet to be determined) functions <span
+class="math inline">\(f_i\)</span>.</p>
+<p>This implies that the <span class="math inline">\(z_i\)</span> are
+<em>conditionally independent</em> given <span
+class="math inline">\(X,P\)</span>, which is very convenient as it means
+we can compute their conditional distribution just by computing the
+marginals: <span class="math display">\[
+p(Z_i = k \mid P,X) \propto p(x_i \mid z_i = k, P)
+\]</span></p>
+<p><em>Exercise:</em> Derive the full conditional for <span
+class="math inline">\(P\)</span>.</p>
 </div>
 </div>
 <div id="simulate-some-data" class="section level1">
 <h1>Simulate some data</h1>
 <p>To illustrate, let’s simulate data from this model:</p>
 <pre class="r"><code>set.seed(33)
-
-# generate from mixture of normals
-#&#39; @param n number of samples
-#&#39; @param P a 2 by R matrix of allele frequencies
-r_simplemix = function(n,P){
-  R = ncol(P)
-  z = sample(1:2,prob=c(0.5,0.5),size=n,replace=TRUE) #simulate z as 1 or 2
-  x = matrix(nrow = n, ncol=R)
-  for(i in 1:n){
-    x[i,] = rbinom(R,rep(1,R),P[z[i],])
-  }
-  return(list(x=x,z=z))
+# Generate data from a mixture of normals.
+#&#39; @param n The number of samples to simulate.
+#&#39; @param P A 2 x R matrix of allele frequencies.
+r_simplemix &lt;- function (n, P) {
+  R &lt;- ncol(P)
+  z &lt;- sample(2,prob = c(0.5,0.5),size = n,replace = TRUE)
+  x &lt;- matrix(0,n,R)
+  for (i in 1:n)
+    x[i,] &lt;- rbinom(R,rep(1,R),P[z[i],])
+  return(list(x = x,z = z))
 }
-P = rbind(c(0.5,0.5,0.5,0.5,0.5,0.5),c(0.001,0.999,0.001,0.999,0.001,0.999))
-sim = r_simplemix(n=50,P)
-x = sim$x</code></pre>
+P &lt;- rbind(c(0.500,0.500,0.500,0.500,0.500,0.500),
+           c(0.001,0.999,0.001,0.999,0.001,0.999))
+sim &lt;- r_simplemix(n = 50,P)
+x &lt;- sim$x</code></pre>
 </div>
 <div id="gibbs-sampler-code" class="section level1">
 <h1>Gibbs sampler code</h1>
-<pre class="r"><code>#&#39; @param x an R vector of data
-#&#39; @param P a K by R matrix of allele frequencies
-#&#39; @return the log-likelihood for each of the K populations
-log_pr_x_given_P = function(x,P){
-  tP = t(P) #transpose P so tP is R by K
-  return(colSums(x*log(tP)+(1-x)*log(1-tP)))
-}
+<pre class="r"><code>normalize &lt;- function (x)
+  x/sum(x)
 
-normalize = function(x){return(x/sum(x))} #used in sample_z below
+#&#39; @param x Data vector (length R).
+#&#39; @param P 2 x R matrix of allele frequencies.
+#&#39; @return The log-likelihood for each of the K populations.
+log_pr_x_given_P &lt;- function (x, P)
+  colSums(x*log(t(P)) + (1-x)*log(1-t(P)))
 
-#&#39; @param x an n by R matrix of data
-#&#39; @param P a K by R matrix of allele frequencies
-#&#39; @return an n vector of group memberships
-sample_z = function(x,P){
-  K = nrow(P)
-  loglik_matrix = apply(x, 1, log_pr_x_given_P, P=P)
-  lik_matrix = exp(loglik_matrix) 
-  p.z.given.x = apply(lik_matrix,2,normalize) # normalize columns
-  z = rep(0, nrow(x))
-  for(i in 1:length(z)){
-    z[i] = sample(1:K, size=1,prob=p.z.given.x[,i],replace=TRUE)
-  }
+#&#39; @param x n x R data matrix.
+#&#39; @param P 2 x R matrix of allele frequencies.
+#&#39; @return Group memberships (vector of length n).
+sample_z &lt;- function (x, P) {
+  K &lt;- nrow(P)
+  loglik_matrix &lt;- apply(x,1,log_pr_x_given_P,P = P)
+  lik_matrix &lt;- exp(loglik_matrix) 
+  p.z.given.x &lt;- apply(lik_matrix,2,normalize)
+  z &lt;- rep(0,nrow(x))
+  for (i in 1:length(z))
+    z[i] &lt;- sample(K,size = 1,prob = p.z.given.x[,i],replace = TRUE)
   return(z)
 }
 
-
-#&#39; @param x an n by R matrix of data
-#&#39; @param z an n vector of cluster allocations
-#&#39; @return a 2 by R matrix of allele frequencies
-sample_P = function(x, z){
-  R = ncol(x)
-  P = matrix(ncol=R,nrow=2)
-  for(i in 1:2){
-    sample_size = sum(z==i)
-    if(sample_size==0){
-      number_of_ones=rep(0,R) 
-    } else {
-      number_of_ones = colSums(x[z==i,])
-    }
-    P[i,] = rbeta(R,1+number_of_ones,1+sample_size-number_of_ones) 
+#&#39; @param x n x R data matrix.
+#&#39; @param z Cluster allocations (vector of length n).
+#&#39; @return 2 x R matrix of allele frequencies.
+sample_P &lt;- function (x, z) {
+  R &lt;- ncol(x)
+  P &lt;- matrix(0,2,R)
+  for (i in 1:2) {
+    sample_size &lt;- sum(z == i)
+    if (sample_size == 0)
+      number_of_ones &lt;- rep(0,R)
+    else
+      number_of_ones &lt;- colSums(x[z == i,])
+    P[i,] &lt;- rbeta(R,number_of_ones + 1,sample_size - number_of_ones + 1)
   }
   return(P)
 }
 
-gibbs = function(x,niter = 100){
-  z = sample(1:2,nrow(x),replace=TRUE)
-  res = list(z = matrix(nrow=niter, ncol=nrow(x)))
-  res$z[1,]=z 
-  
-  for(i in 2:niter){
-    P = sample_P(x,z)
-    z = sample_z(x,P)
-    res$z[i,] = z
+gibbs &lt;- function (x, niter = 100) {
+  n &lt;- nrow(x)
+  z &lt;- sample(2,n,replace = TRUE)
+  out &lt;- matrix(0,niter,n)
+  out[1,] &lt;- z 
+  for(i in 2:niter) {
+    P &lt;- sample_P(x,z)
+    z &lt;- sample_z(x,P)
+    out[i,] &lt;- z
   }
-  return(res)
+  return(out)
 }</code></pre>
-<p>Try the Gibbs sampler on the data simulated above.</p>
-<pre class="r"><code>  res = gibbs(x,100)
-  table(res$z[1,],sim$z)</code></pre>
-<pre><code>   
-     1  2
-  1 13 14
-  2 11 12</code></pre>
-<pre class="r"><code>  table(res$z[100,],sim$z)</code></pre>
-<pre><code>   
-     1  2
-  1  4 26
-  2 20  0</code></pre>
-<pre class="r"><code>  image(t(res$z))</code></pre>
-<p><img src="figure/gibbs_structure_simple.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
-Past versions of unnamed-chunk-3-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/0cd34f67b40352c6c9ed444e39e35c4c15233dc2/docs/figure/gibbs_structure_simple.Rmd/unnamed-chunk-3-1.png" target="_blank">0cd34f6</a>
-</td>
-<td>
-stephens999
-</td>
-<td>
-2017-02-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div id="session-information" class="section level2">
-<h2>Session Information</h2>
-<br> <br>
+<p>Try the Gibbs sampler on the data simulated above:</p>
+<pre class="r"><code>z &lt;- gibbs(x,niter = 100)
+table(mcmc = z[1,],true = sim$z)
+#     true
+# mcmc  1  2
+#    1 14 11
+#    2 10 15
+table(mcmc = z[100,],true = sim$z)
+#     true
+# mcmc  1  2
+#    1  4 26
+#    2 20  0
+image(t(z[100:1,]),xlab = &quot;elephant&quot;,
+      ylab = &quot;Gibbs sampling iteration&quot;,
+      col = c(&quot;red&quot;,&quot;darkblue&quot;))</code></pre>
+<p><img src="figure/gibbs_structure_simple.Rmd/run-gibbs-sampler-1.png" width="384" style="display: block; margin: auto;" /></p>
+<br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.5.2 (2018-12-20)
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
-Running under: macOS Mojave 10.14.1
-
-Matrix products: default
-BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
-
-locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-loaded via a namespace (and not attached):
- [1] workflowr_1.2.0 Rcpp_1.0.0      digest_0.6.18   rprojroot_1.3-2
- [5] backports_1.1.3 git2r_0.24.0    magrittr_1.5    evaluate_0.12  
- [9] stringi_1.2.4   fs_1.2.6        whisker_0.3-2   rmarkdown_1.11 
-[13] tools_3.5.2     stringr_1.3.1   glue_1.3.0      xfun_0.4       
-[17] yaml_2.2.0      compiler_3.5.2  htmltools_0.3.6 knitr_1.21     </code></pre>
+<pre class="r"><code>sessionInfo()
+# R version 4.3.3 (2024-02-29)
+# Platform: aarch64-apple-darwin20 (64-bit)
+# Running under: macOS 15.7.1
+# 
+# Matrix products: default
+# BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+# LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+# 
+# locale:
+# [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+# 
+# time zone: America/Chicago
+# tzcode source: internal
+# 
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# 
+# loaded via a namespace (and not attached):
+#  [1] vctrs_0.6.5       cli_3.6.5         knitr_1.50        rlang_1.1.6      
+#  [5] xfun_0.52         stringi_1.8.7     promises_1.3.3    jsonlite_2.0.0   
+#  [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.33.0     
+# [13] htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.10       rmarkdown_2.29   
+# [17] evaluate_1.0.4    jquerylib_0.1.4   tibble_3.3.0      fastmap_1.2.0    
+# [21] yaml_2.3.10       lifecycle_1.0.4   whisker_0.4.1     stringr_1.5.1    
+# [25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
+# [29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
+# [33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0</code></pre>
 </div>
 </div>
-</div>
 
-<hr>
-<p>
-    This site was created with <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-</p>
-<hr>
-
-<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
-
-<!-- disqus
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'rmarkdown'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
--->
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->
@@ -881,6 +1080,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 </div>
@@ -892,13 +1093,59 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
