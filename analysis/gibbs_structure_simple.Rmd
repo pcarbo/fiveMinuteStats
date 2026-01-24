@@ -28,7 +28,7 @@ Prerequisites
 
 Be familiar with [Bayesian inference for the two class
 problem][LR_and_BF] and [conjugate Bayesian analysis for a
-binomial proportion][simple_nonconjugate].
+binomial proportion][bayes_conjugate].
 
 Overview
 ========
@@ -274,5 +274,5 @@ image(t(res$z))
 
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/gibbs_structure_simple.pdf
 [LR_and_BF]: https://pcarbo.github.io/fiveMinuteStats/LR_and_BF.html
-[simple_nonconjugate]: https://pcarbo.github.io/fiveMinuteStats/simple_nonconjugate.html
-[likelihood_ratio_simple_models]: https://pcarbo.github.io/fiveMinuteStats/.html
+[bayes_conjugate]: https://pcarbo.github.io/fiveMinuteStats/bayes_conjugate.html
+[likelihood_ratio_simple_models]: https://pcarbo.github.io/fiveMinuteStats/likelihood_ratio_simple_models.html
