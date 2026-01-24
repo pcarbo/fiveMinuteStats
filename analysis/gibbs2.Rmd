@@ -1,5 +1,5 @@
 ---
-title: Gibbs Sampling for a mixture of normals
+title: Gibbs sampling for a mixture of normals
 author: 
   name: Matthew Stephens
   affiliation: University of Chicago
