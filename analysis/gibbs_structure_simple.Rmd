@@ -118,26 +118,23 @@ improved, but at the cost of considerable extra complexity, and so we
 stick with independence for now. Also, for simplicity we will assume a
 uniform prior distribution for $P_{kj}$, so $p(P_{kj}) = 1$.
 
-For $Z$ we will assume that the origin of each individual is independent, with an equal probability (0.5) of arising from each of the two groups. So 
+For $Z$, we will assume that the origin of each individual is
+independent, with an equal probability (0.5) of arising from each of
+the two groups. So
 $$
 p(Z) = \prod_{i=1}^n p(z_i),
 $$
-and $p(z_i=k) = 0.5$. Again, this assumption could be improved, but we
-start here for simplicity.
+and $p(z_i = k) = 0.5$. Again, this assumption could be improved, but
+we start here for simplicity.
 
 Computation
 ===========
 
 Our goal is to compute (or sample from) the posterior distribution
-$p(Z,P \mid X)$, which by Bayes Theorem is given by
+$p(Z, P \mid X)$, which by Bayes Theorem is
 $$
 p(Z, P \mid X) \propto p(X \mid Z,P) \, p(Z,P).
 $$
-
-$$
-\Pr(X_{ij} = a \mid Z_i = k) = p^a_{kj} (1-p)^(1-a)_{kj}
-$$ 
-where $a \in \{0,1\}$.
 
 One way to sample from this distribution is to implement a Gibbs sampler.
 This requires us to be able to do two things:
@@ -147,8 +144,8 @@ This requires us to be able to do two things:
 2. Sample from $$p(P \mid Z, X)$$.
 
 These are called the "full conditional distributions" for Z and P
-respectively.  The use of the word "full" here indicates that they are
-conditional on *everything else* (i.e.,the data and all the other
+respectively. The use of the word "full" here indicates that they are
+conditional on *everything else* (the data and all the other
 parameters).
 
 Full conditional for Z
@@ -156,26 +153,26 @@ Full conditional for Z
 
 We know that
 $$
-p(Z| P,X) \propto p(Z,P,X) = \prod_i p(x_i | z_i, P) p(z_i) p(P)
+p(Z \mid P,X) \propto p(Z,P,X) =
+\prod_{i=1}^n p(x_i \mid z_i, P) \, p(z_i) \, p(P).
 $$
 
-So we see that the full conditional for $Z=(z_1,\dots,z_n)$ factorizes over $i$
-into terms that depend only on $z_i$ and not the other $z$s. That is,
+So we see that the full conditional for $Z = (z_1, \dots, z_n)$
+factorizes over $i$ into terms that depend only on $z_i$ and not the
+other elements of $Z$. That is,
 $$
-p(Z| P,X) \propto \prod_i f_i(z_i; x_i,P)
+p(Z \mid P, X) \propto \prod_{i=1}^n f_i(z_i; x_i, P)
+$$
+for some (yet to be determined) functions $f_i$.
+
+This implies that the $z_i$ are *conditionally independent* given
+$X,P$, which is very convenient as it means we can compute their
+conditional distribution just by computing the marginals:
+$$
+p(Z_i = k \mid P,X) \propto p(x_i \mid z_i = k, P)
 $$
 
-for some functions $f_i$.
-
-This implies that the $z_i$ are conditionally independent given $X,P$,
-which is extremely convenient as it means we can compute their
-conditional distribution by just computing the marginals.
-
-$$
-p(Z_i = k | P,X) \propto p(x_i | z_i=k, P)
-$$
-
-TO DO: fill in derivation of the conditional for P.
+*Exercise:* Derive the full conditional for $P$.
 
 Simulate some data
 ==================
