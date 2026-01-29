@@ -181,7 +181,6 @@ To illustrate, let's simulate data from this model:
 
 ```{r sim-data}
 set.seed(33)
-# Generate data from a mixture of normals.
 #' @param n The number of samples to simulate.
 #' @param P A 2 x R matrix of allele frequencies.
 r_simplemix <- function (n, P) {
