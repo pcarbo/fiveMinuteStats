@@ -91,7 +91,7 @@ title: Home
 
 ### Poisson Processes
 
-*  [Poisson Processes: Thinning with time-dependent probabilities](poisson_process_time_dependent_thinning.html)
+*  [Poisson Processes: Thinning with time-dependent probabilities](poisson_process_time_dependent_thinning.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/poisson_process_time_dependent_thinning.pdf))
 *  [Poisson Process: The Limiting Case of the Bernoulli Process](bernoulli_poisson_process.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bernoulli_poisson_process.pdf))
 
 ### Methods for sampling non-standard distributions
