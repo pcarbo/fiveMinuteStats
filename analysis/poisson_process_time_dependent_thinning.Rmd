@@ -92,7 +92,7 @@ they are returning to the hive), that the inflection point is midday
 depleted has a logistic decay rate such that $b=-1$. Let's plot this
 success probability curve.
 
-```{r}
+```{r, fig.height=3.5, fig.width=4}
 t<-seq(0,9,by=0.01)
 p<-function(t,a=4.5,b=-1){return(1/(1+exp(-b*(t-a))))}
 
@@ -156,7 +156,7 @@ arrivals, the sequence of arrival\_times and types.
 We can make a simple plot of the timing of arrivals, annotating them
 each by type:
 
-```{r}
+```{r, fig.height=3.5, fig.width=4}
 ## And let's make a plot
 plot(c(0,t),c(0,0),type='l',xlab='Time (hours)',ylab='',yaxt='n');
 points(arrival_times,rep(0,N),pch='|',cex=0.85)
@@ -168,7 +168,7 @@ higher number types becoming rarer as time progresses.
  
 Another useful plot is the standard counting process plot:
 
-```{r}
+```{r, fig.height=3.5, fig.width=4}
 x<-seq(0,t,by=0.01)
 n_t<-sapply(x,function(s) sum(arrival_times<s))
 plot(x,n_t,type='l',xlab='Time (hours)',ylab='# of returning bees')
@@ -176,7 +176,7 @@ plot(x,n_t,type='l',xlab='Time (hours)',ylab='# of returning bees')
 
 Now let's try making a plot that adds in the arrivals of each type:
 
-```{r}
+```{r, fig.height=3.5, fig.width=4}
 x<-seq(0,t,by=0.01)
 n_t<-sapply(x,function(s) sum(arrival_times<s))
 plot(x,n_t,type='l',xlab="Time (hours)",ylab="# of returning bees")
@@ -222,7 +222,7 @@ mean values over a range of $t$, so let's build our own (crude)
 numerical integrator and store the partial integrals for all the
 values of t we want.
 
-```{r}
+```{r, fig.height=3.5, fig.width=4}
 # Code for numerical intergration 
 ## Set a little dx for the increments in our numerical integration
 dx=0.01
@@ -262,7 +262,7 @@ F(t)=\sum_{i=1}^K iN_i(t).
 $$
 Let's just look at this based on the results of our expectation:
 
-```{r}
+```{r, fig.height=3.5, fig.width=4}
 Ft<-rep(0,length(x))
 for(i in seq(0,K)){
   Ft<-Ft+i*int_pt[i+1,]
