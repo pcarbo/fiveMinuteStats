@@ -32,6 +32,7 @@ all: docs/index.html \
      docs/gibbs2.html \
      docs/gibbs_structure_simple.html \
      docs/hmm.html \
+     docs/bernoulli_poisson_process.html \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
      docs/Importance_sampling.pdf \
@@ -58,7 +59,8 @@ all: docs/index.html \
      docs/gibbs1.pdf \
      docs/gibbs2.pdf \
      docs/gibbs_structure_simple.pdf \
-     docs/hmm.pdf
+     docs/hmm.pdf \
+     docs/bernoulli_poisson_process.pdf
 
 index: docs/index.html
 
@@ -142,6 +144,9 @@ docs/gibbs_structure_simple.html : analysis/gibbs_structure_simple.Rmd
 
 docs/hmm.html : analysis/hmm.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/hmm.Rmd",view = FALSE)'
+
+docs/bernoulli_poisson_process.html : analysis/bernoulli_poisson_process.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/bernoulli_poisson_process.Rmd",view = FALSE)'
 
 docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
@@ -281,6 +286,11 @@ docs/hmm.pdf : analysis/hmm.Rmd readable.tex
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/hmm.pdf")'
 	rm temp.Rmd
 
+docs/bernoulli_poisson_process.pdf : analysis/bernoulli_poisson_process.Rmd readable.tex
+	cp analysis/bernoulli_poisson_process.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/bernoulli_poisson_process.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf
@@ -309,4 +319,5 @@ clean:
 	rm -f docs/gibbs2.pdf
 	rm -f docs/gibbs_structure_simple.pdf
 	rm -f hmm.pdf
+	rm -f bernoulli_poisson_process.pdf
 	rm -f temp.Rmd

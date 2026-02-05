@@ -1,41 +1,62 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Matt Bonakdarpour" />
 
-<meta name="date" content="2016-02-05" />
+<meta name="date" content="2026-02-05" />
 
-<title>Poisson Process: The Limiting Case of the Bernoulli Process</title>
+<title>Poisson process: the limiting case of the Bernoulli process</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -48,37 +69,11 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
 
 
-</head>
 
-<body>
+
+
 
 <style type = "text/css">
 .main-container {
@@ -86,13 +81,8 @@ h6 {
   margin-left: auto;
   margin-right: auto;
 }
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -106,40 +96,16 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -167,7 +133,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -179,7 +145,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -189,15 +155,30 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -207,13 +188,12 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -221,16 +201,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -243,6 +216,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -255,48 +229,9 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -310,6 +245,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -345,8 +286,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -356,8 +295,18 @@ div.tocify {
 
 </style>
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -371,7 +320,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -392,37 +341,31 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/stephens999/fiveMinuteStats">
-    <span class="fa fa-github"></span>
-     
-  </a>
+  <a href="https://github.com/pcarbo/fiveMinuteStats">source</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<!-- Add a small amount of space between sections. -->
-<style type="text/css">
-div.section {
-  padding-top: 12px;
-}
-</style>
-
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
-<h1 class="title toc-ignore">Poisson Process: The Limiting Case of the Bernoulli Process</h1>
-<h4 class="author"><em>Matt Bonakdarpour</em></h4>
-<h4 class="date"><em>2016-02-05</em></h4>
+<h1 class="title toc-ignore">Poisson process: the limiting case of the
+Bernoulli process</h1>
+<h4 class="author">Matt Bonakdarpour</h4>
+<address class="author_afil">
+University of Chicago<br><h4 class="date">February 5, 2026</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -431,7 +374,9 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#report"> Report <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -440,74 +385,112 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-03-31
+<strong>Last updated:</strong> 2026-02-05
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 2
 </p>
 <p>
-<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
+<span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.2.0). The <em>Report</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
-<div id="report" class="tab-pane fade">
+<div id="checks" class="tab-pane fade">
 <div id="workflowr-checks" class="panel-group">
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(12345)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(12345)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed12345code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed12345code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(12345)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(12345)</code> was run prior to running the
+code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
 </p>
 </div>
 <div id="strongCachestrongdetected" class="panel-collapse collapse">
@@ -518,45 +501,80 @@ The following chunks had caches available:
 unnamed-chunk-5
 </li>
 </ul>
-<p>To ensure reproducibility of the results, delete the cache directory <code>bernoulli_poisson_process_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
+<p>To ensure reproducibility of the results, delete the cache directory
+<code>bernoulli_poisson_process_cache</code> and re-run the analysis. To
+have workflowr automatically delete the cache directory prior to
+building the file, set <code>delete_cache = TRUE</code> when running
+<code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstree0cd28bd3e7aea2258f9c3a55e2e0060c55403123targetblank0cd28bda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephens999/fiveMinuteStats/tree/0cd28bd3e7aea2258f9c3a55e2e0060c55403123" target="_blank">0cd28bd</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstree0cd28bd3e7aea2258f9c3a55e2e0060c55403123targetblank0cd28bda" class="panel-collapse collapse">
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreeb7947000e60855b23e205a55e88ccbdcd9cb422etargetblankb794700a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/b7947000e60855b23e205a55e88ccbdcd9cb422e" target="_blank">b794700</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstreeb7947000e60855b23e205a55e88ccbdcd9cb422etargetblankb794700a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/b7947000e60855b23e205a55e88ccbdcd9cb422e" target="_blank">b794700</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .Rhistory
-    Ignored:    .Rproj.user/
-    Ignored:    analysis/.Rhistory
     Ignored:    analysis/bernoulli_poisson_process_cache/
 
 Untracked files:
-    Untracked:  _workflowr.yml
-    Untracked:  analysis/CI.Rmd
-    Untracked:  analysis/gibbs_structure.Rmd
-    Untracked:  analysis/libs/
-    Untracked:  analysis/results.Rmd
-    Untracked:  analysis/shiny/tester/
-    Untracked:  docs/MH_intro_files/
-    Untracked:  docs/citations.bib
-    Untracked:  docs/figure/MH_intro.Rmd/
-    Untracked:  docs/hmm_files/
-    Untracked:  docs/libs/
-    Untracked:  docs/shiny/tester/
+    Untracked:  temp_cache/
+
+Unstaged changes:
+    Modified:   Makefile
+    Modified:   analysis/bernoulli_poisson_process.Rmd
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -567,7 +585,13 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/bernoulli_poisson_process.Rmd</code>) and HTML
+(<code>docs/bernoulli_poisson_process.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -596,7 +620,41 @@ Message
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/34bcc51fef570dd7d5a70859f262c983fed17381/docs/bernoulli_poisson_process.html" target="_blank">34bcc51</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/bernoulli_poisson_process.html" target="_blank">5f62ee6</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/0cd28bd3e7aea2258f9c3a55e2e0060c55403123/analysis/bernoulli_poisson_process.Rmd" target="_blank">0cd28bd</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+<td>
+workflowr::wflow_publish(all = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/34bcc51fef570dd7d5a70859f262c983fed17381/docs/bernoulli_poisson_process.html" target="_blank">34bcc51</a>
 </td>
 <td>
 John Blischak
@@ -613,7 +671,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/5fbc8b5c658203baf6765874b24794d41da622a8/analysis/bernoulli_poisson_process.Rmd" target="_blank">5fbc8b5</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5fbc8b5c658203baf6765874b24794d41da622a8/analysis/bernoulli_poisson_process.Rmd" target="_blank">5fbc8b5</a>
 </td>
 <td>
 John Blischak
@@ -630,7 +688,7 @@ Update workflowr project with wflow_update (version 0.4.0).
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/391ba3c0cf210ea8de8125ee8063557ceff55080/analysis/bernoulli_poisson_process.Rmd" target="_blank">391ba3c</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/391ba3c0cf210ea8de8125ee8063557ceff55080/analysis/bernoulli_poisson_process.Rmd" target="_blank">391ba3c</a>
 </td>
 <td>
 John Blischak
@@ -647,16 +705,16 @@ Remove front and end matter of non-standard templates.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/fb0f6e37ced1f4d374ed6ced4b01cb465776f001/docs/bernoulli_poisson_process.html" target="_blank">fb0f6e3</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/8e616835a4eccac7c4e0a8eeec86fdcefb1525ab/docs/bernoulli_poisson_process.html" target="_blank">8e61683</a>
 </td>
 <td>
-stephens999
+Marcus Davy
 </td>
 <td>
 2017-03-03
 </td>
 <td>
-Merge pull request #33 from mdavy86/f/review
+rendered html using wflow_build(all=TRUE)
 </td>
 </tr>
 <tr>
@@ -664,13 +722,13 @@ Merge pull request #33 from mdavy86/f/review
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/d6741417d44f168473b77d41bba75ddf1acce30b/analysis/bernoulli_poisson_process.Rmd" target="_blank">d674141</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/d6741417d44f168473b77d41bba75ddf1acce30b/analysis/bernoulli_poisson_process.Rmd" target="_blank">d674141</a>
 </td>
 <td>
 Marcus Davy
 </td>
 <td>
-2017-02-27
+2017-02-26
 </td>
 <td>
 typos, refs
@@ -681,7 +739,7 @@ typos, refs
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/bernoulli_poisson_process.html" target="_blank">c3b365a</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/bernoulli_poisson_process.html" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -698,7 +756,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/67a857539cd8a4029e899208aed19da6c78b4b36/analysis/bernoulli_poisson_process.Rmd" target="_blank">67a8575</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/67a857539cd8a4029e899208aed19da6c78b4b36/analysis/bernoulli_poisson_process.Rmd" target="_blank">67a8575</a>
 </td>
 <td>
 John Blischak
@@ -715,7 +773,7 @@ Use external chunk to set knitr chunk options.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/5ec12c73e37fc3c7ec04a31f6d85eede0f6c436e/analysis/bernoulli_poisson_process.Rmd" target="_blank">5ec12c7</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5ec12c73e37fc3c7ec04a31f6d85eede0f6c436e/analysis/bernoulli_poisson_process.Rmd" target="_blank">5ec12c7</a>
 </td>
 <td>
 John Blischak
@@ -732,7 +790,7 @@ Use session-info chunk.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/f875d4fda70c6b02eadf65ee70795f140a14b983/analysis/bernoulli_poisson_process.Rmd" target="_blank">f875d4f</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/f875d4fda70c6b02eadf65ee70795f140a14b983/analysis/bernoulli_poisson_process.Rmd" target="_blank">f875d4f</a>
 </td>
 <td>
 mbonakda
@@ -749,7 +807,7 @@ section title
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c2c298c61aa9eb20f7c7f660964c342016d44740/analysis/bernoulli_poisson_process.Rmd" target="_blank">c2c298c</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c2c298c61aa9eb20f7c7f660964c342016d44740/analysis/bernoulli_poisson_process.Rmd" target="_blank">c2c298c</a>
 </td>
 <td>
 mbonakda
@@ -766,7 +824,7 @@ plot titles
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/9ea41c31290ede8ef1165d0941675fbd17784e30/analysis/bernoulli_poisson_process.Rmd" target="_blank">9ea41c3</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/9ea41c31290ede8ef1165d0941675fbd17784e30/analysis/bernoulli_poisson_process.Rmd" target="_blank">9ea41c3</a>
 </td>
 <td>
 mbonakda
@@ -783,7 +841,7 @@ fix plot titles
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/22b554063800596a0abc6c3a0aa31342d813343e/analysis/bernoulli_poisson_process.Rmd" target="_blank">22b5540</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/22b554063800596a0abc6c3a0aa31342d813343e/analysis/bernoulli_poisson_process.Rmd" target="_blank">22b5540</a>
 </td>
 <td>
 mbonakda
@@ -802,27 +860,80 @@ add bernoulli limit to poisson process
 </div>
 </div>
 </div>
-<div id="pre-requisites" class="section level1">
-<h1>Pre-requisites</h1>
+<p>See <a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/bernoulli_poisson_process.pdf">here</a>
+for a PDF version of this vignette.</p>
+<div id="prerequisites" class="section level1">
+<h1>Prerequisites</h1>
 <p>This document assumes basic familiarity with the Poisson process.</p>
 </div>
 <div id="overview" class="section level1">
 <h1>Overview</h1>
-<p>To gain intuition about the Poisson process, it is useful think of it as a continuous time version of the Bernoulli process. We first review some basics about the Poisson process and settle on notation before moving on to an illustrative example.</p>
-<p>For a Poisson process, arrivals may occur at any arbitrary time <span class="math inline">\(t \geq 0\)</span>. One way to specify a Poisson process is by the counting process <span class="math inline">\(N_t\)</span> denoting the number of arrivals up to and including time <span class="math inline">\(t\)</span>. For a Poisson process with rate parameters <span class="math inline">\(\lambda\)</span>, we have that <span class="math display">\[N_t \sim \text{Poisson}(\lambda t)\]</span></p>
-<p>Therefore, the expected number of time arrivals up to and including <span class="math inline">\(t\)</span> is equal to <span class="math inline">\(E[N_t] = \lambda t\)</span>. In the examples that follow, we will assume our rate parameter <span class="math inline">\(\lambda\)</span> is <span class="math inline">\(0.75\)</span> arrivals per second, and we are interested in the number of arrivals after 10 seconds, <span class="math inline">\(N_{10}\)</span>. In this example, we expect and average of <span class="math inline">\(10\times\lambda = 7.5\)</span> arrivals after <span class="math inline">\(10\)</span> seconds.</p>
-<p>Now we will describe the discrete-time analog of the Poisson process, the Bernoulli process. Throughout the next section, our aim is to construct a Bernoulli process so that the expected number of arrivals after <span class="math inline">\(10\)</span> seconds matches the Poisson process above. We will then investigate what happens to the Bernoulli process as we increase the number of discrete events within the <span class="math inline">\(10\)</span> seconds while maintaining the expected number of arrivals at <span class="math inline">\(7.5\)</span>.</p>
+<p>To gain intuition about the Poisson process, it is useful think of it
+as a continuous time version of the Bernoulli process. We first review
+some basics about the Poisson process and settle on notation before
+moving on to an illustrative example.</p>
+<p>For a Poisson process, arrivals may occur at any arbitrary time <span
+class="math inline">\(t
+\geq 0\)</span>. One way to specify a Poisson process is by the counting
+process <span class="math inline">\(N_t\)</span> denoting the number of
+arrivals up to and including time <span
+class="math inline">\(t\)</span>. For a Poisson process with rate
+parameters <span class="math inline">\(\lambda\)</span>, we have that
+<span class="math display">\[N_t \sim \text{Poisson}(\lambda
+t)\]</span></p>
+<p>Therefore, the expected number of time arrivals up to and including
+<span class="math inline">\(t\)</span> is equal to <span
+class="math inline">\(E[N_t] = \lambda t\)</span>. In the examples that
+follow, we will assume our rate parameter <span
+class="math inline">\(\lambda\)</span> is <span
+class="math inline">\(0.75\)</span> arrivals per second, and we are
+interested in the number of arrivals after 10 seconds, <span
+class="math inline">\(N_{10}\)</span>. In this example, we expect and
+average of <span class="math inline">\(10\times\lambda = 7.5\)</span>
+arrivals after <span class="math inline">\(10\)</span> seconds.</p>
+<p>Now we will describe the discrete-time analog of the Poisson process,
+the Bernoulli process. Throughout the next section, our aim is to
+construct a Bernoulli process so that the expected number of arrivals
+after <span class="math inline">\(10\)</span> seconds matches the
+Poisson process above. We will then investigate what happens to the
+Bernoulli process as we increase the number of discrete events within
+the <span class="math inline">\(10\)</span> seconds while maintaining
+the expected number of arrivals at <span
+class="math inline">\(7.5\)</span>.</p>
 </div>
 <div id="bernoulli-process" class="section level1">
 <h1>Bernoulli Process</h1>
-<p>The <strong>Bernoulli process</strong> is a sequence of independent random variables <span class="math inline">\(X_1,X_2,X_3,\ldots\)</span> where <span class="math inline">\(X_i\)</span> is <span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span> and <span class="math inline">\(0\)</span> with probability <span class="math inline">\(1-p\)</span>. This is the mathematical abstraction of coin tossing.</p>
-<p>Assume that we perform a Bernoulli trial every second for 10 seconds. We will think of each <span class="math inline">\(X_i=1\)</span> as an <strong>arrival</strong>. Recall that since our random variables <span class="math inline">\(X_i\)</span> are Bernoulli(<span class="math inline">\(p\)</span>), the sum <span class="math inline">\(S_{10} = \sum_{i=1}^{10} X_i\)</span> is Binomial(10, <span class="math inline">\(p\)</span>). The expected value of <span class="math inline">\(S_{10}\)</span> is therefore <span class="math inline">\(10p\)</span> arrivals in <span class="math inline">\(10\)</span> seconds. To match the Poisson process above, we set <span class="math inline">\(p=0.75\)</span> so that <span class="math inline">\(E[S_{10}] = 7.5\)</span>.</p>
-<p>Below we simulate this process with <span class="math inline">\(p=0.75\)</span>, drawing a red line at time point <span class="math inline">\(i\)</span> if <span class="math inline">\(X_i = 1\)</span>:</p>
+<p>The <strong>Bernoulli process</strong> is a sequence of independent
+random variables <span class="math inline">\(X_1,X_2,X_3,\ldots\)</span>
+where <span class="math inline">\(X_i\)</span> is <span
+class="math inline">\(1\)</span> with probability <span
+class="math inline">\(p\)</span> and <span
+class="math inline">\(0\)</span> with probability <span
+class="math inline">\(1-p\)</span>. This is the mathematical abstraction
+of coin tossing.</p>
+<p>Assume that we perform a Bernoulli trial every second for 10 seconds.
+We will think of each <span class="math inline">\(X_i=1\)</span> as an
+<strong>arrival</strong>. Recall that since our random variables <span
+class="math inline">\(X_i\)</span> are Bernoulli(<span
+class="math inline">\(p\)</span>), the sum <span
+class="math inline">\(S_{10} =
+\sum_{i=1}^{10} X_i\)</span> is Binomial(10, <span
+class="math inline">\(p\)</span>). The expected value of <span
+class="math inline">\(S_{10}\)</span> is therefore <span
+class="math inline">\(10p\)</span> arrivals in <span
+class="math inline">\(10\)</span> seconds. To match the Poisson process
+above, we set <span class="math inline">\(p=0.75\)</span> so that <span
+class="math inline">\(E[S_{10}] = 7.5\)</span>.</p>
+<p>Below we simulate this process with <span
+class="math inline">\(p=0.75\)</span>, drawing a red line at time point
+<span class="math inline">\(i\)</span> if <span
+class="math inline">\(X_i = 1\)</span>:</p>
 <pre class="r"><code>X = rbinom(10, 1, 0.75)
 plot(X, xaxt=&#39;n&#39;, yaxt=&#39;n&#39;, type=&#39;h&#39;, ylim=c(0,1), 
      col=&#39;red&#39;, lwd=2, ylab=&#39;&#39;, xlab=&#39;time&#39;, main=&#39;Simple Bernoulli Process&#39;)
 axis(1, at = 1:10, labels=as.character(1:10))</code></pre>
-<p><img src="figure/bernoulli_poisson_process.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/bernoulli_poisson_process.Rmd/unnamed-chunk-1-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
 Past versions of unnamed-chunk-1-1.png
@@ -847,7 +958,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/34bcc51fef570dd7d5a70859f262c983fed17381/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-1-1.png" target="_blank">34bcc51</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-1-1.png" target="_blank">5f62ee6</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/34bcc51fef570dd7d5a70859f262c983fed17381/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-1-1.png" target="_blank">34bcc51</a>
 </td>
 <td>
 John Blischak
@@ -858,7 +980,7 @@ John Blischak
 </tr>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-1-1.png" target="_blank">c3b365a</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-1-1.png" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -871,10 +993,14 @@ John Blischak
 </table>
 </div>
 </div>
-<p>There are <span class="math inline">\(\sum_{i=1}^{10} X_i =\)</span> 6 arrivals in our experiment above. We simulate this Bernoulli process 1000 times below, and a plot a histogram of the <span class="math inline">\(S_{10}\)</span>’s obtained from each trial. We draw a red line at the expected number of arrivals, 7.5.</p>
+<p>There are <span class="math inline">\(\sum_{i=1}^{10} X_i =\)</span>
+6 arrivals in our experiment above. We simulate this Bernoulli process
+1000 times below, and a plot a histogram of the <span
+class="math inline">\(S_{10}\)</span>’s obtained from each trial. We
+draw a red line at the expected number of arrivals, 7.5.</p>
 <pre class="r"><code>hist(sapply(1:1000, function(x) sum(rbinom(10,1,0.75))), xlab=&#39;number of arrivals&#39;, main=&#39;Number of Arrivals in Bernoulli Process after 10 seconds&#39;)
 abline(v=7.5, col=&#39;red&#39;)</code></pre>
-<p><img src="figure/bernoulli_poisson_process.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/bernoulli_poisson_process.Rmd/unnamed-chunk-2-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
 Past versions of unnamed-chunk-2-1.png
@@ -899,7 +1025,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/34bcc51fef570dd7d5a70859f262c983fed17381/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-2-1.png" target="_blank">34bcc51</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-2-1.png" target="_blank">5f62ee6</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/34bcc51fef570dd7d5a70859f262c983fed17381/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-2-1.png" target="_blank">34bcc51</a>
 </td>
 <td>
 John Blischak
@@ -910,7 +1047,7 @@ John Blischak
 </tr>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-2-1.png" target="_blank">c3b365a</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-2-1.png" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -923,20 +1060,51 @@ John Blischak
 </table>
 </div>
 </div>
-<p>Note that for this process, time is <strong>discrete</strong> – events only happen at the integers <span class="math inline">\(1,2,\ldots 10\)</span>, while the Poisson process models events happening at any time <span class="math inline">\(t \in [0,10]\)</span>. We could next think of performing a Bernoulli trial more rapidly, like every 0.5 seconds, or every 0.01 seconds, and so on. Continuing in this fashion, we would eventually (in the limit) have a continuous time process where arrivals could happen at any moment in time. We will now investigate what happens as we “shrink” the Bernoulli process in this way, allowing for more trials within the <span class="math inline">\(10\)</span> seconds.</p>
-<p>Instead of performing a Bernoulli trial at every second, assume we perform one at every <span class="math inline">\(\delta\)</span> seconds where, in this example, <span class="math inline">\(\delta &lt; 1\)</span>. This would make the total of trials <span class="math inline">\(n = \frac{10}{\delta}\)</span>. Without making any other changes, <span class="math inline">\(S_{10}\)</span> would be a Binomial(<span class="math inline">\(10 /\delta\)</span>, <span class="math inline">\(0.75\)</span>) random variable with the expected number of arrivals equal to: <span class="math display">\[E[S_{10}] = \frac{p\times 10}{\delta} = \frac{0.75\times 10}{\delta}\]</span></p>
-<p>To maintain the average of <span class="math inline">\(7.5\)</span> arrivals in <span class="math inline">\(10\)</span> second, we would need to shrink the probability so that <span class="math display">\[\begin{align*}
+<p>Note that for this process, time is <strong>discrete</strong> –
+events only happen at the integers <span
+class="math inline">\(1,2,\ldots 10\)</span>, while the Poisson process
+models events happening at any time <span class="math inline">\(t \in
+[0,10]\)</span>. We could next think of performing a Bernoulli trial
+more rapidly, like every 0.5 seconds, or every 0.01 seconds, and so on.
+Continuing in this fashion, we would eventually (in the limit) have a
+continuous time process where arrivals could happen at any moment in
+time. We will now investigate what happens as we “shrink” the Bernoulli
+process in this way, allowing for more trials within the <span
+class="math inline">\(10\)</span> seconds.</p>
+<p>Instead of performing a Bernoulli trial at every second, assume we
+perform one at every <span class="math inline">\(\delta\)</span> seconds
+where, in this example, <span class="math inline">\(\delta
+&lt; 1\)</span>. This would make the total of trials <span
+class="math inline">\(n =
+\frac{10}{\delta}\)</span>. Without making any other changes, <span
+class="math inline">\(S_{10}\)</span> would be a Binomial(<span
+class="math inline">\(10 /\delta\)</span>, <span
+class="math inline">\(0.75\)</span>) random variable with the expected
+number of arrivals equal to: <span class="math display">\[E[S_{10}] =
+\frac{p\times 10}{\delta} = \frac{0.75\times 10}{\delta}\]</span></p>
+<p>To maintain the average of <span class="math inline">\(7.5\)</span>
+arrivals in <span class="math inline">\(10\)</span> second, we would
+need to shrink the probability so that <span class="math display">\[
+\begin{aligned}
 E[N_{10}] &amp;= E[S_{10}] \\
 10 \lambda &amp;= \frac{10\times p}{\delta} \\
 \Rightarrow p &amp;= \lambda \delta \\
 &amp;= 0.75\delta
-\end{align*}\]</span></p>
-<p>where we substituted <span class="math inline">\(\lambda = 0.75\)</span> in the last line. Continuing our example, instead of every 1 second, supposed we perform a Bernoulli trial every <span class="math inline">\(\delta = 0.5\)</span> seconds for <span class="math inline">\(10\)</span> seconds. Then, to maintain the expected number of arrivals, we set <span class="math inline">\(p = 0.75\times 0.5 = 0.375\)</span>. We plot this process below:</p>
+\end{aligned}
+\]</span></p>
+<p>where we substituted <span class="math inline">\(\lambda =
+0.75\)</span> in the last line. Continuing our example, instead of every
+1 second, supposed we perform a Bernoulli trial every <span
+class="math inline">\(\delta = 0.5\)</span> seconds for <span
+class="math inline">\(10\)</span> seconds. Then, to maintain the
+expected number of arrivals, we set <span class="math inline">\(p =
+0.75\times 0.5
+= 0.375\)</span>. We plot this process below:</p>
 <pre class="r"><code>X = rbinom(20, 1, 0.375)
 plot(X, xaxt=&#39;n&#39;, yaxt=&#39;n&#39;, type=&#39;h&#39;, ylim=c(0,1), 
      col=&#39;red&#39;, lwd=2, ylab=&#39;&#39;, xlab=&#39;time&#39;, main=&#39;Simple Bernoulli Process&#39;)
 axis(1, at = 0:20, labels=as.character(seq(0, 10, by=0.5)), cex.axis=0.5)</code></pre>
-<p><img src="figure/bernoulli_poisson_process.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/bernoulli_poisson_process.Rmd/unnamed-chunk-3-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
 Past versions of unnamed-chunk-3-1.png
@@ -961,7 +1129,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/34bcc51fef570dd7d5a70859f262c983fed17381/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-3-1.png" target="_blank">34bcc51</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-3-1.png" target="_blank">5f62ee6</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/34bcc51fef570dd7d5a70859f262c983fed17381/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-3-1.png" target="_blank">34bcc51</a>
 </td>
 <td>
 John Blischak
@@ -972,7 +1151,7 @@ John Blischak
 </tr>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-3-1.png" target="_blank">c3b365a</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-3-1.png" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -985,10 +1164,11 @@ John Blischak
 </table>
 </div>
 </div>
-<p>and show the histogram of 1000 simulations of <span class="math inline">\(S_{10}\)</span> for this process:</p>
+<p>and show the histogram of 1000 simulations of <span
+class="math inline">\(S_{10}\)</span> for this process:</p>
 <pre class="r"><code>hist(sapply(1:1000, function(x) sum(rbinom(20,1,0.375))), xlab=&#39;number of arrivals&#39;, main=&#39;Number of Arrivals in Bernoulli Process after 10 seconds&#39;)
 abline(v=7.5, col=&#39;red&#39;)</code></pre>
-<p><img src="figure/bernoulli_poisson_process.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/bernoulli_poisson_process.Rmd/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
 Past versions of unnamed-chunk-4-1.png
@@ -1013,7 +1193,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/34bcc51fef570dd7d5a70859f262c983fed17381/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-4-1.png" target="_blank">34bcc51</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-4-1.png" target="_blank">5f62ee6</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2019-03-31
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/34bcc51fef570dd7d5a70859f262c983fed17381/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-4-1.png" target="_blank">34bcc51</a>
 </td>
 <td>
 John Blischak
@@ -1024,7 +1215,7 @@ John Blischak
 </tr>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-4-1.png" target="_blank">c3b365a</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/c3b365a48f7fc76cf83ade425916d31e547d8077/docs/figure/bernoulli_poisson_process.Rmd/unnamed-chunk-4-1.png" target="_blank">c3b365a</a>
 </td>
 <td>
 John Blischak
@@ -1040,11 +1231,32 @@ John Blischak
 </div>
 <div id="discrete-to-continuous" class="section level1">
 <h1>Discrete to Continuous</h1>
-<p>In the previous section we saw that as we perform more Bernoulli trials in the same <span class="math inline">\(10\)</span> seconds (i.e. a trial every <span class="math inline">\(\delta = 0.5\)</span> seconds), we had to decrease the success probability <span class="math inline">\(p\)</span> to maintain <span class="math inline">\(E[S_t] = E[N_t]\)</span>, where <span class="math inline">\(N_t\)</span> was the number of arrivals from the Poisson process from the first section of this note.</p>
-<p>The key result is this: as <span class="math inline">\(\delta \rightarrow 0\)</span>, we have that the <span class="math inline">\(P(S_t = k) = P(N_t = k)\)</span> and, in this sense, the Bernoulli process converges to the Poisson process. We illustrate this in the plots below. Recall that <span class="math inline">\(N_t \sim \text{Poisson}(\lambda t)\)</span>.</p>
-<p>As we set <span class="math inline">\(\delta\)</span> to smaller and smaller values, in each plot we show a histogram of 5000 simulated <span class="math inline">\(S_{10}\)</span>’s along with the Poisson density of <span class="math inline">\(N_{10}\)</span>. We see that as <span class="math inline">\(\delta\)</span> gets smaller, the histogram converges to the Poisson density.</p>
-<p>In the simulation above, we perform Bernoulli trials every <span class="math inline">\(\delta = 2^{-j}\)</span> seconds for increasing values of <span class="math inline">\(j\)</span>. This characterizes how fast we “shrink” the Bernoulli process.</p>
-<pre class="r"><code>TOTAL.TIME   &lt;- 10   
+<p>In the previous section we saw that as we perform more Bernoulli
+trials in the same <span class="math inline">\(10\)</span> seconds
+(i.e. a trial every <span class="math inline">\(\delta = 0.5\)</span>
+seconds), we had to decrease the success probability <span
+class="math inline">\(p\)</span> to maintain <span
+class="math inline">\(E[S_t] = E[N_t]\)</span>, where <span
+class="math inline">\(N_t\)</span> was the number of arrivals from the
+Poisson process from the first section of this note.</p>
+<p>The key result is this: as <span class="math inline">\(\delta
+\rightarrow 0\)</span>, we have that the <span
+class="math inline">\(P(S_t = k) = P(N_t = k)\)</span> and, in this
+sense, the Bernoulli process converges to the Poisson process. We
+illustrate this in the plots below. Recall that <span
+class="math inline">\(N_t \sim \text{Poisson}(\lambda t)\)</span>.</p>
+<p>As we set <span class="math inline">\(\delta\)</span> to smaller and
+smaller values, in each plot we show a histogram of 5000 simulated <span
+class="math inline">\(S_{10}\)</span>’s along with the Poisson density
+of <span class="math inline">\(N_{10}\)</span>. We see that as <span
+class="math inline">\(\delta\)</span> gets smaller, the histogram
+converges to the Poisson density.</p>
+<p>In the simulation above, we perform Bernoulli trials every <span
+class="math inline">\(\delta =
+2^{-j}\)</span> seconds for increasing values of <span
+class="math inline">\(j\)</span>. This characterizes how fast we
+“shrink” the Bernoulli process.</p>
+<pre class="r"><code>TOTAL.TIME   &lt;- 10
 lambda       &lt;- 0.75 # poisson rate paramter
 shrink.vec   &lt;- 0:10
 bern.process &lt;- vector(&quot;list&quot;, length(shrink.vec))
@@ -1076,72 +1288,50 @@ compare.density(bern.process[[1]], 2^(-shrink.vec[1]))
 compare.density(bern.process[[2]], 2^(-shrink.vec[2]))
 compare.density(bern.process[[3]], 2^(-shrink.vec[3]))
 compare.density(bern.process[[11]], 2^(-shrink.vec[11]))</code></pre>
-<img src="figure/bernoulli_poisson_process.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" />
-<div class="alert alert-warning">
-<p>
-<strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
->knitr cache options</a> for more details.
-</p>
-</div>
-<br> <br>
+<p><img src="figure/bernoulli_poisson_process.Rmd/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" /></p>
+<br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.5.2 (2018-12-20)
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
-Running under: macOS Mojave 10.14.1
-
-Matrix products: default
-BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
-
-locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-loaded via a namespace (and not attached):
- [1] workflowr_1.2.0 Rcpp_1.0.0      digest_0.6.18   rprojroot_1.3-2
- [5] backports_1.1.3 git2r_0.24.0    magrittr_1.5    evaluate_0.12  
- [9] stringi_1.2.4   fs_1.2.6        whisker_0.3-2   rmarkdown_1.11 
-[13] tools_3.5.2     stringr_1.3.1   glue_1.3.0      xfun_0.4       
-[17] yaml_2.2.0      compiler_3.5.2  htmltools_0.3.6 knitr_1.21     </code></pre>
+<pre class="r"><code>sessionInfo()
+# R version 4.3.3 (2024-02-29)
+# Platform: aarch64-apple-darwin20 (64-bit)
+# Running under: macOS 15.7.1
+# 
+# Matrix products: default
+# BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+# LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+# 
+# locale:
+# [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+# 
+# time zone: America/Chicago
+# tzcode source: internal
+# 
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# 
+# loaded via a namespace (and not attached):
+#  [1] vctrs_0.6.5       cli_3.6.5         knitr_1.50        rlang_1.1.6      
+#  [5] xfun_0.52         stringi_1.8.7     promises_1.3.3    jsonlite_2.0.0   
+#  [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.33.0     
+# [13] htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.10       rmarkdown_2.29   
+# [17] evaluate_1.0.4    jquerylib_0.1.4   tibble_3.3.0      fastmap_1.2.0    
+# [21] yaml_2.3.10       lifecycle_1.0.4   whisker_0.4.1     stringr_1.5.1    
+# [25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
+# [29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
+# [33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0</code></pre>
 </div>
 </div>
 
-<hr>
-<p>
-    This site was created with <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-</p>
-<hr>
-
-<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
-
-<!-- disqus
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'rmarkdown'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
--->
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->
@@ -1150,6 +1340,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 </div>
@@ -1161,13 +1353,59 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
