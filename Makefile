@@ -31,6 +31,7 @@ all: docs/index.html \
      docs/gibbs1.html \
      docs/gibbs2.html \
      docs/gibbs_structure_simple.html \
+     docs/hmm.html \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
      docs/Importance_sampling.pdf \
@@ -56,7 +57,8 @@ all: docs/index.html \
      docs/MH-examples1.pdf \
      docs/gibbs1.pdf \
      docs/gibbs2.pdf \
-     docs/gibbs_structure_simple.pdf
+     docs/gibbs_structure_simple.pdf \
+     docs/hmm.pdf
 
 index: docs/index.html
 
@@ -137,6 +139,9 @@ docs/gibbs2.html : analysis/gibbs2.Rmd
 
 docs/gibbs_structure_simple.html : analysis/gibbs_structure_simple.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/gibbs_structure_simple.Rmd",view = FALSE)'
+
+docs/hmm.html : analysis/hmm.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/hmm.Rmd",view = FALSE)'
 
 docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
@@ -271,6 +276,11 @@ docs/gibbs_structure_simple.pdf : analysis/gibbs_structure_simple.Rmd readable.t
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/gibbs_structure_simple.pdf")'
 	rm temp.Rmd
 
+docs/hmm.pdf : analysis/hmm.Rmd readable.tex
+	cp analysis/hmm.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/hmm.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf
@@ -298,5 +308,5 @@ clean:
 	rm -f docs/gibbs1.pdf
 	rm -f docs/gibbs2.pdf
 	rm -f docs/gibbs_structure_simple.pdf
+	rm -f hmm.pdf
 	rm -f temp.Rmd
-

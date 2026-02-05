@@ -9,13 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Matthew Stephens" />
 
-<meta name="date" content="2018-05-15" />
 
 <title>HMM example</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
@@ -31,14 +29,12 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -158,11 +154,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -191,8 +191,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -200,16 +200,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -347,10 +340,7 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/stephens999/fiveMinuteStats">
-    <span class="fa fa-github"></span>
-     
-  </a>
+  <a href="https://github.com/pcarbo/fiveMinuteStats">source</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -363,14 +353,17 @@ div.tocify {
 
 <h1 class="title toc-ignore">HMM example</h1>
 <h4 class="author">Matthew Stephens</h4>
-<h4 class="date">May 15, 2018</h4>
+<address class="author_afil">
+University of Chicago<br><h4 class="date">Feburary 5, 2026</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -379,7 +372,9 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -388,17 +383,27 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-05-19
+<strong>Last updated:</strong> 2026-02-05
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
 </p>
 <p>
-<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
+<span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -407,117 +412,153 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(12345)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed12345code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(12345)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed12345code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed12345code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(12345)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(12345)</code> was run prior to running the
+code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstree02cafc08b49a53d148dd47f3379cfd775527eb39targetblank02cafc0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephens999/fiveMinuteStats/tree/02cafc08b49a53d148dd47f3379cfd775527eb39" target="_blank">02cafc0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree7c795834a0178ec27893c1c3b5ae6b455a471c07targetblank7c79583a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/7c795834a0178ec27893c1c3b5ae6b455a471c07" target="_blank">7c79583</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephens999fiveMinuteStatstree02cafc08b49a53d148dd47f3379cfd775527eb39targetblank02cafc0a" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree7c795834a0178ec27893c1c3b5ae6b455a471c07targetblank7c79583a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephens999/fiveMinuteStats/tree/02cafc08b49a53d148dd47f3379cfd775527eb39" target="_blank">02cafc0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/7c795834a0178ec27893c1c3b5ae6b455a471c07" target="_blank">7c79583</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
-Ignored files:
-    Ignored:    .Rhistory
-    Ignored:    .Rproj.user/
-    Ignored:    analysis/.Rhistory
-    Ignored:    analysis/bernoulli_poisson_process_cache/
-    Ignored:    data/
-
-Untracked files:
-    Untracked:  _workflowr.yml
-    Untracked:  analysis/CI.Rmd
-    Untracked:  analysis/gibbs_structure.Rmd
-    Untracked:  analysis/libs/
-    Untracked:  analysis/results.Rmd
-    Untracked:  analysis/shiny/tester/
-    Untracked:  analysis/stan_8schools.Rmd
-
 Unstaged changes:
-    Modified:   analysis/LR_and_BF.Rmd
-    Modified:   analysis/MH_intro.Rmd
-    Deleted:    analysis/r_simplemix_extended.Rmd
+    Modified:   Makefile
+    Modified:   analysis/hmm.Rmd
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -528,7 +569,11 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/hmm.Rmd</code>) and HTML (<code>docs/hmm.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/hmm.Rmd</code>) and HTML
+(<code>docs/hmm.html</code>) files. If you’ve configured a remote Git
+repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
+in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -554,10 +599,27 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/3f59c32afd408d881695d3d328d90f92707291f3/docs/hmm.html" target="_blank">3f59c32</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2022-05-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/eb3a27494fc0cd6ebbd04ff0424dab17d65a3962/analysis/hmm.Rmd" target="_blank">eb3a274</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/eb3a27494fc0cd6ebbd04ff0424dab17d65a3962/analysis/hmm.Rmd" target="_blank">eb3a274</a>
 </td>
 <td>
 GitHub
@@ -574,7 +636,7 @@ Add a few clarifications to hmm.Rmd
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/9f401920e39f2641b91016c66a50695235f5cbf9/docs/hmm.html" target="_blank">9f40192</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/9f401920e39f2641b91016c66a50695235f5cbf9/docs/hmm.html" target="_blank">9f40192</a>
 </td>
 <td>
 Matthew Stephens
@@ -591,7 +653,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/588ad69862fb05cabc34b1910fd9b82a97444aab/analysis/hmm.Rmd" target="_blank">588ad69</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/588ad69862fb05cabc34b1910fd9b82a97444aab/analysis/hmm.Rmd" target="_blank">588ad69</a>
 </td>
 <td>
 Matthew Stephens
@@ -600,7 +662,7 @@ Matthew Stephens
 2019-06-03
 </td>
 <td>
-workflowr::wflow_publish(“analysis/hmm.Rmd”)
+workflowr::wflow_publish("analysis/hmm.Rmd")
 </td>
 </tr>
 <tr>
@@ -608,7 +670,7 @@ workflowr::wflow_publish(“analysis/hmm.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/hmm.html" target="_blank">5f62ee6</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/hmm.html" target="_blank">5f62ee6</a>
 </td>
 <td>
 Matthew Stephens
@@ -625,7 +687,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/0cd28bd3e7aea2258f9c3a55e2e0060c55403123/analysis/hmm.Rmd" target="_blank">0cd28bd</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/0cd28bd3e7aea2258f9c3a55e2e0060c55403123/analysis/hmm.Rmd" target="_blank">0cd28bd</a>
 </td>
 <td>
 Matthew Stephens
@@ -642,7 +704,7 @@ workflowr::wflow_publish(all = TRUE)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/stephens999/fiveMinuteStats/8f8ae97ba134f13c284ee2c7968991e25fc56537/docs/hmm.html" target="_blank">8f8ae97</a>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/8f8ae97ba134f13c284ee2c7968991e25fc56537/docs/hmm.html" target="_blank">8f8ae97</a>
 </td>
 <td>
 stephens999
@@ -659,7 +721,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/97e641bbbe431c1311cadcdbdea890d4cba4882d/analysis/hmm.Rmd" target="_blank">97e641b</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/97e641bbbe431c1311cadcdbdea890d4cba4882d/analysis/hmm.Rmd" target="_blank">97e641b</a>
 </td>
 <td>
 stephens999
@@ -668,7 +730,7 @@ stephens999
 2018-05-16
 </td>
 <td>
-workflowr::wflow_publish(“hmm.Rmd”)
+workflowr::wflow_publish("hmm.Rmd")
 </td>
 </tr>
 </tbody>
@@ -678,13 +740,25 @@ workflowr::wflow_publish(“hmm.Rmd”)
 </div>
 </div>
 </div>
+<p>See <a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/hmm.pdf">here</a>
+for a PDF version of this vignette.</p>
 <div id="background" class="section level1">
 <h1>Background</h1>
-<p>This vignette illustrates the computation of the “forwards” and “backwards” probabilities in a Hidden Markov Model (HMM), and their use to infer the (marginal) posterior distribution of the latent state at each location.</p>
+<p>This vignette illustrates the computation of the “forwards” and
+“backwards” probabilities in a Hidden Markov Model (HMM), and their use
+to infer the (marginal) posterior distribution of the latent state at
+each location.</p>
 </div>
 <div id="simulate-from-an-hmm" class="section level1">
 <h1>Simulate from an HMM</h1>
-<p>To illustrate we simulate a simple HMM with two states, <span class="math inline">\(Z_t \in \{1,2\}\)</span>, and with the emission distributions in state <span class="math inline">\(k\)</span> being normal with mean <span class="math inline">\(k\)</span>. The transition matrix for the Markov chain is symmetric, with probability 0.9 of staying in the same state, and 0.1 of switching at each step.</p>
+<p>To illustrate we simulate a simple HMM with two states, <span
+class="math inline">\(Z_t \in
+\{1,2\}\)</span>, and with the emission distributions in state <span
+class="math inline">\(k\)</span> being normal with mean <span
+class="math inline">\(k\)</span>. The transition matrix for the Markov
+chain is symmetric, with probability 0.9 of staying in the same state,
+and 0.1 of switching at each step.</p>
 <p>Here is some code to simulate from this:</p>
 <pre class="r"><code>set.seed(1)
 T = 200
@@ -704,7 +778,7 @@ X= rnorm(T,mean=Z,sd=sd)
 
 plot(X, main=&quot;Realization of HMM; latent states shown in red&quot;)
 lines(Z,col=2,lwd=2)</code></pre>
-<p><img src="figure/hmm.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/hmm.Rmd/unnamed-chunk-1-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
 Past versions of unnamed-chunk-1-1.png
@@ -729,7 +803,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/hmm.Rmd/unnamed-chunk-1-1.png" target="_blank">5f62ee6</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/3f59c32afd408d881695d3d328d90f92707291f3/docs/figure/hmm.Rmd/unnamed-chunk-1-1.png" target="_blank">3f59c32</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/hmm.Rmd/unnamed-chunk-1-1.png" target="_blank">5f62ee6</a>
 </td>
 <td>
 Matthew Stephens
@@ -745,14 +830,28 @@ Matthew Stephens
 </div>
 <div id="compute-forwards-probabilities" class="section level1">
 <h1>Compute Forwards Probabilities</h1>
-<p>We define the forwards probabilities as <span class="math display">\[\alpha_{tk} := p(X_1,\dots,X_t; Z_n=k) = p(X_1,\dots,X_t|Z_n=k)Pr(Z_n=k).\]</span> So <span class="math display">\[\alpha_{1k} = \pi_k p(X_1 | Z_1 = k),\]</span> where <span class="math inline">\(\pi_k = \Pr(Z_1=k)\)</span>. (Here we assume <span class="math inline">\(\pi=(0.5,0.5)\)</span>, which is the stationary distribution of <span class="math inline">\(P\)</span>.)</p>
-<p>Further, we can compute <span class="math inline">\(\alpha_{t+1}\)</span> from <span class="math inline">\(\alpha_t\)</span> using the forward algorithm: <span class="math display">\[
+<p>We define the forwards probabilities as <span
+class="math display">\[\alpha_{tk} := p(X_1,\dots,X_t; Z_n=k) =
+p(X_1,\dots,X_t|Z_n=k)Pr(Z_n=k).\]</span> So <span
+class="math display">\[\alpha_{1k} = \pi_k p(X_1 | Z_1 = k),\]</span>
+where <span class="math inline">\(\pi_k = \Pr(Z_1=k)\)</span>. (Here we
+assume <span class="math inline">\(\pi=(0.5,0.5)\)</span>, which is the
+stationary distribution of <span class="math inline">\(P\)</span>.)</p>
+<p>Further, we can compute <span
+class="math inline">\(\alpha_{t+1}\)</span> from <span
+class="math inline">\(\alpha_t\)</span> using the forward algorithm:
+<span class="math display">\[
 \begin{aligned}
-\alpha_{(t+1) k} =&amp; \sum_j p(X_1,\dots,X_t,X_{t+1}, Z_t=j, Z_{t+1}=k) \\
-=&amp; \sum_j p(Z_t=j) p(Z_{t+1}=k | Z_t=j) p(X_1,\dots,X_t,X_{t+1} | Z_t=j, Z_{t+1}=k) \\
-=&amp; \sum_j p(Z_t=j) p(Z_{t+1}=k | Z_t=j) p(X_1,\dots,X_t | Z_t=j, Z_{t+1}=k) p(X_{t+1} | Z_t=j, Z_{t+1}=k, X_1,\dots,X_t) \\
-=&amp; \sum_j p(Z_t=j) p(Z_{t+1}=k | Z_t=j) p(X_1,\dots,X_t | Z_t=j) p(X_{t+1} | Z_{t+1}=k) \\
-=&amp; \sum_j p(X_1,\dots,X_t, Z_t=j) p(Z_{t+1}=k | Z_t=j) p(X_{t+1} | Z_{t+1}=k) \\
+\alpha_{(t+1) k} =&amp; \sum_j p(X_1,\dots,X_t,X_{t+1}, Z_t=j,
+Z_{t+1}=k) \\
+=&amp; \sum_j p(Z_t=j) p(Z_{t+1}=k | Z_t=j) p(X_1,\dots,X_t,X_{t+1} |
+Z_t=j, Z_{t+1}=k) \\
+=&amp; \sum_j p(Z_t=j) p(Z_{t+1}=k | Z_t=j) p(X_1,\dots,X_t | Z_t=j,
+Z_{t+1}=k) p(X_{t+1} | Z_t=j, Z_{t+1}=k, X_1,\dots,X_t) \\
+=&amp; \sum_j p(Z_t=j) p(Z_{t+1}=k | Z_t=j) p(X_1,\dots,X_t | Z_t=j)
+p(X_{t+1} | Z_{t+1}=k) \\
+=&amp; \sum_j p(X_1,\dots,X_t, Z_t=j) p(Z_{t+1}=k | Z_t=j) p(X_{t+1} |
+Z_{t+1}=k) \\
 =&amp; \sum_j \alpha_{tj} P_{jk} \  p(X_{t+1} | Z_{t+1}=k) \\
 =&amp; (\alpha_{t\cdot} P)_k \ p(X_{t+1} | Z_{t+1}=k).
 \end{aligned}
@@ -778,26 +877,45 @@ for(t in 1:(T-1)){
   for(k in 1:K){
     alpha[t+1,k] = m[k]*emit(k,X[t+1]) 
   }
-}</code></pre>
+}
+</code></pre>
 </div>
 <div id="likelihood-calculation" class="section level1">
 <h1>Likelihood calculation</h1>
-<p>Note that the forwards algorithm also allows us to compute the likelihood, <span class="math inline">\(p(X_1,\dots,X_T)\)</span>. Indeed, by definition of <span class="math inline">\(\alpha\)</span> we have <span class="math display">\[p(X_1,\dots,X_T) = \sum_k \alpha_{Tk}.\]</span></p>
+<p>Note that the forwards algorithm also allows us to compute the
+likelihood, <span class="math inline">\(p(X_1,\dots,X_T)\)</span>.
+Indeed, by definition of <span class="math inline">\(\alpha\)</span> we
+have <span class="math display">\[p(X_1,\dots,X_T) = \sum_k
+\alpha_{Tk}.\]</span></p>
 <p>So the likelihood is:</p>
-<pre class="r"><code>sum(alpha[T,])</code></pre>
-<pre><code>[1] 1.53501e-65</code></pre>
-<p>Notice that these alpha numbers can get very small! This can cause numerical issues if <span class="math inline">\(T\)</span> were larger and we should really be more careful to avoid this! A common strategy is to “renormalize” the <span class="math inline">\(\alpha\)</span>s at each iteration: that is, for each <span class="math inline">\(t\)</span> divide the <span class="math inline">\(\alpha_{tk}\)</span> by <span class="math inline">\(\sum_k \alpha_{tk}\)</span>, and then store the value of this sum separately. Maybe you can work out the details!</p>
+<pre class="r"><code>sum(alpha[T,])
+# [1] 1.53501e-65</code></pre>
+<p>Notice that these alpha numbers can get very small! This can cause
+numerical issues if <span class="math inline">\(T\)</span> were larger
+and we should really be more careful to avoid this! A common strategy is
+to “renormalize” the <span class="math inline">\(\alpha\)</span>s at
+each iteration: that is, for each <span class="math inline">\(t\)</span>
+divide the <span class="math inline">\(\alpha_{tk}\)</span> by <span
+class="math inline">\(\sum_k \alpha_{tk}\)</span>, and then store the
+value of this sum separately. Maybe you can work out the details!</p>
 </div>
 <div id="compute-backwards-probabilities" class="section level1">
 <h1>Compute Backwards Probabilities</h1>
-<p>We define the backwards probabilities as <span class="math display">\[\beta_{tk} := p(X_{t+1},\dots,X_{T} | Z_{t}=k).\]</span> with the “boundary condition” <span class="math inline">\(\beta_{Tk}=1\)</span>.</p>
+<p>We define the backwards probabilities as <span
+class="math display">\[\beta_{tk} := p(X_{t+1},\dots,X_{T} |
+Z_{t}=k).\]</span> with the “boundary condition” <span
+class="math inline">\(\beta_{Tk}=1\)</span>.</p>
 <p>By this definition <span class="math display">\[
 \begin{aligned}
 \beta_{tk} =&amp; \sum_j Pr(X_{t+1},\dots,X_{L}, Z_{t+1}=j | Z_t=k) \\
-=&amp; \sum_j Pr(X_{t+2},\dots,X_{L}, Z_{t+1}=j|Z_t=k) Pr(X_{t+1} | Z_t=k, X_{t+2},\dots,X_{L}, Z_{t+1}=j) \\
-=&amp; \sum_j Pr(X_{t+2},\dots,X_{L}, Z_{t+1}=j|Z_t=k) Pr(X_{t+1} | Z_{t+1}=j) \\
-=&amp; \sum_j Pr(X_{t+2},\dots,X_{L}|Z_t=k, Z_{t+1}=j) P(Z_{t+1}=j|Z_t=k) Pr(X_{t+1} | Z_{t+1}=j) \\
-=&amp; \sum_j Pr(X_{t+2},\dots,X_{L}|Z_{t+1}=j) P(Z_{t+1}=j|Z_t=k) Pr(X_{t+1} | Z_{t+1}=j) \\
+=&amp; \sum_j Pr(X_{t+2},\dots,X_{L}, Z_{t+1}=j|Z_t=k) Pr(X_{t+1} |
+Z_t=k, X_{t+2},\dots,X_{L}, Z_{t+1}=j) \\
+=&amp; \sum_j Pr(X_{t+2},\dots,X_{L}, Z_{t+1}=j|Z_t=k) Pr(X_{t+1} |
+Z_{t+1}=j) \\
+=&amp; \sum_j Pr(X_{t+2},\dots,X_{L}|Z_t=k, Z_{t+1}=j)
+P(Z_{t+1}=j|Z_t=k) Pr(X_{t+1} | Z_{t+1}=j) \\
+=&amp; \sum_j Pr(X_{t+2},\dots,X_{L}|Z_{t+1}=j) P(Z_{t+1}=j|Z_t=k)
+Pr(X_{t+1} | Z_{t+1}=j) \\
 =&amp; \sum_j \beta_{(t+1) j} \ P_{kj} \ p(X_{t+1} | Z_{t+1} = j).
 \end{aligned}
 \]</span></p>
@@ -818,21 +936,29 @@ for(t in (T-1):1){
 </div>
 <div id="posterior-distribution-of-each-state" class="section level1">
 <h1>Posterior distribution of each state</h1>
-<p>We are now in a position to compute the posterior distribution on each state.</p>
-<p>By the definitions of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> we have: <span class="math display">\[
+<p>We are now in a position to compute the posterior distribution on
+each state.</p>
+<p>By the definitions of <span class="math inline">\(\alpha\)</span> and
+<span class="math inline">\(\beta\)</span> we have: <span
+class="math display">\[
 \begin{aligned}
-p(X_1,\dots,X_T; Z_t = k) =&amp; p(X_1,\dots,X_t; Z_n=k) p(X_{t+1},\dots,X_T|X_1,\dots,X_t, Z_n=k) \\
+p(X_1,\dots,X_T; Z_t = k) =&amp; p(X_1,\dots,X_t; Z_n=k)
+p(X_{t+1},\dots,X_T|X_1,\dots,X_t, Z_n=k) \\
 =&amp; p(X_1,\dots,X_t; Z_n=k) p(X_{t+1},\dots,X_{T} | Z_{t}=k) \\
 =&amp; \alpha_{tk} \  \beta_{tk}.
 \end{aligned}
-\]</span> Thus we can now compute the posterior distribution for each <span class="math inline">\(Z_t\)</span> given the data <span class="math inline">\(X_1,\dots,X_T\)</span>: <span class="math display">\[\Pr(Z_t = k | X_1,\dots,X_T) = \alpha_{tk} \beta_{tk}/ \sum_k \alpha_{tk}\beta_{tk}\]</span></p>
-<p>Here we compute this and plot the posterior on top of the “truth” that we simulated</p>
+\]</span> Thus we can now compute the posterior distribution for each
+<span class="math inline">\(Z_t\)</span> given the data <span
+class="math inline">\(X_1,\dots,X_T\)</span>: <span
+class="math display">\[\Pr(Z_t = k | X_1,\dots,X_T) = \alpha_{tk}
+\beta_{tk}/ \sum_k \alpha_{tk}\beta_{tk}\]</span></p>
+<p>Here we compute this and plot the posterior on top of the “truth”
+that we simulated</p>
 <pre class="r"><code>  ab = alpha*beta
   prob = ab/rowSums(ab)
-
   plot(prob[,2],type=&quot;l&quot;,ylim=c(0,1), main=&quot;Posterior probability of state 2 (black);\n Ind(true state is 2) superposed (red)&quot;,lwd=2,ylab=&quot;posterior probability&quot;)
   lines(Z==2,col=2,lwd=2)</code></pre>
-<p><img src="figure/hmm.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/hmm.Rmd/unnamed-chunk-5-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
 Past versions of unnamed-chunk-5-1.png
@@ -857,7 +983,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/9f401920e39f2641b91016c66a50695235f5cbf9/docs/figure/hmm.Rmd/unnamed-chunk-5-1.png" target="_blank">9f40192</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/3f59c32afd408d881695d3d328d90f92707291f3/docs/figure/hmm.Rmd/unnamed-chunk-5-1.png" target="_blank">3f59c32</a>
+</td>
+<td>
+Matthew Stephens
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/9f401920e39f2641b91016c66a50695235f5cbf9/docs/figure/hmm.Rmd/unnamed-chunk-5-1.png" target="_blank">9f40192</a>
 </td>
 <td>
 Matthew Stephens
@@ -868,7 +1005,7 @@ Matthew Stephens
 </tr>
 <tr>
 <td>
-<a href="https://github.com/stephens999/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/hmm.Rmd/unnamed-chunk-5-1.png" target="_blank">5f62ee6</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/5f62ee6cf86b77e9f45e0c6b6e3d6b97c7faf675/docs/figure/hmm.Rmd/unnamed-chunk-5-1.png" target="_blank">5f62ee6</a>
 </td>
 <td>
 Matthew Stephens
@@ -884,64 +1021,42 @@ Matthew Stephens
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.0 Patched (2021-07-20 r80657)
-Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Monterey 12.2
-
-Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRlapack.dylib
-
-locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8.3     rstudioapi_0.13  whisker_0.4      knitr_1.39      
- [5] magrittr_2.0.3   workflowr_1.7.0  R6_2.5.1         rlang_1.0.2     
- [9] fastmap_1.1.0    fansi_1.0.3      highr_0.9        stringr_1.4.0   
-[13] tools_4.1.0      xfun_0.30        utf8_1.2.2       cli_3.3.0       
-[17] git2r_0.30.1     jquerylib_0.1.4  htmltools_0.5.2  ellipsis_0.3.2  
-[21] rprojroot_2.0.3  yaml_2.3.5       digest_0.6.29    tibble_3.1.7    
-[25] lifecycle_1.0.1  crayon_1.5.1     later_1.3.0      sass_0.4.1      
-[29] vctrs_0.4.1      fs_1.5.2         promises_1.2.0.1 glue_1.6.2      
-[33] evaluate_0.15    rmarkdown_2.14   stringi_1.7.6    bslib_0.3.1     
-[37] compiler_4.1.0   pillar_1.7.0     jsonlite_1.8.0   httpuv_1.6.5    
-[41] pkgconfig_2.0.3 </code></pre>
+<pre class="r"><code>sessionInfo()
+# R version 4.3.3 (2024-02-29)
+# Platform: aarch64-apple-darwin20 (64-bit)
+# Running under: macOS 15.7.1
+# 
+# Matrix products: default
+# BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+# LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+# 
+# locale:
+# [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+# 
+# time zone: America/Chicago
+# tzcode source: internal
+# 
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# 
+# loaded via a namespace (and not attached):
+#  [1] vctrs_0.6.5       cli_3.6.5         knitr_1.50        rlang_1.1.6      
+#  [5] xfun_0.52         stringi_1.8.7     promises_1.3.3    jsonlite_2.0.0   
+#  [9] workflowr_1.7.1   glue_1.8.0        rprojroot_2.0.4   git2r_0.33.0     
+# [13] htmltools_0.5.8.1 httpuv_1.6.14     sass_0.4.10       rmarkdown_2.29   
+# [17] evaluate_1.0.4    jquerylib_0.1.4   tibble_3.3.0      fastmap_1.2.0    
+# [21] yaml_2.3.10       lifecycle_1.0.4   whisker_0.4.1     stringr_1.5.1    
+# [25] compiler_4.3.3    fs_1.6.6          Rcpp_1.1.0        pkgconfig_2.0.3  
+# [29] later_1.4.2       digest_0.6.37     R6_2.6.1          pillar_1.11.0    
+# [33] magrittr_2.0.3    bslib_0.9.0       tools_4.3.3       cachem_1.1.0</code></pre>
 </div>
 </div>
 
-<hr>
-<p>
-    This site was created with <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-</p>
-<hr>
-
-<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
-
-<!-- disqus
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'rmarkdown'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
--->
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see

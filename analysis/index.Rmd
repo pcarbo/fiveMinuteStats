@@ -71,7 +71,7 @@ title: Home
 
 ### Hidden Markov Models
 
-* [Forwards Backwards calculation example](hmm.html)
+* [Forwards Backwards calculation example](hmm.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/hmm.pdf))
 
 ## Distributions
 

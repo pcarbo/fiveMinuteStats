@@ -1,28 +1,46 @@
 ---
-title: "HMM example"
-author: "Matthew Stephens"
-date: "May 15, 2018"
-output: workflowr::wflow_html
+title: HMM example
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: Feburary 5, 2026
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+See [here][pdf_version] for a PDF version of this vignette.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
 ```
 
 # Background
 
-This vignette illustrates the computation of the "forwards" and  "backwards" probabilities in a 
-Hidden Markov Model (HMM), and their use
-to infer the (marginal) posterior distribution of the latent state at each location.
-
+This vignette illustrates the computation of the "forwards" and
+"backwards" probabilities in a Hidden Markov Model (HMM), and their
+use to infer the (marginal) posterior distribution of the latent state
+at each location.
 
 # Simulate from an HMM
 
-To illustrate we simulate a simple HMM with two states, $Z_t \in \{1,2\}$, and with the emission distributions in state $k$ being normal with mean
-$k$. The transition matrix for the Markov chain is  symmetric, with probability 0.9 of staying in the same state, and 0.1 of switching at each step.
+To illustrate we simulate a simple HMM with two states, $Z_t \in
+\{1,2\}$, and with the emission distributions in state $k$ being
+normal with mean $k$. The transition matrix for the Markov chain is
+symmetric, with probability 0.9 of staying in the same state, and 0.1
+of switching at each step.
 
 Here is some code to simulate from this:
-```{r}
+
+```{r, fig.height=3.25, fig.width=5}
 set.seed(1)
 T = 200
 K = 2
@@ -42,7 +60,6 @@ X= rnorm(T,mean=Z,sd=sd)
 plot(X, main="Realization of HMM; latent states shown in red")
 lines(Z,col=2,lwd=2)
 ```
-
 
 # Compute Forwards Probabilities 
 
@@ -93,21 +110,21 @@ for(t in 1:(T-1)){
 
 # Likelihood calculation
 
-Note that the forwards algorithm also allows us to compute the likelihood, $p(X_1,\dots,X_T)$.
-Indeed, by definition of $\alpha$ we have $$p(X_1,\dots,X_T) = \sum_k \alpha_{Tk}.$$
+Note that the forwards algorithm also allows us to compute the
+likelihood, $p(X_1,\dots,X_T)$.  Indeed, by definition of $\alpha$ we
+have $$p(X_1,\dots,X_T) = \sum_k \alpha_{Tk}.$$
 
 So the likelihood is:
 ```{r}
 sum(alpha[T,])
 ```
 
-Notice that these alpha numbers can get very small!
-This can cause numerical issues if $T$ were larger and we should really be more careful to avoid this!
-A common strategy is to "renormalize" the $\alpha$s
-at each iteration: that is, for each $t$ 
-divide the $\alpha_{tk}$ by $\sum_k \alpha_{tk}$,
-and then store the value of this sum separately. Maybe you can work out the details!
-
+Notice that these alpha numbers can get very small!  This can cause
+numerical issues if $T$ were larger and we should really be more
+careful to avoid this!  A common strategy is to "renormalize" the
+$\alpha$s at each iteration: that is, for each $t$ divide the
+$\alpha_{tk}$ by $\sum_k \alpha_{tk}$, and then store the value of
+this sum separately. Maybe you can work out the details!
 
 # Compute Backwards Probabilities
 
@@ -128,6 +145,7 @@ $$
 $$
 
 Here is code to compute these values iteratively:
+
 ```{r}
 beta = matrix(nrow = T,ncol=K)
 
@@ -142,7 +160,6 @@ for(t in (T-1):1){
     beta[t,k] = sum(beta[t+1,]*P[k,]*emit(1:K,X[t+1]))
   }
 }
-
 ```
 
 # Posterior distribution of each state
@@ -161,12 +178,14 @@ Thus we can now compute
 the posterior distribution for each $Z_t$ given the data $X_1,\dots,X_T$:
 $$\Pr(Z_t = k | X_1,\dots,X_T) = \alpha_{tk} \beta_{tk}/ \sum_k \alpha_{tk}\beta_{tk}$$ 
 
-Here we compute this and plot the posterior on top of the "truth" that we simulated
-```{r}
+Here we compute this and plot the posterior on top of the "truth" that
+we simulated
+
+```{r, fig.height=3.25, fig.width=5}
   ab = alpha*beta
   prob = ab/rowSums(ab)
-
   plot(prob[,2],type="l",ylim=c(0,1), main="Posterior probability of state 2 (black);\n Ind(true state is 2) superposed (red)",lwd=2,ylab="posterior probability")
   lines(Z==2,col=2,lwd=2)
 ```
 
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/hmm.pdf
