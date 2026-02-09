@@ -34,6 +34,7 @@ all: docs/index.html \
      docs/hmm.html \
      docs/bernoulli_poisson_process.html \
      docs/poisson_process_time_dependent_thinning.html \
+     docs/norm_linear_comb.html \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
      docs/Importance_sampling.pdf \
@@ -62,7 +63,8 @@ all: docs/index.html \
      docs/gibbs_structure_simple.pdf \
      docs/hmm.pdf \
      docs/bernoulli_poisson_process.pdf \
-     docs/poisson_process_time_dependent_thinning.pdf
+     docs/poisson_process_time_dependent_thinning.pdf \
+     docs/norm_linear_comb.pdf
 
 index: docs/index.html
 
@@ -152,6 +154,9 @@ docs/bernoulli_poisson_process.html : analysis/bernoulli_poisson_process.Rmd
 
 docs/poisson_process_time_dependent_thinning.html : analysis/poisson_process_time_dependent_thinning.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/poisson_process_time_dependent_thinning.Rmd",view = FALSE)'
+
+docs/norm_linear_comb.html : analysis/norm_linear_comb.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/norm_linear_comb.Rmd",view = FALSE)'
 
 docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
@@ -301,6 +306,11 @@ docs/poisson_process_time_dependent_thinning.pdf : analysis/poisson_process_time
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/poisson_process_time_dependent_thinning.pdf")'
 	rm temp.Rmd
 
+docs/norm_linear_comb.pdf : analysis/norm_linear_comb.Rmd readable.tex
+	cp analysis/norm_linear_comb.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/norm_linear_comb.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf
@@ -331,4 +341,5 @@ clean:
 	rm -f hmm.pdf
 	rm -f bernoulli_poisson_process.pdf
 	rm -f poisson_process_time_dependent_thinning.pdf
+	rm -f norm_linear_comb.pdf
 	rm -f temp.Rmd
