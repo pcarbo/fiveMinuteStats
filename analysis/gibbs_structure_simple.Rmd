@@ -331,7 +331,7 @@ Additional derivations
 Full conditional for z
 ----------------------
 
-Given that the full condition for $z$ factorizes over the individual
+Given that the full conditional for $z$ factorizes over the individual
 elephants $i$, without loss of generality we can derive the full
 conditional assuming a data set with a single elephant. Dropping
 the unneeded the $i$ subscripts, this is
@@ -349,7 +349,33 @@ probabilities.
 Full conditional for F
 ----------------------
 
-TO DO
+Given that the full conditional for $F$ factorizes over the individual
+loci $j$, without loss of generality we can derive the full
+conditional assumine a data set with a single locus or marker, so $F$ is
+just two allele frequencies, $f_1$ and $f_2$. We further found out that
+we can focus on a single $k$ since the full conditional also
+factorized over $k$. Dropping the unneeded $j$ subscripts, this is
+$$
+p(f_k \mid z, x) \propto p(f_k) \prod_{i=1}^n p(x_i \mid z_i, f).
+$$
+Since we assumed a uniform prior, this simplifies to
+$$
+p(f_k \mid z, x) \propto \prod_{i=1}^n p(x_i \mid z_i, f).
+$$
+
+Next, a useful observation is that $p(x_i \mid z_i, f)$ only involves
+$f_k$ if $z_i = k$. So we only need to actually consider the
+likelihood terms for which the elephant $i$ is assigned to group
+$k$. Denoting $n_{0k}$ as the number of elephants in group $k$ with
+the 0 allele, and denoting $n_{1k}$ as the number of elephants in
+group $k$ with the 1 allele, this can be written more simply as
+$$
+p(f_k \mid z, x) \propto f_k^{n_{1k}} (1 - f_k)^{n_{0k}}.
+$$
+Recall, from our previous derivations, this means that
+$$
+f_k \mid z, x \sim \mathrm{Beta}(n_{1k} + 1, n_{0k} + 1).
+$$
 
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/gibbs_structure_simple.pdf
 [LR_and_BF]: https://pcarbo.github.io/fiveMinuteStats/LR_and_BF.html
