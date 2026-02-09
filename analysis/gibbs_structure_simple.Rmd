@@ -240,89 +240,159 @@ To illustrate, let's simulate data from this model:
 
 ```{r sim-data}
 set.seed(33)
-#' @param n The number of samples to simulate.
-#' @param P A 2 x R matrix of allele frequencies.
-r_simplemix <- function (n, P) {
-  R <- ncol(P)
-  z <- sample(2,prob = c(0.5,0.5),size = n,replace = TRUE)
-  x <- matrix(0,n,R)
-  for (i in 1:n)
-    x[i,] <- rbinom(R,rep(1,R),P[z[i],])
-  return(list(x = x,z = z))
+
+# Simulate n samples from the "simple haploid" model.
+r_simplemix <- function (n, F, q1) {
+  J <- nrow(F)
+  z <- sample(2,prob = c(q1,1-q1),size = n,replace = TRUE)
+  X <- matrix(0,n,J)
+  for (i in 1:n) {
+    k <- z[i]
+    X[i,] <- rbinom(J,rep(1,J),F[,k])
+  }
+  rownames(X) <- paste0("i",1:n)
+  colnames(X) <- paste0("j",1:J)
+  names(z) <- paste0("i",1:n)
+  return(list(X = X,z = z))
 }
-P <- rbind(c(0.500,0.500,0.500,0.500,0.500,0.500),
-           c(0.001,0.999,0.001,0.999,0.001,0.999))
-sim <- r_simplemix(n = 50,P)
-x <- sim$x
+
+# Simulate a data set with n = 50 elephants and J = 6 genetic markers.
+q1 <- 0.5
+F_true <- cbind(c(0.500,0.500,0.500,0.500,0.500,0.500),
+                c(0.001,0.999,0.001,0.999,0.001,0.999))
+rownames(F_true) <- paste0("j",1:6)
+colnames(F_true) <- c("k1","k2")
+sim <- r_simplemix(50,F_true,q1)
+X <- sim$X
+z_true <- sim$z
 ```
 
 Gibbs sampler code
 ==================
 
-```{r gibbs-sampler}
-normalize <- function (x)
-  x/sum(x)
+This function implements the main loop:
 
-#' @param x Data vector (length R).
-#' @param P 2 x R matrix of allele frequencies.
-#' @return The log-likelihood for each of the K populations.
-log_pr_x_given_P <- function (x, P)
-  colSums(x*log(t(P)) + (1-x)*log(1-t(P)))
+```{r run-gibbs-sampler}
+# Inputs are: X, an n x J binary matrix of n alleles at J loci; q1,
+# the prior probability of z = 1; and T, the length of the Markov
+# chain to simulate. The output is the T states of the Markov chain.
+run_gibbs_sampler <- function (X, q1, T = 100) {
+  n <- nrow(X)
+  J <- ncol(X)
+  states <- list(z = matrix(0,n,T),
+                 F = array(0,c(J,2,T)))
+  z <- sample(2,n,replace = TRUE)
+  for (t in 1:T) {
+    F <- sample_F_given_z(X,z)
+    z <- sample_z_given_F(X,F,q1)
+    states$z[,t] <- z
+    states$F[,,t] <- F
+  }
+  return(states)
+}
+```
 
-#' @param x n x R data matrix.
-#' @param P 2 x R matrix of allele frequencies.
-#' @return Group memberships (vector of length n).
-sample_z <- function (x, P) {
-  K <- nrow(P)
-  loglik_matrix <- apply(x,1,log_pr_x_given_P,P = P)
-  lik_matrix <- exp(loglik_matrix) 
-  p.z.given.x <- apply(lik_matrix,2,normalize)
-  z <- rep(0,nrow(x))
-  for (i in 1:length(z))
-    z[i] <- sample(K,size = 1,prob = p.z.given.x[,i],replace = TRUE)
+This is the function for sampling $F$ given $z, X$: 
+
+```{r sample-f-given-z}
+# Draws the allele frequencies F randomly from the posterior
+# distribution p(F | X, z). The output is a J x 2 matrix, where J is
+# the number of markers.
+sample_F_given_z <- function (X, z) {
+  J <- ncol(X)
+  F <- matrix(0,J,2)
+  for (k in 1:2) {
+    i <- which(z == k)
+    n <- length(i)
+    if (n == 0)
+      n1 <- 0
+    else
+      n1 <- colSums(X[i,])
+    n0 <- n - n1
+    F[,k] <- rbeta(J,n1 + 1,n0 + 1)
+  }
+  return(F)
+}
+```
+
+This is the function for sampling $z$ given $F, X$:
+
+```{r sample-z-given-f}
+# Draws the elephant group assignments z randomly from the posterior
+# distribution p(z | X, F). The output is a vector of length n, where
+# n is the number of elephants.
+sample_z_given_F <- function (X, F, q1) {
+  n <- nrow(X)
+  z <- rep(0,n)
+  for (i in 1:n) {
+    logw <- compute_loglik_times_prior_z_given_F(X[i,],F,q1)
+    a    <- max(logw)
+    post <- exp(logw - a)
+    post <- normalize(post)
+    z[i] <- sample(2,1,prob = post)
+  }
   return(z)
 }
 
-#' @param x n x R data matrix.
-#' @param z Cluster allocations (vector of length n).
-#' @return 2 x R matrix of allele frequencies.
-sample_P <- function (x, z) {
-  R <- ncol(x)
-  P <- matrix(0,2,R)
-  for (i in 1:2) {
-    sample_size <- sum(z == i)
-    if (sample_size == 0)
-      number_of_ones <- rep(0,R)
-    else
-      number_of_ones <- colSums(x[z == i,])
-    P[i,] <- rbeta(R,number_of_ones + 1,sample_size - number_of_ones + 1)
-  }
-  return(P)
-}
+# This function is used in sample_z_given_F.
+normalize <- function (x)
+  x/sum(x)
 
-gibbs <- function (x, niter = 100) {
-  n <- nrow(x)
-  z <- sample(2,n,replace = TRUE)
-  out <- matrix(0,niter,n)
-  out[1,] <- z 
-  for(i in 2:niter) {
-    P <- sample_P(x,z)
-    z <- sample_z(x,P)
-    out[i,] <- z
-  }
-  return(out)
+# Another function used in sample_z_given_F.
+compute_loglik_times_prior_z_given_F <- function (x, F, q1) {
+  f1 <- F[,1]
+  f2 <- F[,2]
+  q2 <- 1 - q1
+  return(c(log(q1) + sum((1-x)*log(1-f1)) + sum(x*log(f1)),
+           log(q2) + sum((1-x)*log(1-f2)) + sum(x*log(f2))))
 }
 ```
   
 Try the Gibbs sampler on the data simulated above:
 
-```{r run-gibbs-sampler, fig.height=6, fig.width=4}
-z <- gibbs(x,niter = 100)
-table(mcmc = z[1,],true = sim$z)
-table(mcmc = z[100,],true = sim$z)
-image(t(z[100:1,]),xlab = "elephant",
-      ylab = "Gibbs sampling iteration",
-      col = c("red","darkblue"))
+```{r try-gibbs-sampler}
+q1 <- 0.5
+T <- 100
+states <- run_gibbs_sampler(X,q1,T)
+```
+
+Plot the state of the Markov chain over time:
+
+```{r plot-markov-chain, fig.height=3.5, fig.width=7}
+par(mfrow = c(1,2))
+J <- ncol(X)
+plot(1:T,states$F[1,1,],col = "red",type = "l",xlab = "time",
+     ylab = "allele frequency",ylim = c(0,1))
+for (j in 1:J) {
+  lines(1:T,states$F[j,1,],col = "red")
+  lines(1:T,states$F[j,2,],col = "blue")
+}
+image(t(states$z),col = c("red","blue"),xlab = "time",ylab = "elephant")
+```
+
+Compare the true groupings to the posterior mean of $z$:
+
+```{r posterior-mean-z}
+head(cbind(true = z_true,est = rowMeans(states$z)),n = 8)
+```
+
+Compare the true allele frequencies to the posterior mean of $F$.
+
+```{r posterior-mean-f}
+cbind(true = F_true[,1],est = rowMeans(states$F[,1,]))
+cbind(true = F_true[,2],est = rowMeans(states$F[,2,]))
+```
+
+The estimates look wrong, but actually this is an example of the
+*label switching problem.* Switching the labels---that is, replacing
+$k = 1$ with 2 and replacing $k = 2$ with 1---should fix the problem
+and make the estimates align better to the true values:
+
+```{r switch-labels}
+z_switch <- 2 - states$z
+head(cbind(true = z_true,est = rowMeans(z_switch)),n = 8)
+cbind(true = F_true[,1],est = rowMeans(states$F[,2,]))
+cbind(true = F_true[,2],est = rowMeans(states$F[,1,]))
 ```
 
 Additional derivations
