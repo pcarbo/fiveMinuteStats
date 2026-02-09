@@ -84,13 +84,13 @@ relevant allele frequencies. This is exactly the model assumed
 [here][likelihood_ratio_simple_models]. In mathematical notation, we
 assume
 $$
-p(x_i \mid z_i, F) =
-\prod_{j=1}^J f_{{z_i}j}^{x_{ij}}(1 - f_{{z_i}j})^{1 - x_{ij}}.
+p(x_i \mid z_i, F) = p(x_i \mid z_i, f_{j1}, f_{j2}) =
+\prod_{j=1}^J f_{j{z_i}}^{x_{ij}}(1 - f_{j{z_i}})^{1 - x_{ij}}.
 $$
 All the subscripts here make this difficult to read. 
 To make things easier to read, we can replace $z_i$ with $k$:
 $$
-p(x_i \mid z_i = k, F) =
+p(x_i \mid z_i = k, F) = p(x_i \mid z_i, f_{j1}, f_{j2}) =
 \prod_{j=1}^J f_{jk}^{x_{ij}}(1 - f_{jk})^{1 - x_{ij}}.
 $$
 
@@ -99,6 +99,7 @@ independent:
 $$
 p(X \mid z, F) = \prod_{i=1}^n p(x_i \mid z_i, F).
 $$
+
 This completes specification of the likelihood.
 
 Prior
@@ -181,10 +182,12 @@ We will verify these two statements next.
 Full conditional for z
 ----------------------
 
-We know that
+From the modeling assumptions made above, we know that
 $$
-p(z \mid F, X) \propto p(X \mid z, F) \, p(z) \, p(F) =
-\prod_{i=1}^n p(x_i \mid z_i, F) \, p(z_i) \, p(F).
+\begin{aligned}
+p(z \mid F, X) &\propto p(X \mid z, F) \, p(z) \, p(F) \\
+&= \prod_{i=1}^n \{ p(x_i \mid z_i, F) \, p(z_i) \} \, p(F).
+\end{aligned}
 $$
 
 So we see that the full conditional for $z = (z_1, \dots, z_n)$
@@ -209,7 +212,26 @@ The exact expression for $p(z_i = k \mid F, X)$ is derived below.
 Full conditional for F
 ----------------------
 
-TO DO.
+From the modeling assumptions made above, we know that
+$$
+p(F \mid z, X) \propto p(X \mid z, F) \, p(F) \, p(z) =
+p(z) \, 
+\prod_{j=1}^J \prod_{k=1}^2 p(f_{jk}) \times \big\{
+{\textstyle \prod_{i=1}^n p(x_{ij} \mid z_i, f_{j1}, f_{j2})} \big\}.
+$$
+So we see that the full conditional for $F$ factorizes over $j$ and
+$k$ into terms that depend only on $f_{jk}$ and not any of the other
+allele frequencies. In other words,
+$$
+p(F \mid z, X) \propto \prod_{j=1}^J \prod_{k=1}^2
+\psi_{jk}(f_{jk}),
+$$
+in which the functions $\psi_{jk}(f_{jk})$ are
+$$
+\psi_{jk}(f_{jk}) = p(f_{jk}) 
+\prod_{i=1}^n p(x_{ij} \mid z_i, f_{j1}, f_{j2}).
+$$
+The exact expression for $p(f_{jk} \mid z, X)$ is derived below.
 
 Simulate some data
 ==================
