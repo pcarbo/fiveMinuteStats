@@ -66,13 +66,13 @@ and 2 = savanna.) Let $f_k$ denote the vector $(f_{1k},
 $F = (f_1, f_2)$. (So $F$ is a $J \times 2$ matrix.)
 
 With this notation in place, we can state the problem, which is to
-infer the unknowns $F$ and $Z$ from the genetic data $X$.
+infer the unknowns $F$ and $z$ from the genetic data $X$.
 
 Model
 =====
 
-To perform Bayesian inference for $Z$ and $P$, we need to specify the
-likelihood, $p(X \mid Z, P)$, and a prior distribution, $p(Z, P)$.
+To perform Bayesian inference for $z$ and $F$, we need to specify the
+likelihood, $p(X \mid z, F)$, and a prior distribution, $p(z, F)$.
 
 Likelihood
 ----------
@@ -85,7 +85,7 @@ relevant allele frequencies. This is exactly the model assumed
 assume
 $$
 p(x_i \mid z_i, F) =
-\prod_{j=1}^J f_{{z_i}j}^{x_{ij}}(1 - P_{{z_i}j})^{1 - x_{ij}}.
+\prod_{j=1}^J f_{{z_i}j}^{x_{ij}}(1 - f_{{z_i}j})^{1 - x_{ij}}.
 $$
 All the subscripts here make this difficult to read. 
 To make things easier to read, we can replace $z_i$ with $k$:
@@ -97,36 +97,39 @@ $$
 We will further assume that the different individuals (elephants) are
 independent:
 $$
-p(X \mid Z, F) = \prod_{i=1}^n p(x_i \mid z_i, P).
+p(X \mid z, F) = \prod_{i=1}^n p(x_i \mid z_i, P).
 $$
 This completes specification of the likelihood.
 
 Prior
 -----
 
-We will assume that $P$ and $Z$ are *a priori* independent, so $p(P,Z)
-= p(P) \, p(Z)$.  This assumption seems reasonable: before seeing the
+We will assume that $F$ and $z$ are *a priori* independent, so $p(F, z)
+= p(F) \, p(z)$.  This assumption seems reasonable: before seeing the
 genetic data ($X$), telling you the allele frequencies in the two
 groups would not tell you anything about the group membership of the
 elephants. (Of course, after seeing the genetic data $X$, the allele
-frequencies would help classify the individuals, so $P$ and $Z$ are
+frequencies would help classify the individuals, so $F$ and $z$ are
 not going to be *a posteriori* independent. However, here we are
 concerned with the prior, not the posterior.)
 
-For the prior on $P$, we will further assume that the allele
-frequencies in each group at each locus are independent, so $p(P) =
-\prod_{k=1}^2 \prod_{j=1}^R p(P_{kj})$. This assumption could be
+For the prior on $F$, we will further assume that the allele
+frequencies in each group at each locus are independent, so
+$$
+p(F) = \prod_{k=1}^2 \prod_{j=1}^J p(f_{jk}).
+$$
+This assumption could be
 improved, but at the cost of considerable extra complexity, and so we
 stick with independence for now. Also, for simplicity we will assume a
-uniform prior distribution for $P_{kj}$, so $p(P_{kj}) = 1$.
+uniform prior distribution for $f_{jk}$, so $p(f_{jk}) = 1$.
 
-For $Z$, we will assume that the origin of each individual is
-independent, with an equal probability (0.5) of arising from each of
-the two groups. So
+For $z$, we will assume that the origin of each individual is
+independent, and that the probability of arising from group $k$ is $q_k$.
+So
 $$
-p(Z) = \prod_{i=1}^n p(z_i),
+p(z) = \prod_{i=1}^n p(z_i),
 $$
-and $p(z_i = k) = 0.5$. Again, this assumption could be improved, but
+and $p(z_i = k) = q_k$. Again, this assumption could be improved, but
 we start here for simplicity.
 
 Computation
