@@ -100,7 +100,7 @@ title: Home
 
 ### Multivariate Normal
 
-* [A key property of univariate normal](norm_linear_comb.html)
+* [A key property of univariate normal](norm_linear_comb.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/norm_linear_comb.pdf))
 * [Bivariate normal distribution](mvnorm_00.html)
 * [Multivariate Normal](mvnorm.html)
 * [The precision matrix](normal_markov_chain.html)
