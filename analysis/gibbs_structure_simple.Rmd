@@ -97,7 +97,7 @@ $$
 We will further assume that the different individuals (elephants) are
 independent:
 $$
-p(X \mid z, F) = \prod_{i=1}^n p(x_i \mid z_i, P).
+p(X \mid z, F) = \prod_{i=1}^n p(x_i \mid z_i, F).
 $$
 This completes specification of the likelihood.
 
@@ -129,55 +129,86 @@ So
 $$
 p(z) = \prod_{i=1}^n p(z_i),
 $$
-and $p(z_i = k) = q_k$. Again, this assumption could be improved, but
-we start here for simplicity.
+and $p(z_i = k) = q_k$, in which $q_1$, $q_2$ are taken to be known
+(that is, we will not estimate them from the data). Again, this
+assumption could be improved, but we start here for simplicity.
 
 Computation
 ===========
 
 Our goal is to compute (or sample from) the posterior distribution
-$p(Z, P \mid X)$, which by Bayes Theorem is
+$p(z, F \mid X)$, which by Bayes Theorem is
 $$
-p(Z, P \mid X) \propto p(X \mid Z,P) \, p(Z,P).
+p(z, F \mid X) \propto p(X \mid z, F) \, p(z, F).
 $$
 
-One way to sample from this distribution is to implement a Gibbs sampler.
-This requires us to be able to do two things:
+One way to sample from this distribution is to implement a Gibbs
+sampler for $z, F$. This requires us to be able to do two things:
 
-1. Sample from $p(Z \mid P, X)$.
+1. Sample from $p(z \mid F, X)$.
 
-2. Sample from $p(P \mid Z, X)$.
+2. Sample from $p(F \mid z, X)$.
 
-These are called the "full conditional distributions" for Z and P
-respectively. The use of the word "full" here indicates that they are
-conditional on *everything else* (the data and all the other
-parameters).
+These are called the "full conditional distributions", or "full
+conditions", for $z$ and $F$, respectively. The use of the word "full"
+here indicates that they are conditional on *everything else* (the
+data and all the other parameters).
 
-Full conditional for Z
+Another way to describe this Gibbs sampler
+-------------------------------------------
+
+Because of the conditional independence assumptions we made above, the
+Gibbs sampler we just described also can be described in the following way:
+
+1. For $i = 1, \ldots, n$, sample from $p(z_i \mid F, X)$.
+
+2. For $j = 1, \ldots, J$ and $k = 1, 2$, sample from
+   $p(f_{jk} \mid z, X)$.
+
+This algorithm is equivalent to the algorithm above.
+
+In other words, because of the conditional independence assumptions we
+made, it turns out that sampling $z$ given $(F, X)$ is the same as
+sampling the group $z_i$ for a single elephant, one at a time.
+Similarly, because of the conditional independence assumptions we
+made, it turns out that sampling $F$ given $(z, X)$ is the same as
+sampling an allele frequency $f_{jk}$ for a single locus and a single
+group one at a time. This makes the Gibbs sampler particularly
+easy to implement.
+
+We will verify these two statements next.
+
+Full conditional for z
 ----------------------
 
 We know that
 $$
-p(Z \mid P,X) \propto p(X \mid Z, P) \, p(Z) , p(P) =
-\prod_{i=1}^n p(x_i \mid z_i, P) \, p(z_i) \, p(P).
+p(z \mid F, X) \propto p(X \mid z, F) \, p(z) \, p(F) =
+\prod_{i=1}^n p(x_i \mid z_i, F) \, p(z_i) \, p(F).
 $$
 
-So we see that the full conditional for $Z = (z_1, \dots, z_n)$
+So we see that the full conditional for $z = (z_1, \dots, z_n)$
 factorizes over $i$ into terms that depend only on $z_i$ and not the
-other elements of $Z$. That is,
+other elements of $z$; that is,
 $$
-p(Z \mid P, X) \propto \prod_{i=1}^n f_i(z_i; x_i, P)
+p(z \mid F, X) \propto \prod_{i=1}^n f_i(z_i),
 $$
-for some (yet to be determined) functions $f_i$.
+in which the $f_i$'s are
+$$
+f_i(z_i) = p(x_i \mid z_i, F) \, p(z_i).
+$$
 
 This implies that the $z_i$ are *conditionally independent* given
-$X,P$, which is very convenient as it means we can compute their
+$X, F$, which is very convenient as it means we can compute their
 conditional distribution just by computing the marginals:
 $$
-p(z_i = k \mid P,X) \propto p(x_i \mid z_i = k, P).
+p(z_i = k \mid F, X) \propto p(x_i \mid z_i = k, F).
 $$
 
-*Exercise:* Derive the full conditional for $P$.
+Full condition for F
+--------------------
+
+TO DO.
 
 Simulate some data
 ==================
