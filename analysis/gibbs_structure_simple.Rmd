@@ -1,9 +1,9 @@
 ---
 title: Gibbs sampling for clustering genetic data
 author: 
-  name: Matthew Stephens
+  name: Matthew Stephens and Peter Carbonetto
   affiliation: University of Chicago
-date: January 24, 2026
+date: February 9, 2026
 output:
   pdf_document:
     keep_tex: false
@@ -191,22 +191,23 @@ So we see that the full conditional for $z = (z_1, \dots, z_n)$
 factorizes over $i$ into terms that depend only on $z_i$ and not the
 other elements of $z$; that is,
 $$
-p(z \mid F, X) \propto \prod_{i=1}^n f_i(z_i),
+p(z \mid F, X) \propto \prod_{i=1}^n \phi_i(z_i),
 $$
-in which the $f_i$'s are
+in which the functions $\phi_i(z_i)$ are
 $$
-f_i(z_i) = p(x_i \mid z_i, F) \, p(z_i).
+\phi_i(z_i) = p(x_i \mid z_i, F) \, p(z_i).
 $$
 
 This implies that the $z_i$ are *conditionally independent* given
 $X, F$, which is very convenient as it means we can compute their
 conditional distribution just by computing the marginals:
 $$
-p(z_i = k \mid F, X) \propto p(x_i \mid z_i = k, F).
+p(z_i = k \mid F, X) \propto p(x_i \mid z_i = k, F) \, p(z_i = k).
 $$
+The exact expression for $p(z_i = k \mid F, X)$ is derived below.
 
-Full condition for F
---------------------
+Full conditional for F
+----------------------
 
 TO DO.
 
@@ -301,6 +302,32 @@ image(t(z[100:1,]),xlab = "elephant",
       ylab = "Gibbs sampling iteration",
       col = c("red","darkblue"))
 ```
+
+Additional derivations
+======================
+
+Full conditional for z
+----------------------
+
+Given that the full condition for $z$ factorizes over the individual
+elephants $i$, without loss of generality we can derive the full
+conditional assuming a data set with a single elephant. Dropping
+the unneeded the $i$ subscripts, this is
+$$
+p(z = k \mid F, x) \propto p(x \mid z = k, F) \, p(z = k).
+$$
+Plugging in the expression for the likelihood and prior above, this is
+$$
+p(z = k \mid F, x) \propto
+q_k \times \prod_{j=1}^J f_{jk}^{x_j}(1-f_{jk})^{1-x_j}.
+$$
+Note that an additional normalization step is needed to actually obtain
+probabilities.
+
+Full conditional for F
+----------------------
+
+TO DO
 
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/gibbs_structure_simple.pdf
 [LR_and_BF]: https://pcarbo.github.io/fiveMinuteStats/LR_and_BF.html
