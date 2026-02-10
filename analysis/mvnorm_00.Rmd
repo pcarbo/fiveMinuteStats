@@ -48,7 +48,7 @@ $X_1$ and $X_2$ are normal, and the scatterplot of $X_1$ and $X_2$
 shows they are correlated (and the sample correlation is
 approximately 0.98).
 
-```{r, fig.height=2.5, fig.width=6.5}
+```{r bivariate-example, fig.height=2.5, fig.width=6.5}
 Z1 <- rnorm(1000)
 Z2 <- rnorm(1000)
 X1 <- Z1 + 0.1*Z2
@@ -104,7 +104,7 @@ We can redo the example above with vector and matrix notation, $\mu =
 \end{array}\right]$. Here for clarity we just simulate a single sample
 instead of 1,000:
 
-```{r}
+```{r bivariate-example-matrix-vector}
 mu <- c(0,0)
 A <- rbind(c(1,0.1),c(1,-0.1))
 A
