@@ -101,8 +101,8 @@ title: Home
 ### Multivariate Normal
 
 * [A key property of univariate normal](norm_linear_comb.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/norm_linear_comb.pdf))
-* [Bivariate normal distribution](mvnorm_00.html)
-* [Multivariate Normal](mvnorm.html)
+* [Bivariate normal distribution](mvnorm_00.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/mvnorm_00.pdf))
+* [Multivariate Normal](mvnorm.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/mvnorm.pdf))
 * [The precision matrix](normal_markov_chain.html)
 * [Interpreting $N(\mu,\Sigma)$ via eigen-decomposition of $\Sigma$](mvnorm_eigen.html)
 

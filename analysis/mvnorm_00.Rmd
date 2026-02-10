@@ -1,79 +1,126 @@
 ---
-title: "Introduction to bivariate normal distribution"
-author: "Matthew Stephens"
-date: "2022-03-01"
-output: workflowr::wflow_html
-editor_options:
-  chunk_output_type: console
+title: Introduction to bivariate normal distribution
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: February 10, 2026
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
-# Pre-requisites
+See [here][pdf_version] for a PDF version of this vignette.
 
-You need to have basic familiarity with univariate normal distribution, 
-and understand the [basic property](norm_lin_comb.html) that linear combinations of normals are also normal.
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
+```
+
+# Prerequisites
+
+You need to have basic familiarity with univariate normal
+distribution, and understand the [basic property][norm_linear_comb]
+that linear combinations of normals are also normal.
 
 # Motivating example
 
-Suppose that $Z_1,Z_2$ are independent standard normal $N(0,1)$ and define $X_1=Z_1+0.1 Z_2$ and $X_2=Z_1-0.1 Z_2$. What is the joint distribution of $X_1,X_2$?
+Suppose that $Z_1, Z_2$ are independent standard normal $N(0,1)$, and
+define $X_1 = Z_1 + 0.1 Z_2$, $X_2 = Z_1 - 0.1 Z_2$. What is the
+joint distribution of $X_1, X_2$?
 
-We know from the [basic property](norm_lin_comb.html) that $X_1$ will be univariate normal, and that $X_2$ will be univariate normal. However, they will not necessarily be independent because $Z_1$ and $Z_2$ were used to compute both. Indeed, you can see that $X_1$ and $X_2$ might both be expected to be close to $Z_1$ (because the 0.1 multiplier on $Z_2$ is "relatively small"). So when $X_1$ is big we should expect $X_2$ will likely be big, and when $X_1$ is small we should expect $X_2$ will likely small.
+We know from the [basic property][norm_linear_comb] that $X_1$ will be
+univariate normal, and that $X_2$ will be univariate normal. However,
+they will not necessarily be independent because $Z_1$ and $Z_2$ were
+used to compute both. Indeed, you can see that $X_1$ and $X_2$ might
+both be expected to be close to $Z_1$ (because the 0.1 multiplier on
+$Z_2$ is "relatively small"). So when $X_1$ is $X_2$ should also be
+big, and when $X_1$ is small $X_2$ should also be small.
 
-The following code illustrates this: the histograms illustrate both $X_1$ and $X_2$ are normal, and the scatterplot of $X_1$ and $X_2$ shows they are correlated (and the sample correlation is approximately 0.98).
+The following code illustrates this: the histograms illustrate both
+$X_1$ and $X_2$ are normal, and the scatterplot of $X_1$ and $X_2$
+shows they are correlated (and the sample correlation is
+approximately 0.98).
 
-```{r}
-Z1 = rnorm(1000)
-Z2 = rnorm(1000)
-
-X1 = Z1+0.1*Z2
-X2 = Z1-0.1*Z2
-
-hist(X1)
-hist(X2)
-plot(X1,X2, main="scatterplot of (X1,X2)", ylim=c(-4,4), asp=1) #asp=1 sets the scales of X1 and X2 the same
+```{r, fig.height=2.5, fig.width=6.5}
+Z1 <- rnorm(1000)
+Z2 <- rnorm(1000)
+X1 <- Z1 + 0.1*Z2
+X2 <- Z1 - 0.1*Z2
+par(mfcol = c(1,3))
+hist(X1,breaks = 32)
+hist(X2,breaks = 32)
+plot(X1,X2,main = "scatterplot of (X1,X2)",ylim = c(-4,4),asp = 1)
 cor(X1,X2)
 ```
 
-# The bivariate normal distribution
+The bivariate normal distribution
+=================================
 
-In fact the answer to the question "what is the joint distribution of $X_1,X_2$" is they
-have a "bivariate normal distribution". Thus the scatterplot shown above shows a scatterplot of 1000 samples from a bivariate normal distribution.
-The prefix "bi" means 2, referring to the fact that here we are looking at 2 variables, $X_1$ and $X_2$. The ideas here can be extended to more variables, and the resulting distribution is called the "multivariate normal". The bivariate normal is a special case of the multivariate normal.
+In fact the answer to the question "what is the joint distribution of
+$X_1,X_2$" is they have a "bivariate normal distribution". Thus the
+scatterplot shown above shows a scatterplot of 1,000 samples from a
+bivariate normal distribution.  The prefix "bi" means two, referring
+to the fact that here we are looking at two variables, $X_1$ and
+$X_2$. The ideas here can be extended to more variables, and the
+resulting distribution is called the "multivariate normal" (multi =
+two or more). The bivariate normal is a special case of the
+multivariate normal.
 
+Mean and covariance matrix
+--------------------------
 
-## Mean and Covariance Matrix
+The bivariate normal distribution has 5 parameters: two means (for
+$X_1$ and $X_2$), two variances (for $X_1$ and $X_2$) and the
+covariance between $X_1$ and $X_2$. It is usual to write the mean
+parameter as a vector $\mu$ and the variance and covariance parameters
+as a $2 \times 2$ symmetric matrix $\Sigma$ where the diagonal
+elements of $\Sigma$ contain the variances and the off-diagonal
+elements contain the covariance.  $\Sigma$ is called the "covariance
+matrix" or sometimes the "variance-covariance matrix".
 
-The bivariate normal distribution has 5 parameters: two means (for $X_1$ and $X_2$), two variances (for $X_1$ and $X_2$) and the covariance between $X_1$ and $X_2$. It is usual to write the mean parameter as a vector $\mu$ and
-the variance and covariance parameters as a 2x2 symmetric matrix $\Sigma$, where the diagonal elements of $\Sigma$ contain the variances and the off-diagonal elements contain the covariance.
-$\Sigma$ is called the "covariance matrix" (or sometimes the "variance-covariance matrix").
+General construction
+--------------------
 
-## General Construction
+Suppose $Z_1, Z_2$ are independent random variables each with a
+standard normal distribution $N(0,1)$. Let $Z$ denote the vector
+$(Z_1, Z_2)$, let $A$ be any $2 \times 2$ matrix, and $\mu$ be any
+$r$-vector. Then the vector $X = AZ + \mu$ has a bivariate normal
+distribution with mean $\mu$ and variance-covariance matrix
+$\Sigma = AA^T$. (Here, $A^T$ means the transpose of the matrix $A$.) We
+write $X \sim N_2(\mu, \Sigma)$.
 
-Suppose $Z_1,Z_2$ are independent random variables each with a standard normal distribution $N(0,1)$. Let $Z$ denote the vector $(Z_1,Z_2)$, let $A$ be any $2 \times 2$ matrix,
-and $\mu$ be any $r$-vector. Then the vector $X = AZ+\mu$ has a bivariate normal distribution with mean $\mu$ and variance-covariance matrix $\Sigma=AA'$. (Here $A'$ means the transpose of the matrix $A$.) We write $X \sim N_2(\mu,\Sigma)$.
+Example 
+=======
 
-
-# Example 
-
-We can redo the example above in vector and matrix notation, with $\mu=(0,0)$ and $A=(1,0.1),(1,-0.1)$. Here for clarity we just simulate a single sample instead of 1000:
+We can redo the example above with vector and matrix notation, $\mu =
+(0,0)^T$ and $A = \left[\begin{array}{cc} 1 & 0.1 \\ 1 & -0.1
+\end{array}\right]$. Here for clarity we just simulate a single sample
+instead of 1,000:
 
 ```{r}
-mu = c(0,0)
-A = rbind(c(1,0.1),c(1,-0.1))
+mu <- c(0,0)
+A <- rbind(c(1,0.1),c(1,-0.1))
 A
-z = rnorm(2)
-x = mu + A %*% z
+z <- rnorm(2)
+x <- mu + A %*% z
 x
 ```
 
-It should be clear from the above that in our example the mean is $\mu=(0,0)$.
-What is the covariance matrix $\Sigma$? We can compute it from the formula $\Sigma = AA'$:
-```{r}
-Sigma = A %*% t(A)
+It should be clear from the above that in our example the mean is
+$\mu = (0,0)$.  What is the covariance matrix $\Sigma$? We can compute
+it from the formula $\Sigma = AA^T$:
+
+```{r cov-matrix}
+Sigma <- A %*% t(A)
 Sigma
 ```
 
-
-
-
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/mvnorm_00.pdf
+[norm_linear_comb]: https://pcarbo.github.io/fiveMinuteStats/norm_linear_comb.html
