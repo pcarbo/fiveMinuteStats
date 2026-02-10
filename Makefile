@@ -35,6 +35,8 @@ all: docs/index.html \
      docs/bernoulli_poisson_process.html \
      docs/poisson_process_time_dependent_thinning.html \
      docs/norm_linear_comb.html \
+     docs/mvnorm_00.html \
+     docs/mvnorm.html \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
      docs/Importance_sampling.pdf \
@@ -64,7 +66,9 @@ all: docs/index.html \
      docs/hmm.pdf \
      docs/bernoulli_poisson_process.pdf \
      docs/poisson_process_time_dependent_thinning.pdf \
-     docs/norm_linear_comb.pdf
+     docs/norm_linear_comb.pdf \
+     docs/mvnorm_00.pdf \
+     docs/mvnorm.pdf
 
 index: docs/index.html
 
@@ -162,6 +166,12 @@ docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/integral.pdf")'
 	rm temp.Rmd
+
+docs/mvnorm_00.html : analysis/mvnorm_00.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/mvnorm_00.Rmd",view = FALSE)'
+
+docs/mvnorm.html : analysis/mvnorm.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/mvnorm.Rmd",view = FALSE)'
 
 docs/inverse_transform_sampling.pdf : analysis/inverse_transform_sampling.Rmd readable.tex
 	cp analysis/inverse_transform_sampling.Rmd temp.Rmd
@@ -311,6 +321,16 @@ docs/norm_linear_comb.pdf : analysis/norm_linear_comb.Rmd readable.tex
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/norm_linear_comb.pdf")'
 	rm temp.Rmd
 
+docs/mvnorm_00.pdf : analysis/mvnorm_00.Rmd readable.tex
+	cp analysis/mvnorm_00.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/mvnorm_00.pdf")'
+	rm temp.Rmd
+
+docs/mvnorm.pdf : analysis/mvnorm.Rmd readable.tex
+	cp analysis/mvnorm.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/mvnorm.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf
@@ -342,4 +362,6 @@ clean:
 	rm -f bernoulli_poisson_process.pdf
 	rm -f poisson_process_time_dependent_thinning.pdf
 	rm -f norm_linear_comb.pdf
+	rm -f mvnorm_00.pdf
+	rm -f mvnorm.pdf
 	rm -f temp.Rmd
