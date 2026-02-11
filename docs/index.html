@@ -359,7 +359,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -370,8 +370,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -384,9 +384,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fiveMinuteStats/analysis/</code>
@@ -409,36 +409,33 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree42782a4b8363e3c9ef6a2ebde653d69dbcc8cfd5targetblank42782a4a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree82d804b6493699284fd0c6ddbe47c03131515f69targetblank82d804ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/42782a4b8363e3c9ef6a2ebde653d69dbcc8cfd5" target="_blank">42782a4</a>
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/82d804b6493699284fd0c6ddbe47c03131515f69" target="_blank">82d804b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree42782a4b8363e3c9ef6a2ebde653d69dbcc8cfd5targetblank42782a4a"
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbofiveMinuteStatstree82d804b6493699284fd0c6ddbe47c03131515f69targetblank82d804ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -448,7 +445,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/pcarbo/fiveMinuteStats/tree/42782a4b8363e3c9ef6a2ebde653d69dbcc8cfd5" target="_blank">42782a4</a>.
+<a href="https://github.com/pcarbo/fiveMinuteStats/tree/82d804b6493699284fd0c6ddbe47c03131515f69" target="_blank">82d804b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -467,8 +464,7 @@ Ignored files:
 
 Unstaged changes:
     Modified:   Makefile
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/normal_markov_chain.Rmd
+    Modified:   analysis/gaussian_process.Rmd
 
 </code></pre>
 <p>
@@ -513,6 +509,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/82d804b6493699284fd0c6ddbe47c03131515f69/analysis/index.Rmd" target="_blank">82d804b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-02-11
+</td>
+<td>
+wflow_publish("analysis/index.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/fiveMinuteStats/blob/4ec29db4f54beb921bf3ef1bb9b0e08cd03dd2a2/analysis/index.Rmd" target="_blank">4ec29db</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-02-11
+</td>
+<td>
+Generated pdf version of normal_markov_chain vignette.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/fiveMinuteStats/4ec29db4f54beb921bf3ef1bb9b0e08cd03dd2a2/docs/index.html" target="_blank">4ec29db</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2026-02-11
+</td>
+<td>
+Generated pdf version of normal_markov_chain vignette.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -3306,11 +3353,12 @@ class="math inline">\(N(\mu,\Sigma)\)</span> via eigen-decomposition of
 href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/mvnorm_eigen.pdf">PDF</a>)</li>
 </ul>
 </div>
-<div id="gaussian-process" class="section level3">
-<h3>Gaussian Process</h3>
+<div id="gaussian-processes" class="section level3">
+<h3>Gaussian Processes</h3>
 <ul>
 <li><a href="gaussian_process.html">Introduction to Gaussian
-Processes</a></li>
+Processes</a> (<a
+href="https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/gaussian_process.pdf">PDF</a>)</li>
 </ul>
 </div>
 </div>
