@@ -38,6 +38,7 @@ all: docs/index.html \
      docs/mvnorm_00.html \
      docs/mvnorm.html \
      docs/normal_markov_chain.html \
+     docs/gaussian_process.html \
      docs/mvnorm_eigen.pdf \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
@@ -71,7 +72,8 @@ all: docs/index.html \
      docs/norm_linear_comb.pdf \
      docs/mvnorm_00.pdf \
      docs/mvnorm.pdf \
-     docs/normal_markov_chain.pdf
+     docs/normal_markov_chain.pdf \
+     docs/gaussian_process.pdf
 
 index: docs/index.html
 
@@ -176,6 +178,9 @@ docs/mvnorm_eigen.html : analysis/mvnorm_eigen.Rmd
 
 docs/normal_markov_chain.html : analysis/normal_markov_chain.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/normal_markov_chain.Rmd",view = FALSE)'
+
+docs/gaussian_process.html : analysis/gaussian_process.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/gaussian_process.Rmd",view = FALSE)'
 
 docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
@@ -350,6 +355,11 @@ docs/normal_markov_chain.pdf : analysis/normal_markov_chain.Rmd readable.tex
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/normal_markov_chain.pdf")'
 	rm temp.Rmd
 
+docs/gaussian_process.pdf : analysis/gaussian_process.Rmd readable.tex
+	cp analysis/gaussian_process.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/gaussian_process.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf
@@ -377,12 +387,13 @@ clean:
 	rm -f docs/gibbs1.pdf
 	rm -f docs/gibbs2.pdf
 	rm -f docs/gibbs_structure_simple.pdf
-	rm -f hmm.pdf
-	rm -f bernoulli_poisson_process.pdf
-	rm -f poisson_process_time_dependent_thinning.pdf
-	rm -f norm_linear_comb.pdf
-	rm -f mvnorm_00.pdf
-	rm -f mvnorm.pdf
-	rm -f mvnorm_eigen.pdf
-	rm -f normal_markov_chain.pdf
+	rm -f docs/hmm.pdf
+	rm -f docs/bernoulli_poisson_process.pdf
+	rm -f docs/poisson_process_time_dependent_thinning.pdf
+	rm -f docs/norm_linear_comb.pdf
+	rm -f docs/mvnorm_00.pdf
+	rm -f docs/mvnorm.pdf
+	rm -f docs/mvnorm_eigen.pdf
+	rm -f docs/normal_markov_chain.pdf
+	rm -f docs/gaussian_process.pdf
 	rm -f temp.Rmd

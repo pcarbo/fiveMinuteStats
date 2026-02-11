@@ -1,17 +1,36 @@
 ---
-title: "Introduction to Gaussian Processes"
-author: "Matthew Stephens"
-date: "2020-02-28"
-output: workflowr::wflow_html
-editor_options:
-  chunk_output_type: console
+title: Introduction to Gaussian processes
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: February 11, 2026
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
-## Introduction
+See [here][pdf_version] for a PDF version of this vignette.
 
-You need to be familiar with the [multivariate normal distribution](mvnorm.html).
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
+```
 
-## Motivation
+Introduction
+============
+
+You need to be familiar with the
+[multivariate normal distribution](mvnorm.html).
+
+Motivation
+==========
 
 Suppose you want to model the variation of a continuous variable $T$ -- say, temperature -- across
 a spatial region (say think in two dimensions for now). Let $T(x)$ denote the temperature
@@ -38,17 +57,17 @@ values we get will follow a multivariate normal distribution.
 This idea motivates the definition of a Gaussian process -- it is defined in a continuos space,
 but at any finite number of points it has a multivariate normal distribution.
 
-
-## Definition
+Definition
+==========
 
 A stochastic process ${T(x): x \in \mathcal{X}}$ is said to be a *Gaussian Process* if $(T(x_1),\dots,T(x_r))$ is multivariate normal for all $x_1,\dots,x_r \in \mathcal{X}$.
 
-
-## Defining a Gaussian process
+Defining a Gaussian process
+===========================
 
 Just as a multivariate normal distribution is defined by a mean and a covariance matrix, a Gaussian process
 is defined by a mean *function* $\mu(x) :\mathcal{X} \rightarrow R$ and a covariance *function*
-$\Sigma: \mathcal{X} \cross \mathcal{X} \rightarrow R$. Think of $\mu(x)$ as specifying the mean of $T(x)$ 
+$\Sigma: \mathcal{X} \times \mathcal{X} \rightarrow R$. Think of $\mu(x)$ as specifying the mean of $T(x)$ 
 for any point $x$ and $\Sigma(x_1,x_2)$ as specifying the covariance for any pair of points $x_1,x_2$.
 That is:
 $$E(T(x)) = \mu(x)$$
@@ -64,7 +83,8 @@ for simulating from a multivariate normal.
 Note that the covariance function $\Sigma$ has to be carefully chosen, so that the covariance matrix it gives for any set of points is a valid covariance matrix. Specifically, the covariance matrix must always be positive semi-definite (PSD), meaning all its eigenvalues are $\geq 0$. So you can't just choose any function you like for $\Sigma$.
 We will give some common choices below after we have introduced a common simplification.
 
-## Stationary and Isotropic Gaussian Processes
+Stationary and isotropic Gaussian processes
+===========================================
 
 Gaussian processes become simpler to define and work with if we make two additional simplifying assumptions:
 
@@ -88,7 +108,8 @@ scale over which the covariance decays (e.g. does covariance of temperature deca
 - Matérn: whose form is a bit more complicated, but is easily computed using the `geoR` package below. The Matérn covariance function is widely used in Geostatistic applications.
 
 
-## Simulation
+Simulation
+==========
 
 To help understand a new distribution it can often be helpful to simulate from it.
 Here we look at some simulations from a few different Gaussian processes. In these
@@ -96,7 +117,8 @@ examples we look at one-dimensional examples, just because they are much easier 
 One-dimensional GPs are also useful - e.g. to model the way
 that variables vary along a 1-d space (e.g. with time or along the human genome).
 
-### Squared exponential kernel
+Squared exponential kernel
+--------------------------
 
 So here we generate 100 points $x_1,\dots,x_{100}$ in the range $[0,1]$ and simulate
 the value of a Gaussian process at those 100 points using the squared exponential kernel.
@@ -128,13 +150,15 @@ for(i in 1:9){
 }
 ```
 
-### Change length scale
+Change length scale
+-------------------
 
-Notice that these curves do not change very quickly with distance.
-We can get curves that change more quickly by using a smaller length scale parameter $l$ in the
-covariance function.
+Notice that these curves do not change very quickly with distance.  We
+can get curves that change more quickly by using a smaller length
+scale parameter $l$ in the covariance function.
 
 Try making the covariance decay faster with distance:
+
 ```{r}
 l = 0.1 # smaller length scale
 par(mfcol=c(3,3),mar=c(0.5,0.5,0.5,0.5))
@@ -148,7 +172,8 @@ for(i in 1:9){
 ```
 
 
-# The OU covariance function:
+The OU covariance function
+==========================
 
 Here we use the covariance function for 
 what is known as the "Ornstein--Uhlenbeck process",
@@ -173,9 +198,12 @@ for(i in 1:9){
 ```
 
 
-# Matern covariance function
+The Matern covariance function
+==============================
 
-The Matern covariance function produces curves that are a smoother than OU, but not as smooth as SE:
+The Matern covariance function produces curves that are a smoother
+than OU, but not as smooth as SE:
+
 ```{r}
 library("geoR")
 l = 0.1 # length scale
@@ -189,5 +217,4 @@ for(i in 1:9){
 }
 ```
 
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/gaussian_process.pdf
