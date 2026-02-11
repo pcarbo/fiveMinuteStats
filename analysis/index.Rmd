@@ -106,9 +106,9 @@ title: Home
 * [The precision matrix](normal_markov_chain.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/normal_markov_chain.pdf))
 * [Interpreting $N(\mu,\Sigma)$ via eigen-decomposition of $\Sigma$](mvnorm_eigen.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/mvnorm_eigen.pdf))
 
-### Gaussian Process
+### Gaussian Processes
 
-* [Introduction to Gaussian Processes](gaussian_process.html)
+* [Introduction to Gaussian Processes](gaussian_process.html) ([PDF](https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/gaussian_process.pdf))
 
 ## Population Genetics
 
