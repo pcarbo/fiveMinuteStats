@@ -37,6 +37,7 @@ all: docs/index.html \
      docs/norm_linear_comb.html \
      docs/mvnorm_00.html \
      docs/mvnorm.html \
+     docs/mvnorm_eigen.pdf \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
      docs/Importance_sampling.pdf \
@@ -162,16 +163,19 @@ docs/poisson_process_time_dependent_thinning.html : analysis/poisson_process_tim
 docs/norm_linear_comb.html : analysis/norm_linear_comb.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/norm_linear_comb.Rmd",view = FALSE)'
 
-docs/integral.pdf : analysis/integral.Rmd readable.tex
-	cp analysis/integral.Rmd temp.Rmd
-	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/integral.pdf")'
-	rm temp.Rmd
-
 docs/mvnorm_00.html : analysis/mvnorm_00.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/mvnorm_00.Rmd",view = FALSE)'
 
 docs/mvnorm.html : analysis/mvnorm.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/mvnorm.Rmd",view = FALSE)'
+
+docs/mvnorm_eigen.html : analysis/mvnorm_eigen.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/mvnorm_eigen.Rmd",view = FALSE)'
+
+docs/integral.pdf : analysis/integral.Rmd readable.tex
+	cp analysis/integral.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/integral.pdf")'
+	rm temp.Rmd
 
 docs/inverse_transform_sampling.pdf : analysis/inverse_transform_sampling.Rmd readable.tex
 	cp analysis/inverse_transform_sampling.Rmd temp.Rmd
@@ -331,6 +335,11 @@ docs/mvnorm.pdf : analysis/mvnorm.Rmd readable.tex
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/mvnorm.pdf")'
 	rm temp.Rmd
 
+docs/mvnorm_eigen.pdf : analysis/mvnorm_eigen.Rmd readable.tex
+	cp analysis/mvnorm_eigen.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/mvnorm_eigen.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf
@@ -364,4 +373,5 @@ clean:
 	rm -f norm_linear_comb.pdf
 	rm -f mvnorm_00.pdf
 	rm -f mvnorm.pdf
+	rm -f mvnorm_eigen.pdf
 	rm -f temp.Rmd
