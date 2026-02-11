@@ -38,7 +38,7 @@ for now). Let $T(x)$ denote the temperature at any location $x$ (so
 think of $x$ as a position in a space $\mathcal{X}$).  So $T$ is a
 function that maps the space $\mathcal{X}$ to the real value line
 $\mathbb{R}$, which we can write $T: \mathcal{X} \rightarrow
-\mathbb{R}R$.
+\mathbb{R}$.
 
 Suppose you measured the temperature at just one location, say $x =
 x_1$. The value $T(x_1)$ would be a scalar, so you could imagine
@@ -116,9 +116,9 @@ two additional simplifying assumptions:
 
 + The mean function $\mu$ is a constant, $\mu(x) = \mu$ for all $x$.
 
-+ The covariance function $\Sigma(x_1,x_2)$ depends *only* on the
-  distance between the two points, $d(x_1,x_2)$.  That is
-  $\Sigma(x_1,x_2) = K( d(x_1,x_2) )$ for some function $K$ that maps
++ The covariance function $\Sigma(x_1,x_2)$ depends only on the
+  distance between the two points, $d(x_1, x_2)$. That is,
+  $\Sigma(x_1 ,x_2) = K(d(x_1, x_2))$ for some function $K$ that maps
   distance to covariance.
 
 A Gaussian process that satisfies these two assumptions is said to be
@@ -126,33 +126,33 @@ A Gaussian process that satisfies these two assumptions is said to be
 
 This simplifies defining a Gaussian process because we just have to
 specify the mean $\mu$ (a number) and the function $K(d)$, which says
-how covariance declines with distance $d$.  Again, because we need the
+how covariance declines with distance $d$. Again, because we need the
 covariance matrix to be PSD, only certain choices of $K$ are valid.
 Three simple common choices of $K$ that lead to valid PSD covariances
 are:
 
-+ Squared exponential: $K(d; l) = \exp(-|d|^2/2l^2)$ where $l$ is a
-  parameter that determines the length scale over which the covariance
-  decays (e.g. does covariance of temperature decay over meters, or
-  kilometers, or hundreds of kilometers?).
++ *Squared exponential:* $K(d; l) = \exp(-\frac{|d|^2}{2\ell^2})$
+  where $\ell$ is a parameter that determines the length scale over
+  which the covariance decays (e.g., does covariance of temperature
+  decay over meters, or kilometers, or hundreds of kilometers?).
 
-+ Ornstein-Uhlenbeck: $K(d; l) = \exp(-|d|/l)$, where again $l$ is a
-  parameter that controls the length scale.
++ *Ornstein-Uhlenbeck:* $K(d; l) = \exp(-\frac{|d|}{\ell})$, where
+  again $\ell$ is a parameter that controls the length scale.
 
-+ Matérn: whose form is a bit more complicated, but is easily computed
-  using the `geoR` package below. The Matérn covariance function is
-  widely used in Geostatistic applications.
++ *Matérn:* whose form is a bit more complicated, but is easily computed
+  using the geoR package. The Matérn covariance function is
+  widely used in geostatistical applications.
 
 Simulation
 ==========
 
-To help understand a new distribution it can often be helpful to
-simulate from it.  Here we look at some simulations from a few
-different Gaussian processes. In these examples we look at
-one-dimensional examples, just because they are much easier to plot
-and visualize.  One-dimensional GPs are also useful - e.g. to model
-the way that variables vary along a 1-d space (e.g. with time or along
-the human genome).
+To help understand a new distribution, it can often be helpful to
+simulate from it. Here we look at some simulations from a few
+different Gaussian processes. In these examples, we look at
+one-dimensional examples just because they are much easier to plot and
+visualize. One-dimensional GPs are also useful, say, to model the way
+that variables vary along a 1-d space (e.g., time, or along the human
+genome).
 
 Squared exponential kernel
 --------------------------
