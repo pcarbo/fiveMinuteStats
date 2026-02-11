@@ -139,26 +139,27 @@ meaningfully to the sum.
 Example: rank-1 covariance
 ==========================
 
-To make a simple example, set $\mu=0$ and assume $\Sigma$ is a rank 1
+To make a simple example, set $\mu=0$ and assume $\Sigma$ is a rank-1
 matrix. That is, $\Sigma$ has only one eigenvector:
 $$
 \Sigma = \lambda vv^T
 $$
-for some $p$-vector $v$.
+for some vector $v$ of length $p$.
 
 In this case, the algebra above gives the representation $X= b v$
 where $b \sim N(0,\lambda)$. That is $X$ is simply a multiple of $v$,
 where the multiplier is randomly distributed from a univariate
-normal. Thus in this case the randomness in $X$ boils down to the
+normal. Thus, in this case the randomness in $X$ boils down to the
 randomness in a single random univarate normal, which is easy to
 visualize.
 
-To give a specific example, suppose that $v$ is the vector of all 1s
-$v=(1,\dots,1)$ and $\lambda=1$. That is $\Sigma$ is a matrix of all
-1s.  Then $X= (b,b,b,\dots,b)$ where $b \sim N(0,1)$.
+To give an example, suppose that $v$ is the vector of all ones, $v =
+(1, \dots, 1)$, and $\lambda=1$. That is, $\Sigma$ is a matrix of all
+ones. Then $X = (b, \ldots, b)$, a vector filled with $b$, where $b \sim
+N(0, 1)$.
 
-To give another specific example, if $v=(-1,-1,-1,1,1)$ and
-$\lambda=2$ then $X= (-b,-b,-b,b,b)$ where $b \sim N(0,2)$.
+To give another example, if $v = (-1,-1,-1,1,1)$ and $\lambda = 2$,
+then $X = (-b,-b,-b,b,b)$, where $b \sim N(0,2)$.
 
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/mvnorm_eigen.pdf
 [mvnorm]: https://pcarbo.github.io/fiveMinuteStats/mvnorm.html
