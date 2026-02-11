@@ -70,66 +70,89 @@ multivariate normal distribution.
 Definition
 ==========
 
-A stochastic process ${T(x): x \in \mathcal{X}}$ is said to be a *Gaussian Process* if $(T(x_1),\dots,T(x_r))$ is multivariate normal for all $x_1,\dots,x_r \in \mathcal{X}$.
+A stochastic process ${T(x): x \in \mathcal{X}}$ is said to be a
+*Gaussian Process* if $(T(x_1),\dots,T(x_r))$ is multivariate normal
+for all $x_1,\dots,x_r \in \mathcal{X}$.
 
 Defining a Gaussian process
 ===========================
 
-Just as a multivariate normal distribution is defined by a mean and a covariance matrix, a Gaussian process
-is defined by a mean *function* $\mu(x) :\mathcal{X} \rightarrow R$ and a covariance *function*
-$\Sigma: \mathcal{X} \times \mathcal{X} \rightarrow R$. Think of $\mu(x)$ as specifying the mean of $T(x)$ 
-for any point $x$ and $\Sigma(x_1,x_2)$ as specifying the covariance for any pair of points $x_1,x_2$.
-That is:
+Just as a multivariate normal distribution is defined by a mean and a
+covariance matrix, a Gaussian process is defined by a *mean function*
+$\mu : \mathcal{X} \rightarrow \mathbb{R}$ and a *covariance function*
+$\Sigma : \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}$. Think of
+$\mu(x)$ as specifying the mean of $T(x)$ for any point $x$, and
+$\Sigma(x_1, x_2)$ as specifying the covariance for any pair of points
+$x_1, x_2$. That is,
 $$
-E(T(x)) = \mu(x)
+E[T(x)] = \mu(x),
 $$
 and
 $$
-cov(T(x_1),T(x_2)) = \Sigma(x_1,x_2).
+\mathrm{Cov}(T(x_1), T(x_2)) = \Sigma(x_1, x_2).
 $$
 
-Given suitable functions $\mu$ and $\Sigma$, we could simulate the values $T(x_1),\dots,T(x_r)$
-from a multivariate normal distribution, by first computing the mean (by applying the function $\mu(\cdot)$ to every point $x_1,dots,x_r$) and the covariance
-matrix (appyling the function $\Sigma(\cdot,\cdot)$ to every pair of points), and then using a standard method
-for simulating from a multivariate normal.
- We will see an example of this below. 
+Given suitable functions $\mu$ and $\Sigma$, we could simulate the
+values $T(x_1), \dots, T(x_r)$ from a multivariate normal distribution
+by first computing the mean (by applying the function $\mu(x)$ to
+every point $x_1, \dots, x_r$) and the covariance matrix (by appyling the
+function $\Sigma(x, y)$ to every pair of points), and then
+using a standard method for simulating from a multivariate normal.  We
+will see an example of this below.
 
-Note that the covariance function $\Sigma$ has to be carefully chosen, so that the covariance matrix it gives for any set of points is a valid covariance matrix. Specifically, the covariance matrix must always be positive semi-definite (PSD), meaning all its eigenvalues are $\geq 0$. So you can't just choose any function you like for $\Sigma$.
-We will give some common choices below after we have introduced a common simplification.
+Note that the covariance function $\Sigma$ has to be carefully chosen,
+so that the covariance matrix it gives for any set of points is a
+valid covariance matrix. Specifically, the covariance matrix must
+always be positive semi-definite (PSD), meaning all its eigenvalues
+are greater than or equal to zero. So you can't just choose any
+function you like for $\Sigma$. We will give some common choices
+below after we have introduced a common simplification.
 
 Stationary and isotropic Gaussian processes
 ===========================================
 
-Gaussian processes become simpler to define and work with if we make two additional simplifying assumptions:
+Gaussian processes become simpler to define and work with if we make
+two additional simplifying assumptions:
 
-- The mean function $\mu$ is a constant, $\mu(x) = \mu$ for all $x$.
++ The mean function $\mu$ is a constant, $\mu(x) = \mu$ for all $x$.
 
-- The covariance function $\Sigma(x_1,x_2)$ depends *only* on the distance between the two points, $d(x_1,x_2)$.
-That is $\Sigma(x_1,x_2) = K( d(x_1,x_2) )$ for some function $K$ that maps distance to covariance. 
++ The covariance function $\Sigma(x_1,x_2)$ depends *only* on the
+  distance between the two points, $d(x_1,x_2)$.  That is
+  $\Sigma(x_1,x_2) = K( d(x_1,x_2) )$ for some function $K$ that maps
+  distance to covariance.
 
-A Gaussian process that satisfies these two assumptions is said to be *Stationary and Isotropic*.
+A Gaussian process that satisfies these two assumptions is said to be
+*stationary and isotropic.*
 
-This simplifies defining a Gaussian process because we just have to specify the mean $\mu$ (a number)
-and the function $K(d)$, which says how covariance declines with distance $d$.
-Again, because we need the covariance matrix to be PSD, only certain choices of $K$ are valid.
-Three simple common choices of $K$ that lead to valid PSD covariances are:
+This simplifies defining a Gaussian process because we just have to
+specify the mean $\mu$ (a number) and the function $K(d)$, which says
+how covariance declines with distance $d$.  Again, because we need the
+covariance matrix to be PSD, only certain choices of $K$ are valid.
+Three simple common choices of $K$ that lead to valid PSD covariances
+are:
 
-- Squared exponential: $K(d; l) = \exp(-|d|^2/2l^2)$ where $l$ is a parameter that determines the length
-scale over which the covariance decays (e.g. does covariance of temperature decay over meters, or kilometers, or hundreds of kilometers?).
++ Squared exponential: $K(d; l) = \exp(-|d|^2/2l^2)$ where $l$ is a
+  parameter that determines the length scale over which the covariance
+  decays (e.g. does covariance of temperature decay over meters, or
+  kilometers, or hundreds of kilometers?).
 
-- Ornstein--Uhlenbeck: $K(d; l) = \exp(-|d|/l)$, where again $l$ is a parameter that controls the length scale.
++ Ornstein-Uhlenbeck: $K(d; l) = \exp(-|d|/l)$, where again $l$ is a
+  parameter that controls the length scale.
 
-- Matérn: whose form is a bit more complicated, but is easily computed using the `geoR` package below. The Matérn covariance function is widely used in Geostatistic applications.
-
++ Matérn: whose form is a bit more complicated, but is easily computed
+  using the `geoR` package below. The Matérn covariance function is
+  widely used in Geostatistic applications.
 
 Simulation
 ==========
 
-To help understand a new distribution it can often be helpful to simulate from it.
-Here we look at some simulations from a few different Gaussian processes. In these
-examples we look at one-dimensional examples, just because they are much easier to plot and visualize.
-One-dimensional GPs are also useful - e.g. to model the way
-that variables vary along a 1-d space (e.g. with time or along the human genome).
+To help understand a new distribution it can often be helpful to
+simulate from it.  Here we look at some simulations from a few
+different Gaussian processes. In these examples we look at
+one-dimensional examples, just because they are much easier to plot
+and visualize.  One-dimensional GPs are also useful - e.g. to model
+the way that variables vary along a 1-d space (e.g. with time or along
+the human genome).
 
 Squared exponential kernel
 --------------------------
