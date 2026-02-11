@@ -29,6 +29,11 @@ Introduction
 You need to be familiar with the
 [multivariate normal distribution][mvnorm].
 
+```{r load-pkgs, message=FALSE, warning=FALSE}
+library(mvtnorm)
+library(geoR)
+```
+
 Motivation
 ==========
 
@@ -157,33 +162,37 @@ genome).
 Squared exponential kernel
 --------------------------
 
-So here we generate 100 points $x_1,\dots,x_{100}$ in the range $[0,1]$ and simulate
-the value of a Gaussian process at those 100 points using the squared exponential kernel.
-```{r}
+So here we generate 100 points $x_1,\dots,x_{100}$ in the range
+$[0,1]$ and simulate the value of a Gaussian process at those 100
+points using the squared exponential kernel:
+
+```{r squared-exp, fig.height=3.5, fig.width=3}
 set.seed(11)
-x = runif(100)
-d = abs(outer(x,x,"-")) # compute distance matrix, d_{ij} = |x_i - x_j|
-l = 1 # length scale
-Sigma_SE = exp(-d^2/(2*l^2)) # squared exponential kernel
-y = mvtnorm::rmvnorm(1,sigma=Sigma_SE)
+x <- runif(100)
+l <- 1
+d <- abs(outer(x,x,"-"))
+Sigma_SE <- exp(-d^2/(2*l^2))
+y <- rmvnorm(1,sigma = Sigma_SE)
 plot(x,y)
 ```
 
-You can see that effectively this simulation has created a "curve" in which $y$ varies smoothly with $x$.
-Indeed, a GP can be thought of as a distribution on curves (whose smoothness depends on the covariance function
-used, as we will see later). 
+You can see that effectively this simulation has created a "curve" in
+which $y$ varies smoothly with $x$.  Indeed, a GP can be thought of as
+a distribution on curves (whose smoothness depends on the covariance
+function used, as we will see later).
 
-Of course, this is just one random
-curve (and only measured at 100 points, although conceptually it is defined at all points in the space).
-Here we generate nine different simulations:
-```{r}
-par(mfcol=c(3,3),mar=c(0.5,0.5,0.5,0.5))
-for(i in 1:9){
-  x = runif(100)
-  d = abs(outer(x,x,"-")) # compute distance matrix, d_{ij} = |x_i - x_j|
-  Sigma_SE = exp(-d^2/(2*l^2)) # squared exponential kernel
-  y = mvtnorm::rmvnorm(1,sigma=Sigma_SE)
-  plot(x,y)
+Of course, this is just one random curve (and only measured at 100
+points, although conceptually it is defined at all points in the
+space). Here we generate nine different simulations:
+
+```{r squared-exp-more, fig.height=4, fig.width=4}
+par(mfcol = c(3,3),mar = c(0.5,0.5,0.5,0.5))
+for (i in 1:9) {
+  x <- runif(100)
+  d <- abs(outer(x,x,"-"))
+  Sigma_SE <- exp(-d^2/(2*l^2))
+  y <- rmvnorm(1,sigma = Sigma_SE)
+  plot(x,y,axes = FALSE,frame.plot = TRUE)
 }
 ```
 
@@ -192,65 +201,62 @@ Change length scale
 
 Notice that these curves do not change very quickly with distance.  We
 can get curves that change more quickly by using a smaller length
-scale parameter $l$ in the covariance function.
+scale parameter $\ell$ in the covariance function:
 
-Try making the covariance decay faster with distance:
-
-```{r}
-l = 0.1 # smaller length scale
-par(mfcol=c(3,3),mar=c(0.5,0.5,0.5,0.5))
-for(i in 1:9){
-  x = runif(100)
-  d = abs(outer(x,x,"-")) # compute distance matrix, d_{ij} = |x_i - x_j|
-  Sigma_SE = exp(-d^2/(2*l^2)) # squared exponential kernel
-  y = mvtnorm::rmvnorm(1,sigma=Sigma_SE)
-  plot(x,y)
+```{r smaller-l, fig.height=4, fig.width=4}
+par(mfcol = c(3,3),mar = c(0.5,0.5,0.5,0.5))
+l <- 0.1
+for (i in 1:9) {
+  x <- runif(100)
+  d <- abs(outer(x,x,"-"))
+  Sigma_SE <- exp(-d^2/(2*l^2))
+  y = rmvnorm(1,sigma = Sigma_SE)
+  plot(x,y,axes = FALSE,frame.plot = TRUE)
 }
 ```
 
 
-The OU covariance function
-==========================
+The Ornstein-Uhlenbeck covariance function
+==========================================
 
-Here we use the covariance function for 
-what is known as the "Ornstein--Uhlenbeck process",
-which you can think of as a modified Brownian motion,
-where the modification tends to pull the process back towards 0.
-(Unmodified BM tends to wander progressively further from 0.)
+Here we use the covariance function for what is known as the
+*Ornstein-Uhlenbeck process*, which you can think of as a modified
+Brownian motion, where the modification tends to pull the process back
+towards zero. (Unmodified Brownian motion tends to wander
+progressively further from zero.)
 
 Notice that visually these functions seem much "rougher" than those
-produced by the squared exponential function. (And indeed this visual
+produced by the squared exponential function. And indeed this visual
 impression is correct: the functions produced by the OU covariance are not
-differentiable, although they are continuous.)
-```{r}
-l = 1 # length scale
-par(mfcol=c(3,3),mar=c(0.5,0.5,0.5,0.5))
-for(i in 1:9){
-  x = runif(100)
-  d = abs(outer(x,x,"-")) # compute distance matrix, d_{ij} = |x_i - x_j|
-  Sigma_OU = exp(-d/l) # OU kernel
-  y = mvtnorm::rmvnorm(1,sigma=Sigma_OU)
-  plot(x,y)
+differentiable, although they are continuous.
+
+```{r ou, fig.height=4, fig.width=4}
+par(mfcol = c(3,3),mar = c(0.5,0.5,0.5,0.5))
+l <- 1
+for (i in 1:9) {
+  x <- runif(100)
+  d <- abs(outer(x,x,"-"))
+  Sigma_OU <- exp(-d/l)
+  y <- rmvnorm(1,sigma = Sigma_OU)
+  plot(x,y,axes = FALSE,frame.plot = TRUE)
 }
 ```
 
-
-The Matern covariance function
+The Matérn covariance function
 ==============================
 
-The Matern covariance function produces curves that are a smoother
-than OU, but not as smooth as SE:
+The Matérn covariance function produces curves that are a smoother
+than OU, but not as smooth as the squared exponential:
 
-```{r}
-library("geoR")
-l = 0.1 # length scale
-par(mfcol=c(3,3),mar=c(0.5,0.5,0.5,0.5))
-for(i in 1:9){
-  x = runif(100)
-  d = abs(outer(x,x,"-")) # compute distance matrix, d_{ij} = |x_i - x_j|
-  Sigma_M = matern(d,phi=l,kappa=1) 
-  y = mvtnorm::rmvnorm(1,sigma=Sigma_M)
-  plot(x,y)
+```{r matern, fig.height=4, fig.width=4}
+par(mfcol = c(3,3),mar = c(0.5,0.5,0.5,0.5))
+l <- 0.1
+for (i in 1:9) {
+  x <- runif(100)
+  d <- abs(outer(x,x,"-"))
+  Sigma_M <- matern(d,phi = l,kappa = 1) 
+  y <- rmvnorm(1,sigma = Sigma_M)
+  plot(x,y,axes = FALSE,frame.plot = TRUE)
 }
 ```
 
