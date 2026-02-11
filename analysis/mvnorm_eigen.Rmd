@@ -142,7 +142,7 @@ Example: rank-1 covariance
 To make a simple example, set $\mu=0$ and assume $\Sigma$ is a rank-1
 matrix. That is, $\Sigma$ has only one eigenvector:
 $$
-\Sigma = \lambda vv^T
+\Sigma = \lambda vv^T,
 $$
 for some vector $v$ of length $p$.
 
