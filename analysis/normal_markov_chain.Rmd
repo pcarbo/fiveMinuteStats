@@ -3,7 +3,7 @@ title: "Multivariate normal: the precision matrix"
 author: 
   name: Matthew Stephens
   affiliation: University of Chicago
-date: January 12, 2026
+date: February 11, 2026
 output:
   pdf_document:
     keep_tex: false
@@ -196,7 +196,6 @@ given all other $X$ values is given by
 $$
 X_1 \mid X_2, X_3, \dots, X_{1000} \sim N(X_2/2, 1/2).
 $$
-
 And the conditional distribution of $X_2$ given all other $X$ values
 is
 $$
