@@ -1,132 +1,212 @@
 ---
 title: "Multivariate normal: the precision matrix"
-author: "Matthew Stephens"
-date: 2016-02-15
+author: 
+  name: Matthew Stephens
+  affiliation: University of Chicago
+date: January 12, 2026
+output:
+  pdf_document:
+    keep_tex: false
+    latex_engine: pdflatex
+    template: readable.tex
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+spacing: single
+graphics: yes
+endnote: no
 ---
 
+See [here][pdf_version] for a PDF version of this vignette.
 
-
-
-# Pre-requisites
-
-You should be familiar with the [multivariate normal distribution](mvnorm.html)
-and the idea of conditional independence, particularly as illustrated by a [Markov Chain](markov_chains_discrete_intro.html).
-
-# Overview
-
-This vignette introduces the precision matrix of a multivariate normal. It also illustrates
-its key property: the zeros of the precision matrix correspond to conditional independencies of the variables.
-
-
-# Definition, and statement of key property
-
-Let $X$ be multivariate normal with covariance matrix $\Sigma$. 
-
-The precision matrix, $\Omega$, is simply defined to be the inverse of the covariance matrix: 
-$$\Omega := \Sigma^{-1}$$. 
-
-The key property of the precision matrix is that its zeros tell you about conditional independence. Specifically:
-$$\Omega_{ij}=0 \text{ if and only if } X_i \text{ and } X_j \text{ are conditionally independent given all other coordinates of } X.$$
-
-It may help to compare and contrast this with the analogous property of the covariance matrix:
-$$\Sigma_{ij}=0 \text{ if and only if } X_i \text{ and } X_j \text{ are independent}.$$
-
-That is, whereas zeros of the covariance matrix tell you about independence, zeros of the precision matrix tell you about *conditional* independence.
-
-
-# Example: A normal markov chain
-
-Consider a Markov chain $X_1,X_2,X_3,\dots$ where the transitions are given by
-$X_{t+1} | X_{t} \sim N(X_{t},1)$. You might think of this Markov chain as corresponding to a type of "random walk": given the current state, the next state is obtained by adding a random normal with mean 0 and variance 1. 
-
-The following code simulates a realization of this Markov chain, starting from an initial state $X_1 \sim N(0,1)$, and plots it.
-
-```{r}
-set.seed(100)
-sim_normal_MC=function(length=1000){
-  X = rep(0,length)
-  X[1] = rnorm(1)
-  for(t in 2:length){
-    X[t]= X[t-1] + rnorm(1)  
-  }
-  return(X)
-}
-plot(sim_normal_MC())
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,fig.align = "center")
 ```
 
-## The normal markov chain as a multivariate normal
+Prerequisites
+=============
 
-If you think a little you should be able to see that the above random walk simulation is actually simulating from a 1000-dimensional multivariate normal distribution!
+You should be familiar with the
+[multivariate normal distribution][mvnorm] and the idea of conditional
+independence, particularly as illustrated by a
+[Markov chain][markov_chains_discrete_intro].
 
-Why? 
+Overview
+========
 
-Well, let's write each of the $N(0,1)$ variables we generate using `rnorm()` in that code as $Z_1,Z_2,\dots$. Then:
-$$X_1 = Z_1$$
-$$X_2 = X_1 + Z_2 = Z_1 + Z_2$$
-$$X_3 = X_2 + Z_3 = Z_1 + Z_2 + Z_3$$ etc.
+This vignette introduces the precision matrix of a multivariate
+normal. It also illustrates its key property: the zeros of the
+precision matrix correspond to conditional independencies of the
+variables.
 
-So we can write $X = AZ$ where $A$ is the 1000 by 1000 matrix
-$$A = \begin{pmatrix}
-1 & 0 & 0 & 0 & \dots \\
-1 & 1 & 0 & 0 & \dots \\
-1 & 1 & 1 & 0 & \dots \\
-\dots
-\end{pmatrix}.$$
+Definition, and statement of key property
+=========================================
 
-Let's take a look at what the covariance matrix Sigma looks like. (We get a good idea from just looking
-at the top left corner of the matrix what the pattern is)
-```{r}
-A = matrix(0,nrow=1000,ncol=1000)
-for(i in 1:1000){
-    A[i,]=c(rep(1,i),rep(0,1000-i))
+Let $X = (X_1, \ldots, X_n)$ be a multivariate normal random variable
+with covariance matrix $\Sigma$.
+
+The precision matrix, $\Omega$, is simply defined to be the inverse of
+the covariance matrix:
+$$
+\Omega := \Sigma^{-1}.
+$$ 
+
+The key property of the precision matrix is that its zeros tell you
+about conditional independence. Specifically,
+$$
+\Omega_{ij} = 0 \text{ if and only if } X_i \text{ and }
+X_j \text{ are conditionally independent given all other coordinates of }
+X.
+$$
+
+It may help to compare this with the analogous property of the
+covariance matrix:
+$$
+\Sigma_{ij}=0 \text{ if and only if } X_i \text{ and }
+X_j \text{ are independent}.
+$$
+
+That is, whereas zeros of the covariance matrix tell you about
+*independence*, zeros of the precision matrix tell you about
+*conditional independence*.
+
+Example: a normal Markov chain
+==============================
+
+Consider a Markov chain $X_1, X_2, \dots$, where the transitions
+are given by $X_{t+1} \mid X_{t} \sim N(X_{t},1)$. You might think of
+this Markov chain as a type of "random walk": given
+the current state, the next state is obtained by adding a random
+normal value (with mean 0 and variance 1).
+
+The following code simulates a realization of this Markov chain,
+starting from an initial state $X_1 \sim N(0,1)$, and plots it.
+
+```{r sim-normal-mc, fig.height=3.5, fig.width=4}
+set.seed(100)
+sim_normal_mc <- function (T = 1000) {
+  x <- rep(0,T)
+  x[1] <- rnorm(1)
+  for (t in 2:T)
+    x[t] <- x[t-1] + rnorm(1)
+  return(x)
 }
-Sigma = A %*% t(A)
+plot(sim_normal_mc(1000),xlab = "time",ylab = "x")
+```
+
+The normal Markov chain as a multivariate normal
+------------------------------------------------
+
+If you think a little, you should be able to see that the above random
+walk simulation is actually simulating from a 1000-dimensional
+multivariate normal distribution!
+
+*Why?* Well, let's write each of the $N(0,1)$ variables generated
+using `rnorm()` in our code as $Z_1, Z_2, \dots$. Then we have
+$$
+\begin{aligned}
+X_1 &= Z_1 \\
+X_2 &= X_1 + Z_2 = Z_1 + Z_2 \\
+X_3 &= X_2 + Z_3 = Z_1 + Z_2 + Z_3,
+\end{aligned}
+$$
+and so on.
+
+So we can write $X = AZ$, where $A$ is the following $1000 \times
+1000$ matrix:
+$$
+A =
+\begin{pmatrix}
+1 & 0 & 0 & 0 & \cdots \\
+1 & 1 & 0 & 0 & \cdots \\
+1 & 1 & 1 & 0 & \cdots \\
+\vdots 
+\end{pmatrix}.
+$$
+
+Let's take a look at what the covariance matrix $\Sigma$ looks like. (We
+can get a good idea from looking at the top left corner of the matrix.)
+
+```{r examine-cov}
+A <- matrix(0,1000,1000)
+for(i in 1:1000)
+  A[i,] <- c(rep(1,i),rep(0,1000 - i))
+Sigma <- A %*% t(A)
 Sigma[1:10,1:10]
 ```
 
-Now let us examine the *precision* matrix, $\Omega$, which recall is the inverse of $\Sigma$. Again
-we just show the top left corner of the precision matrix here. 
-```{r}
-Omega = chol2inv(chol(Sigma))
+Now let us examine the precision matrix, $\Omega$, which recall is
+the inverse of $\Sigma$. Again we just show the top left corner of the
+precision matrix here.
+
+```{r examine-precision}
+Omega <- chol2inv(chol(Sigma))
 Omega[1:10,1:10]
 ```
 
-Notice all the 0s in the precision matrix. This is because of the conditional independencies that occur
-in a Markov chain. In a Markov chain (any Markov chain) the conditional distribution of $X_t$ 
-given the other $X_s$ ($s \neq t$) depends only on its neighbors $X_{t-1}$ and $X_{t+1}$. That is, $X_{t}$ is conditionally independent of all other $X_s$ given $X_{t-1}$ and $X_{t+1}$. This is exactly what we are seeing in the precision matrix above:
-the non-zero elements of the $t$th row are at coordinates $t-1,t$ and $t+1$.
+Notice all the zeros in the precision matrix. This is because of the
+conditional independencies that occur in a Markov chain. In a Markov
+chain (*any* Markov chain), the conditional distribution of $X_t$ given
+the other $X_s$ ($s \neq t$) depends only on its neighbors $X_{t-1}$
+and $X_{t+1}$. That is, $X_{t}$ is conditionally independent of all
+other $X_s$ given $X_{t-1}$ and $X_{t+1}$. This is exactly what we are
+seeing in the precision matrix above: the non-zero elements of the
+$t$th row are at coordinates $t-1,t$ and $t+1$.
 
-
-# Addendum: interpretation of $\Omega$ in terms of conditional mean of $X_i$
+Addendum: interpretation of $\Omega$ in terms of conditional mean of $X_i$
+==========================================================================
 
 The following fact is also useful, both in practice and for intuition.
 
-Suppose $X \sim N_r(0,\Omega^{-1})$, where the subscript $r$ indicates that $X$ is $r$-variate.
+Suppose $X \sim N_r(0,\Omega^{-1})$, where the subscript $r$ indicates
+that $X$ is $r$-variate.
 
-Let $Y_1$ denote the first coordinate of $X$ and $Y_2$ denote the remaining coordinates (so $Y_2:= (X_2,\dots,X_r)$). Further let $\Omega_{12}$ denote the $1 \times (r-1)$ sub matrix of $\Omega$ that consists of row 1 and columns 2 to r.
+Let $Y_1$ denote the first coordinate of $X$, and let $Y_2$ denote the
+remaining coordinates, that is, $Y_2:= (X_2, \dots, X_r)$. Further let
+$\Omega_{12}$ denote the $1 \times (r-1)$ submatrix of $\Omega$ that
+consists of row 1 and columns 2 through $r$.
 
-
-The conditional distribution of $Y_1 | Y_2$ is (univariate) normal, with mean
-$$E(Y_1 | Y_2) = - (1/\Omega_{11}) \Omega_{12} Y_2$$  
+The conditional distribution of $Y_1 \mid Y_2$ is (univariate) normal
+with mean
+$$
+E[Y_1 \mid Y_2] = -\Omega_{12} Y_2 / \Omega_{11}
+$$
 and variance $1/\Omega_{11}$. 
 
-Of course there is nothing special about $X_1$: a similar result applies for any $X_p$. You just have to replace $\Omega_{11}$ with $\Omega_{pp}$ and 
-define $\Omega_{12}$ to be the $p$th row of $\Omega$ with all columns except $p$. 
+Of course, there is nothing special about $X_1$: a similar result
+applies for any $X_i$. You just have to replace $\Omega_{11}$ with
+$\Omega_{ii}$ and define $\Omega_{12}$ to be the $i$th row of $\Omega$
+with all columns except column $i$.
 
-## Application
+Application
+-----------
 
-An application of this is imputation of missing values: suppose one of the $X$ values is missing, say $X_p$ is missing, but you know the covariance matrix and all the other $X$ values. Then you could impute $X_p$ by its conditional mean, which is a simple linear combination of the other values that can be read directly off the $p$th row of the precision matrix. This idea is the essence of [Kriging](https://en.wikipedia.org/wiki/Kriging).
+An application of this is imputation of missing values: suppose one of
+the $X$ values is missing, say $X_i$ is missing, but you know the
+covariance matrix and all the other $X$ values. Then you could impute
+$X_i$ by its conditional mean, which is a simple linear combination of
+the other values that can be read directly off the $i$th row of the
+precision matrix. This idea is the essence of [Kriging][kriging].
 
+Example
+-------
 
-## Example
+Consider the Markov chain above. The conditional distribution of $X_1$
+given all other $X$ values is given by
+$$
+X_1 \mid X_2, X_3, \dots, X_{1000} \sim N(X_2/2, 1/2).
+$$
 
-Consider the Markov chain above. The conditional distribution of $X_1$ given all other $X$ values is given by
-$$X_1 | X_2,X_3,\dots \sim N(X_2/2, 1/2).$$
+And the conditional distribution of $X_2$ given all other $X$ values
+is
+$$
+X_2 \mid X_1, X_3, X_4, \ldots, X_{1000} \sim N((X_1+X_3)/2, 1/2).
+$$
+And similarly for $X_i$, $i = 3, \ldots, 1000$. The intuition is that,
+if we wanted to guess what the value of $X_i$ were given all other
+$X$'s, the best guess would be the average of its neighbours.
 
-And the conditional distribution of $X_2$ given all other $X$ values is
-$$X_2 | X_1,X_3, \dots \sim N((X_1+X_3)/2, 1/2).$$ 
-Similarly for $X_p$ for $p>2$. The intuition is that, if one wanted to guess what the
-value of $X_p$ were given all other $X$s, the best guess would be the average of its neighbours.
-
-
-
+[pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/normal_markov_chain.pdf
+[mvnorm]: https://pcarbo.github.io/fiveMinuteStats/mvnorm.html
+[markov_chains_discrete_intro]: https://pcarbo.github.io/fiveMinuteStats/markov_chains_discrete_intro.html
+[kriging]: https://en.wikipedia.org/wiki/Kriging

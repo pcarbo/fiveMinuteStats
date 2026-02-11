@@ -37,6 +37,7 @@ all: docs/index.html \
      docs/norm_linear_comb.html \
      docs/mvnorm_00.html \
      docs/mvnorm.html \
+     docs/normal_markov_chain.html \
      docs/mvnorm_eigen.pdf \
      docs/integral.pdf \
      docs/inverse_transform_sampling.pdf \
@@ -69,7 +70,8 @@ all: docs/index.html \
      docs/poisson_process_time_dependent_thinning.pdf \
      docs/norm_linear_comb.pdf \
      docs/mvnorm_00.pdf \
-     docs/mvnorm.pdf
+     docs/mvnorm.pdf \
+     docs/normal_markov_chain.pdf
 
 index: docs/index.html
 
@@ -171,6 +173,9 @@ docs/mvnorm.html : analysis/mvnorm.Rmd
 
 docs/mvnorm_eigen.html : analysis/mvnorm_eigen.Rmd
 	Rscript -e 'workflowr::wflow_build("analysis/mvnorm_eigen.Rmd",view = FALSE)'
+
+docs/normal_markov_chain.html : analysis/normal_markov_chain.Rmd
+	Rscript -e 'workflowr::wflow_build("analysis/normal_markov_chain.Rmd",view = FALSE)'
 
 docs/integral.pdf : analysis/integral.Rmd readable.tex
 	cp analysis/integral.Rmd temp.Rmd
@@ -340,6 +345,11 @@ docs/mvnorm_eigen.pdf : analysis/mvnorm_eigen.Rmd readable.tex
 	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/mvnorm_eigen.pdf")'
 	rm temp.Rmd
 
+docs/normal_markov_chain.pdf : analysis/normal_markov_chain.Rmd readable.tex
+	cp analysis/normal_markov_chain.Rmd temp.Rmd
+	Rscript -e 'rmarkdown::render("temp.Rmd",output_file="docs/normal_markov_chain.pdf")'
+	rm temp.Rmd
+
 clean:
 	rm -f docs/integral.pdf
 	rm -f docs/inverse_transform_sampling.pdf
@@ -374,4 +384,5 @@ clean:
 	rm -f mvnorm_00.pdf
 	rm -f mvnorm.pdf
 	rm -f mvnorm_eigen.pdf
+	rm -f normal_markov_chain.pdf
 	rm -f temp.Rmd
