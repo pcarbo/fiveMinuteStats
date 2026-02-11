@@ -27,35 +27,45 @@ Introduction
 ============
 
 You need to be familiar with the
-[multivariate normal distribution](mvnorm.html).
+[multivariate normal distribution][mvnorm].
 
 Motivation
 ==========
 
-Suppose you want to model the variation of a continuous variable $T$ -- say, temperature -- across
-a spatial region (say think in two dimensions for now). Let $T(x)$ denote the temperature
-at any location $x$ (so think of $x$ as a position in a space $\mathcal{X}$). 
-So $T$ is a function that maps the 
-space $\mathcal{X}$ to the real value line $R$, which we can write $T: \mathcal{X} \rightarrow R$.
+Suppose you want to model the variation of a continuous variable $T$ —
+say, temperature — across a spatial region (think in two dimensions
+for now). Let $T(x)$ denote the temperature at any location $x$ (so
+think of $x$ as a position in a space $\mathcal{X}$).  So $T$ is a
+function that maps the space $\mathcal{X}$ to the real value line
+$\mathbb{R}$, which we can write $T: \mathcal{X} \rightarrow
+\mathbb{R}R$.
 
-Suppose you measured the temperature at just one location, say $x = x_1$. The value $T(x_1)$ would be a scalar,
-so you could imagine modelling it using a univariate normal distribution.
+Suppose you measured the temperature at just one location, say $x =
+x_1$. The value $T(x_1)$ would be a scalar, so you could imagine
+modeling it using a univariate normal distribution.
 
-Similarly, if you measured the temperature at two locations, say $x_1$ and $x_2$, then you would
-obtain two temperatures $T(x_1),T(x_2)$. If the locations $x_1$ and $x_2$ were near to one another
-then we might expect the two temperatures $T(x_1)$ and $T(x_2)$ to be similar to one another.
-If the locations were further away from one another then maybe the temperatures would be less similar. 
-This suggests one might model the pair $T(x_1),T(x_2)$ using a bivariate normal distribution, whose
-covariance depends on the distance between $x_1$ and $x_2$ (and decaying with distance). 
+Similarly, if you measured the temperature at two locations, say $x_1$
+and $x_2$, then you would obtain two temperatures $T(x_1), T(x_2)$. If
+the locations $x_1$ and $x_2$ were near to one another, then we might
+expect the two temperatures $T(x_1)$ and $T(x_2)$ to be similar to one
+another. If the locations were further away from one another then
+maybe the temperatures would be less similar. This suggests one might
+model the pair $T(x_1), T(x_2)$ using a bivariate normal distribution
+whose covariance depends on the distance between $x_1$ and $x_2$
+(decaying with distance).
 
-Now, suppose we measure the temperature at $r$ locations $x_1,\dots,x_r$. The natural generalization
-of the above is to model the temperatures $T(x_1),\dots,T(x_r)$ as a multivariate ($r$-variate) normal distribution
-with the covariance of $T(x_i),T(x_j)$ depending on the distance between $x_i$ and $x_j$ (and decaying with distance). Notice that, conceptually, 
-the function $T$ is defined everywhere in space, but we are measuring
-it at a finite number of points -- and we assume that at any finite number of points the
-values we get will follow a multivariate normal distribution.
-This idea motivates the definition of a Gaussian process -- it is defined in a continuos space,
-but at any finite number of points it has a multivariate normal distribution.
+Now, suppose we measure the temperature at $r$ locations $x_1, \dots,
+x_r$. The natural generalization of the above is to model the
+temperatures $T(x_1), \dots, T(x_r)$ as a multivariate ($r$-variate)
+normal distribution with the covariance of $T(x_i), T(x_j)$ depending
+on the distance between $x_i$ and $x_j$ (decaying with
+distance). Notice that, conceptually, the function $T$ is defined
+everywhere in space, but we are measuring it at a finite number of
+points — and we assume that at any finite number of points the values
+we get will follow a multivariate normal distribution. This idea
+motivates the definition of a Gaussian process — it is defined in a
+continous space, but at any finite number of points it has a
+multivariate normal distribution.
 
 Definition
 ==========
@@ -70,9 +80,13 @@ is defined by a mean *function* $\mu(x) :\mathcal{X} \rightarrow R$ and a covari
 $\Sigma: \mathcal{X} \times \mathcal{X} \rightarrow R$. Think of $\mu(x)$ as specifying the mean of $T(x)$ 
 for any point $x$ and $\Sigma(x_1,x_2)$ as specifying the covariance for any pair of points $x_1,x_2$.
 That is:
-$$E(T(x)) = \mu(x)$$
+$$
+E(T(x)) = \mu(x)
+$$
 and
-$$cov(T(x_1),T(x_2)) = \Sigma(x_1,x_2).$$
+$$
+cov(T(x_1),T(x_2)) = \Sigma(x_1,x_2).
+$$
 
 Given suitable functions $\mu$ and $\Sigma$, we could simulate the values $T(x_1),\dots,T(x_r)$
 from a multivariate normal distribution, by first computing the mean (by applying the function $\mu(\cdot)$ to every point $x_1,dots,x_r$) and the covariance
@@ -218,3 +232,5 @@ for(i in 1:9){
 ```
 
 [pdf_version]: https://github.com/pcarbo/fiveMinuteStats/blob/master/docs/gaussian_process.pdf
+[mvnorm]: https://pcarbo.github.io/fiveMinuteStats/mvnorm.html
+
